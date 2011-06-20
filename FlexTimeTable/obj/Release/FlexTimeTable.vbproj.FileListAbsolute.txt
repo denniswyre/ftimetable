@@ -1,0 +1,7 @@
+C:\Users\Courtney Walker\Documents\Visual Studio 2010\Projects\FlexTimeTable\FlexTimeTable\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Courtney Walker\Documents\Visual Studio 2010\Projects\FlexTimeTable\FlexTimeTable\obj\Release\FlexTimeTable.Resources.resources
+C:\Users\Courtney Walker\Documents\Visual Studio 2010\Projects\FlexTimeTable\FlexTimeTable\obj\Release\GenerateResource.read.1.tlog
+C:\Users\Courtney Walker\Documents\Visual Studio 2010\Projects\FlexTimeTable\FlexTimeTable\obj\Release\GenerateResource.write.1.tlog
+C:\Users\Courtney Walker\Documents\Visual Studio 2010\Projects\FlexTimeTable\FlexTimeTable\obj\Release\FlexTimeTable.dll
+C:\Users\Courtney Walker\Documents\Visual Studio 2010\Projects\FlexTimeTable\FlexTimeTable\obj\Release\FlexTimeTable.xml
+C:\Users\Courtney Walker\Documents\Visual Studio 2010\Projects\FlexTimeTable\FlexTimeTable\obj\Release\FlexTimeTable.pdb

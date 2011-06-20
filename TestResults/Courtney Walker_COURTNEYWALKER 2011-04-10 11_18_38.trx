@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="a794cd95-3172-4ada-a99d-0557d049e510" name="Courtney Walker@COURTNEYWALKER 2011-04-10 11:18:38" runUser="CourtneyWalker\Courtney Walker" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="08e635f9-faf3-490b-847f-f39455c500bc">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment enabled="false" runDeploymentRoot="Courtney Walker_COURTNEYWALKER 2011-04-10 11_18_38">
+      <DeploymentItem filename="C:\Users\Courtney Walker\Documents\Visual Studio 2010\Projects\FlexTimeTable\FlexTimeTable\bin\FlexTimeTable.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2011-04-10T11:18:38.8723255+02:00" queuing="2011-04-10T11:18:45.2756889+02:00" start="2011-04-10T11:18:45.4446986+02:00" finish="2011-04-10T11:18:53.4641523+02:00" />
+  <ResultSummary outcome="Error">
+    <Counters total="1" executed="1" error="1" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="CreateOfficerTest" storage="c:\users\courtney walker\documents\visual studio 2010\projects\flextimetable\testproject1\bin\debug\testproject1.dll" id="056294a0-8c13-2d6b-381f-787f23bbe7d1">
+      <Execution id="966e4da1-427d-4d06-bba6-245c071d066b" />
+      <TestMethod codeBase="C:/Users/Courtney Walker/Documents/Visual Studio 2010/Projects/FlexTimeTable/TestProject1/bin/Debug/TestProject1.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestProject1.clsOfficerTest, TestProject1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="CreateOfficerTest" />
+      <AspNet webSiteUrl="http://localhost:59266/">
+        <Host pathToWebApp="C:\Users\Courtney Walker\Documents\Visual Studio 2010\Projects\FlexTimeTable\FlexTimeTable" webAppRoot="/" />
+      </AspNet>
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="056294a0-8c13-2d6b-381f-787f23bbe7d1" executionId="966e4da1-427d-4d06-bba6-245c071d066b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="966e4da1-427d-4d06-bba6-245c071d066b" testId="056294a0-8c13-2d6b-381f-787f23bbe7d1" testName="CreateOfficerTest" computerName="COURTNEYWALKER" duration="00:00:07.4304217" startTime="2011-04-10T11:18:45.9637266+02:00" endTime="2011-04-10T11:18:53.3941483+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="966e4da1-427d-4d06-bba6-245c071d066b">
+      <Output>
+        <ErrorInfo>
+          <Message>The test adapter 'WebHostAdapter' threw an exception while running test 'CreateOfficerTest'. The web site could not be configured correctly; getting ASP.NET process information failed. Requesting 'http://localhost:59266/VSEnterpriseHelper.axd' returned an error: The remote server returned an error: (500) Internal Server Error.
+The remote server returned an error: (500) Internal Server Error.</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

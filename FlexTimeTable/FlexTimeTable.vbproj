@@ -1,0 +1,538 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>
+    </SchemaVersion>
+    <ProjectGuid>{0D379466-0D5E-41BE-93A2-FF0EA80DE5D3}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>FlexTimeTable</RootNamespace>
+    <AssemblyName>FlexTimeTable</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MyType>Custom</MyType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>FlexTimeTable.xml</DocumentationFile>
+    <NoWarn>
+    </NoWarn>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>FlexTimeTable.xml</DocumentationFile>
+    <NoWarn>
+    </NoWarn>
+    <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>On</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=4.1.50401.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Artem.Google">
+      <HintPath>obj\Release\Artem.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.3.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.DirectoryServices.Protocols" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Collections.Specialized" />
+    <Import Include="System.Configuration" />
+    <Import Include="System.Text" />
+    <Import Include="System.Text.RegularExpressions" />
+    <Import Include="System.Web" />
+    <Import Include="System.Web.Caching" />
+    <Import Include="System.Web.SessionState" />
+    <Import Include="System.Web.Security" />
+    <Import Include="System.Web.Profile" />
+    <Import Include="System.Web.UI" />
+    <Import Include="System.Web.UI.WebControls" />
+    <Import Include="System.Web.UI.WebControls.WebParts" />
+    <Import Include="System.Web.UI.HtmlControls" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="About.aspx" />
+    <Content Include="bin\AjaxControlToolkit.dll" />
+    <Content Include="bin\FlexTimeTable.dll" />
+    <Content Include="bin\FlexTimeTable.pdb" />
+    <Content Include="bin\FlexTimeTable.xml" />
+    <Content Include="Login.aspx" />
+    <Content Include="member\ClassSummary.aspx" />
+    <Content Include="member\lecturerWorkload.aspx" />
+    <Content Include="mSysAd\generateTimetable.aspx" />
+    <Content Include="mSysAd\uploadSubject.aspx" />
+    <Content Include="mSysAd\uploadQual.aspx" />
+    <Content Include="mResAd\manageclusterclasses.aspx" />
+    <Content Include="mResAd\managelecturer.aspx" />
+    <Content Include="mResAd\managedepartment.aspx" />
+    <Content Include="mResAd\managesubject.aspx" />
+    <Content Include="mResAd\manageprogramme.aspx" />
+    <Content Include="mResAd\managequalification.aspx" />
+    <Content Include="mResAd\manageschool.aspx" />
+    <Content Include="images\wsulogo.gif" />
+    <Content Include="mSysAd\uploadClasses.aspx" />
+    <Content Include="mSysAd\AcademicBlock.aspx" />
+    <Content Include="mSysAd\manageOfferingType.aspx" />
+    <Content Include="mSysAd\managetimeslot.aspx" />
+    <Content Include="mSysAd\managefaculty.aspx" />
+    <Content Include="mSysAd\managecampus.aspx" />
+    <Content Include="mSysAd\purge.aspx" />
+    <Content Include="mSysAd\ResourceAllocation.aspx" />
+    <Content Include="mSysAd\userManagement.aspx" />
+    <Content Include="mSysAd\VenueAllocation.aspx" />
+    <Content Include="mSysAd\resourcetypes.aspx" />
+    <Content Include="mSysAd\uploadVenues.aspx" />
+    <Content Include="mVenAd\assignVenuestoDepart.aspx" />
+    <Content Include="mVenAd\managebuilding.aspx" />
+    <Content Include="mVenAd\managesites.aspx" />
+    <Content Include="mVenAd\managecluster.aspx" />
+    <Content Include="mVenAd\managevenues.aspx" />
+    <Content Include="member\spaceutilisation.aspx" />
+    <Content Include="Styles\Site.css" />
+    <Content Include="Default.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.4.1.js" />
+    <Content Include="Scripts\jquery-1.4.1.min.js" />
+    <Content Include="Flex.Master" />
+    <Content Include="userControl\ClassLecturer.ascx" />
+    <Content Include="userControl\classresource.ascx" />
+    <Content Include="userControl\ldap.ascx" />
+    <Content Include="userControl\logButton.ascx" />
+    <Content Include="userControl\uploadFile.ascx" />
+    <Content Include="Web.sitemap">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="About.aspx.designer.vb">
+      <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="About.aspx.vb">
+      <DependentUpon>About.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="App_Code\clsOfficer.vb" />
+    <Compile Include="App_Code\dbcontext.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbcontext.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Code\filetotableconversion.vb" />
+    <Compile Include="App_Code\general.vb" />
+    <Compile Include="Login.aspx.designer.vb">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.vb">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="member\ClassSummary.aspx.designer.vb">
+      <DependentUpon>ClassSummary.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="member\ClassSummary.aspx.vb">
+      <DependentUpon>ClassSummary.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="member\lecturerWorkload.aspx.designer.vb">
+      <DependentUpon>lecturerWorkload.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="member\lecturerWorkload.aspx.vb">
+      <DependentUpon>lecturerWorkload.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="mSysAd\generateTimetable.aspx.designer.vb">
+      <DependentUpon>generateTimetable.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mSysAd\generateTimetable.aspx.vb">
+      <DependentUpon>generateTimetable.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="mSysAd\uploadSubject.aspx.designer.vb">
+      <DependentUpon>uploadSubject.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mSysAd\uploadSubject.aspx.vb">
+      <DependentUpon>uploadSubject.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="mSysAd\uploadQual.aspx.designer.vb">
+      <DependentUpon>uploadQual.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mSysAd\uploadQual.aspx.vb">
+      <DependentUpon>uploadQual.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="mResAd\manageclusterclasses.aspx.designer.vb">
+      <DependentUpon>manageclusterclasses.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mResAd\manageclusterclasses.aspx.vb">
+      <DependentUpon>manageclusterclasses.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="mResAd\managelecturer.aspx.designer.vb">
+      <DependentUpon>managelecturer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mResAd\managelecturer.aspx.vb">
+      <DependentUpon>managelecturer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="mResAd\managedepartment.aspx.designer.vb">
+      <DependentUpon>managedepartment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mResAd\managedepartment.aspx.vb">
+      <DependentUpon>managedepartment.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="mResAd\managesubject.aspx.designer.vb">
+      <DependentUpon>managesubject.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mResAd\managesubject.aspx.vb">
+      <DependentUpon>managesubject.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="mResAd\manageprogramme.aspx.designer.vb">
+      <DependentUpon>manageprogramme.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mResAd\manageprogramme.aspx.vb">
+      <DependentUpon>manageprogramme.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="mResAd\managequalification.aspx.designer.vb">
+      <DependentUpon>managequalification.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mResAd\managequalification.aspx.vb">
+      <DependentUpon>managequalification.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="mResAd\manageschool.aspx.designer.vb">
+      <DependentUpon>manageschool.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mResAd\manageschool.aspx.vb">
+      <DependentUpon>manageschool.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.vb">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.designer.vb">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Flex.Master.designer.vb">
+      <DependentUpon>Flex.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Flex.Master.vb">
+      <DependentUpon>Flex.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Global.asax.vb">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="mSysAd\uploadClasses.aspx.designer.vb">
+      <DependentUpon>uploadClasses.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mSysAd\uploadClasses.aspx.vb">
+      <DependentUpon>uploadClasses.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="mSysAd\AcademicBlock.aspx.designer.vb">
+      <DependentUpon>AcademicBlock.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mSysAd\AcademicBlock.aspx.vb">
+      <DependentUpon>AcademicBlock.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="mSysAd\manageOfferingType.aspx.designer.vb">
+      <DependentUpon>manageOfferingType.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mSysAd\manageOfferingType.aspx.vb">
+      <DependentUpon>manageOfferingType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="mSysAd\managetimeslot.aspx.designer.vb">
+      <DependentUpon>managetimeslot.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mSysAd\managetimeslot.aspx.vb">
+      <DependentUpon>managetimeslot.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="mSysAd\managefaculty.aspx.designer.vb">
+      <DependentUpon>managefaculty.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mSysAd\managefaculty.aspx.vb">
+      <DependentUpon>managefaculty.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="mSysAd\managecampus.aspx.designer.vb">
+      <DependentUpon>managecampus.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mSysAd\managecampus.aspx.vb">
+      <DependentUpon>managecampus.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="mSysAd\purge.aspx.designer.vb">
+      <DependentUpon>purge.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mSysAd\purge.aspx.vb">
+      <DependentUpon>purge.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="mSysAd\ResourceAllocation.aspx.designer.vb">
+      <DependentUpon>ResourceAllocation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mSysAd\ResourceAllocation.aspx.vb">
+      <DependentUpon>ResourceAllocation.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="mSysAd\userManagement.aspx.designer.vb">
+      <DependentUpon>userManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mSysAd\userManagement.aspx.vb">
+      <DependentUpon>userManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="mSysAd\VenueAllocation.aspx.designer.vb">
+      <DependentUpon>VenueAllocation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mSysAd\VenueAllocation.aspx.vb">
+      <DependentUpon>VenueAllocation.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="mSysAd\resourcetypes.aspx.designer.vb">
+      <DependentUpon>resourcetypes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mSysAd\resourcetypes.aspx.vb">
+      <DependentUpon>resourcetypes.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="mSysAd\uploadVenues.aspx.designer.vb">
+      <DependentUpon>uploadVenues.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mSysAd\uploadVenues.aspx.vb">
+      <DependentUpon>uploadVenues.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="mVenAd\assignVenuestoDepart.aspx.designer.vb">
+      <DependentUpon>assignVenuestoDepart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mVenAd\assignVenuestoDepart.aspx.vb">
+      <DependentUpon>assignVenuestoDepart.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="mVenAd\managebuilding.aspx.designer.vb">
+      <DependentUpon>managebuilding.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mVenAd\managebuilding.aspx.vb">
+      <DependentUpon>managebuilding.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="mVenAd\managesites.aspx.designer.vb">
+      <DependentUpon>managesites.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mVenAd\managesites.aspx.vb">
+      <DependentUpon>managesites.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="mVenAd\managecluster.aspx.designer.vb">
+      <DependentUpon>managecluster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mVenAd\managecluster.aspx.vb">
+      <DependentUpon>managecluster.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="mVenAd\managevenues.aspx.designer.vb">
+      <DependentUpon>managevenues.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mVenAd\managevenues.aspx.vb">
+      <DependentUpon>managevenues.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="member\spaceutilisation.aspx.designer.vb">
+      <DependentUpon>spaceutilisation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="member\spaceutilisation.aspx.vb">
+      <DependentUpon>spaceutilisation.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\MyExtensions\MyWebExtension.vb">
+      <VBMyExtensionTemplateID>Microsoft.VisualBasic.Web.MyExtension</VBMyExtensionTemplateID>
+      <VBMyExtensionTemplateVersion>1.0.0.0</VBMyExtensionTemplateVersion>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="userControl\ClassLecturer.ascx.designer.vb">
+      <DependentUpon>ClassLecturer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="userControl\ClassLecturer.ascx.vb">
+      <DependentUpon>ClassLecturer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="userControl\classresource.ascx.designer.vb">
+      <DependentUpon>classresource.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="userControl\classresource.ascx.vb">
+      <DependentUpon>classresource.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="userControl\ldap.ascx.designer.vb">
+      <DependentUpon>ldap.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="userControl\ldap.ascx.vb">
+      <DependentUpon>ldap.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="userControl\logButton.ascx.designer.vb">
+      <DependentUpon>logButton.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="userControl\logButton.ascx.vb">
+      <DependentUpon>logButton.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="userControl\uploadFile.ascx.designer.vb">
+      <DependentUpon>uploadFile.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="userControl\uploadFile.ascx.vb">
+      <DependentUpon>uploadFile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="member\web.config" />
+    <Content Include="mModerator\web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="mSysAd\web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="mVenAd\web.config" />
+    <Content Include="mResAd\web.config" />
+    <EntityDeploy Include="App_Code\dbcontext.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>dbcontext.Designer.vb</LastGenOutput>
+    </EntityDeploy>
+    <None Include="bin\vsD3C8.tmp" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <Content Include="web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="WebService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>55824</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

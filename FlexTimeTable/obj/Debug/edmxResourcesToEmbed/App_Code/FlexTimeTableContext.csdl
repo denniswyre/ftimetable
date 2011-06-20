@@ -1,0 +1,922 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FlexTimetableModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="FlexTimetableContext" annotation:LazyLoadingEnabled="true" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+    <EntitySet Name="academicblocks" EntityType="FlexTimetableModel.academicblock" />
+    <EntitySet Name="buildings" EntityType="FlexTimetableModel.building" />
+    <EntitySet Name="campus1" EntityType="FlexTimetableModel.campus" />
+    <EntitySet Name="classgroups" EntityType="FlexTimetableModel.classgroup" />
+    <EntitySet Name="classgroupresources" EntityType="FlexTimetableModel.classgroupresource" />
+    <EntitySet Name="departments" EntityType="FlexTimetableModel.department" />
+    <EntitySet Name="faculties" EntityType="FlexTimetableModel.faculty" />
+    <EntitySet Name="lecturersiteclusteravailabilities" EntityType="FlexTimetableModel.lecturersiteclusteravailability" />
+    <EntitySet Name="my_aspnet_sessions" EntityType="FlexTimetableModel.my_aspnet_sessions" />
+    <EntitySet Name="my_aspnet_users" EntityType="FlexTimetableModel.my_aspnet_users" />
+    <EntitySet Name="offeringtypes" EntityType="FlexTimetableModel.offeringtype" />
+    <EntitySet Name="officers" EntityType="FlexTimetableModel.officer" />
+    <EntitySet Name="qualifications" EntityType="FlexTimetableModel.qualification" />
+    <EntitySet Name="resources" EntityType="FlexTimetableModel.resource" />
+    <EntitySet Name="resourcepreferredvenues" EntityType="FlexTimetableModel.resourcepreferredvenue" />
+    <EntitySet Name="resourceschedules" EntityType="FlexTimetableModel.resourceschedule" />
+    <EntitySet Name="resourcetypes" EntityType="FlexTimetableModel.resourcetype" />
+    <EntitySet Name="schools" EntityType="FlexTimetableModel.school" />
+    <EntitySet Name="sites" EntityType="FlexTimetableModel.site" />
+    <EntitySet Name="siteclusters" EntityType="FlexTimetableModel.sitecluster" />
+    <EntitySet Name="siteclustersubjects" EntityType="FlexTimetableModel.siteclustersubject" />
+    <EntitySet Name="subjects" EntityType="FlexTimetableModel.subject" />
+    <EntitySet Name="timeslots" EntityType="FlexTimetableModel.timeslot" />
+    <EntitySet Name="venues" EntityType="FlexTimetableModel.venue" />
+    <EntitySet Name="venuetypes" EntityType="FlexTimetableModel.venuetype" />
+    <AssociationSet Name="fk_classGroup_AcademicBlock1" Association="FlexTimetableModel.fk_classGroup_AcademicBlock1">
+      <End Role="academicblock" EntitySet="academicblocks" />
+      <End Role="classgroup" EntitySet="classgroups" />
+    </AssociationSet>
+    <AssociationSet Name="fk_building_site" Association="FlexTimetableModel.fk_building_site">
+      <End Role="site" EntitySet="sites" />
+      <End Role="building" EntitySet="buildings" />
+    </AssociationSet>
+    <AssociationSet Name="fk_venue_building" Association="FlexTimetableModel.fk_venue_building">
+      <End Role="building" EntitySet="buildings" />
+      <End Role="venue" EntitySet="venues" />
+    </AssociationSet>
+    <AssociationSet Name="fk_campus_siteCluster" Association="FlexTimetableModel.fk_campus_siteCluster">
+      <End Role="campus" EntitySet="campus1" />
+      <End Role="sitecluster" EntitySet="siteclusters" />
+    </AssociationSet>
+    <AssociationSet Name="fk_classGroup_has_Resource_classGroup1" Association="FlexTimetableModel.fk_classGroup_has_Resource_classGroup1">
+      <End Role="classgroup" EntitySet="classgroups" />
+      <End Role="classgroupresource" EntitySet="classgroupresources" />
+    </AssociationSet>
+    <AssociationSet Name="fk_classGroup_siteClusterSubject" Association="FlexTimetableModel.fk_classGroup_siteClusterSubject">
+      <End Role="siteclustersubject" EntitySet="siteclustersubjects" />
+      <End Role="classgroup" EntitySet="classgroups" />
+    </AssociationSet>
+    <AssociationSet Name="fk_classGroup_has_Resource_Resource1" Association="FlexTimetableModel.fk_classGroup_has_Resource_Resource1">
+      <End Role="resource" EntitySet="resources" />
+      <End Role="classgroupresource" EntitySet="classgroupresources" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Department_school1" Association="FlexTimetableModel.fk_Department_school1">
+      <End Role="school" EntitySet="schools" />
+      <End Role="department" EntitySet="departments" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Qualification_Department" Association="FlexTimetableModel.fk_Qualification_Department">
+      <End Role="department" EntitySet="departments" />
+      <End Role="qualifications" EntitySet="qualifications" />
+    </AssociationSet>
+    <AssociationSet Name="fk_subject_department" Association="FlexTimetableModel.fk_subject_department">
+      <End Role="department" EntitySet="departments" />
+      <End Role="subject" EntitySet="subjects" />
+    </AssociationSet>
+    <AssociationSet Name="fk_school_faculty" Association="FlexTimetableModel.fk_school_faculty">
+      <End Role="faculty" EntitySet="faculties" />
+      <End Role="school" EntitySet="schools" />
+    </AssociationSet>
+    <AssociationSet Name="fk_lsca_sitecluster" Association="FlexTimetableModel.fk_lsca_sitecluster">
+      <End Role="sitecluster" EntitySet="siteclusters" />
+      <End Role="lecturersiteclusteravailability" EntitySet="lecturersiteclusteravailabilities" />
+    </AssociationSet>
+    <AssociationSet Name="fk_lsca_timeSlot1" Association="FlexTimetableModel.fk_lsca_timeSlot1">
+      <End Role="timeslot" EntitySet="timeslots" />
+      <End Role="lecturersiteclusteravailability" EntitySet="lecturersiteclusteravailabilities" />
+    </AssociationSet>
+    <AssociationSet Name="fk_lsca_timeSlot2" Association="FlexTimetableModel.fk_lsca_timeSlot2">
+      <End Role="timeslot" EntitySet="timeslots" />
+      <End Role="lecturersiteclusteravailability" EntitySet="lecturersiteclusteravailabilities" />
+    </AssociationSet>
+    <AssociationSet Name="fl_lsca_lecturer" Association="FlexTimetableModel.fl_lsca_lecturer">
+      <End Role="officers" EntitySet="officers" />
+      <End Role="lecturersiteclusteravailability" EntitySet="lecturersiteclusteravailabilities" />
+    </AssociationSet>
+    <AssociationSet Name="fk_offeringType_TimeSlot1" Association="FlexTimetableModel.fk_offeringType_TimeSlot1">
+      <End Role="timeslot" EntitySet="timeslots" />
+      <End Role="offeringtype" EntitySet="offeringtypes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_offeringType_TimeSlot2" Association="FlexTimetableModel.fk_offeringType_TimeSlot2">
+      <End Role="timeslot" EntitySet="timeslots" />
+      <End Role="offeringtype" EntitySet="offeringtypes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_offeringType_TimeSlot3" Association="FlexTimetableModel.fk_offeringType_TimeSlot3">
+      <End Role="timeslot" EntitySet="timeslots" />
+      <End Role="offeringtype" EntitySet="offeringtypes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_offeringType_TimeSlot4" Association="FlexTimetableModel.fk_offeringType_TimeSlot4">
+      <End Role="timeslot" EntitySet="timeslots" />
+      <End Role="offeringtype" EntitySet="offeringtypes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_siteClusterSubject_OfferingType" Association="FlexTimetableModel.fk_siteClusterSubject_OfferingType">
+      <End Role="offeringtype" EntitySet="offeringtypes" />
+      <End Role="siteclustersubject" EntitySet="siteclustersubjects" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ResourceSchedule_Resource1" Association="FlexTimetableModel.fk_ResourceSchedule_Resource1">
+      <End Role="resource" EntitySet="resources" />
+      <End Role="resourceschedule" EntitySet="resourceschedules" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Resource_has_Venue_Resource1" Association="FlexTimetableModel.fk_Resource_has_Venue_Resource1">
+      <End Role="resource" EntitySet="resources" />
+      <End Role="resourcepreferredvenue" EntitySet="resourcepreferredvenues" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Resource_ResourceType1" Association="FlexTimetableModel.fk_Resource_ResourceType1">
+      <End Role="resourcetype" EntitySet="resourcetypes" />
+      <End Role="resource" EntitySet="resources" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Resource_VenueType1" Association="FlexTimetableModel.fk_Resource_VenueType1">
+      <End Role="venuetype" EntitySet="venuetypes" />
+      <End Role="resource" EntitySet="resources" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Resource_has_Venue_Venue1" Association="FlexTimetableModel.fk_Resource_has_Venue_Venue1">
+      <End Role="venue" EntitySet="venues" />
+      <End Role="resourcepreferredvenue" EntitySet="resourcepreferredvenues" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ResourceSchedule_timeSlot1" Association="FlexTimetableModel.fk_ResourceSchedule_timeSlot1">
+      <End Role="timeslot" EntitySet="timeslots" />
+      <End Role="resourceschedule" EntitySet="resourceschedules" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Site_SiteCluster" Association="FlexTimetableModel.fk_Site_SiteCluster">
+      <End Role="sitecluster" EntitySet="siteclusters" />
+      <End Role="site" EntitySet="sites" />
+    </AssociationSet>
+    <AssociationSet Name="fk_siteClusterSubject_SiteCluster" Association="FlexTimetableModel.fk_siteClusterSubject_SiteCluster">
+      <End Role="sitecluster" EntitySet="siteclusters" />
+      <End Role="siteclustersubject" EntitySet="siteclustersubjects" />
+    </AssociationSet>
+    <AssociationSet Name="fk_siteClusterSubject_Subject" Association="FlexTimetableModel.fk_siteClusterSubject_Subject">
+      <End Role="subject" EntitySet="subjects" />
+      <End Role="siteclustersubject" EntitySet="siteclustersubjects" />
+    </AssociationSet>
+    <AssociationSet Name="fk_type_venue" Association="FlexTimetableModel.fk_type_venue">
+      <End Role="venuetype" EntitySet="venuetypes" />
+      <End Role="venue" EntitySet="venues" />
+    </AssociationSet>
+    <AssociationSet Name="campusaccess" Association="FlexTimetableModel.campusaccess">
+      <End Role="campus" EntitySet="campus1" />
+      <End Role="officers" EntitySet="officers" />
+    </AssociationSet>
+    <AssociationSet Name="facultyaccess" Association="FlexTimetableModel.facultyaccess">
+      <End Role="faculty" EntitySet="faculties" />
+      <End Role="officers" EntitySet="officers" />
+    </AssociationSet>
+    <AssociationSet Name="lecturersubject" Association="FlexTimetableModel.lecturersubject">
+      <End Role="officers" EntitySet="officers" />
+      <End Role="subject" EntitySet="subjects" />
+    </AssociationSet>
+    <AssociationSet Name="officeruserlink" Association="FlexTimetableModel.officeruserlink">
+      <End Role="my_aspnet_users" EntitySet="my_aspnet_users" />
+      <End Role="officers" EntitySet="officers" />
+    </AssociationSet>
+    <AssociationSet Name="programmesubjects" Association="FlexTimetableModel.programmesubjects">
+      <End Role="qualifications" EntitySet="qualifications" />
+      <End Role="subject" EntitySet="subjects" />
+    </AssociationSet>
+    <AssociationSet Name="resourceschedulevenue" Association="FlexTimetableModel.resourceschedulevenue">
+      <End Role="resourceschedule" EntitySet="resourceschedules" />
+      <End Role="venue" EntitySet="venues" />
+    </AssociationSet>
+    <AssociationSet Name="siteclusterprogramme" Association="FlexTimetableModel.siteclusterprogramme">
+      <End Role="qualifications" EntitySet="qualifications" />
+      <End Role="sitecluster" EntitySet="siteclusters" />
+    </AssociationSet>
+    <EntitySet Name="campususers" EntityType="FlexTimetableModel.campususer" />
+    <EntitySet Name="facultyusers" EntityType="FlexTimetableModel.facultyuser" />
+  </EntityContainer>
+  <EntityType Name="academicblock">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="endWeek" Type="Int32" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <Property Name="startWeek" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="classgroups" Relationship="FlexTimetableModel.fk_classGroup_AcademicBlock1" FromRole="academicblock" ToRole="classgroup" />
+  </EntityType>
+  <EntityType Name="building">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="Code" Type="String" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <Property Name="SiteID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="site" Relationship="FlexTimetableModel.fk_building_site" FromRole="building" ToRole="site" />
+    <NavigationProperty Name="venues" Relationship="FlexTimetableModel.fk_venue_building" FromRole="building" ToRole="venue" />
+  </EntityType>
+  <EntityType Name="campus">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="longName" Type="String" Nullable="false" />
+    <Property Name="shortName" Type="String" Nullable="false" />
+    <NavigationProperty Name="siteclusters" Relationship="FlexTimetableModel.fk_campus_siteCluster" FromRole="campus" ToRole="sitecluster" />
+    <NavigationProperty Name="officers" Relationship="FlexTimetableModel.campusaccess" FromRole="campus" ToRole="officers" />
+  </EntityType>
+  <EntityType Name="classgroup">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="AcademicBlockID" Type="Int32" Nullable="false" />
+    <Property Name="classSize" Type="String" Nullable="false" />
+    <Property Name="code" Type="String" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="siteClusterSubjectID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="academicblock" Relationship="FlexTimetableModel.fk_classGroup_AcademicBlock1" FromRole="classgroup" ToRole="academicblock" />
+    <NavigationProperty Name="classgroupresources" Relationship="FlexTimetableModel.fk_classGroup_has_Resource_classGroup1" FromRole="classgroup" ToRole="classgroupresource" />
+    <NavigationProperty Name="siteclustersubject" Relationship="FlexTimetableModel.fk_classGroup_siteClusterSubject" FromRole="classgroup" ToRole="siteclustersubject" />
+  </EntityType>
+  <EntityType Name="classgroupresource">
+    <Key>
+      <PropertyRef Name="classGroupID" />
+      <PropertyRef Name="ResourceID" />
+    </Key>
+    <Property Name="classGroupID" Type="Int32" Nullable="false" />
+    <Property Name="ResourceID" Type="Int32" Nullable="false" />
+    <Property Name="Size" Type="Int32" />
+    <NavigationProperty Name="classgroup" Relationship="FlexTimetableModel.fk_classGroup_has_Resource_classGroup1" FromRole="classgroupresource" ToRole="classgroup" />
+    <NavigationProperty Name="resource" Relationship="FlexTimetableModel.fk_classGroup_has_Resource_Resource1" FromRole="classgroupresource" ToRole="resource" />
+  </EntityType>
+  <EntityType Name="department">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="code" Type="String" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="longName" Type="String" />
+    <Property Name="SchoolID" Type="Int32" Nullable="false" />
+    <Property Name="shortName" Type="String" Nullable="false" />
+    <NavigationProperty Name="school" Relationship="FlexTimetableModel.fk_Department_school1" FromRole="department" ToRole="school" />
+    <NavigationProperty Name="qualifications" Relationship="FlexTimetableModel.fk_Qualification_Department" FromRole="department" ToRole="qualifications" />
+    <NavigationProperty Name="subjects" Relationship="FlexTimetableModel.fk_subject_department" FromRole="department" ToRole="subject" />
+  </EntityType>
+  <EntityType Name="faculty">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="code" Type="String" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="longName" Type="String" />
+    <Property Name="shortName" Type="String" />
+    <NavigationProperty Name="schools" Relationship="FlexTimetableModel.fk_school_faculty" FromRole="faculty" ToRole="school" />
+    <NavigationProperty Name="officers" Relationship="FlexTimetableModel.facultyaccess" FromRole="faculty" ToRole="officers" />
+  </EntityType>
+  <EntityType Name="lecturersiteclusteravailability">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="DayOfWeek" Type="Int32" Nullable="false" />
+    <Property Name="EndTimeSlot" Type="Int32" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="LecturerID" Type="Int32" Nullable="false" />
+    <Property Name="SiteClusterID" Type="Int32" Nullable="false" />
+    <Property Name="StartTimeSlot" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="sitecluster" Relationship="FlexTimetableModel.fk_lsca_sitecluster" FromRole="lecturersiteclusteravailability" ToRole="sitecluster" />
+    <NavigationProperty Name="timeslot" Relationship="FlexTimetableModel.fk_lsca_timeSlot1" FromRole="lecturersiteclusteravailability" ToRole="timeslot" />
+    <NavigationProperty Name="timeslot1" Relationship="FlexTimetableModel.fk_lsca_timeSlot2" FromRole="lecturersiteclusteravailability" ToRole="timeslot" />
+    <NavigationProperty Name="officer" Relationship="FlexTimetableModel.fl_lsca_lecturer" FromRole="lecturersiteclusteravailability" ToRole="officers" />
+  </EntityType>
+  <EntityType Name="my_aspnet_sessions">
+    <Key>
+      <PropertyRef Name="ApplicationId" />
+      <PropertyRef Name="SessionId" />
+    </Key>
+    <Property Name="ApplicationId" Type="Int32" Nullable="false" />
+    <Property Name="Created" Type="DateTime" Nullable="false" />
+    <Property Name="Expires" Type="DateTime" Nullable="false" />
+    <Property Name="Flags" Type="Int32" Nullable="false" />
+    <Property Name="LockDate" Type="DateTime" Nullable="false" />
+    <Property Name="Locked" Type="Boolean" Nullable="false" />
+    <Property Name="LockId" Type="Int32" Nullable="false" />
+    <Property Name="SessionId" Type="String" Nullable="false" />
+    <Property Name="SessionItems" Type="Binary" />
+    <Property Name="Timeout" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="my_aspnet_users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="applicationId" Type="Int32" Nullable="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="isAnonymous" Type="Boolean" Nullable="false" />
+    <Property Name="lastActivityDate" Type="DateTime" />
+    <Property Name="name" Type="String" Nullable="false" />
+    <NavigationProperty Name="officers" Relationship="FlexTimetableModel.officeruserlink" FromRole="my_aspnet_users" ToRole="officers" />
+  </EntityType>
+  <EntityType Name="offeringtype">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="code" Type="String" Nullable="false" />
+    <Property Name="endTimeSlot" Type="Int32" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" Nullable="false" />
+    <Property Name="sabEndTimeSlot" Type="Int32" Nullable="false" />
+    <Property Name="sabStartTimeSlot" Type="Int32" Nullable="false" />
+    <Property Name="startTimeSlot" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="timeslot" Relationship="FlexTimetableModel.fk_offeringType_TimeSlot1" FromRole="offeringtype" ToRole="timeslot" />
+    <NavigationProperty Name="timeslot1" Relationship="FlexTimetableModel.fk_offeringType_TimeSlot2" FromRole="offeringtype" ToRole="timeslot" />
+    <NavigationProperty Name="timeslot2" Relationship="FlexTimetableModel.fk_offeringType_TimeSlot3" FromRole="offeringtype" ToRole="timeslot" />
+    <NavigationProperty Name="timeslot3" Relationship="FlexTimetableModel.fk_offeringType_TimeSlot4" FromRole="offeringtype" ToRole="timeslot" />
+    <NavigationProperty Name="siteclustersubjects" Relationship="FlexTimetableModel.fk_siteClusterSubject_OfferingType" FromRole="offeringtype" ToRole="siteclustersubject" />
+  </EntityType>
+  <EntityType Name="officer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="FirstName" Type="String" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Initials" Type="String" />
+    <Property Name="Surname" Type="String" Nullable="false" />
+    <Property Name="title" Type="String" />
+    <NavigationProperty Name="lecturersiteclusteravailabilities" Relationship="FlexTimetableModel.fl_lsca_lecturer" FromRole="officers" ToRole="lecturersiteclusteravailability" />
+    <NavigationProperty Name="campus" Relationship="FlexTimetableModel.campusaccess" FromRole="officers" ToRole="campus" />
+    <NavigationProperty Name="faculties" Relationship="FlexTimetableModel.facultyaccess" FromRole="officers" ToRole="faculty" />
+    <NavigationProperty Name="subjects" Relationship="FlexTimetableModel.lecturersubject" FromRole="officers" ToRole="subject" />
+    <NavigationProperty Name="my_aspnet_users" Relationship="FlexTimetableModel.officeruserlink" FromRole="officers" ToRole="my_aspnet_users" />
+  </EntityType>
+  <EntityType Name="qualification">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="Code" Type="String" Nullable="false" />
+    <Property Name="DepartmentID" Type="Int32" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="longName" Type="String" Nullable="false" />
+    <Property Name="OldCode" Type="String" />
+    <Property Name="shortName" Type="String" Nullable="false" />
+    <NavigationProperty Name="department" Relationship="FlexTimetableModel.fk_Qualification_Department" FromRole="qualifications" ToRole="department" />
+    <NavigationProperty Name="subjects" Relationship="FlexTimetableModel.programmesubjects" FromRole="qualifications" ToRole="subject" />
+    <NavigationProperty Name="siteclusters" Relationship="FlexTimetableModel.siteclusterprogramme" FromRole="qualifications" ToRole="sitecluster" />
+  </EntityType>
+  <EntityType Name="resource">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="endWeek" Type="Int32" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <Property Name="ResourceTypeID" Type="Int32" Nullable="false" />
+    <Property Name="startWeek" Type="Int32" Nullable="false" />
+    <Property Name="VenueTypeID" Type="Int32" Nullable="false" />
+    <Property Name="weekTimeSlotCnt" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="classgroupresources" Relationship="FlexTimetableModel.fk_classGroup_has_Resource_Resource1" FromRole="resource" ToRole="classgroupresource" />
+    <NavigationProperty Name="resourceschedules" Relationship="FlexTimetableModel.fk_ResourceSchedule_Resource1" FromRole="resource" ToRole="resourceschedule" />
+    <NavigationProperty Name="resourcepreferredvenues" Relationship="FlexTimetableModel.fk_Resource_has_Venue_Resource1" FromRole="resource" ToRole="resourcepreferredvenue" />
+    <NavigationProperty Name="resourcetype" Relationship="FlexTimetableModel.fk_Resource_ResourceType1" FromRole="resource" ToRole="resourcetype" />
+    <NavigationProperty Name="venuetype" Relationship="FlexTimetableModel.fk_Resource_VenueType1" FromRole="resource" ToRole="venuetype" />
+  </EntityType>
+  <EntityType Name="resourcepreferredvenue">
+    <Key>
+      <PropertyRef Name="ResourceID" />
+      <PropertyRef Name="VenueID" />
+    </Key>
+    <Property Name="Rank" Type="Int32" Nullable="false" />
+    <Property Name="ResourceID" Type="Int32" Nullable="false" />
+    <Property Name="VenueID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="resource" Relationship="FlexTimetableModel.fk_Resource_has_Venue_Resource1" FromRole="resourcepreferredvenue" ToRole="resource" />
+    <NavigationProperty Name="venue" Relationship="FlexTimetableModel.fk_Resource_has_Venue_Venue1" FromRole="resourcepreferredvenue" ToRole="venue" />
+  </EntityType>
+  <EntityType Name="resourceschedule">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="Day" Type="Int32" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ResourceID" Type="Int32" Nullable="false" />
+    <Property Name="timeSlotID" Type="Int32" Nullable="false" />
+    <Property Name="Week" Type="Int32" Nullable="false" />
+    <Property Name="Year" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="resource" Relationship="FlexTimetableModel.fk_ResourceSchedule_Resource1" FromRole="resourceschedule" ToRole="resource" />
+    <NavigationProperty Name="timeslot" Relationship="FlexTimetableModel.fk_ResourceSchedule_timeSlot1" FromRole="resourceschedule" ToRole="timeslot" />
+    <NavigationProperty Name="venues" Relationship="FlexTimetableModel.resourceschedulevenue" FromRole="resourceschedule" ToRole="venue" />
+  </EntityType>
+  <EntityType Name="resourcetype">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="Description" Type="String" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="isClassRoom" Type="Boolean" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <NavigationProperty Name="resources" Relationship="FlexTimetableModel.fk_Resource_ResourceType1" FromRole="resourcetype" ToRole="resource" />
+  </EntityType>
+  <EntityType Name="school">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="code" Type="String" />
+    <Property Name="facultyID" Type="Int32" />
+    <Property Name="fullName" Type="String" />
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="shortName" Type="String" />
+    <NavigationProperty Name="departments" Relationship="FlexTimetableModel.fk_Department_school1" FromRole="school" ToRole="department" />
+    <NavigationProperty Name="faculty" Relationship="FlexTimetableModel.fk_school_faculty" FromRole="school" ToRole="faculty" />
+  </EntityType>
+  <EntityType Name="site">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="Address" Type="String" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="longName" Type="String" Nullable="false" />
+    <Property Name="shortName" Type="String" Nullable="false" />
+    <Property Name="SiteClusterID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="buildings" Relationship="FlexTimetableModel.fk_building_site" FromRole="site" ToRole="building" />
+    <NavigationProperty Name="sitecluster" Relationship="FlexTimetableModel.fk_Site_SiteCluster" FromRole="site" ToRole="sitecluster" />
+  </EntityType>
+  <EntityType Name="sitecluster">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="CampusID" Type="Int32" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="longName" Type="String" Nullable="false" />
+    <Property Name="shortName" Type="String" Nullable="false" />
+    <NavigationProperty Name="campu" Relationship="FlexTimetableModel.fk_campus_siteCluster" FromRole="sitecluster" ToRole="campus" />
+    <NavigationProperty Name="lecturersiteclusteravailabilities" Relationship="FlexTimetableModel.fk_lsca_sitecluster" FromRole="sitecluster" ToRole="lecturersiteclusteravailability" />
+    <NavigationProperty Name="sites" Relationship="FlexTimetableModel.fk_Site_SiteCluster" FromRole="sitecluster" ToRole="site" />
+    <NavigationProperty Name="siteclustersubjects" Relationship="FlexTimetableModel.fk_siteClusterSubject_SiteCluster" FromRole="sitecluster" ToRole="siteclustersubject" />
+    <NavigationProperty Name="qualifications" Relationship="FlexTimetableModel.siteclusterprogramme" FromRole="sitecluster" ToRole="qualifications" />
+  </EntityType>
+  <EntityType Name="siteclustersubject">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="offeringTypeID" Type="Int32" Nullable="false" />
+    <Property Name="SiteClusterID" Type="Int32" Nullable="false" />
+    <Property Name="SubjectID" Type="Int32" Nullable="false" />
+    <Property Name="timeSlotCnt" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="classgroups" Relationship="FlexTimetableModel.fk_classGroup_siteClusterSubject" FromRole="siteclustersubject" ToRole="classgroup" />
+    <NavigationProperty Name="offeringtype" Relationship="FlexTimetableModel.fk_siteClusterSubject_OfferingType" FromRole="siteclustersubject" ToRole="offeringtype" />
+    <NavigationProperty Name="sitecluster" Relationship="FlexTimetableModel.fk_siteClusterSubject_SiteCluster" FromRole="siteclustersubject" ToRole="sitecluster" />
+    <NavigationProperty Name="subject" Relationship="FlexTimetableModel.fk_siteClusterSubject_Subject" FromRole="siteclustersubject" ToRole="subject" />
+  </EntityType>
+  <EntityType Name="subject">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="BlockCode" Type="Int32" />
+    <Property Name="Code" Type="String" />
+    <Property Name="DepartmentID" Type="Int32" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Level" Type="Int32" />
+    <Property Name="longName" Type="String" />
+    <Property Name="oldCode" Type="String" />
+    <Property Name="shortName" Type="String" />
+    <NavigationProperty Name="department" Relationship="FlexTimetableModel.fk_subject_department" FromRole="subject" ToRole="department" />
+    <NavigationProperty Name="siteclustersubjects" Relationship="FlexTimetableModel.fk_siteClusterSubject_Subject" FromRole="subject" ToRole="siteclustersubject" />
+    <NavigationProperty Name="officers" Relationship="FlexTimetableModel.lecturersubject" FromRole="subject" ToRole="officers" />
+    <NavigationProperty Name="qualifications" Relationship="FlexTimetableModel.programmesubjects" FromRole="subject" ToRole="qualifications" />
+  </EntityType>
+  <EntityType Name="timeslot">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="Duration" Type="Int32" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="StartTime" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="lecturersiteclusteravailabilities" Relationship="FlexTimetableModel.fk_lsca_timeSlot1" FromRole="timeslot" ToRole="lecturersiteclusteravailability" />
+    <NavigationProperty Name="lecturersiteclusteravailabilities1" Relationship="FlexTimetableModel.fk_lsca_timeSlot2" FromRole="timeslot" ToRole="lecturersiteclusteravailability" />
+    <NavigationProperty Name="offeringtypes" Relationship="FlexTimetableModel.fk_offeringType_TimeSlot1" FromRole="timeslot" ToRole="offeringtype" />
+    <NavigationProperty Name="offeringtypes1" Relationship="FlexTimetableModel.fk_offeringType_TimeSlot2" FromRole="timeslot" ToRole="offeringtype" />
+    <NavigationProperty Name="offeringtypes2" Relationship="FlexTimetableModel.fk_offeringType_TimeSlot3" FromRole="timeslot" ToRole="offeringtype" />
+    <NavigationProperty Name="offeringtypes3" Relationship="FlexTimetableModel.fk_offeringType_TimeSlot4" FromRole="timeslot" ToRole="offeringtype" />
+    <NavigationProperty Name="resourceschedules" Relationship="FlexTimetableModel.fk_ResourceSchedule_timeSlot1" FromRole="timeslot" ToRole="resourceschedule" />
+  </EntityType>
+  <EntityType Name="venue">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="BuildingID" Type="Int32" Nullable="false" />
+    <Property Name="Capacity" Type="Int32" Nullable="false" />
+    <Property Name="Code" Type="String" Nullable="false" />
+    <Property Name="Description" Type="String" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="TypeID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="building" Relationship="FlexTimetableModel.fk_venue_building" FromRole="venue" ToRole="building" />
+    <NavigationProperty Name="resourcepreferredvenues" Relationship="FlexTimetableModel.fk_Resource_has_Venue_Venue1" FromRole="venue" ToRole="resourcepreferredvenue" />
+    <NavigationProperty Name="venuetype" Relationship="FlexTimetableModel.fk_type_venue" FromRole="venue" ToRole="venuetype" />
+    <NavigationProperty Name="resourceschedules" Relationship="FlexTimetableModel.resourceschedulevenue" FromRole="venue" ToRole="resourceschedule" />
+  </EntityType>
+  <EntityType Name="venuetype">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="Description" Type="String" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="isClassRoom" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="resources" Relationship="FlexTimetableModel.fk_Resource_VenueType1" FromRole="venuetype" ToRole="resource" />
+    <NavigationProperty Name="venues" Relationship="FlexTimetableModel.fk_type_venue" FromRole="venuetype" ToRole="venue" />
+  </EntityType>
+  <Association Name="fk_classGroup_AcademicBlock1">
+    <End Role="academicblock" Type="FlexTimetableModel.academicblock" Multiplicity="1" />
+    <End Role="classgroup" Type="FlexTimetableModel.classgroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="academicblock">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="classgroup">
+        <PropertyRef Name="AcademicBlockID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_building_site">
+    <End Role="site" Type="FlexTimetableModel.site" Multiplicity="1" />
+    <End Role="building" Type="FlexTimetableModel.building" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="site">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="building">
+        <PropertyRef Name="SiteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_venue_building">
+    <End Role="building" Type="FlexTimetableModel.building" Multiplicity="1" />
+    <End Role="venue" Type="FlexTimetableModel.venue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="building">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="venue">
+        <PropertyRef Name="BuildingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_campus_siteCluster">
+    <End Role="campus" Type="FlexTimetableModel.campus" Multiplicity="1" />
+    <End Role="sitecluster" Type="FlexTimetableModel.sitecluster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="campus">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="sitecluster">
+        <PropertyRef Name="CampusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_classGroup_has_Resource_classGroup1">
+    <End Role="classgroup" Type="FlexTimetableModel.classgroup" Multiplicity="1" />
+    <End Role="classgroupresource" Type="FlexTimetableModel.classgroupresource" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="classgroup">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="classgroupresource">
+        <PropertyRef Name="classGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_classGroup_siteClusterSubject">
+    <End Role="siteclustersubject" Type="FlexTimetableModel.siteclustersubject" Multiplicity="1" />
+    <End Role="classgroup" Type="FlexTimetableModel.classgroup" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="siteclustersubject">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="classgroup">
+        <PropertyRef Name="siteClusterSubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_classGroup_has_Resource_Resource1">
+    <End Role="resource" Type="FlexTimetableModel.resource" Multiplicity="1" />
+    <End Role="classgroupresource" Type="FlexTimetableModel.classgroupresource" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="resource">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="classgroupresource">
+        <PropertyRef Name="ResourceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Department_school1">
+    <End Role="school" Type="FlexTimetableModel.school" Multiplicity="1" />
+    <End Role="department" Type="FlexTimetableModel.department" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="school">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="department">
+        <PropertyRef Name="SchoolID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Qualification_Department">
+    <End Role="department" Type="FlexTimetableModel.department" Multiplicity="1" />
+    <End Role="qualifications" Type="FlexTimetableModel.qualification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="department">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="qualifications">
+        <PropertyRef Name="DepartmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_subject_department">
+    <End Role="department" Type="FlexTimetableModel.department" Multiplicity="0..1" />
+    <End Role="subject" Type="FlexTimetableModel.subject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="department">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="subject">
+        <PropertyRef Name="DepartmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_school_faculty">
+    <End Role="faculty" Type="FlexTimetableModel.faculty" Multiplicity="0..1" />
+    <End Role="school" Type="FlexTimetableModel.school" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="faculty">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="school">
+        <PropertyRef Name="facultyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_lsca_sitecluster">
+    <End Role="sitecluster" Type="FlexTimetableModel.sitecluster" Multiplicity="1" />
+    <End Role="lecturersiteclusteravailability" Type="FlexTimetableModel.lecturersiteclusteravailability" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sitecluster">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="lecturersiteclusteravailability">
+        <PropertyRef Name="SiteClusterID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_lsca_timeSlot1">
+    <End Role="timeslot" Type="FlexTimetableModel.timeslot" Multiplicity="1" />
+    <End Role="lecturersiteclusteravailability" Type="FlexTimetableModel.lecturersiteclusteravailability" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="timeslot">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="lecturersiteclusteravailability">
+        <PropertyRef Name="StartTimeSlot" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_lsca_timeSlot2">
+    <End Role="timeslot" Type="FlexTimetableModel.timeslot" Multiplicity="1" />
+    <End Role="lecturersiteclusteravailability" Type="FlexTimetableModel.lecturersiteclusteravailability" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="timeslot">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="lecturersiteclusteravailability">
+        <PropertyRef Name="EndTimeSlot" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fl_lsca_lecturer">
+    <End Role="officers" Type="FlexTimetableModel.officer" Multiplicity="1" />
+    <End Role="lecturersiteclusteravailability" Type="FlexTimetableModel.lecturersiteclusteravailability" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="officers">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="lecturersiteclusteravailability">
+        <PropertyRef Name="LecturerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_offeringType_TimeSlot1">
+    <End Role="timeslot" Type="FlexTimetableModel.timeslot" Multiplicity="1" />
+    <End Role="offeringtype" Type="FlexTimetableModel.offeringtype" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="timeslot">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="offeringtype">
+        <PropertyRef Name="startTimeSlot" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_offeringType_TimeSlot2">
+    <End Role="timeslot" Type="FlexTimetableModel.timeslot" Multiplicity="1" />
+    <End Role="offeringtype" Type="FlexTimetableModel.offeringtype" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="timeslot">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="offeringtype">
+        <PropertyRef Name="endTimeSlot" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_offeringType_TimeSlot3">
+    <End Role="timeslot" Type="FlexTimetableModel.timeslot" Multiplicity="1" />
+    <End Role="offeringtype" Type="FlexTimetableModel.offeringtype" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="timeslot">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="offeringtype">
+        <PropertyRef Name="sabStartTimeSlot" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_offeringType_TimeSlot4">
+    <End Role="timeslot" Type="FlexTimetableModel.timeslot" Multiplicity="1" />
+    <End Role="offeringtype" Type="FlexTimetableModel.offeringtype" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="timeslot">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="offeringtype">
+        <PropertyRef Name="sabEndTimeSlot" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_siteClusterSubject_OfferingType">
+    <End Role="offeringtype" Type="FlexTimetableModel.offeringtype" Multiplicity="1" />
+    <End Role="siteclustersubject" Type="FlexTimetableModel.siteclustersubject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="offeringtype">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="siteclustersubject">
+        <PropertyRef Name="offeringTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ResourceSchedule_Resource1">
+    <End Role="resource" Type="FlexTimetableModel.resource" Multiplicity="1" />
+    <End Role="resourceschedule" Type="FlexTimetableModel.resourceschedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="resource">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="resourceschedule">
+        <PropertyRef Name="ResourceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Resource_has_Venue_Resource1">
+    <End Role="resource" Type="FlexTimetableModel.resource" Multiplicity="1" />
+    <End Role="resourcepreferredvenue" Type="FlexTimetableModel.resourcepreferredvenue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="resource">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="resourcepreferredvenue">
+        <PropertyRef Name="ResourceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Resource_ResourceType1">
+    <End Role="resourcetype" Type="FlexTimetableModel.resourcetype" Multiplicity="1" />
+    <End Role="resource" Type="FlexTimetableModel.resource" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="resourcetype">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="resource">
+        <PropertyRef Name="ResourceTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Resource_VenueType1">
+    <End Role="venuetype" Type="FlexTimetableModel.venuetype" Multiplicity="1" />
+    <End Role="resource" Type="FlexTimetableModel.resource" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="venuetype">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="resource">
+        <PropertyRef Name="VenueTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Resource_has_Venue_Venue1">
+    <End Role="venue" Type="FlexTimetableModel.venue" Multiplicity="1" />
+    <End Role="resourcepreferredvenue" Type="FlexTimetableModel.resourcepreferredvenue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="venue">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="resourcepreferredvenue">
+        <PropertyRef Name="VenueID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ResourceSchedule_timeSlot1">
+    <End Role="timeslot" Type="FlexTimetableModel.timeslot" Multiplicity="1" />
+    <End Role="resourceschedule" Type="FlexTimetableModel.resourceschedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="timeslot">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="resourceschedule">
+        <PropertyRef Name="timeSlotID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Site_SiteCluster">
+    <End Role="sitecluster" Type="FlexTimetableModel.sitecluster" Multiplicity="1" />
+    <End Role="site" Type="FlexTimetableModel.site" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sitecluster">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="site">
+        <PropertyRef Name="SiteClusterID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_siteClusterSubject_SiteCluster">
+    <End Role="sitecluster" Type="FlexTimetableModel.sitecluster" Multiplicity="1" />
+    <End Role="siteclustersubject" Type="FlexTimetableModel.siteclustersubject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sitecluster">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="siteclustersubject">
+        <PropertyRef Name="SiteClusterID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_siteClusterSubject_Subject">
+    <End Role="subject" Type="FlexTimetableModel.subject" Multiplicity="1" />
+    <End Role="siteclustersubject" Type="FlexTimetableModel.siteclustersubject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="subject">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="siteclustersubject">
+        <PropertyRef Name="SubjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_type_venue">
+    <End Role="venuetype" Type="FlexTimetableModel.venuetype" Multiplicity="1" />
+    <End Role="venue" Type="FlexTimetableModel.venue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="venuetype">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="venue">
+        <PropertyRef Name="TypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="campusaccess">
+    <End Role="campus" Type="FlexTimetableModel.campus" Multiplicity="*" />
+    <End Role="officers" Type="FlexTimetableModel.officer" Multiplicity="*" />
+  </Association>
+  <Association Name="facultyaccess">
+    <End Role="faculty" Type="FlexTimetableModel.faculty" Multiplicity="*" />
+    <End Role="officers" Type="FlexTimetableModel.officer" Multiplicity="*" />
+  </Association>
+  <Association Name="lecturersubject">
+    <End Role="officers" Type="FlexTimetableModel.officer" Multiplicity="*" />
+    <End Role="subject" Type="FlexTimetableModel.subject" Multiplicity="*" />
+  </Association>
+  <Association Name="officeruserlink">
+    <End Role="my_aspnet_users" Type="FlexTimetableModel.my_aspnet_users" Multiplicity="0..1" />
+    <End Role="officers" Type="FlexTimetableModel.officer" Multiplicity="*" />
+  </Association>
+  <Association Name="programmesubjects">
+    <End Role="qualifications" Type="FlexTimetableModel.qualification" Multiplicity="*" />
+    <End Role="subject" Type="FlexTimetableModel.subject" Multiplicity="*" />
+  </Association>
+  <Association Name="resourceschedulevenue">
+    <End Role="resourceschedule" Type="FlexTimetableModel.resourceschedule" Multiplicity="*" />
+    <End Role="venue" Type="FlexTimetableModel.venue" Multiplicity="*" />
+  </Association>
+  <Association Name="siteclusterprogramme">
+    <End Role="qualifications" Type="FlexTimetableModel.qualification" Multiplicity="*" />
+    <End Role="sitecluster" Type="FlexTimetableModel.sitecluster" Multiplicity="*" />
+  </Association>
+  <EntityType Name="campususer">
+    <Key>
+      <PropertyRef Name="CampusCode" />
+      <PropertyRef Name="CampusID" />
+      <PropertyRef Name="CampusName" />
+      <PropertyRef Name="OfficerID" />
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Type="String" Name="CampusCode" Nullable="false" />
+    <Property Type="Int32" Name="CampusID" Nullable="false" />
+    <Property Type="String" Name="CampusName" Nullable="false" />
+    <Property Type="Int32" Name="OfficerID" Nullable="false" />
+    <Property Type="String" Name="Username" Nullable="false" />
+  </EntityType>
+  <EntityType Name="facultyuser">
+    <Key>
+      <PropertyRef Name="FacultyID" />
+      <PropertyRef Name="OfficerID" />
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Type="String" Name="FacultyCode" />
+    <Property Type="Int32" Name="FacultyID" Nullable="false" />
+    <Property Type="String" Name="FacultyName" />
+    <Property Type="Int32" Name="OfficerID" Nullable="false" />
+    <Property Type="String" Name="Username" Nullable="false" />
+  </EntityType>
+</Schema>

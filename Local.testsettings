@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestSettings name="Local" id="08e635f9-faf3-490b-847f-f39455c500bc" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Description>These are default test settings for a local test run.</Description>
+  <Deployment enabled="false" />
+  <Execution>
+    <Hosts type="ASP.NET">
+      <AspNet name="ASP.NET" executionType="Iis" urlToTest="localhost/flextimetable">
+        <DevelopmentServer pathToWebSite="C:\Users\Courtney Walker\Documents\Visual Studio 2010\Projects\FlexTimeTable\FlexTimeTable" />
+      </AspNet>
+    </Hosts>
+    <TestTypeSpecific>
+      <UnitTestRunConfig testTypeId="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b">
+        <AssemblyResolution>
+          <TestDirectory useLoadContext="true" />
+        </AssemblyResolution>
+      </UnitTestRunConfig>
+    </TestTypeSpecific>
+    <AgentRule name="Execution Agents">
+    </AgentRule>
+  </Execution>
+</TestSettings>

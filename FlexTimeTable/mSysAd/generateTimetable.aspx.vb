@@ -130,13 +130,56 @@
             vStartWeek = vBlock.startWeek
         End If
         Dim weekBoundaries = getBlockBoundaries(vStartWeek)
-        For Each xClass In vClassGroups
-            For Each x In (From p In xClass.resources
-                            Where p.year = vYear Select p).ToList
-                GenerateResourceSchedule(x.ID, xClass.ID, vYear, vStartWeek, vEndWeek, weekBoundaries)
+
+        Dim AssignedClassList As New List(Of Integer)
+        Dim unAssignedClassList As New List(Of Integer)
+
+
+        separateClassGroups(vClassGroups, AssignedClassList, unAssignedClassList)
+
+        ' schedule those with assigned venues first
+        For Each i In AssignedClassList
+            Dim iClassID = i
+            Dim iClass = (From p In vContext.classgroups Where p.ID = iClassID Select p).Single
+            For Each x In (From p In iClass.resources
+                           Where p.year = vYear Select p).ToList
+                scheduleResource(x.ID, iClass, vYear, vStartWeek, vEndWeek, weekBoundaries)
             Next
         Next
+
+        ' schedule those with unassigned venues last
+        For Each i In unAssignedClassList
+            Dim iClassID = i
+            Dim iClass = (From p In vContext.classgroups Where p.ID = iClassID Select p).Single
+            For Each x In (From p In iClass.resources
+                           Where p.year = vYear Select p).ToList
+                scheduleResource(x.ID, iClass, vYear, vStartWeek, vEndWeek, weekBoundaries)
+            Next
+        Next
+
     End Sub
+
+
+    Sub separateClassGroups(ByVal vClassgroupList As List(Of classgroup), ByRef AssignedClassList As List(Of Integer), ByRef UnAssignedClassList As List(Of Integer))
+        Dim vContext As timetableEntities = New timetableEntities()
+        ''Give priority to those who have preferrred rooms
+        For Each x In vClassgroupList
+            Dim ClusterID = x.SiteClusterID
+            Dim IsVenueAssigned = False
+            For Each y In x.siteclustersubject.subject.department.venues
+                If ClusterID = y.building.site.SiteClusterID Then
+                    IsVenueAssigned = True
+                    Exit For
+                End If
+            Next
+            If IsVenueAssigned Then
+                AssignedClassList.Add(x.ID)
+            Else
+                UnAssignedClassList.Add(x.ID)
+            End If
+        Next
+    End Sub
+
 
     'get the endweeks of all atomic blocks from startweek to end of year 
     Function getBlockBoundaries(ByVal vStartweek As Integer) As HashSet(Of Integer)
@@ -156,9 +199,9 @@
     End Function
 
 
-    Protected Sub GenerateResourceSchedule(ByVal vResourceID As Integer, ByVal vClassID As Integer, ByVal vYear As Integer, ByVal vBlockStartWeek As Integer, ByVal vBlockEndWeek As Integer, ByVal vWeekBoundaries As HashSet(Of Integer))
+    Protected Sub scheduleResource(ByVal vResourceID As Integer, ByVal vClassgroup As classgroup, ByVal vYear As Integer, ByVal vBlockStartWeek As Integer, ByVal vBlockEndWeek As Integer, ByVal vWeekBoundaries As HashSet(Of Integer))
         Dim vContext As timetableEntities = New timetableEntities()
-        Dim vClassgroup = (From p In vContext.classgroups Where p.ID = vClassID Select p).First
+        'Dim vClassgroup = (From p In vContext.classgroups Where p.ID = vClassID Select p).First
         Dim vOfferingType = vClassgroup.offeringtype
         Dim vResource = (From p In vContext.resources Where p.ID = vResourceID Select p).First
         Dim vDays() As Integer = {2, 4, 3, 5, 6, 7}
@@ -313,21 +356,23 @@
 
             'get lecturer Timetable
             Dim vlecturer = vClassGroup.lecturer
-            Dim vLecturerID = vlecturer.LecturerID
-            Dim lclasses = (From p In vContext.classgroups Where p.lecturer.LecturerID = vLecturerID Select p).ToList
-            For Each j In lclasses
-                Dim jClass = j
-                Dim jResources = jClass.resources
-                For Each i In jResources
-                    Dim iSchedules = (From p In i.resourceschedules Where p.Year = vYear And p.Week = vWeek Select p).ToList
-                    For Each k In iSchedules
-                        Dim vSlot As New sSlot With {
-                            .timeslot = k.timeSlotID,
-                            .WeekDay = k.Day}
-                        AddUsedSlots(UsedSlots, vSlot)
+            If Not IsNothing(vlecturer) Then
+                Dim vLecturerID = vlecturer.LecturerID
+                Dim lclasses = (From p In vContext.classgroups Where p.lecturer.LecturerID = vLecturerID Select p).ToList
+                For Each j In lclasses
+                    Dim jClass = j
+                    Dim jResources = jClass.resources
+                    For Each i In jResources
+                        Dim iSchedules = (From p In i.resourceschedules Where p.Year = vYear And p.Week = vWeek Select p).ToList
+                        For Each k In iSchedules
+                            Dim vSlot As New sSlot With {
+                                .timeslot = k.timeSlotID,
+                                .WeekDay = k.Day}
+                            AddUsedSlots(UsedSlots, vSlot)
+                        Next
                     Next
                 Next
-            Next
+            End If
 
             'get class group subject
             Dim vSubjectID = vClassGroup.SubjectID

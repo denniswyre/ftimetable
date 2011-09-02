@@ -84,7 +84,7 @@ first child of the left and right table columns */
     margin-top: 0px;
 }
 
-/* Styles for error messages  */
+/* Styles for error messages and main Headers  */
 .errormessage
 {
     color: #FF0000;
@@ -97,6 +97,14 @@ first child of the left and right table columns */
 .okmessage
 {
     color: #009933;
+    font-size: medium;
+    font-weight: bolder;
+    font-variant: small-caps;
+    font-family: Arial;
+}
+.lecturer
+{
+    color: #000000;
     font-size: medium;
     font-weight: bolder;
     font-variant: small-caps;

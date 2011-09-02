@@ -131,31 +131,31 @@ Partial Public Class manageclusterclasses
     Protected WithEvents lstQualification As Global.System.Web.UI.WebControls.ListBox
 
     '''<summary>
-    '''Pages control.
+    '''ScriptManager1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Pages As Global.System.Web.UI.WebControls.MultiView
+    Protected WithEvents ScriptManager1 As Global.System.Web.UI.ScriptManager
 
     '''<summary>
-    '''PageClasses control.
+    '''TabClass control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents PageClasses As Global.System.Web.UI.WebControls.View
+    Protected WithEvents TabClass As Global.AjaxControlToolkit.TabContainer
 
     '''<summary>
-    '''pnlDetails control.
+    '''tab0 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents pnlDetails As Global.System.Web.UI.WebControls.Panel
+    Protected WithEvents tab0 As Global.AjaxControlToolkit.TabPanel
 
     '''<summary>
     '''lnkClass control.
@@ -176,85 +176,13 @@ Partial Public Class manageclusterclasses
     Protected WithEvents grdClasses As Global.System.Web.UI.WebControls.GridView
 
     '''<summary>
-    '''PageClassDetails control.
+    '''tab1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents PageClassDetails As Global.System.Web.UI.WebControls.View
-
-    '''<summary>
-    '''Panel1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Panel1 As Global.System.Web.UI.WebControls.Panel
-
-    '''<summary>
-    '''btnClassEdit2 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnClassEdit2 As Global.System.Web.UI.WebControls.LinkButton
-
-    '''<summary>
-    '''btnClassCancel control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnClassCancel As Global.System.Web.UI.WebControls.LinkButton
-
-    '''<summary>
-    '''litClassDetails control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents litClassDetails As Global.System.Web.UI.WebControls.Literal
-
-    '''<summary>
-    '''ClassLecturer1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ClassLecturer1 As Global.FlexTimeTable.ClassLecturer
-
-    '''<summary>
-    '''classresource1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents classresource1 As Global.FlexTimeTable.classresource
-
-    '''<summary>
-    '''pageClassEdit control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents pageClassEdit As Global.System.Web.UI.WebControls.View
-
-    '''<summary>
-    '''pnlClass control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents pnlClass As Global.System.Web.UI.WebControls.Panel
+    Protected WithEvents tab1 As Global.AjaxControlToolkit.TabPanel
 
     '''<summary>
     '''lblID control.
@@ -347,11 +275,56 @@ Partial Public Class manageclusterclasses
     Protected WithEvents btnDelete As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''btnCancel control.
+    '''btnReturn control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnCancel As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnReturn As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''btnEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnEdit As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''Tab2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Tab2 As Global.AjaxControlToolkit.TabPanel
+
+    '''<summary>
+    '''ClassLecturer1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ClassLecturer1 As Global.FlexTimeTable.ClassLecturer
+
+    '''<summary>
+    '''Tab3 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Tab3 As Global.AjaxControlToolkit.TabPanel
+
+    '''<summary>
+    '''classresource1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents classresource1 As Global.FlexTimeTable.classresource
 End Class

@@ -41,6 +41,7 @@ Public Class managelecturer
         Me.cboDepartments.DataTextField = "longName"
         Me.cboDepartments.DataValueField = "ID"
         Me.cboDepartments.DataBind()
+        mvLecturer.SetActiveView(vwSelect)
         loadlecturers()
         loadsubjects()
     End Sub
@@ -116,29 +117,28 @@ Public Class managelecturer
         lstSelectedSubjects.DataValueField = "ID"
         lstSelectedSubjects.DataBind()
         ''headers
-        pnlSubject.GroupingText = Lecturername + "<--Subjects-->"
-        pnlRoster.GroupingText = Lecturername + "<--Site Roster-->"
     End Sub
 
     Private Sub cboFaculty_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboFaculty.SelectedIndexChanged
-        litMessage.Text = ""
+        litErrorMessage.Text = ""
         loadDepartments()
     End Sub
 
     Private Sub cboDepartments_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboDepartments.SelectedIndexChanged
-        litMessage.Text = ""
+        litErrorMessage.Text = ""
         loadlecturers()
         loadsubjects()
+        mvLecturer.SetActiveView(vwSelect)
     End Sub
 
 #End Region
 
 #Region "lecturer"
     Protected Sub btnVerify_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnGet.Click
-        litMessage.Text = ""
+        litErrorMessage.Text = ""
         Try
             If (txtUsername.Text).Trim().Length = 0 Then
-                litMessage.Text = "You must enter a username in the textbox."
+                litErrorMessage.Text = clsGeneral.displaymessage("You must enter a username in the textbox.", True)
                 Exit Sub
             End If
 
@@ -153,7 +153,7 @@ Public Class managelecturer
             End With
             setcontrol(False)
         Catch ex As Exception
-            litMessage.Text = ex.Message
+            litErrorMessage.Text = clsGeneral.displaymessage(ex.Message, True)
         End Try
     End Sub
 
@@ -167,7 +167,7 @@ Public Class managelecturer
     End Sub
 
     Protected Sub btnAddLecturer_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnAddLecturer.Click
-        litMessage.Text = ""
+        litErrorMessage.Text = ""
         Try
             'get Ldap user from saved session
             Dim vLdapUser As clsOfficer.sOfficer = CType(Session("officer"), clsOfficer.sOfficer)
@@ -216,13 +216,13 @@ Public Class managelecturer
             vContext.SaveChanges()
             loadlecturers()
         Catch ex As Exception
-            litMessage.Text = ex.Message
+            litErrorMessage.Text = clsGeneral.displaymessage(ex.Message, True)
         End Try
         setcontrol(True)
     End Sub
 
     Protected Sub btnCancelLecturer_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnCancelLecturer.Click
-        litMessage.Text = ""
+        litErrorMessage.Text = ""
         setcontrol(True)
     End Sub
 
@@ -235,18 +235,26 @@ Public Class managelecturer
             vContext.lecturers.DeleteObject(vlecturer)
             vContext.SaveChanges()
             loadlecturers()
-            litMessage.Text = ""
+            litErrorMessage.Text = ""
         Catch ex As Exception
-            litMessage.Text = ex.Message
-        Finally
-            ViewState("lecturerID") = ""
+           litErrorMessage.Text = clsGeneral.displaymessage(ex.Message, True)
         End Try
         loadLecturerDetails()
     End Sub
 
     Private Sub grdLecturers_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grdLecturers.SelectedIndexChanged
-        litMessage.Text = ""
-        ViewState("lecturerID") = CInt(grdLecturers.SelectedDataKey.Values(0))
+        litErrorMessage.Text = ""
+        Dim vlecturerID = CInt(grdLecturers.SelectedDataKey.Values(0))
+        Dim vContext As timetableEntities = New timetableEntities()
+        Dim vlecturer = (From p In vContext.lecturers Where p.LecturerID = vlecturerID Select p).First
+        With vlecturer
+            litLecturer.Text = "<b>Lecturer:</b><span class=""lecturer"">" + CType(IIf(.officer.title = "", "", .officer.title + "&nbsp;"), String) + .officer.Surname +
+                                                             ", " + .officer.FirstName +
+                                                             " " + .officer.Initials +
+                                                             " [" + .officer.my_aspnet_users.name + "]</span>"
+        End With
+        ViewState("lecturerID") = vlecturerID
+        mvLecturer.SetActiveView(vwDetails)
         loadLecturerDetails()
     End Sub
 
@@ -255,7 +263,7 @@ Public Class managelecturer
 #Region "subject"
 
     Protected Sub btnAdd_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnAdd.Click
-        litMessage.Text = ""
+        litErrorMessage.Text = ""
         Try
             Dim LecturerID As Integer = CInt(ViewState("lecturerID"))
             Dim vContext As timetableEntities = New timetableEntities()
@@ -265,12 +273,12 @@ Public Class managelecturer
             vContext.SaveChanges()
             loadLecturerDetails()
         Catch ex As Exception
-            litMessage.Text = ex.Message
+            litErrorMessage.Text = clsGeneral.displaymessage(ex.Message, True)
         End Try
     End Sub
 
     Protected Sub btnRemove_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnRemove.Click
-        litMessage.Text = ""
+        litErrorMessage.Text = ""
         Try
             Dim LecturerID As Integer = CInt(ViewState("lecturerID"))
             Dim vContext As timetableEntities = New timetableEntities()
@@ -280,7 +288,7 @@ Public Class managelecturer
             vContext.SaveChanges()
             loadLecturerDetails()
         Catch ex As Exception
-            litMessage.Text = ex.Message
+            litErrorMessage.Text = clsGeneral.displaymessage(ex.Message, True)
         End Try
     End Sub
 
@@ -326,7 +334,7 @@ Public Class managelecturer
     End Function
 
     Protected Sub btnAddRoster_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnAddRoster.Click
-        litMessage.Text = ""
+        litErrorMessage.Text = ""
         Try
             If DateDiff(DateInterval.Minute, CDate(cboStart.SelectedItem.Text), CDate(cboEnd.SelectedItem.Text)) <= 0 Then
                 Throw New Exception("The end time must be greater than the start time!!!")
@@ -372,7 +380,7 @@ Public Class managelecturer
             vContext.SaveChanges()
             loadLecturerDetails()
         Catch ex As Exception
-            litMessage.Text = ex.Message
+            litErrorMessage.Text = clsGeneral.displaymessage(ex.Message, True)
         End Try
         loadLecturerDetails()
     End Sub
@@ -392,12 +400,16 @@ Public Class managelecturer
                              Select p).First
             vContext.lecturersiteclusteravailabilities.DeleteObject(vRoster)
             vContext.SaveChanges()
-            litMessage.Text = ""
+            litErrorMessage.Text = ""
         Catch ex As Exception
-            litMessage.Text = ex.Message
+            litErrorMessage.Text = clsGeneral.displaymessage(ex.Message, True)
         End Try
         loadLecturerDetails()
     End Sub
 
 #End Region
+
+    Private Sub lnkReturn_Click(sender As Object, e As System.EventArgs) Handles lnkReturn.Click
+        mvLecturer.SetActiveView(vwSelect)
+    End Sub
 End Class

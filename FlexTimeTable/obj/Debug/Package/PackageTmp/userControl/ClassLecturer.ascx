@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="ClassLecturer.ascx.vb" Inherits="FlexTimeTable.ClassLecturer" %>
-<asp:Panel ID="pnlLecturer" GroupingText="Lecturer" runat="server">
     <table>
         <tr>
             <td>
@@ -20,4 +19,3 @@
             </td>
         </tr>
     </table>
-</asp:Panel>

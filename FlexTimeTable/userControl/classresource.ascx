@@ -2,7 +2,6 @@
     Inherits="FlexTimeTable.classresource" %>
 <asp:MultiView ID="Pages" runat="server">
     <asp:View ID="ViewGrid" runat="server">
-        <asp:Panel ID="pnlResources" GroupingText="Resources" runat="server">
             <asp:LinkButton ID="lnkCreate" runat="server">New Resource</asp:LinkButton>
             <asp:GridView ID="grdResource" runat="server" DataKeyNames="ID" AutoGenerateColumns="False">
                 <Columns>
@@ -14,7 +13,6 @@
                     <asp:CommandField ShowSelectButton="True" />
                 </Columns>
             </asp:GridView>
-        </asp:Panel>
     </asp:View>
     <asp:View ID="ViewEdit" runat="server">
         <asp:Label ID="lblMessage" runat="server"></asp:Label>

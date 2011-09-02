@@ -287,9 +287,12 @@
     Protected Sub btnVenueAdd_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnVenueAdd.Click
         '''''see if item already in list
         lstSelVenues.SelectedIndex = -1
-        If lstSelVenues.Items.IndexOf(cboAvailVenue.SelectedItem) < 0 Then
-            lstSelVenues.Items.Add(cboAvailVenue.SelectedItem)
-        End If
+        Try
+            If lstSelVenues.Items.IndexOf(cboAvailVenue.SelectedItem) < 0 Then
+                lstSelVenues.Items.Add(cboAvailVenue.SelectedItem)
+            End If
+        Catch ex As Exception
+        End Try
     End Sub
 
     Protected Sub btnVenueRem_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnVenueRem.Click

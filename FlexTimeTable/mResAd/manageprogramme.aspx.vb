@@ -2,6 +2,8 @@
     Inherits System.Web.UI.Page
     Private TabHeader() As String = {"Core Subjects", "Service Subjects", "Site Clusters"}
 
+#Region "General"
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
             loadFaculty()
@@ -41,7 +43,7 @@
         cboDepartment.DataBind()
 
         loadQualification()
-       
+
     End Sub
 
     Sub loadQualification()
@@ -57,7 +59,7 @@
         cboQualification.DataValueField = "ID"
         cboQualification.DataBind()
 
-       displayQualificationDetails
+        displayQualificationDetails()
 
     End Sub
 
@@ -141,13 +143,21 @@
     End Sub
 
     Private Sub cboQualification_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboQualification.SelectedIndexChanged
-       displayQualificationDetails
+        displayQualificationDetails()
     End Sub
 
     Protected Sub cboLevel_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles cboLevel.SelectedIndexChanged
         displayQualificationDetails()
     End Sub
 
+    Protected Sub btnCoreSearch_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnCoreSearch.Click
+        loadCoreSubjects(txtCoreSearch.Text)
+    End Sub
+
+    Private Sub btnServiceSearch_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnServiceSearch.Click
+        loadServiceSubjects(txtServiceSearch.Text)
+    End Sub
+#End Region
 
 #Region "Subjects"
 
@@ -177,7 +187,6 @@
     End Sub
 
 #End Region
-
 
 #Region "Core Subjects"
     Sub loadCoreSubjects(ByVal vSearch As String)
@@ -336,11 +345,4 @@
 
 #End Region
 
-    Protected Sub btnCoreSearch_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnCoreSearch.Click
-        loadCoreSubjects(txtCoreSearch.Text)
-    End Sub
-
-    Private Sub btnServiceSearch_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnServiceSearch.Click
-        loadServiceSubjects(txtServiceSearch.Text)
-    End Sub
 End Class

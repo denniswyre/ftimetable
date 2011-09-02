@@ -14,6 +14,7 @@
     <AssemblyName>FlexTimeTable</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MyType>Custom</MyType>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -107,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="App_Data\flexMySQL.sql" />
     <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\FlexTimeTable.dll" />
     <Content Include="bin\FlexTimeTable.pdb" />
@@ -196,6 +198,9 @@
       <DependentUpon>lecturerWorkload.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="mResAd\manageclusterclasses.aspx.designer.vb">
+      <DependentUpon>manageclusterclasses.aspx</DependentUpon>
+    </Compile>
     <Compile Include="mSysAd\generateTimetable.aspx.designer.vb">
       <DependentUpon>generateTimetable.aspx</DependentUpon>
     </Compile>
@@ -216,9 +221,6 @@
     <Compile Include="mSysAd\uploadQual.aspx.vb">
       <DependentUpon>uploadQual.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="mResAd\manageclusterclasses.aspx.designer.vb">
-      <DependentUpon>manageclusterclasses.aspx</DependentUpon>
     </Compile>
     <Compile Include="mResAd\manageclusterclasses.aspx.vb">
       <DependentUpon>manageclusterclasses.aspx</DependentUpon>
@@ -501,7 +503,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="WebService\" />
   </ItemGroup>
   <ItemGroup>

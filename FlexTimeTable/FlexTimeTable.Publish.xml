@@ -1,63 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <publishData>
-  <publishProfile publishUrl="G:\FlexTimeTable" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="localhost:8080/default.aspx" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="True" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="False" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+  <publishProfile publishUrl="G:\HostingSites\FlexTimeTable" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="localhost:8080/default.aspx" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="True" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="False" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
     <file relUrl="mResAd/web.config" publishTime="04/20/2011 07:26:27" />
     <file relUrl="mResAd/managequalification.aspx" publishTime="05/15/2011 07:54:57" />
-    <file relUrl="bin/Artem.Google.pdb" publishTime="06/08/2011 01:50:53" />
-    <file relUrl="member/ClassSummary.aspx" publishTime="05/31/2011 09:54:55" />
     <file relUrl="mSysAd/manageOfferingType.aspx" publishTime="04/27/2011 08:33:46" />
     <file relUrl="Global.asax" publishTime="03/22/2011 20:37:54" />
-    <file relUrl="mVenAd/managesites.aspx" publishTime="05/13/2011 01:43:39" />
-    <file relUrl="Styles/Site.css" publishTime="04/27/2011 17:04:00" />
+    <file relUrl="Scripts/jquery-1.4.1-vsdoc.js" publishTime="03/22/2011 20:37:54" />
+    <file relUrl="member/ClassSummary.aspx" publishTime="05/31/2011 09:54:55" />
+    <file relUrl="Styles/Site.css" publishTime="08/28/2011 07:44:30" />
     <file relUrl="mVenAd/managecluster.aspx" publishTime="05/13/2011 01:48:55" />
-    <file relUrl="mResAd/manageclusterclasses.aspx" publishTime="05/17/2011 19:13:59" />
-    <file relUrl="mResAd/managelecturer.aspx" publishTime="05/30/2011 03:57:01" />
-    <file relUrl="About.aspx" publishTime="05/31/2011 07:09:19" />
+    <file relUrl="mVenAd/assignVenuestoDepart.aspx" publishTime="05/31/2011 06:32:38" />
+    <file relUrl="mResAd/managelecturer.aspx" publishTime="08/30/2011 11:57:04" />
+    <file relUrl="mSysAd/resourcetypes.aspx" publishTime="05/13/2011 02:16:58" />
+    <file relUrl="mSysAd/userManagement.aspx" publishTime="05/19/2011 05:32:24" />
+    <file relUrl="About.aspx" publishTime="08/30/2011 14:40:16" />
     <file relUrl="Scripts/jquery-1.4.1.js" publishTime="03/22/2011 20:37:54" />
-    <file relUrl="userControl/ClassLecturer.ascx" publishTime="05/08/2011 06:20:27" />
+    <file relUrl="userControl/ClassLecturer.ascx" publishTime="08/30/2011 12:53:44" />
     <file relUrl="mSysAd/uploadClasses.aspx" publishTime="05/19/2011 04:19:51" />
+    <file relUrl="mSysAd/uploadVenues.aspx" publishTime="05/18/2011 15:30:03" />
+    <file relUrl="App_Data/flexMySQL.sql" publishTime="08/28/2011 10:34:04" />
     <file relUrl="mResAd/managedepartment.aspx" publishTime="05/23/2011 14:12:53" />
     <file relUrl="mModerator/web.config" publishTime="04/01/2011 08:15:07" />
     <file relUrl="mResAd/managesubject.aspx" publishTime="05/23/2011 14:09:06" />
     <file relUrl="mSysAd/uploadSubject.aspx" publishTime="05/15/2011 08:11:52" />
     <file relUrl="mSysAd/managecampus.aspx" publishTime="04/20/2011 07:07:01" />
-    <file relUrl="Web.sitemap" publishTime="06/01/2011 19:42:38" />
+    <file relUrl="Web.sitemap" publishTime="08/30/2011 14:38:55" />
+    <file relUrl="mSysAd/managetimeslot.aspx" publishTime="05/26/2011 06:41:48" />
     <file relUrl="mSysAd/purge.aspx" publishTime="05/26/2011 05:36:07" />
-    <file relUrl="bin/FlexTimeTable.xml" publishTime="06/13/2011 07:15:05" />
     <file relUrl="mVenAd/managebuilding.aspx" publishTime="05/13/2011 01:54:57" />
     <file relUrl="member/web.config" publishTime="03/27/2011 07:18:59" />
     <file relUrl="mSysAd/VenueAllocation.aspx" publishTime="04/05/2011 19:11:29" />
     <file relUrl="mVenAd/web.config" publishTime="04/17/2011 11:36:44" />
+    <file relUrl="mVenAd/managesites.aspx" publishTime="05/13/2011 01:43:39" />
     <file relUrl="Scripts/jquery-1.4.1.min.js" publishTime="03/22/2011 20:37:54" />
     <file relUrl="userControl/ldap.ascx" publishTime="05/19/2011 03:58:54" />
     <file relUrl="bin/Artem.Google.dll" publishTime="06/08/2011 01:50:53" />
-    <file relUrl="bin/FlexTimeTable.pdb" publishTime="06/13/2011 07:15:05" />
     <file relUrl="member/spaceutilisation.aspx" publishTime="05/31/2011 08:10:09" />
     <file relUrl="mSysAd/managefaculty.aspx" publishTime="04/20/2011 07:07:01" />
     <file relUrl="Default.aspx" publishTime="06/01/2011 06:00:53" />
     <file relUrl="mResAd/manageschool.aspx" publishTime="05/23/2011 15:04:36" />
     <file relUrl="Flex.Master" publishTime="05/31/2011 07:03:33" />
     <file relUrl="mSysAd/AcademicBlock.aspx" publishTime="04/27/2011 08:34:41" />
-    <file relUrl="mSysAd/resourcetypes.aspx" publishTime="05/13/2011 02:16:58" />
     <file relUrl="mVenAd/managevenues.aspx" publishTime="05/13/2011 01:33:59" />
-    <file relUrl="userControl/logButton.ascx" publishTime="04/16/2011 20:00:04" />
-    <file relUrl="userControl/classresource.ascx" publishTime="05/09/2011 23:11:52" />
-    <file relUrl="mResAd/manageprogramme.aspx" publishTime="05/30/2011 04:18:26" />
+    <file relUrl="bin/FlexTimeTable.dll" publishTime="08/30/2011 14:38:24" />
+    <file relUrl="mSysAd/web.config" publishTime="03/29/2011 06:08:29" />
+    <file relUrl="userControl/classresource.ascx" publishTime="08/30/2011 12:54:55" />
     <file relUrl="Login.aspx" publishTime="05/19/2011 04:03:53" />
     <file relUrl="mSysAd/ResourceAllocation.aspx" publishTime="04/20/2011 07:19:44" />
-    <file relUrl="web.config" publishTime="06/13/2011 07:13:10" />
-    <file relUrl="bin/AjaxControlToolkit.dll" publishTime="05/29/2011 07:23:31" />
-    <file relUrl="mSysAd/managetimeslot.aspx" publishTime="05/26/2011 06:41:48" />
-    <file relUrl="mSysAd/uploadVenues.aspx" publishTime="05/18/2011 15:30:03" />
-    <file relUrl="mSysAd/web.config" publishTime="03/29/2011 06:08:29" />
-    <file relUrl="mVenAd/assignVenuestoDepart.aspx" publishTime="05/31/2011 06:32:38" />
-    <file relUrl="bin/FlexTimeTable.dll" publishTime="06/13/2011 07:15:05" />
-    <file relUrl="userControl/uploadFile.ascx" publishTime="05/16/2011 03:52:38" />
-    <file relUrl="member/lecturerWorkload.aspx" publishTime="05/31/2011 09:34:58" />
-    <file relUrl="mSysAd/userManagement.aspx" publishTime="05/19/2011 05:32:24" />
+    <file relUrl="web.config" publishTime="06/08/2011 02:17:04" />
+    <file relUrl="bin/Artem.Google.pdb" publishTime="06/08/2011 01:50:53" />
+    <file relUrl="userControl/logButton.ascx" publishTime="04/16/2011 20:00:04" />
     <file relUrl="images/wsulogo.gif" publishTime="03/27/2011 06:42:56" />
+    <file relUrl="mResAd/manageclusterclasses.aspx" publishTime="08/30/2011 13:13:44" />
+    <file relUrl="mResAd/manageprogramme.aspx" publishTime="05/30/2011 04:18:26" />
+    <file relUrl="bin/FlexTimeTable.xml" publishTime="08/30/2011 14:38:24" />
+    <file relUrl="userControl/uploadFile.ascx" publishTime="05/16/2011 03:52:38" />
+    <file relUrl="bin/AjaxControlToolkit.dll" publishTime="05/29/2011 07:23:31" />
+    <file relUrl="member/lecturerWorkload.aspx" publishTime="05/31/2011 09:34:58" />
     <file relUrl="mSysAd/uploadQual.aspx" publishTime="05/15/2011 06:56:47" />
     <file relUrl="mSysAd/generateTimetable.aspx" publishTime="05/22/2011 06:46:54" />
-    <file relUrl="Scripts/jquery-1.4.1-vsdoc.js" publishTime="03/22/2011 20:37:54" />
+    <file relUrl="bin/FlexTimeTable.pdb" publishTime="08/30/2011 14:38:24" />
   </publishProfile>
 </publishData>

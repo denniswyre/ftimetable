@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Flex.Master"
     CodeBehind="manageclusterclasses.aspx.vb" Inherits="FlexTimeTable.manageclusterclasses" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../userControl/ClassLecturer.ascx" TagName="ClassLecturer" TagPrefix="uc2" %>
 <%@ Register Src="../userControl/classresource.ascx" TagName="classresource" TagPrefix="uc3" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
@@ -13,61 +14,63 @@
     <asp:Panel ID="pnlMain" runat="server">
         <table>
             <tr>
-                <td>
+                <td width="200px">
                     <asp:Literal ID="litDepartment" runat="server"></asp:Literal>
                 </td>
                 <td>
-                    <asp:DropDownList ID="cboDepartments" runat="server" AutoPostBack="true">
+                    <asp:DropDownList ID="cboDepartments" runat="server" AutoPostBack="true" Width="300px">
                     </asp:DropDownList>
-                    <asp:DropDownList ID="cboFaculty" runat="server" AutoPostBack="true">
+                    <asp:DropDownList ID="cboFaculty" runat="server" AutoPostBack="true" Width="200px">
                     </asp:DropDownList>
                 </td>
             </tr>
             <tr>
-                <td>
+                <td width="200px">
                     <asp:Literal ID="litSiteCluster" runat="server"></asp:Literal>
                 </td>
                 <td>
-                    <asp:DropDownList ID="cboCluster" runat="server" AutoPostBack="True">
+                    <asp:DropDownList ID="cboCluster" runat="server" AutoPostBack="True" Width="500px">
                     </asp:DropDownList>
                 </td>
             </tr>
             <tr>
-                <td>
+                <td width="200px">
                     <asp:Literal ID="litSubject" runat="server"></asp:Literal>
                 </td>
                 <td>
-                    <asp:DropDownList ID="cboSubject" runat="server" AutoPostBack="True">
+                    <asp:DropDownList ID="cboSubject" runat="server" AutoPostBack="True" Width="500px">
                     </asp:DropDownList>
                 </td>
             </tr>
         </table>
     </asp:Panel>
     <br />
-    <asp:Panel ID="pnlSubjectDetail" runat="server">
-        <table>
+    <asp:Panel ID="pnlSubjectDetail" runat="server" Width="100%">
+        <table width="100%">
             <tr>
-                <th class="style1">
+                <th width="50%" align="left">
                     Subject Details
                 </th>
-                <th>
+                <th width="50%"  align="left">
                     Associated Qualifications
                 </th>
             </tr>
             <tr>
-                <td class="style1">
+                <td width="50%">
                     <asp:Literal ID="litSubjectDetails" runat="server"></asp:Literal>
                 </td>
-                <td>
+                <td width="50%">
                     <asp:Literal ID="litQual" runat="server"></asp:Literal>
                     <asp:ListBox ID="lstQualification" runat="server"></asp:ListBox>
                 </td>
             </tr>
         </table>
     </asp:Panel>
-    <asp:MultiView ID="Pages" runat="server">
-        <asp:View ID="PageClasses" runat="server">
-            <asp:Panel ID="pnlDetails" runat="server" GroupingText="Class Groups">
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
+    <asp:TabContainer ID="TabClass" runat="server" ActiveTabIndex="0">
+        <asp:TabPanel ID="tab0" runat="server" HeaderText="Class Groups">
+            <ContentTemplate>
                 <asp:LinkButton ID="lnkClass" runat="server">New Class Group</asp:LinkButton>
                 <asp:GridView ID="grdClasses" runat="server" DataKeyNames="ID" AutoGenerateColumns="False">
                     <Columns>
@@ -88,21 +91,11 @@
                         <asp:CommandField ShowSelectButton="True" />
                     </Columns>
                 </asp:GridView>
-            </asp:Panel>
-        </asp:View>
-        <asp:View ID="PageClassDetails" runat="server">
-            <asp:Panel ID="Panel1" GroupingText="Class View" runat="server">
-                <asp:LinkButton ID="btnClassEdit2" runat="server">Edit</asp:LinkButton>&nbsp;&nbsp;
-                <asp:LinkButton ID="btnClassCancel" runat="server">Cancel</asp:LinkButton>
-                <br />
-                <asp:Literal ID="litClassDetails" runat="server"></asp:Literal>
-            </asp:Panel>
-            <uc2:ClassLecturer ID="ClassLecturer1" runat="server" />
-            <uc3:classresource ID="classresource1" runat="server" />
-        </asp:View>
-        <asp:View ID="pageClassEdit" runat="server">
-            <asp:Panel ID="pnlClass" GroupingText="Edit Class" runat="server">
-                <table>
+            </ContentTemplate>
+        </asp:TabPanel>
+        <asp:TabPanel ID="tab1" runat="server" HeaderText="Class Details">
+            <ContentTemplate>
+                   <table>
                     <tr>
                         <td>
                             ID:
@@ -159,12 +152,24 @@
                             <asp:Panel ID="pnlControl" runat="server">
                                 <asp:Button ID="btnSave" runat="server" Text="Save" />
                                 <asp:Button ID="btnDelete" runat="server" Text="Delete" />
-                                <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
-                            </asp:Panel>
+                                <asp:Button ID="btnReturn" runat="server" Text="Return" />
+                                <asp:Button ID="btnEdit" runat="server" Text="Edit" />
+                              </asp:Panel>
                         </td>
                     </tr>
                 </table>
-            </asp:Panel>
-        </asp:View>
-    </asp:MultiView>
+                
+            </ContentTemplate>
+        </asp:TabPanel>
+        <asp:TabPanel ID="Tab2" runat="server" HeaderText="Class Lecturer">
+            <ContentTemplate>
+                <uc2:ClassLecturer ID="ClassLecturer1" runat="server" />
+            </ContentTemplate>
+        </asp:TabPanel>
+        <asp:TabPanel ID="Tab3" runat="server" HeaderText="Class Resources">
+            <ContentTemplate>
+                <uc3:classresource id="classresource1" runat="server" />
+            </ContentTemplate>
+        </asp:TabPanel>
+    </asp:TabContainer>
 </asp:Content>

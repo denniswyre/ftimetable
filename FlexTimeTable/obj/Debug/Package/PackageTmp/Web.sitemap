@@ -1,44 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
-    <siteMapNode url="default.aspx" title="Home"  description="" roles="*">
-        <siteMapNode title="Reports"  description=""  roles="SystemAdmin,moderator,venueAdmin,resourceAdmin" >
-            <siteMapNode url="~/member/spaceutilisation.aspx" title="Space Utilization" description="" roles="*" />
-            <siteMapNode url="~/member/lecturerWorkload.aspx" title="Workload"  description="" roles="*" />
-            <siteMapNode url="~/member/ClassSummary.aspx" title="Class Statistics"  description="" roles="*" />
-        </siteMapNode>
-        <siteMapNode title="Admin"  description="" roles="SystemAdmin">
-            <siteMapNode url="~/mSysAd/resourceAllocation.aspx" title="Faculty Assignment"  description="" roles="SystemAdmin" />
-            <siteMapNode url="~/mSysAd/venueAllocation.aspx" title="Campus Assignment"  description="" roles="SystemAdmin" />
-            <siteMapNode url="~/mSysAd/managecampus.aspx" title="Campus Management"  description="" roles="SystemAdmin" />
-            <siteMapNode url="~/mSysAd/managefaculty.aspx" title="Faculty Management"  description="" roles="SystemAdmin" />
-            <siteMapNode url="~/mSysAd/userManagement.aspx" title="User Management"  description="" roles="SystemAdmin" />
-            <siteMapNode url="~/mSysAd/resourcetypes.aspx" title="Resource Types"  description="" roles="SystemAdmin" />
-            <siteMapNode url="~/mSysAd/academicblock.aspx" title="Academic Block"  description="" roles="SystemAdmin" />
-            <siteMapNode url="~/mSysAd/manageOfferingType.aspx" title="Offering Types"  description="" roles="SystemAdmin" />
-            <siteMapNode url="~/mSysAd/managetimeslot.aspx" title="Time Slot"  description="" roles="SystemAdmin" />
-            <siteMapNode url="~/mSysAd/uploadSubject.aspx" title="Upload Subjects"  description="" roles="SystemAdmin" />
-            <siteMapNode url="~/mSysAd/uploadQual.aspx" title="Upload Qualifications"  description="" roles="SystemAdmin" />
-            <siteMapNode url="~/mSysAd/uploadClasses.aspx" title="Upload Classes"  description="" roles="SystemAdmin" />
-            <siteMapNode url="~/mSysAd/uploadVenues.aspx" title="Upload Venue File" description="" roles="SystemAdmin" />
-            <siteMapNode url="~/mSysAd/purge.aspx" title="Purge Data"  description="" roles="SystemAdmin" />
-            <siteMapNode url="~/mSysAd/generateTimeTable.aspx" title="Generate TimeTable"  description="" roles="SystemAdmin" />
-        </siteMapNode>
-        <siteMapNode title="Campus Management"  description="" roles="venueAdmin">
-             <siteMapNode url="~/mVenAd/assignVenuestoDepart.aspx" title="Link Department" description="" roles="venueAdmin" />
-            <siteMapNode url="~/mVenAd/managevenues.aspx" title="Venues"  description="" roles="venueAdmin" />
-            <siteMapNode url="~/mVenAd/managebuilding.aspx" title="Buildings"  description="" roles="venueAdmin" />
-            <siteMapNode url="~/mVenAd/managesites.aspx" title="Sites"  description="" roles="venueAdmin" />
-            <siteMapNode url="~/mVenAd/managecluster.aspx" title="Site Clusters"  description="" roles="venueAdmin" />
-        </siteMapNode>
-        <siteMapNode title="Faculty Management"  description="" roles="resourceAdmin">
-            <siteMapNode url="~/mResAd/manageclusterclasses.aspx" title="Classes"  description="" roles="resourceAdmin" />
-            <siteMapNode url="~/mResAd/managelecturer.aspx" title="Lecturers"  description="" roles="resourceAdmin" />
-            <siteMapNode url="~/mResAd/manageprogramme.aspx" title="Programmes"  description="" roles="resourceAdmin" />
-            <siteMapNode url="~/mResAd/managesubject.aspx" title="Subjects"  description="" roles="resourceAdmin" />
-            <siteMapNode url="~/mResAd/managequalification.aspx" title="Qualifications"  description="" roles="resourceAdmin" />
-            <siteMapNode url="~/mResAd/managedepartment.aspx" title="Departments"  description="" roles="resourceAdmin" />
-            <siteMapNode url="~/mResAd/manageschool.aspx" title="Schools"  description="" roles="resourceAdmin" />
-        </siteMapNode>
-        <siteMapNode url="About.aspx" title="About"  description="" roles="*"/>
+  <siteMapNode url="default.aspx" title="Home"  description="" roles="*">
+    <siteMapNode title="Reports"  description=""  roles="SystemAdmin,moderator,venueAdmin,resourceAdmin" >
+      <siteMapNode url="~/member/spaceutilisation.aspx" title="Space Utilization" description="" roles="*" />
+      <siteMapNode url="~/member/lecturerWorkload.aspx" title="Workload"  description="" roles="*" />
+      <siteMapNode url="~/member/ClassSummary.aspx" title="Class Statistics"  description="" roles="*" />
     </siteMapNode>
+    <siteMapNode title="Admin"  description="" roles="SystemAdmin">
+      <siteMapNode url="~/mSysAd/resourceAllocation.aspx" title="Faculty Assignment"  description="" roles="SystemAdmin" />
+      <siteMapNode url="~/mSysAd/venueAllocation.aspx" title="Campus Assignment"  description="" roles="SystemAdmin" />
+      <siteMapNode url="~/mSysAd/managecampus.aspx" title="Campus Management"  description="" roles="SystemAdmin" />
+      <siteMapNode url="~/mSysAd/managefaculty.aspx" title="Faculty Management"  description="" roles="SystemAdmin" />
+      <siteMapNode url="~/mSysAd/userManagement.aspx" title="User Management"  description="" roles="SystemAdmin" />
+      <siteMapNode url="~/mSysAd/resourcetypes.aspx" title="Resource Types"  description="" roles="SystemAdmin" />
+      <siteMapNode url="~/mSysAd/academicblock.aspx" title="Academic Block"  description="" roles="SystemAdmin" />
+      <siteMapNode url="~/mSysAd/manageOfferingType.aspx" title="Offering Types"  description="" roles="SystemAdmin" />
+      <siteMapNode url="~/mSysAd/managetimeslot.aspx" title="Time Slot"  description="" roles="SystemAdmin" />
+      <siteMapNode url="~/mSysAd/uploadSubject.aspx" title="Upload Subjects"  description="" roles="SystemAdmin" />
+      <siteMapNode url="~/mSysAd/uploadQual.aspx" title="Upload Qualifications"  description="" roles="SystemAdmin" />
+      <siteMapNode url="~/mSysAd/uploadClasses.aspx" title="Upload Classes"  description="" roles="SystemAdmin" />
+      <siteMapNode url="~/mSysAd/uploadVenues.aspx" title="Upload Venue File" description="" roles="SystemAdmin" />
+      <siteMapNode url="~/mSysAd/purge.aspx" title="Purge Data"  description="" roles="SystemAdmin" />
+      <siteMapNode url="~/mSysAd/generateTimeTable.aspx" title="Generate TimeTable"  description="" roles="SystemAdmin" />
+    </siteMapNode>
+    <siteMapNode title="Campus Management"  description="" roles="venueAdmin">
+      <siteMapNode url="~/mVenAd/assignVenuestoDepart.aspx" title="Link Department" description="" roles="venueAdmin" />
+      <siteMapNode url="~/mVenAd/managevenues.aspx" title="Venues"  description="" roles="venueAdmin" />
+      <siteMapNode url="~/mVenAd/managebuilding.aspx" title="Buildings"  description="" roles="venueAdmin" />
+      <siteMapNode url="~/mVenAd/managesites.aspx" title="Sites"  description="" roles="venueAdmin" />
+      <siteMapNode url="~/mVenAd/managecluster.aspx" title="Site Clusters"  description="" roles="venueAdmin" />
+    </siteMapNode>
+    <siteMapNode title="Faculty Management"  description="" roles="resourceAdmin">
+      <siteMapNode url="~/mResAd/manageclusterclasses.aspx" title="Classes"  description="" roles="resourceAdmin" />
+      <siteMapNode url="~/mResAd/managelecturer.aspx" title="Lecturers"  description="" roles="resourceAdmin" />
+      <siteMapNode url="~/mResAd/manageprogramme.aspx" title="Programmes"  description="" roles="resourceAdmin" />
+      <siteMapNode url="~/mResAd/managesubject.aspx" title="Subjects"  description="" roles="resourceAdmin" />
+      <siteMapNode url="~/mResAd/managequalification.aspx" title="Qualifications"  description="" roles="resourceAdmin" />
+      <siteMapNode url="~/mResAd/managedepartment.aspx" title="Departments"  description="" roles="resourceAdmin" />
+      <siteMapNode url="~/mResAd/manageschool.aspx" title="Schools"  description="" roles="resourceAdmin" />
+    </siteMapNode>
+    <siteMapNode url="About.aspx" title="About"  description="" roles="*"/>
+  </siteMapNode>
 </siteMap>

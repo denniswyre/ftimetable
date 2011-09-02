@@ -1,10 +1,10 @@
-﻿Public Class manageclusterclasses
+﻿Partial Class manageclusterclasses
     Inherits System.Web.UI.Page
     Private TabHeader() As String = {"Class Groups", "Class", "Class Resources"}
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
-            loadCluster()
             loadFaculty()
+            loadCluster()
             loadOffering()
             loadTimeSlots()
             litSiteCluster.Text = "Site Cluster:"
@@ -12,14 +12,6 @@
             btnDelete.Text = "Delete"
             changeMode(eMode.reset)
         End If
-    End Sub
-
-    Sub loadCluster()
-        Dim vContext As timetableEntities = New timetableEntities()
-        Dim vClusters = (From p In vContext.siteclusters Order By p.campu.shortName, p.longName Select p).ToList
-        For Each x In vClusters
-            cboCluster.Items.Add(New ListItem(x.longName + ", " + x.campu.shortName, CStr(x.ID)))
-        Next
     End Sub
 
     Sub loadFaculty()
@@ -54,21 +46,67 @@
         loadSubjects()
     End Sub
 
+    Sub loadCluster()
+        Dim vContext As timetableEntities = New timetableEntities()
+        Dim vClusters = (From p In vContext.siteclusters Order By p.campu.shortName, p.longName Select name = (p.longName + ", " + p.campu.shortName), p.ID).ToList
+        With cboCluster
+            .DataSource = vClusters
+            .DataTextField = "name"
+            .DataValueField = "ID"
+            .DataBind()
+        End With
+        loadSubjects()
+    End Sub
+
+
     Sub loadSubjects()
+        If cboCluster.SelectedIndex = -1 Or cboDepartments.SelectedIndex = -1 Then
+            Exit Sub
+        End If
         Dim vContext As timetableEntities = New timetableEntities()
         cboSubject.Items.Clear()
         If cboDepartments.SelectedIndex >= 0 Then
+            Dim vSiteclusterID = CType(cboCluster.SelectedValue, Integer)
+            Dim vDepartmentID = CType(cboDepartments.SelectedValue, Integer)
+            Dim vSiteCluster = (From p In vContext.siteclusters Where p.ID = vSiteclusterID Select p).First
+            For Each x In (From p In vContext.programmesubjects Where p.subject.DepartmentID = vDepartmentID Select p).ToList
+                Dim vQualID = x.QualID
+                For Each y In (From o In vContext.qualifications Where o.ID = vQualID Select o).ToList
+                    For Each z In y.siteclusters
+                        If z.ID = vSiteclusterID Then
+                            Dim xvalue = x.subject.ID
+                            Dim isRedun = False
+                            'check for redundancy
+                            For Each i As ListItem In cboSubject.Items
+                                If xvalue = CInt(i.Value) Then
+                                    isRedun = True
+                                End If
+                            Next
+                            If Not isRedun Then
+                                'insert alphabetically
+                                Dim xInserted = False
+                                Dim xIndex = 0
+                                Dim xtext = x.subject.longName + "[" + x.subject.Code + "]"
+                                For Each i As ListItem In cboSubject.Items
+                                    If i.Text > XText Then
+                                        cboSubject.Items.Insert(xIndex, New ListItem(XText, CType(x.SubjectID, String)))
+                                        xInserted = True
+                                        Exit For
+                                    End If
+                                    xIndex = xIndex + 1
+                                Next
+                                If xInserted = False Then
+                                    cboSubject.Items.Add(New ListItem(xtext, CType(x.SubjectID, String)))
+                                End If
+                            End If
+                        End If
+                    Next
+                Next
+            Next
             litDepartment.Text = "Department:"
-            Dim DepartmentID = CType(cboDepartments.SelectedValue, Integer)
-            cboSubject.DataSource = (From p In vContext.subjects Where p.DepartmentID = DepartmentID _
-                                           Select lname = (p.longName + "[" + p.Code + "]"), p.ID).ToList
         Else
-            cboSubject.DataSource = Nothing
             litDepartment.Text = "No Department Created for this Faculty:"
         End If
-        cboSubject.DataTextField = "lname"
-        cboSubject.DataValueField = "ID"
-        cboSubject.DataBind()
         displaySubject()
     End Sub
 
@@ -93,15 +131,9 @@
                 End If
             Next
             With vSubject
-                litSubjectDetails.Text = "<table>" + _
-                                         "<tr><td>Code:</td><td><b>" + .Code + "</b></td>" + _
-                                         "  <td>Short name:</td><td><b>" + .shortName + "</b></td></tr>" + _
-                                         "<tr><td>Long Name:</td><td><b>" + .longName + "</b></td>" + _
-                                         "   <td>Level:</td><td><b>" + CStr(.Level) + "</b></td></tr>" + _
-                                         "<tr><td>Old Codes:</td><td><b>" + .oldCode + "</b></td>" + _
-                                         "   <td>Full Year:</td><td><b>" + CStr(IIf(.yearBlock, "Yes", "No")) + "</b></td></tr>" + _
-                                         "</table>"
-
+                litSubjectDetails.Text = "Code:<b>" + .Code + "</b>&nbsp;&nbsp; Short name:<b>" + .shortName + "</b><br/>" +
+                                         "Name:<b>" + .longName + "</b><br/>" +
+                                         "Level:<b>" + CStr(.Level) + "</b>&nbsp;&nbsp;Full Year:<b>" + CStr(IIf(.yearBlock, "Yes", "No")) + "</b>"
             End With
             If IsQualListed Then
                 lstQualification.Visible = True
@@ -130,27 +162,79 @@
     Sub changeMode(ByVal vMode As eMode)
         Select Case vMode
             Case eMode.edit
-                Pages.ActiveViewIndex = 2
+                TabClass.ActiveTabIndex = 1 ' ' .ActiveViewIndex = 2
+                tab0.Enabled = False
+                tab1.Enabled = True
+                Tab2.Enabled = False
+                Tab3.Enabled = False
+                tab1.HeaderText = "Class Group " + CStr(lblID.Text) + " Details"
+                Tab2.HeaderText = "Lecturer For Class Group->" + CStr(lblID.Text)
+                Tab3.HeaderText = "Class Group->" + CStr(lblID.Text) + " Resources"
+                txtCode.Enabled = True
+                cboOffering.Enabled = True
+                cboBlock.Enabled = True
+                txtSize.Enabled = True
+                cboTimeSlots.Enabled = True
+                btnReturn.Visible = True
+                btnEdit.Visible = False
                 btnDelete.Visible = True
                 btnSave.Visible = True
                 btnSave.Text = "Update"
             Case eMode.create
-                Pages.ActiveViewIndex = 2
+                TabClass.ActiveTabIndex = 1
+                tab0.Enabled = False
+                tab1.Enabled = True
+                Tab2.Enabled = False
+                Tab3.Enabled = False
+                tab1.HeaderText = "New Class Group"
+                Tab2.HeaderText = "Lecturer"
+                Tab3.HeaderText = "Class Group Resources"
                 lblID.Text = ""
                 txtCode.Text = ""
                 txtSize.Text = "" '.shortName
                 cboTimeSlots.SelectedIndex = 0
                 cboOffering.SelectedIndex = 0
                 cboBlock.SelectedIndex = 0
+                txtCode.Enabled = True
+                cboOffering.Enabled = True
+                cboBlock.Enabled = True
+                txtSize.Enabled = True
+                cboTimeSlots.Enabled = True
+                btnReturn.Visible = True
+                btnEdit.Visible = False
                 btnDelete.Visible = False
                 btnSave.Visible = True
                 btnSave.Text = "Save"
             Case eMode.reset
                 LoadClasses()
-                Pages.ActiveViewIndex = 0
+                TabClass.ActiveTabIndex = 0
+                tab0.Enabled = True
+                tab1.Enabled = False
+                Tab2.Enabled = False
+                Tab3.Enabled = False
+                tab1.HeaderText = "Class Group"
+                Tab2.HeaderText = "Lecturer"
+                Tab3.HeaderText = "Class Group Resources"
             Case eMode.view
                 displayclass()
-                Pages.ActiveViewIndex = 1
+                TabClass.ActiveTabIndex = 1
+                tab0.Enabled = True
+                tab1.Enabled = True
+                Tab2.Enabled = True
+                Tab3.Enabled = True
+                tab1.HeaderText = "Class Group->" + CStr(lblID.Text) + " Details"
+                Tab2.HeaderText = "Lecturer For Class Group->" + CStr(lblID.Text)
+                Tab3.HeaderText = "Class Group->" + CStr(lblID.Text) + " Resources"
+                txtCode.Enabled = False
+                cboOffering.Enabled = False
+                cboBlock.Enabled = False
+                txtSize.Enabled = False
+                cboTimeSlots.Enabled = False
+                btnReturn.Visible = False
+                btnEdit.Visible = True
+                btnDelete.Visible = False
+                btnSave.Visible = False
+                btnSave.Text = "Save"
         End Select
     End Sub
 
@@ -175,7 +259,7 @@
     End Sub
 
     Protected Sub cboCluster_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles cboCluster.SelectedIndexChanged
-        displaySubject()
+        loadSubjects()
     End Sub
 
 
@@ -184,7 +268,7 @@
         Dim vContext As timetableEntities = New timetableEntities()
         Dim vClass As classgroup = _
                    (From p In vContext.classgroups _
-                       Where p.ID = vID Select p).First
+                       Where p.ID = vid Select p).First
         With vClass
             lblID.Text = .ID.ToString
             txtCode.Text = .code
@@ -199,7 +283,7 @@
 
     Sub loadUserControls(ByVal vid As Integer)
         'load class resource
-        classresource1.ClassID = vID
+        classresource1.ClassID = vid
         classresource1.LoadResources()
         'load Lectuerer
         ClassLecturer1.mClassID = vid
@@ -213,7 +297,7 @@
         Dim rowstart = "<tr><td>"
         Dim rowmiddle = "</td><td><b>"
         Dim rowend = "</b></td></tr>"
-        litClassDetails.Text = tableStart + _
+        Dim templitClassViewText = tableStart + _
                                 rowstart + "code:" + rowmiddle + txtCode.Text + rowend + _
                                 rowstart + "Size:" + rowmiddle + txtSize.Text + rowend + _
                                 rowstart + "Block:" + rowmiddle + cboBlock.SelectedItem.Text + rowend + _
@@ -230,7 +314,7 @@
             lnkClass.Enabled = True
             Dim vContext As timetableEntities = New timetableEntities()
             Dim vSiteClusterID = CType(cboCluster.SelectedItem.Value, Integer)
-            Dim vSubjectID = CType(cboDepartments.SelectedItem.Value, Integer)
+            Dim vSubjectID = CType(cboSubject.SelectedItem.Value, Integer)
             Dim vClasses = (From p In vContext.siteclustersubjects
                                 Where p.SubjectID = vSubjectID And
                                       p.SiteClusterID = vSiteClusterID
@@ -288,7 +372,7 @@
     Protected Function CreateClass() As Integer
         Dim vContext As timetableEntities = New timetableEntities()
         Dim vSiteClusterID = CType(cboCluster.SelectedItem.Value, Integer)
-        Dim vSubjectID = CType(cboDepartments.SelectedItem.Value, Integer)
+        Dim vSubjectID = CType(cboSubject.SelectedItem.Value, Integer)
         Dim vSiteSubject = (From p In vContext.siteclustersubjects
                             Where p.SubjectID = vSubjectID And
                                   p.SiteClusterID = vSiteClusterID
@@ -328,8 +412,6 @@
             .AcademicBlockID = CInt(cboBlock.SelectedValue)
             .OfferingTypeID = CInt(cboOffering.SelectedValue)
             .TimeSlotTotal = cboTimeSlots.SelectedIndex + 1
-            .SiteClusterID = CType(cboCluster.SelectedItem.Value, Integer)
-            .SubjectID = CType(cboDepartments.SelectedItem.Value, Integer)
         End With
         vContext.SaveChanges()
     End Sub
@@ -351,33 +433,44 @@
             Else
                 UpdateClass()
             End If
+            LoadClasses()
             changeMode(eMode.view)
             litMessage.Text = ""
         Catch ex As Exception
-            litMessage.Text = ex.Message
+            If IsNothing(ex.InnerException) Then
+                litMessage.Text = clsGeneral.displaymessage(ex.Message, True)
+            Else
+                litMessage.Text = clsGeneral.displaymessage(ex.InnerException.Message, True)
+            End If
         End Try
     End Sub
 
     Private Sub btnDelete_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnDelete.Click
         Try
             DeleteClass()
+            LoadClasses()
             changeMode(eMode.reset)
             litMessage.Text = ""
         Catch ex As Exception
-            litMessage.Text = ex.Message
+            If IsNothing(ex.InnerException) Then
+                litMessage.Text = clsGeneral.displaymessage(ex.Message, True)
+            Else
+                litMessage.Text = clsGeneral.displaymessage(ex.InnerException.Message, True)
+            End If
         End Try
     End Sub
 
-    Protected Sub btnCancel_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnCancel.Click
+
+    Private Sub btnReturn_Click(sender As Object, e As System.EventArgs) Handles btnReturn.Click
         litMessage.Text = ""
-        changeMode(eMode.view)
+        Try
+            changeMode(eMode.view)
+        Catch ex As Exception
+            changeMode(eMode.reset)
+        End Try
     End Sub
 
-    Protected Sub btnClassEdit2_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnClassEdit2.Click
+    Private Sub btnEdit_Click(sender As Object, e As System.EventArgs) Handles btnEdit.Click
         changeMode(eMode.edit)
-    End Sub
-
-    Protected Sub btnClassCancel_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnClassCancel.Click
-        changeMode(eMode.reset)
     End Sub
 End Class

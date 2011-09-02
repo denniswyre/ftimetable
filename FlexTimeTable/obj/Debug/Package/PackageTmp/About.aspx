@@ -14,8 +14,8 @@
 <p>
        The system was developed by Mr Courtney Walker for the Walter Sisulu University. 
     </p>
-<p>
-       &nbsp;</p>
-<p>
-       &nbsp;</p>
+    <p>The system maintained and supported at  
+        <asp:HyperLink ID="HyperLink1" runat="server" 
+            NavigateUrl="http://code.google.com/p/ftimetable/" Target="_blank">Flex TimeTable Support Site.</asp:HyperLink> </p>
+
 </asp:Content>

@@ -14,13 +14,13 @@ Option Explicit On
 Partial Public Class managelecturer
 
     '''<summary>
-    '''litMessage control.
+    '''litErrorMessage control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents litMessage As Global.System.Web.UI.WebControls.Literal
+    Protected WithEvents litErrorMessage As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
     '''litDepartment control.
@@ -59,22 +59,22 @@ Partial Public Class managelecturer
     Protected WithEvents ScriptManager1 As Global.System.Web.UI.ScriptManager
 
     '''<summary>
-    '''TabContainer1 control.
+    '''mvLecturer control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents TabContainer1 As Global.AjaxControlToolkit.TabContainer
+    Protected WithEvents mvLecturer As Global.System.Web.UI.WebControls.MultiView
 
     '''<summary>
-    '''TabLecturer control.
+    '''vwSelect control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents TabLecturer As Global.AjaxControlToolkit.TabPanel
+    Protected WithEvents vwSelect As Global.System.Web.UI.WebControls.View
 
     '''<summary>
     '''pnlgetLecturer control.
@@ -156,6 +156,42 @@ Partial Public Class managelecturer
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents grdLecturers As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
+    '''vwDetails control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents vwDetails As Global.System.Web.UI.WebControls.View
+
+    '''<summary>
+    '''litLecturer control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents litLecturer As Global.System.Web.UI.WebControls.Literal
+
+    '''<summary>
+    '''lnkReturn control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lnkReturn As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
+    '''TabContainer1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents TabContainer1 As Global.AjaxControlToolkit.TabContainer
 
     '''<summary>
     '''TabSubject control.

@@ -6,7 +6,7 @@ Public Class managelecturer
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
-            loadFaculty()
+            getDepartment1.loadFaculty(User.Identity.Name)
             loadRosterVariables()
             setcontrol(True)
         End If
@@ -14,74 +14,31 @@ Public Class managelecturer
 
 #Region "general"
 
-    Sub loadFaculty()
-        Dim vContext As timetableEntities = New timetableEntities()
-        Dim OfficerID As Integer = clsOfficer.getOfficer(User.Identity.Name).ID
-        Me.cboFaculty.DataSource = (From p In vContext.facultyusers _
-                                     Where p.OfficerID = OfficerID _
-                                       Select p.FacultyName, p.FacultyID)
-        Me.cboFaculty.DataTextField = "FacultyName"
-        Me.cboFaculty.DataValueField = "FacultyID"
-        Me.cboFaculty.DataBind()
-
-        loadDepartments()
-    End Sub
-
-    Sub loadDepartments()
-        Dim vContext As timetableEntities = New timetableEntities
-        If cboFaculty.SelectedIndex >= 0 Then
-            Dim FacultyID = CType(Me.cboFaculty.SelectedValue, Integer)
-            Me.cboDepartments.DataSource = (From p In vContext.departments _
-                                Where p.school.facultyID = FacultyID _
-                                Order By p.school.longName, p.longName _
-                                  Select longName = (p.longName + "," + p.school.longName), p.ID)
-        Else
-            Me.cboDepartments.DataSource = Nothing
-        End If
-        Me.cboDepartments.DataTextField = "longName"
-        Me.cboDepartments.DataValueField = "ID"
-        Me.cboDepartments.DataBind()
-        mvLecturer.SetActiveView(vwSelect)
-        loadlecturers()
-        loadsubjects()
-    End Sub
 
     Sub loadlecturers()
         Dim vContext As timetableEntities = New timetableEntities()
-        If cboDepartments.SelectedIndex >= 0 Then
-            Dim DepartmentID = CType(cboDepartments.SelectedValue, Integer)
-            Dim vLecturers = (From p In vContext.lecturers
-                                Order By p.officer.Surname, p.officer.FirstName
-                                        Where p.DepartmentID = DepartmentID
-                                           Select surname = p.officer.Surname,
-                                                  firstname = p.officer.FirstName,
-                                                  initials = p.officer.Initials,
-                                                  title = p.officer.title,
-                                                  username = p.officer.my_aspnet_users.name,
-                                                  id = p.LecturerID).ToList
-            litDepartment.Text = "Department:"
-            pnlLecturers.GroupingText = "Lecturers" '+ cboDepartments.SelectedItem.Text
-            grdLecturers.DataSource = vLecturers
-            grdLecturers.DataBind()
-            pnlgetLecturer.Enabled = True
-        Else
-            grdLecturers.DataSource = Nothing
-            grdLecturers.DataBind()
-            litDepartment.Text = "No Department:"
-            pnlgetLecturer.Enabled = False
-        End If
+        Dim DepartmentID = getDepartment1.getID
+        Dim vLecturers = (From p In vContext.lecturers
+                            Order By p.officer.Surname, p.officer.FirstName
+                                    Where p.DepartmentID = DepartmentID
+                                       Select surname = p.officer.Surname,
+                                              firstname = p.officer.FirstName,
+                                              initials = p.officer.Initials,
+                                              title = p.officer.title,
+                                              username = p.officer.my_aspnet_users.name,
+                                              id = p.LecturerID).ToList
+        pnlLecturers.GroupingText = "Lecturers" '+ cboDepartments.SelectedItem.Text
+        grdLecturers.DataSource = vLecturers
+        grdLecturers.DataBind()
+        pnlgetLecturer.Enabled = True
         loadLecturerDetails()
     End Sub
 
     Sub loadsubjects()
         Dim vContext As timetableEntities = New timetableEntities()
-        If cboDepartments.SelectedIndex >= 0 Then
-            Dim DepartmentID = CType(cboDepartments.SelectedValue, Integer)
-            lstAvailableSubjects.DataSource = (From p In vContext.subjects Where p.DepartmentID = DepartmentID _
-                                           Select p.longName, p.ID)
-        Else
-            lstAvailableSubjects.DataSource = Nothing
-        End If
+        Dim DepartmentID = getDepartment1.getID
+        lstAvailableSubjects.DataSource = (From p In vContext.subjects Where p.DepartmentID = DepartmentID _
+                                       Select p.longName, p.ID)
         lstAvailableSubjects.DataTextField = "longName"
         lstAvailableSubjects.DataValueField = "ID"
         lstAvailableSubjects.DataBind()
@@ -119,17 +76,6 @@ Public Class managelecturer
         ''headers
     End Sub
 
-    Private Sub cboFaculty_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboFaculty.SelectedIndexChanged
-        litErrorMessage.Text = ""
-        loadDepartments()
-    End Sub
-
-    Private Sub cboDepartments_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboDepartments.SelectedIndexChanged
-        litErrorMessage.Text = ""
-        loadlecturers()
-        loadsubjects()
-        mvLecturer.SetActiveView(vwSelect)
-    End Sub
 
 #End Region
 
@@ -210,7 +156,7 @@ Public Class managelecturer
             ''= (From p In vContext.lecturers Where p.LecturerID = vReturn.ID Select p).FirstOrDefault
             Dim vContext As timetableEntities = New timetableEntities()
             Dim vlecturer As New lecturer With {
-                .DepartmentID = CInt(cboDepartments.SelectedValue),
+                .DepartmentID = getDepartment1.getID,
                 .LecturerID = vReturn.ID}
             vContext.lecturers.AddObject(vlecturer)
             vContext.SaveChanges()
@@ -411,5 +357,12 @@ Public Class managelecturer
 
     Private Sub lnkReturn_Click(sender As Object, e As System.EventArgs) Handles lnkReturn.Click
         mvLecturer.SetActiveView(vwSelect)
+    End Sub
+
+    Private Sub getDepartment1_DepartmentClick(E As Object, Args As clsDepartmentEvent) Handles getDepartment1.DepartmentClick
+        litErrorMessage.Text = ""
+        mvLecturer.SetActiveView(vwSelect)
+        loadlecturers()
+        loadsubjects()
     End Sub
 End Class

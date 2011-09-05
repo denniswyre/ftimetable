@@ -113,6 +113,7 @@
     <Content Include="bin\FlexTimeTable.dll" />
     <Content Include="bin\FlexTimeTable.pdb" />
     <Content Include="bin\FlexTimeTable.xml" />
+    <Content Include="images\ajax-loader.gif" />
     <Content Include="Login.aspx" />
     <Content Include="member\ClassSummary.aspx" />
     <Content Include="member\lecturerWorkload.aspx" />
@@ -154,6 +155,7 @@
     <Content Include="Flex.Master" />
     <Content Include="userControl\ClassLecturer.ascx" />
     <Content Include="userControl\classresource.ascx" />
+    <Content Include="userControl\getDepartment.ascx" />
     <Content Include="userControl\ldap.ascx" />
     <Content Include="userControl\logButton.ascx" />
     <Content Include="userControl\uploadFile.ascx" />
@@ -175,6 +177,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dbcontext.edmx</DependentUpon>
     </Compile>
+    <Compile Include="App_Code\departmentEvent.vb" />
     <Compile Include="App_Code\filetotableconversion.vb" />
     <Compile Include="App_Code\general.vb" />
     <Compile Include="Login.aspx.designer.vb">
@@ -442,6 +445,13 @@
     </Compile>
     <Compile Include="userControl\classresource.ascx.vb">
       <DependentUpon>classresource.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="userControl\getDepartment.ascx.designer.vb">
+      <DependentUpon>getDepartment.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="userControl\getDepartment.ascx.vb">
+      <DependentUpon>getDepartment.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="userControl\ldap.ascx.designer.vb">

@@ -2,6 +2,7 @@
     CodeBehind="managesubject.aspx.vb" Inherits="FlexTimeTable.managesubject" %>
 
 <%@ Register Src="~/userControl/logButton.ascx" TagName="logButton" TagPrefix="uc1" %>
+<%@ Register src="../userControl/getDepartment.ascx" tagname="getDepartment" tagprefix="uc2" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <style type="text/css">
         .style1
@@ -14,11 +15,7 @@
     <h3>
         Manage subjects</h3>
     <asp:Label ID="lblMessage" runat="server" Text="Label"></asp:Label><br />
-    <asp:Literal ID="litDepartment" runat="server"></asp:Literal>
-    <asp:DropDownList ID="cboDepartments" AutoPostBack="true" runat="server">
-    </asp:DropDownList>
-    <asp:DropDownList ID="cboFaculty" AutoPostBack="true" runat="server">
-    </asp:DropDownList>
+    <uc2:getDepartment ID="getDepartment1" runat="server" />
     <br />
     <asp:MultiView ID="mvSubject" runat="server">
         <asp:View ID="vwGrid" runat="server">

@@ -28,9 +28,9 @@
         </tr>
         <tr>
             <td valign="top" style="margin-left: 120px">
-                <asp:Calendar ID="Calendar1" runat="server" BackColor="White" 
-                    BorderColor="#999999" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana"
-                    Font-Size="8pt" ForeColor="Black" Height="180px" Width="200px">
+                <asp:Calendar ID="Calendar1" runat="server" BackColor="White" BorderColor="#999999"
+                    CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt"
+                    ForeColor="Black" Height="180px" Width="200px">
                     <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
                     <NextPrevStyle VerticalAlign="Bottom" />
                     <OtherMonthDayStyle ForeColor="#808080" />
@@ -177,14 +177,14 @@
                                                 </td>
                                             </tr>
                                             <asp:PlaceHolder ID="phLecturer" runat="server">
-                                             <tr>
-                                                <td>
-                                                    Lecturer:
-                                                </td>
-                                                <td>
-                                                    <%# Container.DataItem("lecturer")%>
-                                                </td>
-                                            </tr>
+                                                <tr>
+                                                    <td>
+                                                        Lecturer:
+                                                    </td>
+                                                    <td>
+                                                        <%# Container.DataItem("lecturer")%>
+                                                    </td>
+                                                </tr>
                                             </asp:PlaceHolder>
                                         </table>
                                         <br />

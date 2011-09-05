@@ -13,7 +13,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h3>
         faculty Managment</h3>
-     <asp:Label ID="lblMessage" runat="server" Text="Label"></asp:Label><br />
+     <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label><br />
     <asp:LinkButton ID="lnkCreate" runat="server">New faculty</asp:LinkButton>
     <asp:GridView ID="Grdfaculty" runat="server" AutoGenerateColumns="False" DataKeyNames="ID">
         <Columns>

@@ -22,8 +22,8 @@
         ''populate field
         With Grdfaculty
             Me.txtID.Text = .SelectedRow.Cells(0).Text
-            Me.txtLongName.Text = .SelectedRow.Cells(1).Text
-            Me.txtShortName.Text = .SelectedRow.Cells(2).Text
+            Me.txtShortName.Text = .SelectedRow.Cells(1).Text
+            Me.txtLongName.Text = .SelectedRow.Cells(2).Text
             changeMode(eMode.edit)
         End With
         lblMessage.Text = ""
@@ -109,7 +109,7 @@
             Me.pnlAction.Visible = False
             lblMessage.Text = ""
         Catch ex As Exception
-            lblMessage.Text = ex.Message
+            lblMessage.Text = clsGeneral.displaymessage(ex.Message, True)
         End Try
     End Sub
 
@@ -120,7 +120,7 @@
             Me.pnlAction.Visible = False
             lblMessage.Text = ""
         Catch ex As Exception
-            lblMessage.Text = ex.Message
+            lblMessage.Text = clsGeneral.displaymessage(ex.Message, True)
         End Try
     End Sub
 

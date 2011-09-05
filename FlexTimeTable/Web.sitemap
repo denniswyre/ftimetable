@@ -7,11 +7,13 @@
       <siteMapNode url="~/member/ClassSummary.aspx" title="Class Statistics"  description="" roles="*" />
     </siteMapNode>
     <siteMapNode title="Admin"  description="" roles="SystemAdmin">
-      <siteMapNode url="~/mSysAd/resourceAllocation.aspx" title="Faculty Assignment"  description="" roles="SystemAdmin" />
-      <siteMapNode url="~/mSysAd/venueAllocation.aspx" title="Campus Assignment"  description="" roles="SystemAdmin" />
-      <siteMapNode url="~/mSysAd/managecampus.aspx" title="Campus Management"  description="" roles="SystemAdmin" />
-      <siteMapNode url="~/mSysAd/managefaculty.aspx" title="Faculty Management"  description="" roles="SystemAdmin" />
-      <siteMapNode url="~/mSysAd/userManagement.aspx" title="User Management"  description="" roles="SystemAdmin" />
+      <siteMapNode title="User Management"  description="" roles="SystemAdmin">
+        <siteMapNode url="~/mSysAd/userManagement.aspx" title="User Roles"  description="" roles="SystemAdmin" />
+        <siteMapNode url="~/mSysAd/resourceAllocation.aspx" title="Academic Administration"  description="" roles="SystemAdmin" />
+        <siteMapNode url="~/mSysAd/venueAllocation.aspx" title="Space Administration"  description="" roles="SystemAdmin" />
+      </siteMapNode>
+      <siteMapNode url="~/mSysAd/managefaculty.aspx" title="Faculties"  description="" roles="SystemAdmin" />
+      <siteMapNode url="~/mSysAd/managecampus.aspx" title="Campuses"  description="" roles="SystemAdmin" />
       <siteMapNode url="~/mSysAd/resourcetypes.aspx" title="Resource Types"  description="" roles="SystemAdmin" />
       <siteMapNode url="~/mSysAd/academicblock.aspx" title="Academic Block"  description="" roles="SystemAdmin" />
       <siteMapNode url="~/mSysAd/manageOfferingType.aspx" title="Offering Types"  description="" roles="SystemAdmin" />

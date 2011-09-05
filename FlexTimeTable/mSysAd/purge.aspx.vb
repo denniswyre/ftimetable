@@ -178,11 +178,6 @@
             Message.Text = "You must check the checkbox first!!!"
             Exit Sub
         End If
-        Dim dn = ldap1.getUserDetails(User.Identity.Name)
-        If IsNothing(ldap1.BindLdap(dn.DistinquishedName, txtwordpass.Text)) Then
-            Message.Text = "Your password is incorrect!!"
-            Exit Sub
-        End If
         Try
             Select Case optOption.SelectedIndex
                 Case 0  'site

@@ -41,15 +41,6 @@ Partial Public Class purge
     Protected WithEvents CheckBox1 As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
-    '''txtwordpass control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtwordpass As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
     '''btnPurge control.
     '''</summary>
     '''<remarks>
@@ -57,13 +48,4 @@ Partial Public Class purge
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnPurge As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''ldap1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ldap1 As Global.FlexTimeTable.ldap
 End Class

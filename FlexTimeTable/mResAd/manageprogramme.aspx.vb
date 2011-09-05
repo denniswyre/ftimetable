@@ -6,61 +6,26 @@
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
-            loadFaculty()
+            getDepartment1.loadFaculty(User.Identity.Name)
             loadAllClusters()
             TabContainer1.ActiveTabIndex = 0
             setTabHeader(0)
         End If
     End Sub
 
-
-    Sub loadFaculty()
-        Dim vContext As timetableEntities = New timetableEntities()
-        Dim OfficerID As Integer = clsOfficer.getOfficer(User.Identity.Name).ID
-        cboFaculty.DataSource = (From p In vContext.facultyusers _
-                                     Where p.OfficerID = OfficerID _
-                                       Select p.FacultyName, p.FacultyID)
-        cboFaculty.DataTextField = "FacultyName"
-        cboFaculty.DataValueField = "FacultyID"
-        cboFaculty.DataBind()
-
-        loadDepartments()
+    Private Sub manageprogramme_PreRender(sender As Object, e As System.EventArgs) Handles Me.PreRender
+        getDepartment1.SetLabel(False, 220)
     End Sub
 
-    Sub loadDepartments()
-        cboDepartment.Items.Clear()
-        Dim vContext As timetableEntities = New timetableEntities()
-        If cboFaculty.SelectedIndex >= 0 Then
-            Dim FacultyID As Integer = CType(cboFaculty.SelectedValue, Integer)
-            cboDepartment.DataSource = (From p In vContext.departments Where p.school.facultyID = FacultyID Select longName = (p.longName + "," + p.school.shortName), p.ID)
-            litDepartment.Text = "Department:"
-        Else
-            cboDepartment.DataSource = Nothing
-            litDepartment.Text = "No Department Found:"
-        End If
-        cboDepartment.DataTextField = "longName"
-        cboDepartment.DataValueField = "ID"
-        cboDepartment.DataBind()
 
-        loadQualification()
-
-    End Sub
-
-    Sub loadQualification()
+    Sub loadQualification(ByVal DepartID As Integer)
         cboQualification.Items.Clear()
         Dim vContext As timetableEntities = New timetableEntities()
-        If cboDepartment.SelectedIndex >= 0 Then
-            Dim DepartID As Integer = CType(cboDepartment.SelectedValue, Integer)
-            cboQualification.DataSource = (From p In vContext.qualifications Where p.DepartmentID = DepartID Select p.longName, p.ID)
-        Else
-            cboQualification.DataSource = Nothing
-        End If
+        cboQualification.DataSource = (From p In vContext.qualifications Where p.DepartmentID = DepartID Select p.longName, p.ID)
         cboQualification.DataTextField = "longName"
         cboQualification.DataValueField = "ID"
         cboQualification.DataBind()
-
         displayQualificationDetails()
-
     End Sub
 
     Sub setcontrol(ByVal vEnabled As Boolean)
@@ -77,7 +42,7 @@
         lstServiceSubjects.Items.Clear()
         lstSelectedCoreSubjects.Items.Clear()
         lstSelectedServiceSubject.Items.Clear()
-        loadCoreSubjects("")
+        loadCoreSubjects("", getDepartment1.getID)
         loadServiceSubjects("")
         If cboQualification.Items.Count > 0 Then
             LoadQualificationSubjects()
@@ -100,7 +65,7 @@
                                                Select p).ToList
         For Each prog As programmesubject In programmesubjectList
             Dim vItem As New ListItem(prog.subject.longName, CStr(prog.SubjectID))
-            If prog.subject.DepartmentID = CInt(cboDepartment.SelectedValue) Then
+            If prog.subject.DepartmentID = getDepartment1.getID Then
                 'core subject
                 lstSelectedCoreSubjects.Items.Add(vItem)
                 lstSelectedCoreSubjects.SelectedIndex = -1
@@ -132,16 +97,6 @@
         phLevel.Visible = CBool(IIf(index = 2, False, True))
     End Sub
 
-    Private Sub cboFaculty_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboFaculty.SelectedIndexChanged
-        loadDepartments()
-    End Sub
-
-
-    Private Sub cboDepartment_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboDepartment.SelectedIndexChanged
-        loadQualification()
-        loadCoreSubjects("")
-    End Sub
-
     Private Sub cboQualification_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboQualification.SelectedIndexChanged
         displayQualificationDetails()
     End Sub
@@ -151,7 +106,7 @@
     End Sub
 
     Protected Sub btnCoreSearch_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnCoreSearch.Click
-        loadCoreSubjects(txtCoreSearch.Text)
+        loadCoreSubjects(txtCoreSearch.Text, getDepartment1.getID)
     End Sub
 
     Private Sub btnServiceSearch_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnServiceSearch.Click
@@ -189,19 +144,14 @@
 #End Region
 
 #Region "Core Subjects"
-    Sub loadCoreSubjects(ByVal vSearch As String)
+    Sub loadCoreSubjects(ByVal vSearch As String, DepartID As Integer)
         lstCoreSubjects.Items.Clear()
         Dim vContext As timetableEntities = New timetableEntities()
-        If cboDepartment.SelectedIndex >= 0 Then
-            Dim DepartID As Integer = CType(cboDepartment.SelectedValue, Integer)
-            Dim QualExist As Boolean = CBool(IIf(cboQualification.SelectedIndex > -1, True, False))
-            lstCoreSubjects.DataSource = (From p In vContext.subjects
+        Dim QualExist As Boolean = CBool(IIf(cboQualification.SelectedIndex > -1, True, False))
+        lstCoreSubjects.DataSource = (From p In vContext.subjects
                                            Order By p.longName
                                              Where QualExist And p.DepartmentID = DepartID And p.longName.Contains(vSearch)
                                                 Select p.longName, p.ID)
-        Else
-            lstCoreSubjects.DataSource = Nothing
-        End If
         lstCoreSubjects.DataTextField = "longName"
         lstCoreSubjects.DataValueField = "ID"
         lstCoreSubjects.DataBind()
@@ -232,21 +182,16 @@
     Sub loadServiceSubjects(ByVal vSearch As String)
         lstServiceSubjects.Items.Clear()
         Dim vContext As timetableEntities = New timetableEntities()
-        If cboDepartment.SelectedIndex >= 0 Then
-            Dim DepartID As Integer = CType(cboDepartment.SelectedValue, Integer)
-            Dim QualExist As Boolean = CBool(IIf(cboQualification.SelectedIndex > -1, True, False))
-            lstServiceSubjects.DataSource = (From p In vContext.subjects
-                                                Order By p.longName
-                                                    Where QualExist And p.DepartmentID <> DepartID And
-                                                          p.longName.Contains(vSearch)
-                                                        Select p.longName, p.ID)
-        Else
-            lstServiceSubjects.DataSource = Nothing
-        End If
+        Dim DepartID As Integer = getDepartment1.getID
+        Dim QualExist As Boolean = CBool(IIf(cboQualification.SelectedIndex > -1, True, False))
+        lstServiceSubjects.DataSource = (From p In vContext.subjects
+                                            Order By p.longName
+                                                Where QualExist And p.DepartmentID <> DepartID And
+                                                      p.longName.Contains(vSearch)
+                                                    Select p.longName, p.ID)
         lstServiceSubjects.DataTextField = "longName"
         lstServiceSubjects.DataValueField = "ID"
         lstServiceSubjects.DataBind()
-
     End Sub
 
     Protected Sub btnServiceAdd_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnServiceAdd.Click
@@ -345,4 +290,10 @@
 
 #End Region
 
+    Private Sub getDepartment1_DepartmentClick(E As Object, Args As clsDepartmentEvent) Handles getDepartment1.DepartmentClick
+        loadQualification(Args.mDepartmentID)
+        loadCoreSubjects("", Args.mDepartmentID)
+    End Sub
+
+   
 End Class

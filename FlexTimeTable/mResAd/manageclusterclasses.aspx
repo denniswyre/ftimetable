@@ -4,6 +4,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../userControl/ClassLecturer.ascx" TagName="ClassLecturer" TagPrefix="uc2" %>
 <%@ Register Src="../userControl/classresource.ascx" TagName="classresource" TagPrefix="uc3" %>
+<%@ Register Src="../userControl/getDepartment.ascx" TagName="getDepartment" TagPrefix="uc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -12,20 +13,10 @@
     <asp:Literal ID="litMessage" runat="server"></asp:Literal>
     <br />
     <asp:Panel ID="pnlMain" runat="server">
+         <uc1:getDepartment ID="getDepartment1" runat="server" />
         <table>
             <tr>
-                <td width="200px">
-                    <asp:Literal ID="litDepartment" runat="server"></asp:Literal>
-                </td>
-                <td>
-                    <asp:DropDownList ID="cboDepartments" runat="server" AutoPostBack="true" Width="300px">
-                    </asp:DropDownList>
-                    <asp:DropDownList ID="cboFaculty" runat="server" AutoPostBack="true" Width="200px">
-                    </asp:DropDownList>
-                </td>
-            </tr>
-            <tr>
-                <td width="200px">
+                <td style="width: 200">
                     <asp:Literal ID="litSiteCluster" runat="server"></asp:Literal>
                 </td>
                 <td>
@@ -34,7 +25,7 @@
                 </td>
             </tr>
             <tr>
-                <td width="200px">
+                <td style="width: 200">
                     <asp:Literal ID="litSubject" runat="server"></asp:Literal>
                 </td>
                 <td>
@@ -51,7 +42,7 @@
                 <th width="50%" align="left">
                     Subject Details
                 </th>
-                <th width="50%"  align="left">
+                <th width="50%" align="left">
                     Associated Qualifications
                 </th>
             </tr>
@@ -66,8 +57,6 @@
             </tr>
         </table>
     </asp:Panel>
-    <asp:ScriptManager ID="ScriptManager1" runat="server">
-    </asp:ScriptManager>
     <asp:TabContainer ID="TabClass" runat="server" ActiveTabIndex="0">
         <asp:TabPanel ID="tab0" runat="server" HeaderText="Class Groups">
             <ContentTemplate>
@@ -95,7 +84,7 @@
         </asp:TabPanel>
         <asp:TabPanel ID="tab1" runat="server" HeaderText="Class Details">
             <ContentTemplate>
-                   <table>
+                <table>
                     <tr>
                         <td>
                             ID:
@@ -154,11 +143,10 @@
                                 <asp:Button ID="btnDelete" runat="server" Text="Delete" />
                                 <asp:Button ID="btnReturn" runat="server" Text="Return" />
                                 <asp:Button ID="btnEdit" runat="server" Text="Edit" />
-                              </asp:Panel>
+                            </asp:Panel>
                         </td>
                     </tr>
                 </table>
-                
             </ContentTemplate>
         </asp:TabPanel>
         <asp:TabPanel ID="Tab2" runat="server" HeaderText="Class Lecturer">

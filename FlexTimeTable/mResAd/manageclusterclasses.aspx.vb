@@ -3,7 +3,7 @@
     Private TabHeader() As String = {"Class Groups", "Class", "Class Resources"}
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
-            loadFaculty()
+            getDepartment1.loadFaculty(User.Identity.Name)
             loadCluster()
             loadOffering()
             loadTimeSlots()
@@ -14,36 +14,8 @@
         End If
     End Sub
 
-    Sub loadFaculty()
-        Dim vContext As timetableEntities = New timetableEntities()
-        Dim OfficerID As Integer = clsOfficer.getOfficer(User.Identity.Name).ID
-        cboFaculty.DataSource = (From p In vContext.facultyusers _
-                                     Where p.OfficerID = OfficerID _
-                                       Select p.FacultyName, p.FacultyID)
-        cboFaculty.DataTextField = "FacultyName"
-        cboFaculty.DataValueField = "FacultyID"
-        cboFaculty.DataBind()
-
-        loadDepartments()
-    End Sub
-
-    Sub loadDepartments()
-        Dim vContext As timetableEntities = New timetableEntities
-
-        cboDepartments.Items.Clear()
-        If cboFaculty.SelectedIndex >= 0 Then
-            Dim FacultyID = CType(cboFaculty.SelectedValue, Integer)
-            cboDepartments.DataSource = (From p In vContext.departments _
-                                Where p.school.facultyID = FacultyID _
-                                Order By p.school.longName, p.longName _
-                                  Select longName = (p.longName + "," + p.school.longName), p.ID)
-        Else
-            cboDepartments.DataSource = Nothing
-        End If
-        cboDepartments.DataTextField = "longName"
-        cboDepartments.DataValueField = "ID"
-        cboDepartments.DataBind()
-        loadSubjects()
+    Private Sub manageclusterclasses_PreRender(sender As Object, e As System.EventArgs) Handles Me.PreRender
+        getDepartment1.SetLabel(False, 200)
     End Sub
 
     Sub loadCluster()
@@ -60,53 +32,48 @@
 
 
     Sub loadSubjects()
-        If cboCluster.SelectedIndex = -1 Or cboDepartments.SelectedIndex = -1 Then
+        If cboCluster.SelectedIndex = -1 Or getDepartment1.getID <= 0 Then
             Exit Sub
         End If
         Dim vContext As timetableEntities = New timetableEntities()
         cboSubject.Items.Clear()
-        If cboDepartments.SelectedIndex >= 0 Then
-            Dim vSiteclusterID = CType(cboCluster.SelectedValue, Integer)
-            Dim vDepartmentID = CType(cboDepartments.SelectedValue, Integer)
-            Dim vSiteCluster = (From p In vContext.siteclusters Where p.ID = vSiteclusterID Select p).First
-            For Each x In (From p In vContext.programmesubjects Where p.subject.DepartmentID = vDepartmentID Select p).ToList
-                Dim vQualID = x.QualID
-                For Each y In (From o In vContext.qualifications Where o.ID = vQualID Select o).ToList
-                    For Each z In y.siteclusters
-                        If z.ID = vSiteclusterID Then
-                            Dim xvalue = x.subject.ID
-                            Dim isRedun = False
-                            'check for redundancy
+        Dim vSiteclusterID = CType(cboCluster.SelectedValue, Integer)
+        Dim vDepartmentID = getDepartment1.getID
+        Dim vSiteCluster = (From p In vContext.siteclusters Where p.ID = vSiteclusterID Select p).First
+        For Each x In (From p In vContext.programmesubjects Where p.subject.DepartmentID = vDepartmentID Select p).ToList
+            Dim vQualID = x.QualID
+            For Each y In (From o In vContext.qualifications Where o.ID = vQualID Select o).ToList
+                For Each z In y.siteclusters
+                    If z.ID = vSiteclusterID Then
+                        Dim xvalue = x.subject.ID
+                        Dim isRedun = False
+                        'check for redundancy
+                        For Each i As ListItem In cboSubject.Items
+                            If xvalue = CInt(i.Value) Then
+                                isRedun = True
+                            End If
+                        Next
+                        If Not isRedun Then
+                            'insert alphabetically
+                            Dim xInserted = False
+                            Dim xIndex = 0
+                            Dim xtext = x.subject.longName + "[" + x.subject.Code + "]"
                             For Each i As ListItem In cboSubject.Items
-                                If xvalue = CInt(i.Value) Then
-                                    isRedun = True
+                                If i.Text > xtext Then
+                                    cboSubject.Items.Insert(xIndex, New ListItem(xtext, CType(x.SubjectID, String)))
+                                    xInserted = True
+                                    Exit For
                                 End If
+                                xIndex = xIndex + 1
                             Next
-                            If Not isRedun Then
-                                'insert alphabetically
-                                Dim xInserted = False
-                                Dim xIndex = 0
-                                Dim xtext = x.subject.longName + "[" + x.subject.Code + "]"
-                                For Each i As ListItem In cboSubject.Items
-                                    If i.Text > XText Then
-                                        cboSubject.Items.Insert(xIndex, New ListItem(XText, CType(x.SubjectID, String)))
-                                        xInserted = True
-                                        Exit For
-                                    End If
-                                    xIndex = xIndex + 1
-                                Next
-                                If xInserted = False Then
-                                    cboSubject.Items.Add(New ListItem(xtext, CType(x.SubjectID, String)))
-                                End If
+                            If xInserted = False Then
+                                cboSubject.Items.Add(New ListItem(xtext, CType(x.SubjectID, String)))
                             End If
                         End If
-                    Next
+                    End If
                 Next
             Next
-            litDepartment.Text = "Department:"
-        Else
-            litDepartment.Text = "No Department Created for this Faculty:"
-        End If
+        Next
         displaySubject()
     End Sub
 
@@ -246,13 +213,6 @@
         litMessage.Text = ""
     End Sub
 
-    Private Sub cboFaculty_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboFaculty.SelectedIndexChanged
-        loadDepartments()
-    End Sub
-
-    Private Sub cboDepartments_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboDepartments.SelectedIndexChanged
-        loadSubjects()
-    End Sub
 
     Private Sub cboSubject_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboSubject.SelectedIndexChanged
         displaySubject()
@@ -392,7 +352,7 @@
             .OfferingTypeID = CInt(cboOffering.SelectedValue),
             .TimeSlotTotal = cboTimeSlots.SelectedIndex + 1,
             .SiteClusterID = CType(cboCluster.SelectedItem.Value, Integer),
-            .SubjectID = CType(cboDepartments.SelectedItem.Value, Integer)}
+            .SubjectID = CType(cboSubject.SelectedItem.Value, Integer)}
         vSiteSubject.classgroups.Add(vClass)
         vContext.SaveChanges()
         classresource1.ClassID = vClass.ID
@@ -473,4 +433,10 @@
     Private Sub btnEdit_Click(sender As Object, e As System.EventArgs) Handles btnEdit.Click
         changeMode(eMode.edit)
     End Sub
+
+    Private Sub getDepartment1_DepartmentClick(E As Object, Args As clsDepartmentEvent) Handles getDepartment1.DepartmentClick
+        loadSubjects()
+    End Sub
+
+   
 End Class

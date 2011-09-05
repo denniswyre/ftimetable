@@ -14,7 +14,7 @@
     <h3>
         Campus Managment</h3>
     <br />
-    <asp:Label ID="lblMessage" runat="server" Text="Label"></asp:Label><br />
+    <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label><br />
     <asp:LinkButton ID="lnkCreate" runat="server">New Campus</asp:LinkButton>
     <asp:GridView ID="GrdCampus" runat="server" AutoGenerateColumns="False" DataKeyNames="ID">
         <Columns>

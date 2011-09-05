@@ -5,7 +5,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
-        Faculty Assignment</h2>
+        Academic Administration</h2>
     <p>
         <asp:Label ID="ActionStatus" runat="server" CssClass="Important" Font-Bold="True"
             ForeColor="Red"></asp:Label>
@@ -17,9 +17,7 @@
             Width="290px">
             <Columns>
                 <asp:TemplateField>
-                    <HeaderTemplate>
-                        Faculty Administrators
-                    </HeaderTemplate>
+                    <HeaderTemplate>Administrators</HeaderTemplate>
                     <ItemTemplate>
                         <asp:Label runat="server" Width="250px" ID="UserNameLabel" Text='<%# Container.DataItem %>'></asp:Label>
                     </ItemTemplate>

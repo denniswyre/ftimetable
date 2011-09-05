@@ -23,40 +23,13 @@ Partial Public Class managelecturer
     Protected WithEvents litErrorMessage As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
-    '''litDepartment control.
+    '''getDepartment1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents litDepartment As Global.System.Web.UI.WebControls.Literal
-
-    '''<summary>
-    '''cboDepartments control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cboDepartments As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''cboFaculty control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cboFaculty As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''ScriptManager1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ScriptManager1 As Global.System.Web.UI.ScriptManager
+    Protected WithEvents getDepartment1 As Global.FlexTimeTable.getDepartment
 
     '''<summary>
     '''mvLecturer control.

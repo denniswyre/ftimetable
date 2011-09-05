@@ -3,6 +3,7 @@
 
 <%@ Register Src="../userControl/ldap.ascx" TagName="ldap" TagPrefix="uc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<%@ Register src="../userControl/getDepartment.ascx" tagname="getDepartment" tagprefix="uc2" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -10,14 +11,8 @@
         Manage lecturers</h3>
     <asp:Literal ID="litErrorMessage" runat="server"></asp:Literal>
     <br />
-    <asp:Literal ID="litDepartment" runat="server"></asp:Literal>
-    <asp:DropDownList ID="cboDepartments" AutoPostBack="true" runat="server">
-    </asp:DropDownList>
-    <asp:DropDownList ID="cboFaculty" AutoPostBack="true" runat="server">
-    </asp:DropDownList>
+    <uc2:getDepartment ID="getDepartment1" runat="server" />
     <br />
-    <asp:ScriptManager ID="ScriptManager1" runat="server">
-    </asp:ScriptManager>
     <asp:MultiView ID="mvLecturer" runat="server" ActiveViewIndex="0">
         <asp:View ID="vwSelect" runat="server">
             <asp:Panel ID="pnlgetLecturer" GroupingText="Add Lecturer to Department" runat="server"

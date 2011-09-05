@@ -2,31 +2,16 @@
     CodeBehind="manageprogramme.aspx.vb" Inherits="FlexTimeTable.manageprogramme" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<%@ Register src="../userControl/getDepartment.ascx" tagname="getDepartment" tagprefix="uc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h3>
         Programme Management</h3>
     <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
+    <br />
+    <uc1:getDepartment ID="getDepartment1" runat="server" />
     <table>
-        <tr>
-            <td style="width: 220">
-                <asp:Literal ID="litFaculty" runat="server" Text="Faculty:"></asp:Literal>
-            </td>
-            <td>
-                <asp:DropDownList ID="cboFaculty" runat="server" AutoPostBack="True">
-                </asp:DropDownList>
-            </td>
-        </tr>
-        <tr>
-            <td style="width: 220">
-                <asp:Literal ID="litDepartment" runat="server"></asp:Literal>
-            </td>
-            <td>
-                <asp:DropDownList ID="cboDepartment" AutoPostBack="true" runat="server">
-                </asp:DropDownList>
-            </td>
-        </tr>
         <tr>
             <td style="width: 220">
                 <asp:Literal ID="litQualification" runat="server" Text="Qualification:"></asp:Literal>
@@ -55,8 +40,6 @@
             </tr>
         </asp:PlaceHolder>
     </table>
-    <asp:ScriptManager ID="ScriptManager1" runat="server">
-    </asp:ScriptManager>
     <asp:TabContainer ID="TabContainer1" runat="server" ActiveTabIndex="0">
         <asp:TabPanel runat="server" HeaderText="Core Subjects" ID="TabCore">
             <HeaderTemplate>

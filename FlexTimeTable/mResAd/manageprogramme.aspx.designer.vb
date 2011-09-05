@@ -23,40 +23,13 @@ Partial Public Class manageprogramme
     Protected WithEvents lblMessage As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''litFaculty control.
+    '''getDepartment1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents litFaculty As Global.System.Web.UI.WebControls.Literal
-
-    '''<summary>
-    '''cboFaculty control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cboFaculty As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''litDepartment control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents litDepartment As Global.System.Web.UI.WebControls.Literal
-
-    '''<summary>
-    '''cboDepartment control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cboDepartment As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents getDepartment1 As Global.FlexTimeTable.getDepartment
 
     '''<summary>
     '''litQualification control.
@@ -102,15 +75,6 @@ Partial Public Class manageprogramme
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents cboLevel As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''ScriptManager1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ScriptManager1 As Global.System.Web.UI.ScriptManager
 
     '''<summary>
     '''TabContainer1 control.

@@ -3,55 +3,16 @@
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
-            loadFaculty()
+            getDepartment1.loadFaculty(User.Identity.Name)
             btnSave.Text = "Save"
             btnDelete.Text = "Delete"
         End If
     End Sub
 
-    Sub loadFaculty()
+
+    Sub loadQualifications(ByVal DepartmentID As Integer)
         Dim vContext As timetableEntities = New timetableEntities()
-        Dim OfficerID As Integer = clsOfficer.getOfficer(User.Identity.Name).ID
-        Me.cboFaculty.DataSource = (From p In vContext.Facultyusers _
-                                     Where p.OfficerID = OfficerID _
-                                       Select p.FacultyName, p.FacultyID)
-        Me.cboFaculty.DataTextField = "FacultyName"
-        Me.cboFaculty.DataValueField = "FacultyID"
-        Me.cboFaculty.DataBind()
-
-        loadDepartments()
-    End Sub
-
-    Sub loadDepartments()
-        Dim vContext As timetableEntities = New timetableEntities
-        If cboFaculty.SelectedIndex >= 0 Then
-            Dim FacultyID = CType(Me.cboFaculty.SelectedValue, Integer)
-            Me.cboDepartments.DataSource = (From p In vContext.departments _
-                                Where p.school.facultyID = FacultyID _
-                                Order By p.school.longName, p.longName _
-                                  Select longName = (p.longName + " [" + p.school.code + "]"), p.ID)
-        Else
-            Me.cboDepartments.DataSource = Nothing
-        End If
-        Me.cboDepartments.DataTextField = "longName"
-        Me.cboDepartments.DataValueField = "ID"
-        Me.cboDepartments.DataBind()
-        loadQualifications()
-    End Sub
-
-    Sub loadQualifications()
-        Dim vContext As timetableEntities = New timetableEntities()
-        If cboDepartments.SelectedIndex >= 0 Then
-            Dim DepartmentID = CType(cboDepartments.SelectedValue, Integer)
-            Me.grdQualification.DataSource = (From p In vContext.qualifications Where p.DepartmentID = DepartmentID _
-                                           Select p)
-            litDepartment.Text = "Department:"
-            lnkCreate.Visible = True
-        Else
-            Me.grdQualification.DataSource = Nothing
-            litDepartment.Text = "No Department Created for this Faculty:"
-            lnkCreate.Visible = False
-        End If
+        Me.grdQualification.DataSource = (From p In vContext.qualifications Where p.DepartmentID = DepartmentID Select p)
         Me.grdQualification.DataBind()
         mvQual.SetActiveView(vwGrid)
         litMessage.Text = ""
@@ -118,7 +79,7 @@
             .shortName = Me.txtCode.Text,
             .Code = txtCode.Text,
             .OldCode = txtOldCode.Text,
-            .DepartmentID = CType(Me.cboDepartments.SelectedItem.Value, Integer)}
+            .DepartmentID = getDepartment1.getID}
         vContext.qualifications.AddObject(vQualification)
         vContext.SaveChanges()
     End Sub
@@ -153,7 +114,7 @@
             Else
                 UpdateQualification()
             End If
-            loadQualifications()
+            loadQualifications((getDepartment1.getID))
             litMessage.Text = clsGeneral.displaymessage("Save", False)
         Catch ex As Exception
             litMessage.Text = clsGeneral.displaymessage(ex.Message, True)
@@ -163,19 +124,14 @@
     Private Sub btnDelete_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnDelete.Click
         Try
             DeleteQualification()
-            loadQualifications()
+            loadQualifications(getDepartment1.getID)
             litMessage.Text = clsGeneral.displaymessage("Deleted", False)
         Catch ex As Exception
             litMessage.Text = clsGeneral.displaymessage(ex.Message, True)
         End Try
     End Sub
 
-    Private Sub cboFaculty_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboFaculty.SelectedIndexChanged
-        loadDepartments()
+    Private Sub getDepartment1_DepartmentClick(E As Object, Args As clsDepartmentEvent) Handles getDepartment1.DepartmentClick
+        loadQualifications(Args.mDepartmentID)
     End Sub
-
-    Private Sub cboDepartments_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboDepartments.SelectedIndexChanged
-        loadQualifications()
-    End Sub
-
 End Class

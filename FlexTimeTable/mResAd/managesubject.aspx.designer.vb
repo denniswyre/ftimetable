@@ -23,31 +23,13 @@ Partial Public Class managesubject
     Protected WithEvents lblMessage As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''litDepartment control.
+    '''getDepartment1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents litDepartment As Global.System.Web.UI.WebControls.Literal
-
-    '''<summary>
-    '''cboDepartments control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cboDepartments As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''cboFaculty control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cboFaculty As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents getDepartment1 As Global.FlexTimeTable.getDepartment
 
     '''<summary>
     '''mvSubject control.

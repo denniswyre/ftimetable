@@ -22,17 +22,23 @@
     Private Sub grdsubject_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grdsubject.SelectedIndexChanged
         Dim vContext As timetableEntities = New timetableEntities()
         Dim vID = CType(grdsubject.SelectedRow.Cells(0).Text, Integer)
-        Dim vQual As subject = _
+        Dim vSubject As subject = _
                    (From p In vContext.subjects _
                        Where p.ID = vID Select p).First
-        With vQual
+        With vSubject
             Me.lblID.Text = .ID.ToString
             Me.txtCode.Text = .Code
             chkYearBlock.Checked = .yearBlock
             Me.txtShortName.Text = .shortName
             Me.txtLongName.Text = .longName
-            Me.txtOldCode.Text = .OldCode
             changeMode(eMode.edit)
+            'list old codes
+            With lstOldCodes
+                .DataSource = (From p In vContext.oldsubjectcodes Where p.SubjectID = vID Select p.OldCode, p.ID).ToList
+                .DataTextField = "oldCode"
+                .DataValueField = "ID"
+                .DataBind()
+            End With
         End With
         lblMessage.Text = ""
     End Sub
@@ -56,7 +62,6 @@
                 Me.txtCode.Text = ""
                 Me.txtShortName.Text = "" '.shortName
                 Me.txtLongName.Text = "" '.longName
-                Me.txtOldCode.Text = "" '.OldCode
                 Me.btnDelete.Visible = False
                 Me.btnSave.Visible = True
                 btnSave.Text = "Save"
@@ -80,7 +85,6 @@
             .longName = Me.txtShortName.Text,
             .shortName = Me.txtCode.Text,
             .Code = txtCode.Text,
-            .oldCode = txtOldCode.Text,
             .yearBlock = chkYearBlock.Checked,
             .Level = CType(Me.cboLevel.SelectedItem.Value, Integer),
             .DepartmentID = getDepartment1.getID}
@@ -98,7 +102,6 @@
             .longName = Me.txtShortName.Text
             .shortName = Me.txtCode.Text
             .Code = txtCode.Text
-            .oldCode = txtOldCode.Text
             .yearBlock = chkYearBlock.Checked
             .Level = CType(Me.cboLevel.SelectedItem.Value, Integer)
         End With

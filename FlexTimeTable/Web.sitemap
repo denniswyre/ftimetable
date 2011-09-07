@@ -36,8 +36,10 @@
       <siteMapNode url="~/mResAd/manageclusterclasses.aspx" title="Classes"  description="" roles="resourceAdmin" />
       <siteMapNode url="~/mResAd/managelecturer.aspx" title="Lecturers"  description="" roles="resourceAdmin" />
       <siteMapNode url="~/mResAd/manageprogramme.aspx" title="Programmes"  description="" roles="resourceAdmin" />
-      <siteMapNode url="~/mResAd/managesubject.aspx" title="Subjects"  description="" roles="resourceAdmin" />
+      <siteMapNode url="~/mResAd/assignsubject.aspx" title="Assign Subjects"  description="" roles="resourceAdmin" />
+      <siteMapNode url="~/mResAd/managesubject.aspx" title="Manage Subjects"  description="" roles="resourceAdmin" />
       <siteMapNode url="~/mResAd/managequalification.aspx" title="Qualifications"  description="" roles="resourceAdmin" />
+      <siteMapNode url="~/mResAd/assignDepartment.aspx" title="Rearrange Departments"  description="" roles="resourceAdmin" />
       <siteMapNode url="~/mResAd/managedepartment.aspx" title="Departments"  description="" roles="resourceAdmin" />
       <siteMapNode url="~/mResAd/manageschool.aspx" title="Schools"  description="" roles="resourceAdmin" />
     </siteMapNode>

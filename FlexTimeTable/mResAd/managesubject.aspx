@@ -7,7 +7,7 @@
     <style type="text/css">
         .style1
         {
-            width: 92px;
+            width: 200px;
         }
     </style>
 </asp:Content>
@@ -74,7 +74,7 @@
                         <asp:Label ID="Label6" runat="server" Text="Old Codes:"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtOldCode" runat="server"></asp:TextBox>
+                        <asp:ListBox ID="lstOldCodes" runat="server"></asp:ListBox>
                     </td>
                 </tr>
                 <tr>

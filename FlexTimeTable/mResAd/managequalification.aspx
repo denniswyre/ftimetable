@@ -2,7 +2,7 @@
     CodeBehind="managequalification.aspx.vb" Inherits="FlexTimeTable.managequalification" %>
 
 <%@ Register Src="~/userControl/logButton.ascx" TagName="logButton" TagPrefix="uc1" %>
-<%@ Register src="../userControl/getDepartment.ascx" tagname="getDepartment" tagprefix="uc2" %>
+<%@ Register Src="../userControl/getDepartment.ascx" TagName="getDepartment" TagPrefix="uc2" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -30,7 +30,7 @@
                     <asp:Literal ID="litEdit" runat="server"></asp:Literal></b></p>
             <table>
                 <tr>
-                    <td >
+                    <td>
                         <asp:Label ID="Label4" runat="server" AssociatedControlID="lblID" Text="ID:"></asp:Label>
                     </td>
                     <td>
@@ -38,7 +38,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td >
+                    <td>
                         <asp:Label ID="Label2" runat="server" AssociatedControlID="txtCode" Text="Code:"></asp:Label>
                     </td>
                     <td>
@@ -46,7 +46,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td >
+                    <td>
                         <asp:Label ID="Label1" runat="server" AssociatedControlID="txtShortName" Text="Short Name:"></asp:Label>
                     </td>
                     <td>
@@ -54,7 +54,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td >
+                    <td>
                         <asp:Label ID="Label5" runat="server" AssociatedControlID="txtLongName" Text="Long Name:"></asp:Label>
                     </td>
                     <td>
@@ -62,19 +62,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <td >
-                        <asp:Label ID="Label6" runat="server" AssociatedControlID="txtOldCode" Text="Old Codes:"></asp:Label>
+                    <td>
+                        <asp:Label ID="Label6" runat="server" Text="Old Codes:"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtOldCode" runat="server" Width="400px"></asp:TextBox>
-                    </td>
-                </tr>
-                <tr>
-                    <td >
-                        &nbsp;
-                    </td>
-                    <td>
-                        &nbsp;
+                        <asp:ListBox ID="lstOldCodes" runat="server"></asp:ListBox>
                     </td>
                 </tr>
                 <tr>

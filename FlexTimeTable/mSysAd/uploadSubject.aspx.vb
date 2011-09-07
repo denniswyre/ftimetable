@@ -20,10 +20,11 @@
         With uploadFile1.filetotable
             .fields = New ListItemCollection()
             ' Add items to the collection.
-            .fields.Add(New ListItem("subjectcode", "0"))
+            .fields.Add(New ListItem("code", "0"))
             .fields.Add(New ListItem("subjectname", "0"))
             .fields.Add(New ListItem("blockcode", "0"))
             .fields.Add(New ListItem("level", "0"))
+            .fields.Add(New ListItem("oldcode", "0"))
             ' .fields.Add(New ListItem("newsubjectcode", "0"))
         End With
         uploadFile1.header = "Upload Subject File"
@@ -37,8 +38,10 @@
         Dim MaxPeriods As Integer = CType(ConfigurationManager.AppSettings("maxperiods"), Integer)
         Dim MaxClassSize As Integer = CType(ConfigurationManager.AppSettings("maxclasssize"), Integer)
 
+
         Dim vContext As timetableEntities = New timetableEntities()
-        Dim DummyFacultyID = 999
+        Dim DummyFacultyID = CType(ConfigurationManager.AppSettings("dummyfaculty"), Integer)
+
         'create dummy faculty, school and dept for subjects
         Dim vFaculty = (From p In vContext.faculties Where p.ID = DummyFacultyID Select p).FirstOrDefault
         If IsNothing(vFaculty) Then
@@ -79,8 +82,10 @@
             Dim vsubjectName As String ' Trim(CType(dr("subjectname"), String))
             Dim vblockCode As Boolean '= CBool(IIf(CDbl(Trim(CType(dr("blockcode"), String))) = 0, True, False))
             Dim vlevel As Integer ' correctlevel(CType(dr("level"), String))
+            Dim voldcode As String
             Try
-                vsubjectcode = clsGeneral.correctCode(CType(dr("subjectcode"), String))
+                vsubjectcode = Trim(CType(dr("code"), String))
+                voldcode = clsGeneral.correctCode(CType(dr("oldcode"), String))
                 vsubjectName = Trim(CType(dr("subjectname"), String))
                 vblockCode = CBool(IIf(CDbl(Trim(CType(dr("blockcode"), String))) = 0, True, False))
                 vlevel = clsGeneral.correctSubjectLevel(CType(dr("level"), String))
@@ -96,6 +101,15 @@
                         .Level = vlevel,
                         .yearBlock = vblockCode}
                     vContext.subjects.AddObject(vSubj)
+                    vContext.SaveChanges()
+                End If
+                Dim voldSubj = (From p In vContext.oldsubjectcodes Where p.OldCode = voldcode Select p).FirstOrDefault
+                If IsNothing(voldSubj) Then
+                    voldSubj = New oldsubjectcode With {
+                        .OldCode = voldcode,
+                        .SubjectID = vSubj.ID
+                           }
+                    vContext.oldsubjectcodes.AddObject(voldSubj)
                     vContext.SaveChanges()
                 End If
             Catch ex As Exception

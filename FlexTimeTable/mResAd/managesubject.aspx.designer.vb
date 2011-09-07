@@ -167,13 +167,13 @@ Partial Public Class managesubject
     Protected WithEvents Label6 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''txtOldCode control.
+    '''lstOldCodes control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtOldCode As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents lstOldCodes As Global.System.Web.UI.WebControls.ListBox
 
     '''<summary>
     '''Label3 control.

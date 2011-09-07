@@ -14,14 +14,12 @@
         With uploadFile1.filetotable
             .fields = New ListItemCollection()
             ' Add items to the collection.
-            .fields.Add(New ListItem("campus", "0"))
             .fields.Add(New ListItem("cluster", "0"))
             .fields.Add(New ListItem("site", "0"))
             .fields.Add(New ListItem("buildingname", "0"))
             .fields.Add(New ListItem("buildingcode", "0"))
             .fields.Add(New ListItem("roomno", "0"))
             .fields.Add(New ListItem("spaceuse", "0"))
-            .fields.Add(New ListItem("spacedept", "0"))
             .fields.Add(New ListItem("size", "0"))
             .displayMessage()
         End With
@@ -71,42 +69,31 @@
 
     Protected Sub processFile(ByVal vDatatable As DataTable)
         Dim vContext As timetableEntities = New timetableEntities()
+        Dim defaultlabType = 7
+        Dim defaultlecturetype = 8
         Dim rowindex = 0
         For Each dr As DataRow In vDatatable.Rows
             Try
                 ''''get delivery siteid
                 'check site  
-                Dim vcampusname = Trim(CStr(dr("campus")))
-                Dim vclustercode = Trim(CStr(dr("cluster")))
+                Dim vclusterid = CInt(dr("cluster"))
                 Dim vsitename = Trim(CStr(dr("site")))
-
                 Dim vbuildingcode = Trim(CStr(dr("buildingcode")))
                 Dim vbuildingname = Trim(CStr(dr("buildingname")))
                 Dim vspaceuse = CStr(dr("spaceuse"))
-                Dim vsize = 0
                 Dim vroomno = CStr(dr("roomno"))
+                Dim vsize = 0
                 Try
                     vsize = CInt(dr("size"))
                 Catch ex As Exception
                     vsize = 20
                 End Try
-                'get campus
-                Dim vCampus = (From p In vContext.campus Where p.longName = vcampusname Select p).First
+
                 'set cluster
-                Dim vCluster = (From p In vContext.siteclusters Where p.shortName = vclustercode And p.CampusID = vCampus.ID Select p).FirstOrDefault
-                If IsNothing(vCluster) Then
-                    ''create cluster
-                    vCluster = New sitecluster With {
-                        .ID = generateClusterID(),
-                        .longName = vclustercode,
-                        .shortName = vclustercode,
-                        .CampusID = vCampus.ID}
-                    vContext.siteclusters.AddObject(vCluster)
-                    vContext.SaveChanges()
-                End If
+                Dim vCluster = (From p In vContext.siteclusters Where p.ID = vclusterid Select p).Single
 
                 'set site
-                Dim vSite = (From p In vContext.sites Where p.longName = vsitename And p.SiteClusterID = vCluster.ID Select p).FirstOrDefault
+                Dim vSite = (From p In vContext.sites Where p.longName = vsitename And p.SiteClusterID = vCluster.ID Select p).SingleOrDefault
                 If IsNothing(vSite) Then
                     vSite = New site With {
                         .ID = generateSiteID(),
@@ -136,11 +123,11 @@
                 'verify resourcetype
                 Dim vResourceType = (From p In vContext.resourcetypes Where p.Description = vspaceuse Select p).FirstOrDefault
                 If IsNothing(vResourceType) Then
-                    vResourceType = New resourcetype With {
-                        .Description = vspaceuse,
-                        .code = vspaceuse}
-                    vContext.resourcetypes.AddObject(vResourceType)
-                    vContext.SaveChanges()
+                    If InStr(LCase(vspaceuse), "computer") > 0 Then
+                        vResourceType = (From p In vContext.resourcetypes Where p.ID = defaultlabType Select p).Single
+                    Else
+                        vResourceType = (From p In vContext.resourcetypes Where p.ID = defaultlecturetype Select p).Single
+                    End If
                 End If
 
                 'check venue

@@ -174,4 +174,7 @@
 
    
 
+    Private Sub cboSchool_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles cboSchool.SelectedIndexChanged
+        loadDepartments()
+    End Sub
 End Class

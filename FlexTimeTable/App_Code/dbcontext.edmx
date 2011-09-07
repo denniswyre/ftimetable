@@ -24,6 +24,8 @@
           <EntitySet Name="offeringtype" EntityType="timetableModel.Store.offeringtype" store:Type="Tables" Schema="timetable" />
           <EntitySet Name="officers" EntityType="timetableModel.Store.officers" store:Type="Tables" Schema="timetable" />
           <EntitySet Name="officeruserlink" EntityType="timetableModel.Store.officeruserlink" store:Type="Tables" Schema="timetable" />
+          <EntitySet Name="oldqualificationcode" EntityType="timetableModel.Store.oldqualificationcode" store:Type="Tables" Schema="timetable" />
+          <EntitySet Name="oldsubjectcode" EntityType="timetableModel.Store.oldsubjectcode" store:Type="Tables" Schema="timetable" />
           <EntitySet Name="programmesubjects" EntityType="timetableModel.Store.programmesubjects" store:Type="Tables" Schema="timetable" />
           <EntitySet Name="qualifications" EntityType="timetableModel.Store.qualifications" store:Type="Tables" Schema="timetable" />
           <EntitySet Name="resource" EntityType="timetableModel.Store.resource" store:Type="Tables" Schema="timetable" />
@@ -42,20 +44,20 @@
           <EntitySet Name="venue" EntityType="timetableModel.Store.venue" store:Type="Tables" Schema="timetable" />
           <EntitySet Name="campususer" EntityType="timetableModel.Store.campususer" store:Type="Views" store:Schema="timetable" store:Name="campususer">
             <DefiningQuery>SELECT
-      `campususer`.`CampusCode`, 
       `campususer`.`CampusID`, 
       `campususer`.`CampusName`, 
-      `campususer`.`OfficerID`, 
-      `campususer`.`Username`
+      `campususer`.`CampusCode`, 
+      `campususer`.`Username`, 
+      `campususer`.`OfficerID`
       FROM `campususer` AS `campususer`</DefiningQuery>
           </EntitySet>
           <EntitySet Name="facultyuser" EntityType="timetableModel.Store.facultyuser" store:Type="Views" store:Schema="timetable" store:Name="facultyuser">
             <DefiningQuery>SELECT
-      `facultyuser`.`FacultyCode`, 
       `facultyuser`.`FacultyID`, 
       `facultyuser`.`FacultyName`, 
-      `facultyuser`.`OfficerID`, 
-      `facultyuser`.`Username`
+      `facultyuser`.`FacultyCode`, 
+      `facultyuser`.`Username`, 
+      `facultyuser`.`OfficerID`
       FROM `facultyuser` AS `facultyuser`</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="fk_building_site" Association="timetableModel.Store.fk_building_site">
@@ -65,14 +67,6 @@
           <AssociationSet Name="fk_campus_siteCluster" Association="timetableModel.Store.fk_campus_siteCluster">
             <End Role="campus" EntitySet="campus" />
             <End Role="sitecluster" EntitySet="sitecluster" />
-          </AssociationSet>
-          <AssociationSet Name="fk_classGroupLecturer_classGroup1" Association="timetableModel.Store.fk_classGroupLecturer_classGroup1">
-            <End Role="classgroup" EntitySet="classgroup" />
-            <End Role="lecturerclassgroup" EntitySet="lecturerclassgroup" />
-          </AssociationSet>
-          <AssociationSet Name="fk_classGroupLecturer_Lecturer1" Association="timetableModel.Store.fk_classGroupLecturer_Lecturer1">
-            <End Role="lecturer" EntitySet="lecturer" />
-            <End Role="lecturerclassgroup" EntitySet="lecturerclassgroup" />
           </AssociationSet>
           <AssociationSet Name="fk_classGroup_AcademicBlock1" Association="timetableModel.Store.fk_classGroup_AcademicBlock1">
             <End Role="academicblock" EntitySet="academicblock" />
@@ -93,6 +87,14 @@
           <AssociationSet Name="fk_classGroup_siteClusterSubject1" Association="timetableModel.Store.fk_classGroup_siteClusterSubject1">
             <End Role="siteclustersubject" EntitySet="siteclustersubject" />
             <End Role="classgroup" EntitySet="classgroup" />
+          </AssociationSet>
+          <AssociationSet Name="fk_classGroupLecturer_classGroup1" Association="timetableModel.Store.fk_classGroupLecturer_classGroup1">
+            <End Role="classgroup" EntitySet="classgroup" />
+            <End Role="lecturerclassgroup" EntitySet="lecturerclassgroup" />
+          </AssociationSet>
+          <AssociationSet Name="fk_classGroupLecturer_Lecturer1" Association="timetableModel.Store.fk_classGroupLecturer_Lecturer1">
+            <End Role="lecturer" EntitySet="lecturer" />
+            <End Role="lecturerclassgroup" EntitySet="lecturerclassgroup" />
           </AssociationSet>
           <AssociationSet Name="fk_department_has_venue_department1" Association="timetableModel.Store.fk_department_has_venue_department1">
             <End Role="department" EntitySet="department" />
@@ -170,6 +172,14 @@
             <End Role="officers" EntitySet="officers" />
             <End Role="officeruserlink" EntitySet="officeruserlink" />
           </AssociationSet>
+          <AssociationSet Name="fk_OldQualificationCode_Qualifications1" Association="timetableModel.Store.fk_OldQualificationCode_Qualifications1">
+            <End Role="qualifications" EntitySet="qualifications" />
+            <End Role="oldqualificationcode" EntitySet="oldqualificationcode" />
+          </AssociationSet>
+          <AssociationSet Name="fk_oldSubjectCode_Subject1" Association="timetableModel.Store.fk_oldSubjectCode_Subject1">
+            <End Role="subject" EntitySet="subject" />
+            <End Role="oldsubjectcode" EntitySet="oldsubjectcode" />
+          </AssociationSet>
           <AssociationSet Name="fk_ProgrammeSubject_Qual" Association="timetableModel.Store.fk_ProgrammeSubject_Qual">
             <End Role="qualifications" EntitySet="qualifications" />
             <End Role="programmesubjects" EntitySet="programmesubjects" />
@@ -178,13 +188,25 @@
             <End Role="subject" EntitySet="subject" />
             <End Role="programmesubjects" EntitySet="programmesubjects" />
           </AssociationSet>
+          <AssociationSet Name="fk_Qual_SiteClusterProgramme" Association="timetableModel.Store.fk_Qual_SiteClusterProgramme">
+            <End Role="qualifications" EntitySet="qualifications" />
+            <End Role="siteclusterprogramme" EntitySet="siteclusterprogramme" />
+          </AssociationSet>
           <AssociationSet Name="fk_Qualification_Department" Association="timetableModel.Store.fk_Qualification_Department">
             <End Role="department" EntitySet="department" />
             <End Role="qualifications" EntitySet="qualifications" />
           </AssociationSet>
-          <AssociationSet Name="fk_Qual_SiteClusterProgramme" Association="timetableModel.Store.fk_Qual_SiteClusterProgramme">
-            <End Role="qualifications" EntitySet="qualifications" />
-            <End Role="siteclusterprogramme" EntitySet="siteclusterprogramme" />
+          <AssociationSet Name="fk_Resource_has_Venue_Resource1" Association="timetableModel.Store.fk_Resource_has_Venue_Resource1">
+            <End Role="resource" EntitySet="resource" />
+            <End Role="resourcepreferredvenue" EntitySet="resourcepreferredvenue" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Resource_has_Venue_Venue1" Association="timetableModel.Store.fk_Resource_has_Venue_Venue1">
+            <End Role="venue" EntitySet="venue" />
+            <End Role="resourcepreferredvenue" EntitySet="resourcepreferredvenue" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Resource_VenueType1" Association="timetableModel.Store.fk_Resource_VenueType1">
+            <End Role="resourcetype" EntitySet="resourcetype" />
+            <End Role="resource" EntitySet="resource" />
           </AssociationSet>
           <AssociationSet Name="fk_ResourceSchedule_has_Venue_ResourceSchedule1" Association="timetableModel.Store.fk_ResourceSchedule_has_Venue_ResourceSchedule1">
             <End Role="resourceschedule" EntitySet="resourceschedule" />
@@ -202,21 +224,17 @@
             <End Role="timeslot" EntitySet="timeslot" />
             <End Role="resourceschedule" EntitySet="resourceschedule" />
           </AssociationSet>
-          <AssociationSet Name="fk_Resource_has_Venue_Resource1" Association="timetableModel.Store.fk_Resource_has_Venue_Resource1">
-            <End Role="resource" EntitySet="resource" />
-            <End Role="resourcepreferredvenue" EntitySet="resourcepreferredvenue" />
-          </AssociationSet>
-          <AssociationSet Name="fk_Resource_has_Venue_Venue1" Association="timetableModel.Store.fk_Resource_has_Venue_Venue1">
-            <End Role="venue" EntitySet="venue" />
-            <End Role="resourcepreferredvenue" EntitySet="resourcepreferredvenue" />
-          </AssociationSet>
-          <AssociationSet Name="fk_Resource_VenueType1" Association="timetableModel.Store.fk_Resource_VenueType1">
-            <End Role="resourcetype" EntitySet="resourcetype" />
-            <End Role="resource" EntitySet="resource" />
-          </AssociationSet>
           <AssociationSet Name="fk_school_faculty" Association="timetableModel.Store.fk_school_faculty">
             <End Role="faculty" EntitySet="faculty" />
             <End Role="school" EntitySet="school" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Site_SiteCluster" Association="timetableModel.Store.fk_Site_SiteCluster">
+            <End Role="sitecluster" EntitySet="sitecluster" />
+            <End Role="site" EntitySet="site" />
+          </AssociationSet>
+          <AssociationSet Name="fk_siteCluster_SiteClusterProgramme" Association="timetableModel.Store.fk_siteCluster_SiteClusterProgramme">
+            <End Role="sitecluster" EntitySet="sitecluster" />
+            <End Role="siteclusterprogramme" EntitySet="siteclusterprogramme" />
           </AssociationSet>
           <AssociationSet Name="fk_siteClusterSubject_SiteCluster" Association="timetableModel.Store.fk_siteClusterSubject_SiteCluster">
             <End Role="sitecluster" EntitySet="sitecluster" />
@@ -225,14 +243,6 @@
           <AssociationSet Name="fk_siteClusterSubject_Subject" Association="timetableModel.Store.fk_siteClusterSubject_Subject">
             <End Role="subject" EntitySet="subject" />
             <End Role="siteclustersubject" EntitySet="siteclustersubject" />
-          </AssociationSet>
-          <AssociationSet Name="fk_siteCluster_SiteClusterProgramme" Association="timetableModel.Store.fk_siteCluster_SiteClusterProgramme">
-            <End Role="sitecluster" EntitySet="sitecluster" />
-            <End Role="siteclusterprogramme" EntitySet="siteclusterprogramme" />
-          </AssociationSet>
-          <AssociationSet Name="fk_Site_SiteCluster" Association="timetableModel.Store.fk_Site_SiteCluster">
-            <End Role="sitecluster" EntitySet="sitecluster" />
-            <End Role="site" EntitySet="site" />
           </AssociationSet>
           <AssociationSet Name="fk_subject_department" Association="timetableModel.Store.fk_subject_department">
             <End Role="department" EntitySet="department" />
@@ -259,21 +269,21 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="endWeek" Type="int" Nullable="false" />
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="startWeek" Type="int" Nullable="false" />
+          <Property Name="endWeek" Type="int" Nullable="false" />
           <Property Name="yearBlock" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="building">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="AllBuildings" Type="bool" Nullable="false" />
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="longName" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="shortName" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="longName" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="SiteID" Type="int" Nullable="false" />
+          <Property Name="AllBuildings" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="campus">
           <Key>
@@ -285,24 +295,24 @@
         </EntityType>
         <EntityType Name="campusaccess">
           <Key>
-            <PropertyRef Name="Campus_ID" />
             <PropertyRef Name="officers_ID" />
+            <PropertyRef Name="Campus_ID" />
           </Key>
-          <Property Name="Campus_ID" Type="int" Nullable="false" />
           <Property Name="officers_ID" Type="int" Nullable="false" />
+          <Property Name="Campus_ID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="classgroup">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="AcademicBlockID" Type="int" Nullable="false" />
-          <Property Name="classSize" Type="int" Nullable="false" />
-          <Property Name="code" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="classSize" Type="int" Nullable="false" />
+          <Property Name="TimeSlotTotal" Type="int" Nullable="false" />
+          <Property Name="AcademicBlockID" Type="int" Nullable="false" />
           <Property Name="OfferingTypeID" Type="int" Nullable="false" />
           <Property Name="SiteClusterID" Type="int" Nullable="false" />
           <Property Name="SubjectID" Type="int" Nullable="false" />
-          <Property Name="TimeSlotTotal" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="classgroupresource">
           <Key>
@@ -316,11 +326,11 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="code" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="shortName" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="longName" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="SchoolID" Type="int" Nullable="false" />
-          <Property Name="shortName" Type="varchar" Nullable="false" MaxLength="45" />
         </EntityType>
         <EntityType Name="departmentvenue">
           <Key>
@@ -334,10 +344,10 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="code" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="longName" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="code" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="shortName" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="longName" Type="varchar" Nullable="false" MaxLength="400" />
         </EntityType>
         <EntityType Name="facultyaccess">
           <Key>
@@ -351,8 +361,8 @@
           <Key>
             <PropertyRef Name="LecturerID" />
           </Key>
-          <Property Name="DepartmentID" Type="int" Nullable="false" />
           <Property Name="LecturerID" Type="int" Nullable="false" />
+          <Property Name="DepartmentID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="lecturerclassgroup">
           <Key>
@@ -363,119 +373,135 @@
         </EntityType>
         <EntityType Name="lecturersiteclusteravailability">
           <Key>
-            <PropertyRef Name="DayOfWeek" />
             <PropertyRef Name="LecturerID" />
             <PropertyRef Name="SiteClusterID" />
+            <PropertyRef Name="DayOfWeek" />
             <PropertyRef Name="StartTimeSlot" />
           </Key>
-          <Property Name="DayOfWeek" Type="int" Nullable="false" />
-          <Property Name="EndTimeSlot" Type="int" Nullable="false" />
           <Property Name="LecturerID" Type="int" Nullable="false" />
           <Property Name="SiteClusterID" Type="int" Nullable="false" />
+          <Property Name="DayOfWeek" Type="int" Nullable="false" />
           <Property Name="StartTimeSlot" Type="int" Nullable="false" />
+          <Property Name="EndTimeSlot" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="lecturersubject">
           <Key>
-            <PropertyRef Name="LecturerID" />
             <PropertyRef Name="SubjectID" />
+            <PropertyRef Name="LecturerID" />
           </Key>
-          <Property Name="LecturerID" Type="int" Nullable="false" />
           <Property Name="SubjectID" Type="int" Nullable="false" />
+          <Property Name="LecturerID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="my_aspnet_users">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="applicationId" Type="int" Nullable="false" />
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="applicationId" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="256" />
           <Property Name="isAnonymous" Type="bool" Nullable="false" />
           <Property Name="lastActivityDate" Type="datetime" />
-          <Property Name="name" Type="varchar" Nullable="false" MaxLength="256" />
         </EntityType>
         <EntityType Name="offeringtype">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="code" Type="varchar" Nullable="false" MaxLength="45" />
-          <Property Name="endTimeSlot" Type="int" Nullable="false" />
           <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="code" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="name" Type="varchar" Nullable="false" MaxLength="45" />
-          <Property Name="SabbathClasses" Type="bool" Nullable="false" />
-          <Property Name="sabEndTimeSlot" Type="int" Nullable="false" />
-          <Property Name="sabStartTimeSlot" Type="int" Nullable="false" />
           <Property Name="startTimeSlot" Type="int" Nullable="false" />
+          <Property Name="endTimeSlot" Type="int" Nullable="false" />
+          <Property Name="sabStartTimeSlot" Type="int" Nullable="false" />
+          <Property Name="sabEndTimeSlot" Type="int" Nullable="false" />
+          <Property Name="SabbathClasses" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="officers">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="FirstName" Type="varchar" MaxLength="45" />
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Initials" Type="varchar" MaxLength="45" />
           <Property Name="Surname" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="FirstName" Type="varchar" MaxLength="45" />
+          <Property Name="Initials" Type="varchar" MaxLength="45" />
           <Property Name="title" Type="varchar" MaxLength="45" />
         </EntityType>
         <EntityType Name="officeruserlink">
           <Key>
             <PropertyRef Name="officers_ID" />
           </Key>
-          <Property Name="my_aspnet_users_id" Type="int" Nullable="false" />
           <Property Name="officers_ID" Type="int" Nullable="false" />
+          <Property Name="my_aspnet_users_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="oldqualificationcode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="QualID" Type="int" Nullable="false" />
+          <Property Name="oldCode" Type="varchar" Nullable="false" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="oldsubjectcode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectID" Type="int" Nullable="false" />
+          <Property Name="OldCode" Type="varchar" Nullable="false" MaxLength="45" />
         </EntityType>
         <EntityType Name="programmesubjects">
           <Key>
             <PropertyRef Name="QualID" />
             <PropertyRef Name="SubjectID" />
           </Key>
-          <Property Name="Level" Type="int" Nullable="false" />
           <Property Name="QualID" Type="int" Nullable="false" />
           <Property Name="SubjectID" Type="int" Nullable="false" />
+          <Property Name="Level" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="qualifications">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="Code" Type="varchar" Nullable="false" MaxLength="45" />
-          <Property Name="DepartmentID" Type="int" Nullable="false" />
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="longName" Type="varchar" Nullable="false" MaxLength="255" />
-          <Property Name="OldCode" Type="varchar" MaxLength="45" />
+          <Property Name="Code" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="shortName" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="longName" Type="varchar" Nullable="false" MaxLength="500" />
+          <Property Name="DepartmentID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="resource">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="AmtParticipants" Type="int" Nullable="false" />
-          <Property Name="AmtTimeSlots" Type="int" Nullable="false" />
-          <Property Name="classgrouplinked" Type="bool" Nullable="false" />
-          <Property Name="endWeek" Type="int" Nullable="false" />
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="MaxMergedTimeSlots" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="45" />
-          <Property Name="ResourceTypeID" Type="int" Nullable="false" />
-          <Property Name="startWeek" Type="int" Nullable="false" />
           <Property Name="year" Type="int" Nullable="false" />
+          <Property Name="startWeek" Type="int" Nullable="false" />
+          <Property Name="endWeek" Type="int" Nullable="false" />
+          <Property Name="ResourceTypeID" Type="int" Nullable="false" />
+          <Property Name="classgrouplinked" Type="bool" Nullable="false" />
+          <Property Name="AmtTimeSlots" Type="int" Nullable="false" />
+          <Property Name="AmtParticipants" Type="int" Nullable="false" />
+          <Property Name="MaxMergedTimeSlots" Type="int" Nullable="false" />
+          <Property Name="TimeslotsArrangement" Type="varchar" Nullable="false" MaxLength="45" />
         </EntityType>
         <EntityType Name="resourcepreferredvenue">
           <Key>
             <PropertyRef Name="ResourceID" />
             <PropertyRef Name="VenueID" />
           </Key>
-          <Property Name="Rank" Type="int" Nullable="false" />
           <Property Name="ResourceID" Type="int" Nullable="false" />
           <Property Name="VenueID" Type="int" Nullable="false" />
+          <Property Name="Rank" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="resourceschedule">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="Day" Type="int" Nullable="false" />
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="ResourceID" Type="int" Nullable="false" />
-          <Property Name="timeSlotID" Type="int" Nullable="false" />
-          <Property Name="Week" Type="int" Nullable="false" />
           <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="Week" Type="int" Nullable="false" />
+          <Property Name="Day" Type="int" Nullable="false" />
+          <Property Name="timeSlotID" Type="int" Nullable="false" />
+          <Property Name="ResourceID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="resourceschedulevenue">
           <Key>
@@ -489,48 +515,48 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="code" Type="varchar" Nullable="false" MaxLength="45" />
-          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="isClassRoom" Type="bit" Nullable="false" />
+          <Property Name="code" Type="varchar" Nullable="false" MaxLength="45" />
         </EntityType>
         <EntityType Name="school">
           <Key>
             <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="code" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="facultyID" Type="int" Nullable="false" />
-          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="longName" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="shortName" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="longName" Type="varchar" Nullable="false" MaxLength="500" />
         </EntityType>
         <EntityType Name="site">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="SiteClusterID" Type="int" Nullable="false" />
+          <Property Name="shortName" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="longName" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="Address" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="AllSites" Type="bool" Nullable="false" />
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="longName" Type="varchar" Nullable="false" MaxLength="45" />
-          <Property Name="shortName" Type="varchar" Nullable="false" MaxLength="45" />
-          <Property Name="SiteClusterID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sitecluster">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="CampusID" Type="int" Nullable="false" />
           <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="CampusID" Type="int" Nullable="false" />
           <Property Name="longName" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="shortName" Type="varchar" Nullable="false" MaxLength="45" />
         </EntityType>
         <EntityType Name="siteclusterprogramme">
           <Key>
-            <PropertyRef Name="QualID" />
             <PropertyRef Name="siteClusterID" />
+            <PropertyRef Name="QualID" />
           </Key>
-          <Property Name="QualID" Type="int" Nullable="false" />
           <Property Name="siteClusterID" Type="int" Nullable="false" />
+          <Property Name="QualID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="siteclustersubject">
           <Key>
@@ -544,81 +570,80 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="Code" Type="varchar" Nullable="false" MaxLength="45" />
-          <Property Name="DepartmentID" Type="int" Nullable="false" />
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Level" Type="int" Nullable="false" />
-          <Property Name="longName" Type="varchar" Nullable="false" MaxLength="255" />
-          <Property Name="oldCode" Type="varchar" MaxLength="45" />
-          <Property Name="shortName" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="Code" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="yearBlock" Type="bool" Nullable="false" />
+          <Property Name="Level" Type="int" Nullable="false" />
+          <Property Name="shortName" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="longName" Type="varchar" Nullable="false" MaxLength="500" />
+          <Property Name="DepartmentID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="timeslot">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="Duration" Type="int" Nullable="false" />
           <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="LunchPeriod" Type="bit" Nullable="false" />
           <Property Name="StartTime" Type="datetime" Nullable="false" />
+          <Property Name="Duration" Type="int" Nullable="false" />
+          <Property Name="LunchPeriod" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="userlog">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="description" Type="varchar" Nullable="false" MaxLength="200" />
-          <Property Name="fdatetime" Type="datetime" Nullable="false" />
-          <Property Name="function" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="ipaddress" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="page" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="user" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="function" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="fdatetime" Type="datetime" Nullable="false" />
+          <Property Name="description" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="ipaddress" Type="varchar" Nullable="false" MaxLength="45" />
         </EntityType>
         <EntityType Name="venue">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="AllVenues" Type="bool" Nullable="false" />
-          <Property Name="BuildingID" Type="int" Nullable="false" />
-          <Property Name="Capacity" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Code" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="Description" Type="varchar" MaxLength="45" />
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Capacity" Type="int" Nullable="false" />
           <Property Name="TypeID" Type="int" Nullable="false" />
+          <Property Name="BuildingID" Type="int" Nullable="false" />
+          <Property Name="AllVenues" Type="bool" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'def.timetable.campususer' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="campususer">
           <Key>
-            <PropertyRef Name="CampusCode" />
             <PropertyRef Name="CampusID" />
             <PropertyRef Name="CampusName" />
-            <PropertyRef Name="OfficerID" />
+            <PropertyRef Name="CampusCode" />
             <PropertyRef Name="Username" />
+            <PropertyRef Name="OfficerID" />
           </Key>
-          <Property Name="CampusCode" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="CampusID" Type="int" Nullable="false" />
           <Property Name="CampusName" Type="varchar" Nullable="false" MaxLength="45" />
-          <Property Name="OfficerID" Type="int" Nullable="false" />
+          <Property Name="CampusCode" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="Username" Type="varchar" Nullable="false" MaxLength="256" />
+          <Property Name="OfficerID" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6002: The table/view 'def.timetable.facultyuser' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
       -->
         <EntityType Name="facultyuser">
           <Key>
-            <PropertyRef Name="FacultyCode" />
             <PropertyRef Name="FacultyID" />
             <PropertyRef Name="FacultyName" />
-            <PropertyRef Name="OfficerID" />
+            <PropertyRef Name="FacultyCode" />
             <PropertyRef Name="Username" />
+            <PropertyRef Name="OfficerID" />
           </Key>
-          <Property Name="FacultyCode" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="FacultyID" Type="int" Nullable="false" />
-          <Property Name="FacultyName" Type="varchar" Nullable="false" MaxLength="45" />
-          <Property Name="OfficerID" Type="int" Nullable="false" />
+          <Property Name="FacultyName" Type="varchar" Nullable="false" MaxLength="400" />
+          <Property Name="FacultyCode" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="Username" Type="varchar" Nullable="false" MaxLength="256" />
+          <Property Name="OfficerID" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="fk_building_site">
           <End Role="site" Type="timetableModel.Store.site" Multiplicity="1" />
@@ -641,30 +666,6 @@
             </Principal>
             <Dependent Role="sitecluster">
               <PropertyRef Name="CampusID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_classGroupLecturer_classGroup1">
-          <End Role="classgroup" Type="timetableModel.Store.classgroup" Multiplicity="1" />
-          <End Role="lecturerclassgroup" Type="timetableModel.Store.lecturerclassgroup" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="classgroup">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="lecturerclassgroup">
-              <PropertyRef Name="classGroupID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_classGroupLecturer_Lecturer1">
-          <End Role="lecturer" Type="timetableModel.Store.lecturer" Multiplicity="1" />
-          <End Role="lecturerclassgroup" Type="timetableModel.Store.lecturerclassgroup" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="lecturer">
-              <PropertyRef Name="LecturerID" />
-            </Principal>
-            <Dependent Role="lecturerclassgroup">
-              <PropertyRef Name="LecturerID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -727,6 +728,30 @@
             <Dependent Role="classgroup">
               <PropertyRef Name="SiteClusterID" />
               <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_classGroupLecturer_classGroup1">
+          <End Role="classgroup" Type="timetableModel.Store.classgroup" Multiplicity="1" />
+          <End Role="lecturerclassgroup" Type="timetableModel.Store.lecturerclassgroup" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="classgroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="lecturerclassgroup">
+              <PropertyRef Name="classGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_classGroupLecturer_Lecturer1">
+          <End Role="lecturer" Type="timetableModel.Store.lecturer" Multiplicity="1" />
+          <End Role="lecturerclassgroup" Type="timetableModel.Store.lecturerclassgroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lecturer">
+              <PropertyRef Name="LecturerID" />
+            </Principal>
+            <Dependent Role="lecturerclassgroup">
+              <PropertyRef Name="LecturerID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -958,6 +983,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_OldQualificationCode_Qualifications1">
+          <End Role="qualifications" Type="timetableModel.Store.qualifications" Multiplicity="1" />
+          <End Role="oldqualificationcode" Type="timetableModel.Store.oldqualificationcode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="qualifications">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="oldqualificationcode">
+              <PropertyRef Name="QualID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_oldSubjectCode_Subject1">
+          <End Role="subject" Type="timetableModel.Store.subject" Multiplicity="1" />
+          <End Role="oldsubjectcode" Type="timetableModel.Store.oldsubjectcode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subject">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="oldsubjectcode">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_ProgrammeSubject_Qual">
           <End Role="qualifications" Type="timetableModel.Store.qualifications" Multiplicity="1" />
           <End Role="programmesubjects" Type="timetableModel.Store.programmesubjects" Multiplicity="*" />
@@ -982,6 +1031,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_Qual_SiteClusterProgramme">
+          <End Role="qualifications" Type="timetableModel.Store.qualifications" Multiplicity="1" />
+          <End Role="siteclusterprogramme" Type="timetableModel.Store.siteclusterprogramme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="qualifications">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="siteclusterprogramme">
+              <PropertyRef Name="QualID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_Qualification_Department">
           <End Role="department" Type="timetableModel.Store.department" Multiplicity="1" />
           <End Role="qualifications" Type="timetableModel.Store.qualifications" Multiplicity="*" />
@@ -994,15 +1055,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_Qual_SiteClusterProgramme">
-          <End Role="qualifications" Type="timetableModel.Store.qualifications" Multiplicity="1" />
-          <End Role="siteclusterprogramme" Type="timetableModel.Store.siteclusterprogramme" Multiplicity="*" />
+        <Association Name="fk_Resource_has_Venue_Resource1">
+          <End Role="resource" Type="timetableModel.Store.resource" Multiplicity="1" />
+          <End Role="resourcepreferredvenue" Type="timetableModel.Store.resourcepreferredvenue" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="qualifications">
+            <Principal Role="resource">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="siteclusterprogramme">
-              <PropertyRef Name="QualID" />
+            <Dependent Role="resourcepreferredvenue">
+              <PropertyRef Name="ResourceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Resource_has_Venue_Venue1">
+          <End Role="venue" Type="timetableModel.Store.venue" Multiplicity="1" />
+          <End Role="resourcepreferredvenue" Type="timetableModel.Store.resourcepreferredvenue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="venue">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="resourcepreferredvenue">
+              <PropertyRef Name="VenueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Resource_VenueType1">
+          <End Role="resourcetype" Type="timetableModel.Store.resourcetype" Multiplicity="1" />
+          <End Role="resource" Type="timetableModel.Store.resource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="resourcetype">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="resource">
+              <PropertyRef Name="ResourceTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1054,42 +1139,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_Resource_has_Venue_Resource1">
-          <End Role="resource" Type="timetableModel.Store.resource" Multiplicity="1" />
-          <End Role="resourcepreferredvenue" Type="timetableModel.Store.resourcepreferredvenue" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="resource">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="resourcepreferredvenue">
-              <PropertyRef Name="ResourceID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_Resource_has_Venue_Venue1">
-          <End Role="venue" Type="timetableModel.Store.venue" Multiplicity="1" />
-          <End Role="resourcepreferredvenue" Type="timetableModel.Store.resourcepreferredvenue" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="venue">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="resourcepreferredvenue">
-              <PropertyRef Name="VenueID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_Resource_VenueType1">
-          <End Role="resourcetype" Type="timetableModel.Store.resourcetype" Multiplicity="1" />
-          <End Role="resource" Type="timetableModel.Store.resource" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="resourcetype">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="resource">
-              <PropertyRef Name="ResourceTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_school_faculty">
           <End Role="faculty" Type="timetableModel.Store.faculty" Multiplicity="1" />
           <End Role="school" Type="timetableModel.Store.school" Multiplicity="*" />
@@ -1099,6 +1148,30 @@
             </Principal>
             <Dependent Role="school">
               <PropertyRef Name="facultyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Site_SiteCluster">
+          <End Role="sitecluster" Type="timetableModel.Store.sitecluster" Multiplicity="1" />
+          <End Role="site" Type="timetableModel.Store.site" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sitecluster">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="site">
+              <PropertyRef Name="SiteClusterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_siteCluster_SiteClusterProgramme">
+          <End Role="sitecluster" Type="timetableModel.Store.sitecluster" Multiplicity="1" />
+          <End Role="siteclusterprogramme" Type="timetableModel.Store.siteclusterprogramme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sitecluster">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="siteclusterprogramme">
+              <PropertyRef Name="siteClusterID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1123,30 +1196,6 @@
             </Principal>
             <Dependent Role="siteclustersubject">
               <PropertyRef Name="SubjectID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_siteCluster_SiteClusterProgramme">
-          <End Role="sitecluster" Type="timetableModel.Store.sitecluster" Multiplicity="1" />
-          <End Role="siteclusterprogramme" Type="timetableModel.Store.siteclusterprogramme" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="sitecluster">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="siteclusterprogramme">
-              <PropertyRef Name="siteClusterID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_Site_SiteCluster">
-          <End Role="sitecluster" Type="timetableModel.Store.sitecluster" Multiplicity="1" />
-          <End Role="site" Type="timetableModel.Store.site" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="sitecluster">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="site">
-              <PropertyRef Name="SiteClusterID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1210,7 +1259,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="createSchedule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="timetable" />
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -1219,7 +1267,6 @@
           <EntitySet Name="academicblocks" EntityType="timetableModel.academicblock" />
           <EntitySet Name="buildings" EntityType="timetableModel.building" />
           <EntitySet Name="campus" EntityType="timetableModel.campu" />
-          <EntitySet Name="departments" EntityType="timetableModel.department" />
           <EntitySet Name="faculties" EntityType="timetableModel.faculty" />
           <EntitySet Name="lecturers" EntityType="timetableModel.lecturer" />
           <EntitySet Name="lecturersiteclusteravailabilities" EntityType="timetableModel.lecturersiteclusteravailability" />
@@ -1236,7 +1283,6 @@
           <EntitySet Name="sites" EntityType="timetableModel.site" />
           <EntitySet Name="siteclusters" EntityType="timetableModel.sitecluster" />
           <EntitySet Name="subjects" EntityType="timetableModel.subject" />
-          <EntitySet Name="timeslots" EntityType="timetableModel.timeslot" />
           <EntitySet Name="userlogs" EntityType="timetableModel.userlog" />
           <EntitySet Name="venues" EntityType="timetableModel.venue" />
           <EntitySet Name="campususers" EntityType="timetableModel.campususer" />
@@ -1253,22 +1299,6 @@
             <End Role="campus" EntitySet="campus" />
             <End Role="sitecluster" EntitySet="siteclusters" />
           </AssociationSet>
-          <AssociationSet Name="fk_Department_school1" Association="timetableModel.fk_Department_school1">
-            <End Role="school" EntitySet="schools" />
-            <End Role="department" EntitySet="departments" />
-          </AssociationSet>
-          <AssociationSet Name="fk_Lecturer_Department1" Association="timetableModel.fk_Lecturer_Department1">
-            <End Role="department" EntitySet="departments" />
-            <End Role="lecturer" EntitySet="lecturers" />
-          </AssociationSet>
-          <AssociationSet Name="fk_Qualification_Department" Association="timetableModel.fk_Qualification_Department">
-            <End Role="department" EntitySet="departments" />
-            <End Role="qualifications" EntitySet="qualifications" />
-          </AssociationSet>
-          <AssociationSet Name="fk_subject_department" Association="timetableModel.fk_subject_department">
-            <End Role="department" EntitySet="departments" />
-            <End Role="subject" EntitySet="subjects" />
-          </AssociationSet>
           <AssociationSet Name="fk_school_faculty" Association="timetableModel.fk_school_faculty">
             <End Role="faculty" EntitySet="faculties" />
             <End Role="school" EntitySet="schools" />
@@ -1284,30 +1314,6 @@
           <AssociationSet Name="fk_lsca_sitecluster" Association="timetableModel.fk_lsca_sitecluster">
             <End Role="sitecluster" EntitySet="siteclusters" />
             <End Role="lecturersiteclusteravailability" EntitySet="lecturersiteclusteravailabilities" />
-          </AssociationSet>
-          <AssociationSet Name="fk_lsca_timeSlot1" Association="timetableModel.fk_lsca_timeSlot1">
-            <End Role="timeslot" EntitySet="timeslots" />
-            <End Role="lecturersiteclusteravailability" EntitySet="lecturersiteclusteravailabilities" />
-          </AssociationSet>
-          <AssociationSet Name="fk_lsca_timeSlot2" Association="timetableModel.fk_lsca_timeSlot2">
-            <End Role="timeslot" EntitySet="timeslots" />
-            <End Role="lecturersiteclusteravailability" EntitySet="lecturersiteclusteravailabilities" />
-          </AssociationSet>
-          <AssociationSet Name="fk_offeringType_TimeSlot1" Association="timetableModel.fk_offeringType_TimeSlot1">
-            <End Role="timeslot" EntitySet="timeslots" />
-            <End Role="offeringtype" EntitySet="offeringtypes" />
-          </AssociationSet>
-          <AssociationSet Name="fk_offeringType_TimeSlot2" Association="timetableModel.fk_offeringType_TimeSlot2">
-            <End Role="timeslot" EntitySet="timeslots" />
-            <End Role="offeringtype" EntitySet="offeringtypes" />
-          </AssociationSet>
-          <AssociationSet Name="fk_offeringType_TimeSlot3" Association="timetableModel.fk_offeringType_TimeSlot3">
-            <End Role="timeslot" EntitySet="timeslots" />
-            <End Role="offeringtype" EntitySet="offeringtypes" />
-          </AssociationSet>
-          <AssociationSet Name="fk_offeringType_TimeSlot4" Association="timetableModel.fk_offeringType_TimeSlot4">
-            <End Role="timeslot" EntitySet="timeslots" />
-            <End Role="offeringtype" EntitySet="offeringtypes" />
           </AssociationSet>
           <AssociationSet Name="fk_ProgrammeSubject_Qual" Association="timetableModel.fk_ProgrammeSubject_Qual">
             <End Role="qualifications" EntitySet="qualifications" />
@@ -1332,10 +1338,6 @@
           <AssociationSet Name="fk_Resource_has_Venue_Venue1" Association="timetableModel.fk_Resource_has_Venue_Venue1">
             <End Role="venue" EntitySet="venues" />
             <End Role="resourcepreferredvenue" EntitySet="resourcepreferredvenues" />
-          </AssociationSet>
-          <AssociationSet Name="fk_ResourceSchedule_timeSlot1" Association="timetableModel.fk_ResourceSchedule_timeSlot1">
-            <End Role="timeslot" EntitySet="timeslots" />
-            <End Role="resourceschedule" EntitySet="resourceschedules" />
           </AssociationSet>
           <AssociationSet Name="fk_type_venue" Association="timetableModel.fk_type_venue">
             <End Role="resourcetype" EntitySet="resourcetypes" />
@@ -1399,11 +1401,67 @@
             <End Role="classgroup" EntitySet="classgroups" />
             <End Role="lecturer" EntitySet="lecturers" />
           </AssociationSet>
+          <EntitySet Name="oldqualificationcodes" EntityType="timetableModel.oldqualificationcode" />
+          <EntitySet Name="oldsubjectcodes" EntityType="timetableModel.oldsubjectcode" />
+          <AssociationSet Name="fk_OldQualificationCode_Qualifications1" Association="timetableModel.fk_OldQualificationCode_Qualifications1">
+            <End Role="qualification" EntitySet="qualifications" />
+            <End Role="oldqualificationcode" EntitySet="oldqualificationcodes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_oldSubjectCode_Subject1" Association="timetableModel.fk_oldSubjectCode_Subject1">
+            <End Role="subject" EntitySet="subjects" />
+            <End Role="oldsubjectcode" EntitySet="oldsubjectcodes" />
+          </AssociationSet>
+          <EntitySet Name="departments" EntityType="timetableModel.department" />
+          <EntitySet Name="timeslots" EntityType="timetableModel.timeslot" />
+          <AssociationSet Name="fk_Department_school1" Association="timetableModel.fk_Department_school1">
+            <End Role="school" EntitySet="schools" />
+            <End Role="department" EntitySet="departments" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Lecturer_Department1" Association="timetableModel.fk_Lecturer_Department1">
+            <End Role="department" EntitySet="departments" />
+            <End Role="lecturer" EntitySet="lecturers" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Qualification_Department" Association="timetableModel.fk_Qualification_Department">
+            <End Role="department" EntitySet="departments" />
+            <End Role="qualification" EntitySet="qualifications" />
+          </AssociationSet>
+          <AssociationSet Name="fk_subject_department" Association="timetableModel.fk_subject_department">
+            <End Role="department" EntitySet="departments" />
+            <End Role="subject" EntitySet="subjects" />
+          </AssociationSet>
+          <AssociationSet Name="fk_lsca_timeSlot1" Association="timetableModel.fk_lsca_timeSlot1">
+            <End Role="timeslot" EntitySet="timeslots" />
+            <End Role="lecturersiteclusteravailability" EntitySet="lecturersiteclusteravailabilities" />
+          </AssociationSet>
+          <AssociationSet Name="fk_lsca_timeSlot2" Association="timetableModel.fk_lsca_timeSlot2">
+            <End Role="timeslot" EntitySet="timeslots" />
+            <End Role="lecturersiteclusteravailability" EntitySet="lecturersiteclusteravailabilities" />
+          </AssociationSet>
+          <AssociationSet Name="fk_offeringType_TimeSlot1" Association="timetableModel.fk_offeringType_TimeSlot1">
+            <End Role="timeslot" EntitySet="timeslots" />
+            <End Role="offeringtype" EntitySet="offeringtypes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_offeringType_TimeSlot2" Association="timetableModel.fk_offeringType_TimeSlot2">
+            <End Role="timeslot" EntitySet="timeslots" />
+            <End Role="offeringtype" EntitySet="offeringtypes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_offeringType_TimeSlot3" Association="timetableModel.fk_offeringType_TimeSlot3">
+            <End Role="timeslot" EntitySet="timeslots" />
+            <End Role="offeringtype" EntitySet="offeringtypes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_offeringType_TimeSlot4" Association="timetableModel.fk_offeringType_TimeSlot4">
+            <End Role="timeslot" EntitySet="timeslots" />
+            <End Role="offeringtype" EntitySet="offeringtypes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ResourceSchedule_timeSlot1" Association="timetableModel.fk_ResourceSchedule_timeSlot1">
+            <End Role="timeslot" EntitySet="timeslots" />
+            <End Role="resourceschedule" EntitySet="resourceschedules" />
+          </AssociationSet>
           <AssociationSet Name="departmentvenue" Association="timetableModel.departmentvenue">
             <End Role="department" EntitySet="departments" />
             <End Role="venue" EntitySet="venues" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="academicblock">
           <Key>
             <PropertyRef Name="ID" />
@@ -1437,21 +1495,6 @@
           <NavigationProperty Name="siteclusters" Relationship="timetableModel.fk_campus_siteCluster" FromRole="campus" ToRole="sitecluster" />
           <NavigationProperty Name="officers" Relationship="timetableModel.campusaccess" FromRole="campus" ToRole="officers" />
         </EntityType>
-        <EntityType Name="department">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="code" Type="String" Nullable="false" />
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="longName" Type="String" Nullable="false" />
-          <Property Name="SchoolID" Type="Int32" Nullable="false" />
-          <Property Name="shortName" Type="String" Nullable="false" />
-          <NavigationProperty Name="school" Relationship="timetableModel.fk_Department_school1" FromRole="department" ToRole="school" />
-          <NavigationProperty Name="lecturers" Relationship="timetableModel.fk_Lecturer_Department1" FromRole="department" ToRole="lecturer" />
-          <NavigationProperty Name="qualifications" Relationship="timetableModel.fk_Qualification_Department" FromRole="department" ToRole="qualifications" />
-          <NavigationProperty Name="subjects" Relationship="timetableModel.fk_subject_department" FromRole="department" ToRole="subject" />
-          <NavigationProperty Name="venues" Relationship="timetableModel.departmentvenue" FromRole="department" ToRole="venue" />
-        </EntityType>
         <EntityType Name="faculty">
           <Key>
             <PropertyRef Name="ID" />
@@ -1469,11 +1512,11 @@
           </Key>
           <Property Name="DepartmentID" Type="Int32" Nullable="false" />
           <Property Name="LecturerID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="department" Relationship="timetableModel.fk_Lecturer_Department1" FromRole="lecturer" ToRole="department" />
           <NavigationProperty Name="officer" Relationship="timetableModel.fk_Lecturer_officers1" FromRole="lecturer" ToRole="officers" />
           <NavigationProperty Name="lecturersiteclusteravailabilities" Relationship="timetableModel.fk_lsca_lecturer" FromRole="lecturer" ToRole="lecturersiteclusteravailability" />
           <NavigationProperty Name="subjects" Relationship="timetableModel.lecturersubject" FromRole="lecturer" ToRole="subject" />
           <NavigationProperty Name="classgroups" Relationship="timetableModel.lecturerclassgroup" FromRole="lecturer" ToRole="classgroup" />
+          <NavigationProperty Name="department" Relationship="timetableModel.fk_Lecturer_Department1" FromRole="lecturer" ToRole="department" />
         </EntityType>
         <EntityType Name="lecturersiteclusteravailability">
           <Key>
@@ -1514,12 +1557,12 @@
           <Property Name="sabEndTimeSlot" Type="Int32" Nullable="false" />
           <Property Name="sabStartTimeSlot" Type="Int32" Nullable="false" />
           <Property Name="startTimeSlot" Type="Int32" Nullable="false" />
+          <Property Type="Boolean" Name="SabbathClasses" Nullable="false" />
+          <NavigationProperty Name="classgroups" Relationship="timetableModel.fk_classGroup_OfferingType1" FromRole="offeringtype" ToRole="classgroup" />
           <NavigationProperty Name="timeslot" Relationship="timetableModel.fk_offeringType_TimeSlot1" FromRole="offeringtype" ToRole="timeslot" />
           <NavigationProperty Name="timeslot1" Relationship="timetableModel.fk_offeringType_TimeSlot2" FromRole="offeringtype" ToRole="timeslot" />
           <NavigationProperty Name="timeslot2" Relationship="timetableModel.fk_offeringType_TimeSlot3" FromRole="offeringtype" ToRole="timeslot" />
           <NavigationProperty Name="timeslot3" Relationship="timetableModel.fk_offeringType_TimeSlot4" FromRole="offeringtype" ToRole="timeslot" />
-          <Property Type="Boolean" Name="SabbathClasses" Nullable="false" />
-          <NavigationProperty Name="classgroups" Relationship="timetableModel.fk_classGroup_OfferingType1" FromRole="offeringtype" ToRole="classgroup" />
         </EntityType>
         <EntityType Name="officer">
           <Key>
@@ -1554,11 +1597,11 @@
           <Property Name="DepartmentID" Type="Int32" Nullable="false" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="longName" Type="String" Nullable="false" />
-          <Property Name="OldCode" Type="String" />
           <Property Name="shortName" Type="String" Nullable="false" />
-          <NavigationProperty Name="department" Relationship="timetableModel.fk_Qualification_Department" FromRole="qualifications" ToRole="department" />
           <NavigationProperty Name="programmesubjects" Relationship="timetableModel.fk_ProgrammeSubject_Qual" FromRole="qualifications" ToRole="programmesubjects" />
           <NavigationProperty Name="siteclusters" Relationship="timetableModel.siteclusterprogramme" FromRole="qualifications" ToRole="sitecluster" />
+          <NavigationProperty Name="oldqualificationcodes" Relationship="timetableModel.fk_OldQualificationCode_Qualifications1" FromRole="qualification" ToRole="oldqualificationcode" />
+          <NavigationProperty Name="department" Relationship="timetableModel.fk_Qualification_Department" FromRole="qualification" ToRole="department" />
         </EntityType>
         <EntityType Name="resource">
           <Key>
@@ -1578,6 +1621,7 @@
           <Property Type="Int32" Name="AmtTimeSlots" Nullable="false" />
           <Property Type="Int32" Name="MaxMergedTimeSlots" Nullable="false" />
           <NavigationProperty Name="classgroups" Relationship="timetableModel.classgroupresource" FromRole="resource" ToRole="classgroup" />
+          <Property Type="String" Name="TimeslotsArrangement" Nullable="false" />
         </EntityType>
         <EntityType Name="resourcepreferredvenue">
           <Key>
@@ -1601,8 +1645,8 @@
           <Property Name="Week" Type="Int32" Nullable="false" />
           <Property Name="Year" Type="Int32" Nullable="false" />
           <NavigationProperty Name="resource" Relationship="timetableModel.fk_ResourceSchedule_Resource1" FromRole="resourceschedule" ToRole="resource" />
-          <NavigationProperty Name="timeslot" Relationship="timetableModel.fk_ResourceSchedule_timeSlot1" FromRole="resourceschedule" ToRole="timeslot" />
           <NavigationProperty Name="venues" Relationship="timetableModel.resourceschedulevenue" FromRole="resourceschedule" ToRole="venue" />
+          <NavigationProperty Name="timeslot" Relationship="timetableModel.fk_ResourceSchedule_timeSlot1" FromRole="resourceschedule" ToRole="timeslot" />
         </EntityType>
         <EntityType Name="resourcetype">
           <Key>
@@ -1624,8 +1668,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="longName" Type="String" Nullable="false" />
           <Property Name="shortName" Type="String" Nullable="false" />
-          <NavigationProperty Name="departments" Relationship="timetableModel.fk_Department_school1" FromRole="school" ToRole="department" />
           <NavigationProperty Name="faculty" Relationship="timetableModel.fk_school_faculty" FromRole="school" ToRole="faculty" />
+          <NavigationProperty Name="departments" Relationship="timetableModel.fk_Department_school1" FromRole="school" ToRole="department" />
         </EntityType>
         <EntityType Name="site">
           <Key>
@@ -1663,29 +1707,13 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Level" Type="Int32" Nullable="false" />
           <Property Name="longName" Type="String" Nullable="false" />
-          <Property Name="oldCode" Type="String" />
           <Property Name="shortName" Type="String" Nullable="false" />
-          <NavigationProperty Name="department" Relationship="timetableModel.fk_subject_department" FromRole="subject" ToRole="department" />
           <NavigationProperty Name="programmesubjects" Relationship="timetableModel.fk_programmeSubject_Subject" FromRole="subject" ToRole="programmesubjects" />
           <NavigationProperty Name="lecturers" Relationship="timetableModel.lecturersubject" FromRole="subject" ToRole="lecturer" />
           <Property Type="Boolean" Name="yearBlock" Nullable="false" />
           <NavigationProperty Name="siteclustersubjects" Relationship="timetableModel.fk_siteClusterSubject_Subject" FromRole="subject" ToRole="siteclustersubject" />
-        </EntityType>
-        <EntityType Name="timeslot">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="Duration" Type="Int32" Nullable="false" />
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="StartTime" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="lecturersiteclusteravailabilities" Relationship="timetableModel.fk_lsca_timeSlot1" FromRole="timeslot" ToRole="lecturersiteclusteravailability" />
-          <NavigationProperty Name="lecturersiteclusteravailabilities1" Relationship="timetableModel.fk_lsca_timeSlot2" FromRole="timeslot" ToRole="lecturersiteclusteravailability" />
-          <NavigationProperty Name="offeringtypes" Relationship="timetableModel.fk_offeringType_TimeSlot1" FromRole="timeslot" ToRole="offeringtype" />
-          <NavigationProperty Name="offeringtypes1" Relationship="timetableModel.fk_offeringType_TimeSlot2" FromRole="timeslot" ToRole="offeringtype" />
-          <NavigationProperty Name="offeringtypes2" Relationship="timetableModel.fk_offeringType_TimeSlot3" FromRole="timeslot" ToRole="offeringtype" />
-          <NavigationProperty Name="offeringtypes3" Relationship="timetableModel.fk_offeringType_TimeSlot4" FromRole="timeslot" ToRole="offeringtype" />
-          <NavigationProperty Name="resourceschedules" Relationship="timetableModel.fk_ResourceSchedule_timeSlot1" FromRole="timeslot" ToRole="resourceschedule" />
-          <Property Type="Boolean" Name="LunchPeriod" Nullable="false" />
+          <NavigationProperty Name="oldsubjectcodes" Relationship="timetableModel.fk_oldSubjectCode_Subject1" FromRole="subject" ToRole="oldsubjectcode" />
+          <NavigationProperty Name="department" Relationship="timetableModel.fk_subject_department" FromRole="subject" ToRole="department" />
         </EntityType>
         <EntityType Name="userlog">
           <Key>
@@ -1780,54 +1808,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_Department_school1">
-          <End Role="school" Type="timetableModel.school" Multiplicity="1" />
-          <End Role="department" Type="timetableModel.department" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="school">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="department">
-              <PropertyRef Name="SchoolID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_Lecturer_Department1">
-          <End Role="department" Type="timetableModel.department" Multiplicity="1" />
-          <End Role="lecturer" Type="timetableModel.lecturer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="department">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="lecturer">
-              <PropertyRef Name="DepartmentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_Qualification_Department">
-          <End Role="department" Type="timetableModel.department" Multiplicity="1" />
-          <End Role="qualifications" Type="timetableModel.qualification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="department">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="qualifications">
-              <PropertyRef Name="DepartmentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_subject_department">
-          <End Role="department" Type="timetableModel.department" Multiplicity="1" />
-          <End Role="subject" Type="timetableModel.subject" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="department">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="subject">
-              <PropertyRef Name="DepartmentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_school_faculty">
           <End Role="faculty" Type="timetableModel.faculty" Multiplicity="1" />
           <End Role="school" Type="timetableModel.school" Multiplicity="*" />
@@ -1873,78 +1853,6 @@
             </Principal>
             <Dependent Role="lecturersiteclusteravailability">
               <PropertyRef Name="SiteClusterID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_lsca_timeSlot1">
-          <End Role="timeslot" Type="timetableModel.timeslot" Multiplicity="1" />
-          <End Role="lecturersiteclusteravailability" Type="timetableModel.lecturersiteclusteravailability" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="timeslot">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="lecturersiteclusteravailability">
-              <PropertyRef Name="StartTimeSlot" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_lsca_timeSlot2">
-          <End Role="timeslot" Type="timetableModel.timeslot" Multiplicity="1" />
-          <End Role="lecturersiteclusteravailability" Type="timetableModel.lecturersiteclusteravailability" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="timeslot">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="lecturersiteclusteravailability">
-              <PropertyRef Name="EndTimeSlot" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_offeringType_TimeSlot1">
-          <End Role="timeslot" Type="timetableModel.timeslot" Multiplicity="1" />
-          <End Role="offeringtype" Type="timetableModel.offeringtype" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="timeslot">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="offeringtype">
-              <PropertyRef Name="startTimeSlot" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_offeringType_TimeSlot2">
-          <End Role="timeslot" Type="timetableModel.timeslot" Multiplicity="1" />
-          <End Role="offeringtype" Type="timetableModel.offeringtype" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="timeslot">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="offeringtype">
-              <PropertyRef Name="endTimeSlot" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_offeringType_TimeSlot3">
-          <End Role="timeslot" Type="timetableModel.timeslot" Multiplicity="1" />
-          <End Role="offeringtype" Type="timetableModel.offeringtype" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="timeslot">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="offeringtype">
-              <PropertyRef Name="sabStartTimeSlot" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_offeringType_TimeSlot4">
-          <End Role="timeslot" Type="timetableModel.timeslot" Multiplicity="1" />
-          <End Role="offeringtype" Type="timetableModel.offeringtype" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="timeslot">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="offeringtype">
-              <PropertyRef Name="sabEndTimeSlot" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2017,18 +1925,6 @@
             </Principal>
             <Dependent Role="resourcepreferredvenue">
               <PropertyRef Name="VenueID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_ResourceSchedule_timeSlot1">
-          <End Role="timeslot" Type="timetableModel.timeslot" Multiplicity="1" />
-          <End Role="resourceschedule" Type="timetableModel.resourceschedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="timeslot">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="resourceschedule">
-              <PropertyRef Name="timeSlotID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2179,11 +2075,216 @@
           <End Type="timetableModel.classgroup" Role="classgroup" Multiplicity="*" />
           <End Type="timetableModel.lecturer" Role="lecturer" Multiplicity="0..1" />
         </Association>
+        <EntityType Name="oldqualificationcode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="QualID" Nullable="false" />
+          <Property Type="String" Name="oldCode" Nullable="false" />
+          <NavigationProperty Name="qualification" Relationship="timetableModel.fk_OldQualificationCode_Qualifications1" FromRole="oldqualificationcode" ToRole="qualification" />
+        </EntityType>
+        <EntityType Name="oldsubjectcode">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="SubjectID" Nullable="false" />
+          <Property Type="String" Name="OldCode" Nullable="false" />
+          <NavigationProperty Name="subject" Relationship="timetableModel.fk_oldSubjectCode_Subject1" FromRole="oldsubjectcode" ToRole="subject" />
+        </EntityType>
+        <Association Name="fk_OldQualificationCode_Qualifications1">
+          <End Type="timetableModel.qualification" Role="qualification" Multiplicity="1" />
+          <End Type="timetableModel.oldqualificationcode" Role="oldqualificationcode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="qualification">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="oldqualificationcode">
+              <PropertyRef Name="QualID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_oldSubjectCode_Subject1">
+          <End Type="timetableModel.subject" Role="subject" Multiplicity="1" />
+          <End Type="timetableModel.oldsubjectcode" Role="oldsubjectcode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subject">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="oldsubjectcode">
+              <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="code" Nullable="false" />
+          <Property Type="String" Name="shortName" Nullable="false" />
+          <Property Type="String" Name="longName" Nullable="false" />
+          <Property Type="Int32" Name="SchoolID" Nullable="false" />
+          <NavigationProperty Name="school" Relationship="timetableModel.fk_Department_school1" FromRole="department" ToRole="school" />
+          <NavigationProperty Name="lecturers" Relationship="timetableModel.fk_Lecturer_Department1" FromRole="department" ToRole="lecturer" />
+          <NavigationProperty Name="qualifications" Relationship="timetableModel.fk_Qualification_Department" FromRole="department" ToRole="qualification" />
+          <NavigationProperty Name="subjects" Relationship="timetableModel.fk_subject_department" FromRole="department" ToRole="subject" />
+          <NavigationProperty Name="venues" Relationship="timetableModel.departmentvenue" FromRole="department" ToRole="venue" />
+        </EntityType>
+        <EntityType Name="timeslot">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="DateTime" Name="StartTime" Nullable="false" />
+          <Property Type="Int32" Name="Duration" Nullable="false" />
+          <Property Type="Boolean" Name="LunchPeriod" Nullable="false" />
+          <NavigationProperty Name="lecturersiteclusteravailabilities" Relationship="timetableModel.fk_lsca_timeSlot1" FromRole="timeslot" ToRole="lecturersiteclusteravailability" />
+          <NavigationProperty Name="lecturersiteclusteravailabilities1" Relationship="timetableModel.fk_lsca_timeSlot2" FromRole="timeslot" ToRole="lecturersiteclusteravailability" />
+          <NavigationProperty Name="offeringtypes" Relationship="timetableModel.fk_offeringType_TimeSlot1" FromRole="timeslot" ToRole="offeringtype" />
+          <NavigationProperty Name="offeringtypes1" Relationship="timetableModel.fk_offeringType_TimeSlot2" FromRole="timeslot" ToRole="offeringtype" />
+          <NavigationProperty Name="offeringtypes2" Relationship="timetableModel.fk_offeringType_TimeSlot3" FromRole="timeslot" ToRole="offeringtype" />
+          <NavigationProperty Name="offeringtypes3" Relationship="timetableModel.fk_offeringType_TimeSlot4" FromRole="timeslot" ToRole="offeringtype" />
+          <NavigationProperty Name="resourceschedules" Relationship="timetableModel.fk_ResourceSchedule_timeSlot1" FromRole="timeslot" ToRole="resourceschedule" />
+        </EntityType>
+        <Association Name="fk_Department_school1">
+          <End Type="timetableModel.school" Role="school" Multiplicity="1" />
+          <End Type="timetableModel.department" Role="department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="school">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="department">
+              <PropertyRef Name="SchoolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Lecturer_Department1">
+          <End Type="timetableModel.department" Role="department" Multiplicity="1" />
+          <End Type="timetableModel.lecturer" Role="lecturer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="department">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="lecturer">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Qualification_Department">
+          <End Type="timetableModel.department" Role="department" Multiplicity="1" />
+          <End Type="timetableModel.qualification" Role="qualification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="department">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="qualification">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_subject_department">
+          <End Type="timetableModel.department" Role="department" Multiplicity="1" />
+          <End Type="timetableModel.subject" Role="subject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="department">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="subject">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_lsca_timeSlot1">
+          <End Type="timetableModel.timeslot" Role="timeslot" Multiplicity="1" />
+          <End Type="timetableModel.lecturersiteclusteravailability" Role="lecturersiteclusteravailability" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="timeslot">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="lecturersiteclusteravailability">
+              <PropertyRef Name="StartTimeSlot" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_lsca_timeSlot2">
+          <End Type="timetableModel.timeslot" Role="timeslot" Multiplicity="1" />
+          <End Type="timetableModel.lecturersiteclusteravailability" Role="lecturersiteclusteravailability" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="timeslot">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="lecturersiteclusteravailability">
+              <PropertyRef Name="EndTimeSlot" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_offeringType_TimeSlot1">
+          <End Type="timetableModel.timeslot" Role="timeslot" Multiplicity="1" />
+          <End Type="timetableModel.offeringtype" Role="offeringtype" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="timeslot">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="offeringtype">
+              <PropertyRef Name="startTimeSlot" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_offeringType_TimeSlot2">
+          <End Type="timetableModel.timeslot" Role="timeslot" Multiplicity="1" />
+          <End Type="timetableModel.offeringtype" Role="offeringtype" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="timeslot">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="offeringtype">
+              <PropertyRef Name="endTimeSlot" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_offeringType_TimeSlot3">
+          <End Type="timetableModel.timeslot" Role="timeslot" Multiplicity="1" />
+          <End Type="timetableModel.offeringtype" Role="offeringtype" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="timeslot">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="offeringtype">
+              <PropertyRef Name="sabStartTimeSlot" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_offeringType_TimeSlot4">
+          <End Type="timetableModel.timeslot" Role="timeslot" Multiplicity="1" />
+          <End Type="timetableModel.offeringtype" Role="offeringtype" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="timeslot">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="offeringtype">
+              <PropertyRef Name="sabEndTimeSlot" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ResourceSchedule_timeSlot1">
+          <End Type="timetableModel.timeslot" Role="timeslot" Multiplicity="1" />
+          <End Type="timetableModel.resourceschedule" Role="resourceschedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="timeslot">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="resourceschedule">
+              <PropertyRef Name="timeSlotID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="departmentvenue">
           <End Type="timetableModel.department" Role="department" Multiplicity="*" />
           <End Type="timetableModel.venue" Role="venue" Multiplicity="*" />
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -2206,13 +2307,6 @@
           <EntitySetMapping Name="campus"><EntityTypeMapping TypeName="timetableModel.campu"><MappingFragment StoreEntitySet="campus">
             <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="longName" ColumnName="longName" />
-            <ScalarProperty Name="shortName" ColumnName="shortName" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="departments"><EntityTypeMapping TypeName="timetableModel.department"><MappingFragment StoreEntitySet="department">
-            <ScalarProperty Name="code" ColumnName="code" />
-            <ScalarProperty Name="ID" ColumnName="ID" />
-            <ScalarProperty Name="longName" ColumnName="longName" />
-            <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
             <ScalarProperty Name="shortName" ColumnName="shortName" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="faculties"><EntityTypeMapping TypeName="timetableModel.faculty"><MappingFragment StoreEntitySet="faculty">
@@ -2262,15 +2356,15 @@
             <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="qualifications"><EntityTypeMapping TypeName="timetableModel.qualification"><MappingFragment StoreEntitySet="qualifications">
-            <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
             <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
             <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="longName" ColumnName="longName" />
-            <ScalarProperty Name="OldCode" ColumnName="OldCode" />
             <ScalarProperty Name="shortName" ColumnName="shortName" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="resources"><EntityTypeMapping TypeName="timetableModel.resource"><MappingFragment StoreEntitySet="resource">
-            <ScalarProperty Name="MaxMergedTimeSlots" ColumnName="MaxMergedTimeSlots" />
+            <ScalarProperty Name="TimeslotsArrangement" ColumnName="TimeslotsArrangement" />
+                <ScalarProperty Name="MaxMergedTimeSlots" ColumnName="MaxMergedTimeSlots" />
                 <ScalarProperty Name="AmtTimeSlots" ColumnName="AmtTimeSlots" />
                 <ScalarProperty Name="AmtParticipants" ColumnName="AmtParticipants" />
                 <ScalarProperty Name="year" ColumnName="year" />
@@ -2322,20 +2416,13 @@
             <ScalarProperty Name="shortName" ColumnName="shortName" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="subjects"><EntityTypeMapping TypeName="timetableModel.subject"><MappingFragment StoreEntitySet="subject">
-            <ScalarProperty Name="yearBlock" ColumnName="yearBlock" />
+                <ScalarProperty Name="yearBlock" ColumnName="yearBlock" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
             <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
             <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="Level" ColumnName="Level" />
             <ScalarProperty Name="longName" ColumnName="longName" />
-            <ScalarProperty Name="oldCode" ColumnName="oldCode" />
             <ScalarProperty Name="shortName" ColumnName="shortName" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="timeslots"><EntityTypeMapping TypeName="timetableModel.timeslot"><MappingFragment StoreEntitySet="timeslot">
-            <ScalarProperty Name="LunchPeriod" ColumnName="LunchPeriod" />
-                <ScalarProperty Name="Duration" ColumnName="Duration" />
-            <ScalarProperty Name="ID" ColumnName="ID" />
-            <ScalarProperty Name="StartTime" ColumnName="StartTime" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="userlogs"><EntityTypeMapping TypeName="timetableModel.userlog"><MappingFragment StoreEntitySet="userlog">
             <ScalarProperty Name="description" ColumnName="description" />
@@ -2456,6 +2543,45 @@
             </EndProperty>
             <Condition ColumnName="LecturerID" IsNull="false" />
           </AssociationSetMapping>
+          <EntitySetMapping Name="oldqualificationcodes">
+            <EntityTypeMapping TypeName="timetableModel.oldqualificationcode">
+              <MappingFragment StoreEntitySet="oldqualificationcode">
+                <ScalarProperty Name="oldCode" ColumnName="oldCode" />
+                <ScalarProperty Name="QualID" ColumnName="QualID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="oldsubjectcodes">
+            <EntityTypeMapping TypeName="timetableModel.oldsubjectcode">
+              <MappingFragment StoreEntitySet="oldsubjectcode">
+                <ScalarProperty Name="OldCode" ColumnName="OldCode" />
+                <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="departments">
+            <EntityTypeMapping TypeName="timetableModel.department">
+              <MappingFragment StoreEntitySet="department">
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
+                <ScalarProperty Name="longName" ColumnName="longName" />
+                <ScalarProperty Name="shortName" ColumnName="shortName" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="timeslots">
+            <EntityTypeMapping TypeName="timetableModel.timeslot">
+              <MappingFragment StoreEntitySet="timeslot">
+                <ScalarProperty Name="LunchPeriod" ColumnName="LunchPeriod" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <AssociationSetMapping Name="departmentvenue" TypeName="timetableModel.departmentvenue" StoreEntitySet="departmentvenue">
             <EndProperty Name="venue">
               <ScalarProperty Name="ID" ColumnName="venueID" />
@@ -2485,11 +2611,10 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="dbcontext" ZoomLevel="11">
+      <Diagram Name="dbcontext" ZoomLevel="100">
         <EntityTypeShape EntityType="timetableModel.academicblock" Width="1.5" PointX="5.25" PointY="13.875" Height="1.9802864583333317" IsExpanded="true" />
         <EntityTypeShape EntityType="timetableModel.building" Width="1.5" PointX="6" PointY="27" Height="2.172587890624996" IsExpanded="true" />
         <EntityTypeShape EntityType="timetableModel.campu" Width="1.5" PointX="5.25" PointY="16.75" Height="1.9802864583333317" IsExpanded="true" />
-        <EntityTypeShape EntityType="timetableModel.department" Width="1.5" PointX="20.375" PointY="2.25" Height="3.1340950520833326" IsExpanded="true" />
         <EntityTypeShape EntityType="timetableModel.faculty" Width="1.5" PointX="3" PointY="1.625" Height="2.1725878906249996" IsExpanded="true" />
         <EntityTypeShape EntityType="timetableModel.lecturer" Width="1.5" PointX="9.75" PointY="14.375" Height="2.3648893229166674" IsExpanded="true" />
         <EntityTypeShape EntityType="timetableModel.lecturersiteclusteravailability" Width="1.5" PointX="3" PointY="5.75" Height="2.7494921874999996" IsExpanded="true" />
@@ -2505,10 +2630,9 @@
         <EntityTypeShape EntityType="timetableModel.school" Width="1.5" PointX="5.25" PointY="1.5" Height="2.3648893229166674" IsExpanded="true" />
         <EntityTypeShape EntityType="timetableModel.site" Width="1.5" PointX="3.75" PointY="26.875" Height="2.3648893229166674" IsExpanded="true" />
         <EntityTypeShape EntityType="timetableModel.sitecluster" Width="1.5" PointX="3" PointY="14.25" Height="2.7494921875000031" IsExpanded="true" />
-        <EntityTypeShape EntityType="timetableModel.subject" Width="1.5" PointX="12" PointY="14" Height="3.3263964843750031" IsExpanded="true" />
-        <EntityTypeShape EntityType="timetableModel.timeslot" Width="1.5" PointX="0.75" PointY="6.625" Height="2.9417936197916674" IsExpanded="true" />
+        <EntityTypeShape EntityType="timetableModel.subject" Width="1.5" PointX="12" PointY="14" Height="3.3263964843749996" IsExpanded="true" />
         <EntityTypeShape EntityType="timetableModel.userlog" Width="1.5" PointX="9.75" PointY="0.75" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="timetableModel.venue" Width="1.5" PointX="8.25" PointY="6.625" Height="2.9417936197916674" IsExpanded="true" />
+        <EntityTypeShape EntityType="timetableModel.venue" Width="1.5" PointX="8.25" PointY="6.625" Height="3.1340950520833317" IsExpanded="true" />
         <EntityTypeShape EntityType="timetableModel.campususer" Width="1.5" PointX="11.75" PointY="0.75" Height="1.9802864583333246" IsExpanded="true" />
         <EntityTypeShape EntityType="timetableModel.facultyuser" Width="1.5" PointX="11.75" PointY="3.75" Height="1.9802864583333246" IsExpanded="true" />
         <AssociationConnector Association="timetableModel.fk_building_site" ManuallyRouted="false">
@@ -2521,150 +2645,67 @@
           <ConnectorPoint PointX="9.375" PointY="9.951396484375" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_campus_siteCluster" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.25" PointY="17.893738606770832" />
-          <ConnectorPoint PointX="5.020833333333333" PointY="17.893738606770832" />
-          <ConnectorPoint PointX="4.854166666666667" PointY="17.893738606770832" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="17.893738606770832" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="17.893738606770832" />
-          <ConnectorPoint PointX="3.890625" PointY="17.893738606770832" />
-          <ConnectorPoint PointX="3.890625" PointY="16.9994921875" />
-        </AssociationConnector>
-        <AssociationConnector Association="timetableModel.fk_Department_school1" ManuallyRouted="false">
-          <ConnectorPoint PointX="6" PointY="3.8648893229166674" />
-          <ConnectorPoint PointX="6" PointY="4.1148893229166674" />
-          <ConnectorPoint PointX="11.5" PointY="4.1148893229166674" />
-          <ConnectorPoint PointX="11.5" PointY="3.5" />
-          <ConnectorPoint PointX="13.666666666666666" PointY="3.4999999999999996" />
-          <ConnectorPoint PointX="13.833333333333334" PointY="3.5" />
-          <ConnectorPoint PointX="20" PointY="3.5" />
-          <ConnectorPoint PointX="20" PointY="3.8435901843526947" />
-          <ConnectorPoint PointX="20.375" PointY="3.8435901843526947" />
-        </AssociationConnector>
-        <AssociationConnector Association="timetableModel.fk_Lecturer_Department1" ManuallyRouted="false">
-          <ConnectorPoint PointX="20.375" PointY="4.6450946182180139" />
-          <ConnectorPoint PointX="13.833333333333334" PointY="4.6450946182180131" />
-          <ConnectorPoint PointX="13.666666666666666" PointY="4.6450946182180139" />
-          <ConnectorPoint PointX="13.5" PointY="4.6450946182180139" />
-          <ConnectorPoint PointX="13.5" PointY="6.875" />
-          <ConnectorPoint PointX="10.25" PointY="6.875" />
-          <ConnectorPoint PointX="10.25" PointY="13.75" />
-          <ConnectorPoint PointX="10.718752" PointY="13.75" />
-          <ConnectorPoint PointX="10.718752" PointY="14.375" />
-        </AssociationConnector>
-        <AssociationConnector Association="timetableModel.fk_Qualification_Department" ManuallyRouted="false">
-          <ConnectorPoint PointX="20.375" PointY="2.8750005" />
-          <ConnectorPoint PointX="13.75" PointY="2.8750005" />
-          <ConnectorPoint PointX="13.75" PointY="5.9802864583333246" />
-          <ConnectorPoint PointX="13.583333333333334" PointY="5.9802864583333237" />
-          <ConnectorPoint PointX="13.416666666666666" PointY="5.9802864583333246" />
-          <ConnectorPoint PointX="4.9375" PointY="5.9802864583333246" />
-          <ConnectorPoint PointX="4.9375" PointY="13.875" />
-          <ConnectorPoint PointX="4.864583333333333" PointY="13.875" />
-          <ConnectorPoint PointX="4.697916666666667" PointY="13.875" />
-          <ConnectorPoint PointX="3.8963156025641026" PointY="13.875" />
-          <ConnectorPoint PointX="3.7296489358974356" PointY="13.875" />
-          <ConnectorPoint PointX="2.5520833333333335" PointY="13.875" />
-          <ConnectorPoint PointX="2.3854166666666665" PointY="13.875" />
-          <ConnectorPoint PointX="1.5" PointY="13.875" />
-          <ConnectorPoint PointX="1.5" PointY="14.25" />
-        </AssociationConnector>
-        <AssociationConnector Association="timetableModel.fk_subject_department" ManuallyRouted="false">
-          <ConnectorPoint PointX="20.92187375" PointY="5.1917936197916656" />
-          <ConnectorPoint PointX="20.92187375" PointY="16.997091471354171" />
-          <ConnectorPoint PointX="17.333333333333332" PointY="16.997091471354171" />
-          <ConnectorPoint PointX="17.166666666666668" PointY="16.997091471354171" />
-          <ConnectorPoint PointX="13.5" PointY="16.997091471354171" />
+          <ConnectorPoint PointX="7.3124994999999995" PointY="16.499039461538462" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="16.499039461538462" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="16.499039461538462" />
+          <ConnectorPoint PointX="5.0625" PointY="16.499039461538462" />
+          <ConnectorPoint PointX="5.0625" PointY="17.561992187500003" />
+          <ConnectorPoint PointX="4.5" PointY="16.999492187500003" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_school_faculty" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="2.7112939453125" />
-          <ConnectorPoint PointX="5.25" PointY="2.7112939453125" />
+          <ConnectorPoint PointX="4.5" PointY="2.6331689453125" />
+          <ConnectorPoint PointX="5.25" PointY="2.6331689453125" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_Lecturer_officers1" ManuallyRouted="false">
-          <ConnectorPoint PointX="8.35937625" PointY="17.875" />
-          <ConnectorPoint PointX="8.35937625" PointY="15.963712792244195" />
-          <ConnectorPoint PointX="9.3854166666666661" PointY="15.963712792244195" />
-          <ConnectorPoint PointX="9.5520833333333339" PointY="15.963712792244195" />
-          <ConnectorPoint PointX="9.75" PointY="15.963712792244195" />
+          <ConnectorPoint PointX="8.4687525" PointY="17.875" />
+          <ConnectorPoint PointX="8.4687525" PointY="15.557444661458334" />
+          <ConnectorPoint PointX="9.1666666666666661" PointY="15.557444661458332" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="15.557444661458334" />
+          <ConnectorPoint PointX="9.75" PointY="15.557444661458334" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_lsca_lecturer" ManuallyRouted="false">
           <ConnectorPoint PointX="10.125" PointY="14.375" />
           <ConnectorPoint PointX="10.125" PointY="6.15625" />
-          <ConnectorPoint PointX="5.020833333333333" PointY="6.1562499999999991" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="6.15625" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="6.1562499999999991" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="6.15625" />
           <ConnectorPoint PointX="4.5" PointY="6.15625" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_lsca_sitecluster" ManuallyRouted="false">
-          <ConnectorPoint PointX="3.0634605384615381" PointY="14.25" />
-          <ConnectorPoint PointX="2.6875" PointY="13.874039461538462" />
-          <ConnectorPoint PointX="2.6875" PointY="8.8131450336538464" />
+          <ConnectorPoint PointX="3.0011528461538459" PointY="14.25" />
+          <ConnectorPoint PointX="2.625" PointY="13.873847153846153" />
+          <ConnectorPoint PointX="2.625" PointY="8.8756450336538464" />
+          <ConnectorPoint PointX="2.8160744349011209" PointY="8.6845705987527246" />
+          <ConnectorPoint PointX="2.9339255650988787" PointY="8.5667194685549681" />
           <ConnectorPoint PointX="3.0011528461538459" PointY="8.4994921875" />
         </AssociationConnector>
-        <AssociationConnector Association="timetableModel.fk_lsca_timeSlot1" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="7.8278076171874993" />
-          <ConnectorPoint PointX="3" PointY="7.8278076171874993" />
-        </AssociationConnector>
-        <AssociationConnector Association="timetableModel.fk_lsca_timeSlot2" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="7.16390380859375" />
-          <ConnectorPoint PointX="3" PointY="7.16390380859375" />
-        </AssociationConnector>
-        <AssociationConnector Association="timetableModel.fk_offeringType_TimeSlot1" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.3391239019063117" PointY="9.7590950520833317" />
-          <ConnectorPoint PointX="1.3391239019063117" PointY="12.066264534512033" />
-          <ConnectorPoint PointX="2.3854166666666665" PointY="12.066264534512033" />
-          <ConnectorPoint PointX="2.5520833333333335" PointY="12.066264534512033" />
-          <ConnectorPoint PointX="2.6041666666666665" PointY="12.066264534512033" />
-          <ConnectorPoint PointX="2.7708333333333335" PointY="12.066264534512033" />
-          <ConnectorPoint PointX="3" PointY="12.066264534512033" />
-        </AssociationConnector>
-        <AssociationConnector Association="timetableModel.fk_offeringType_TimeSlot2" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.6950680732564631" PointY="9.7590950520833317" />
-          <ConnectorPoint PointX="1.6950680732564631" PointY="11.315979422327132" />
-          <ConnectorPoint PointX="2.3854166666666665" PointY="11.315979422327132" />
-          <ConnectorPoint PointX="2.5520833333333335" PointY="11.315979422327132" />
-          <ConnectorPoint PointX="2.6041666666666665" PointY="11.315979422327132" />
-          <ConnectorPoint PointX="2.7708333333333335" PointY="11.315979422327132" />
-          <ConnectorPoint PointX="3" PointY="11.315979422327132" />
-        </AssociationConnector>
-        <AssociationConnector Association="timetableModel.fk_offeringType_TimeSlot3" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.0133094509531557" PointY="9.7590950520833317" />
-          <ConnectorPoint PointX="1.0133094509531557" PointY="12.823733725589351" />
-          <ConnectorPoint PointX="2.3854166666666665" PointY="12.823733725589351" />
-          <ConnectorPoint PointX="2.5520833333333335" PointY="12.823733725589351" />
-          <ConnectorPoint PointX="2.6041666666666665" PointY="12.823733725589351" />
-          <ConnectorPoint PointX="2.7708333333333335" PointY="12.823733725589351" />
-          <ConnectorPoint PointX="3" PointY="12.823733725589351" />
-        </AssociationConnector>
-        <AssociationConnector Association="timetableModel.fk_offeringType_TimeSlot4" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.0037865366282315" PointY="9.7590950520833317" />
-          <ConnectorPoint PointX="2.0037865366282315" PointY="10.626737211163565" />
-          <ConnectorPoint PointX="2.3854166666666665" PointY="10.626737211163565" />
-          <ConnectorPoint PointX="2.5520833333333335" PointY="10.626737211163565" />
-          <ConnectorPoint PointX="2.6041666666666665" PointY="10.626737211163565" />
-          <ConnectorPoint PointX="2.7708333333333335" PointY="10.626737211163565" />
-          <ConnectorPoint PointX="3" PointY="10.626737211163565" />
-        </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_ProgrammeSubject_Qual" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="15.656574516826925" />
-          <ConnectorPoint PointX="2.3854166666666665" PointY="15.656574516826925" />
-          <ConnectorPoint PointX="2.5520833333333335" PointY="15.656574516826925" />
-          <ConnectorPoint PointX="2.875" PointY="15.656574516826925" />
-          <ConnectorPoint PointX="2.875" PointY="14" />
-          <ConnectorPoint PointX="3.7296489358974356" PointY="14" />
-          <ConnectorPoint PointX="3.8963156025641026" PointY="14" />
-          <ConnectorPoint PointX="4.697916666666667" PointY="13.999999999999998" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="14" />
+          <ConnectorPoint PointX="2.25" PointY="15.164756965948005" />
+          <ConnectorPoint PointX="2.75" PointY="15.164756965948005" />
+          <ConnectorPoint PointX="2.75" PointY="14" />
+          <ConnectorPoint PointX="3.6984950897435893" PointY="14" />
+          <ConnectorPoint PointX="3.8651617564102563" PointY="14" />
           <ConnectorPoint PointX="5" PointY="14" />
           <ConnectorPoint PointX="5" PointY="13.625" />
-          <ConnectorPoint PointX="9.3854166666666661" PointY="13.625" />
-          <ConnectorPoint PointX="9.5520833333333339" PointY="13.625" />
-          <ConnectorPoint PointX="10.041666666666666" PointY="13.624999999999998" />
-          <ConnectorPoint PointX="10.333333333333334" PointY="13.625" />
-          <ConnectorPoint PointX="10.635418666666666" PointY="13.625" />
-          <ConnectorPoint PointX="10.802085333333334" PointY="13.625" />
+          <ConnectorPoint PointX="5.041666666666667" PointY="13.625" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="13.625" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="13.625" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="13.625" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="13.625" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="13.625" />
+          <ConnectorPoint PointX="9.1666666666666661" PointY="13.624999999999998" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="13.625" />
+          <ConnectorPoint PointX="10.041666666666666" PointY="13.625" />
+          <ConnectorPoint PointX="10.208333333333334" PointY="13.625" />
+          <ConnectorPoint PointX="10.338542916666667" PointY="13.625" />
+          <ConnectorPoint PointX="10.505209583333334" PointY="13.625" />
+          <ConnectorPoint PointX="10.635419166666667" PointY="13.625" />
+          <ConnectorPoint PointX="10.802085833333335" PointY="13.625" />
           <ConnectorPoint PointX="11.541666666666666" PointY="13.625" />
           <ConnectorPoint PointX="11.708333333333334" PointY="13.625" />
-          <ConnectorPoint PointX="12.666666666666666" PointY="13.625" />
-          <ConnectorPoint PointX="12.833333333333334" PointY="13.625" />
+          <ConnectorPoint PointX="12.346351666666665" PointY="13.625" />
+          <ConnectorPoint PointX="12.513018333333333" PointY="13.625" />
+          <ConnectorPoint PointX="12.838540666666665" PointY="13.625" />
+          <ConnectorPoint PointX="13.005207333333333" PointY="13.625" />
           <ConnectorPoint PointX="14" PointY="13.625" />
           <ConnectorPoint PointX="14" PointY="14.375" />
           <ConnectorPoint PointX="15" PointY="14.375" />
@@ -2675,60 +2716,61 @@
           <ConnectorPoint PointX="14.25" PointY="15.615143229166669" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_ResourceSchedule_Resource1" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.78125" PointY="22.625" />
-          <ConnectorPoint PointX="4.78125" PointY="9.147932187499995" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="9.147932187499995" />
-          <ConnectorPoint PointX="5.020833333333333" PointY="9.147932187499995" />
-          <ConnectorPoint PointX="6" PointY="9.147932187499995" />
+          <ConnectorPoint PointX="5.25" PointY="24.4929742175293" />
+          <ConnectorPoint PointX="7.125" PointY="24.4929742175293" />
+          <ConnectorPoint PointX="7.125" PointY="9.4994921875" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_Resource_has_Venue_Resource1" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.25" PointY="24.480499674479169" />
-          <ConnectorPoint PointX="9.3854166666666661" PointY="24.480499674479169" />
-          <ConnectorPoint PointX="9.5520833333333339" PointY="24.480499674479169" />
-          <ConnectorPoint PointX="11.625" PointY="24.480499674479169" />
+          <ConnectorPoint PointX="5.25" PointY="25.541889999389646" />
+          <ConnectorPoint PointX="9.2916666666666661" PointY="25.541889999389646" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="25.541889999389646" />
+          <ConnectorPoint PointX="11.625" PointY="25.541889999389646" />
           <ConnectorPoint PointX="11.625" PointY="9.1052864583333388" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_Resource_VenueType1" ManuallyRouted="false">
           <ConnectorPoint PointX="3" PointY="24.086293945312498" />
-          <ConnectorPoint PointX="3.2916641666666666" PointY="24.086293945312498" />
-          <ConnectorPoint PointX="3.4583308333333336" PointY="24.086293945312498" />
+          <ConnectorPoint PointX="3.4166666666666665" PointY="24.086293945312498" />
+          <ConnectorPoint PointX="3.5833333333333335" PointY="24.086293945312498" />
           <ConnectorPoint PointX="3.75" PointY="24.086293945312498" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_Resource_has_Venue_Venue1" ManuallyRouted="false">
-          <ConnectorPoint PointX="9.75" PointY="8.11514322916667" />
-          <ConnectorPoint PointX="10.041666666666666" PointY="8.1151432291666676" />
-          <ConnectorPoint PointX="10.333333333333334" PointY="8.11514322916667" />
-          <ConnectorPoint PointX="10.5" PointY="8.11514322916667" />
-        </AssociationConnector>
-        <AssociationConnector Association="timetableModel.fk_ResourceSchedule_timeSlot1" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="8.7924621874999964" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="8.7924621874999964" />
-          <ConnectorPoint PointX="5.020833333333333" PointY="8.7924621874999964" />
-          <ConnectorPoint PointX="6" PointY="8.7924621874999964" />
+          <ConnectorPoint PointX="9.75" PointY="8.598193417968746" />
+          <ConnectorPoint PointX="10.041666666666666" PointY="8.598193417968746" />
+          <ConnectorPoint PointX="10.208333333333334" PointY="8.598193417968746" />
+          <ConnectorPoint PointX="10.5" PointY="8.598193417968746" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_type_venue" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.46875" PointY="23" />
-          <ConnectorPoint PointX="2.46875" PointY="9.8864957682291656" />
-          <ConnectorPoint PointX="2.6041666666666665" PointY="9.8864957682291656" />
-          <ConnectorPoint PointX="2.7708333333333335" PointY="9.8864957682291656" />
-          <ConnectorPoint PointX="4.697916666666667" PointY="9.8864957682291639" />
-          <ConnectorPoint PointX="5.020833333333333" PointY="9.8864957682291656" />
-          <ConnectorPoint PointX="8.25" PointY="9.8864957682291656" />
+          <ConnectorPoint PointX="3" PointY="23.511894972656251" />
+          <ConnectorPoint PointX="3.25" PointY="23.511894972656251" />
+          <ConnectorPoint PointX="3.25" PointY="22.359375" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="22.359375" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="22.359375" />
+          <ConnectorPoint PointX="9.25" PointY="22.359375" />
+          <ConnectorPoint PointX="9.25" PointY="10.326396484375" />
+          <ConnectorPoint PointX="8.781248" PointY="10.326396484375" />
+          <ConnectorPoint PointX="8.781248" PointY="9.951396484375" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_Site_SiteCluster" ManuallyRouted="false">
-          <ConnectorPoint PointX="3.28125" PointY="16.999492187500003" />
-          <ConnectorPoint PointX="3.28125" PointY="28.153595377604169" />
+          <ConnectorPoint PointX="3.718748" PointY="16.999492187500003" />
+          <ConnectorPoint PointX="3.718748" PointY="17.625" />
+          <ConnectorPoint PointX="2.75" PointY="17.625" />
+          <ConnectorPoint PointX="2.75" PointY="22.625" />
+          <ConnectorPoint PointX="3.1666666666666665" PointY="22.625" />
+          <ConnectorPoint PointX="3.3333333333333335" PointY="22.625" />
+          <ConnectorPoint PointX="3.5" PointY="22.625" />
+          <ConnectorPoint PointX="3.5" PointY="28.153595377604169" />
           <ConnectorPoint PointX="3.75" PointY="28.153595377604169" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.campusaccess" ManuallyRouted="false">
           <ConnectorPoint PointX="6.75" PointY="18.302643229166666" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="18.302643229166666" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="18.302643229166666" />
           <ConnectorPoint PointX="7.5" PointY="18.302643229166666" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.facultyaccess" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="3.7975878906249996" />
-          <ConnectorPoint PointX="4.875" PointY="4.172587890625" />
-          <ConnectorPoint PointX="4.875" PointY="19.115143229166666" />
-          <ConnectorPoint PointX="7.5" PointY="19.115143229166666" />
+          <ConnectorPoint PointX="4.5" PointY="3.7663378906249996" />
+          <ConnectorPoint PointX="7.875" PointY="3.7663378906249996" />
+          <ConnectorPoint PointX="7.875" PointY="17.875" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.lecturersubject" ManuallyRouted="false">
           <ConnectorPoint PointX="11.25" PointY="15.557444661458334" />
@@ -2738,71 +2780,93 @@
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.officeruserlink" ManuallyRouted="false">
           <ConnectorPoint PointX="6.75" PointY="20.06224609375" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="20.06224609375" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="20.06224609375" />
           <ConnectorPoint PointX="7.5" PointY="20.06224609375" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.resourceschedulevenue" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.5" PointY="8.1247460937500016" />
-          <ConnectorPoint PointX="8.25" PointY="8.1247460937500016" />
+          <ConnectorPoint PointX="7.5" PointY="8.12474609375" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="8.12474609375" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="8.12474609375" />
+          <ConnectorPoint PointX="8.25" PointY="8.12474609375" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.siteclusterprogramme" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="16.222667643329327" />
-          <ConnectorPoint PointX="2.3854166666666665" PointY="16.222667643329327" />
-          <ConnectorPoint PointX="2.5520833333333335" PointY="16.222667643329327" />
-          <ConnectorPoint PointX="3" PointY="16.222667643329327" />
+          <ConnectorPoint PointX="2.25" PointY="16.142017931896014" />
+          <ConnectorPoint PointX="3" PointY="16.142017931896014" />
         </AssociationConnector>
         <EntityTypeShape EntityType="timetableModel.siteclustersubject" Width="1.5" PointX="14.25" PointY="11.625" Height="1.9802864583333246" />
         <AssociationConnector Association="timetableModel.fk_siteClusterSubject_SiteCluster" >
-          <ConnectorPoint PointX="3.8129822692307691" PointY="14.25" />
-          <ConnectorPoint PointX="3.8129822692307691" PointY="13.768697916666667" />
-          <ConnectorPoint PointX="4.625" PointY="13.768697916666667" />
-          <ConnectorPoint PointX="4.625" PointY="12.615143229166662" />
-          <ConnectorPoint PointX="4.697916666666667" PointY="12.615143229166661" />
-          <ConnectorPoint PointX="5.020833333333333" PointY="12.615143229166662" />
-          <ConnectorPoint PointX="9.3854166666666661" PointY="12.615143229166662" />
-          <ConnectorPoint PointX="9.5520833333333339" PointY="12.615143229166662" />
-          <ConnectorPoint PointX="10.041666666666666" PointY="12.615143229166661" />
-          <ConnectorPoint PointX="10.333333333333334" PointY="12.615143229166662" />
-          <ConnectorPoint PointX="10.635418666666666" PointY="12.615143229166662" />
-          <ConnectorPoint PointX="10.802085333333334" PointY="12.615143229166662" />
-          <ConnectorPoint PointX="11.541666666666666" PointY="12.615143229166662" />
-          <ConnectorPoint PointX="11.708333333333334" PointY="12.615143229166662" />
-          <ConnectorPoint PointX="14.25" PointY="12.615143229166662" />
+          <ConnectorPoint PointX="3.7818284230769228" PointY="14.25" />
+          <ConnectorPoint PointX="3.7818284230769228" PointY="12.9994921875" />
+          <ConnectorPoint PointX="4.625" PointY="12.9994921875" />
+          <ConnectorPoint PointX="4.625" PointY="12.351981671874999" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="12.351981671874999" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="12.351981671874999" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="12.351981671874999" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="12.351981671874999" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="12.351981671874999" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="12.351981671874999" />
+          <ConnectorPoint PointX="8.4010386666666665" PointY="12.351981671874999" />
+          <ConnectorPoint PointX="8.5677053333333344" PointY="12.351981671874999" />
+          <ConnectorPoint PointX="9.1666666666666661" PointY="12.351981671874997" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="12.351981671874999" />
+          <ConnectorPoint PointX="10.041666666666666" PointY="12.351981671874999" />
+          <ConnectorPoint PointX="10.208333333333334" PointY="12.351981671874999" />
+          <ConnectorPoint PointX="10.635419166666667" PointY="12.351981671874999" />
+          <ConnectorPoint PointX="10.802085833333335" PointY="12.351981671874999" />
+          <ConnectorPoint PointX="11.541666666666666" PointY="12.351981671874999" />
+          <ConnectorPoint PointX="11.708333333333334" PointY="12.351981671874999" />
+          <ConnectorPoint PointX="14.25" PointY="12.351981671874999" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_siteClusterSubject_Subject" >
-          <ConnectorPoint PointX="12.75" PointY="14" />
-          <ConnectorPoint PointX="12.75" PointY="12.258545255533861" />
-          <ConnectorPoint PointX="14.25" PointY="12.258545255533861" />
+          <ConnectorPoint PointX="12.921873999999999" PointY="14" />
+          <ConnectorPoint PointX="12.921873999999999" PointY="12.957243335937493" />
+          <ConnectorPoint PointX="14.25" PointY="12.957243335937493" />
         </AssociationConnector>
         <EntityTypeShape EntityType="timetableModel.classgroup" Width="1.5" PointX="16.5" PointY="11.25" Height="3.5186979166666674" />
         <AssociationConnector Association="timetableModel.fk_classGroup_AcademicBlock1" >
           <ConnectorPoint PointX="6.75" PointY="13.90625" />
-          <ConnectorPoint PointX="9.3854166666666661" PointY="13.90625" />
-          <ConnectorPoint PointX="9.5520833333333339" PointY="13.90625" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="13.90625" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="13.90625" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="13.90625" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="13.90625" />
+          <ConnectorPoint PointX="9.1666666666666661" PointY="13.906249999999998" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="13.90625" />
           <ConnectorPoint PointX="10.041666666666666" PointY="13.90625" />
           <ConnectorPoint PointX="10.208333333333334" PointY="13.90625" />
-          <ConnectorPoint PointX="10.635418666666666" PointY="13.90625" />
-          <ConnectorPoint PointX="10.802085333333334" PointY="13.90625" />
+          <ConnectorPoint PointX="10.338542916666667" PointY="13.90625" />
+          <ConnectorPoint PointX="10.505209583333334" PointY="13.90625" />
+          <ConnectorPoint PointX="10.635419166666667" PointY="13.90625" />
+          <ConnectorPoint PointX="10.802085833333335" PointY="13.90625" />
           <ConnectorPoint PointX="11.541666666666666" PointY="13.90625" />
           <ConnectorPoint PointX="11.708333333333334" PointY="13.90625" />
-          <ConnectorPoint PointX="12.666666666666666" PointY="13.90625" />
-          <ConnectorPoint PointX="12.833333333333334" PointY="13.90625" />
+          <ConnectorPoint PointX="12.346351666666665" PointY="13.90625" />
+          <ConnectorPoint PointX="12.513018333333333" PointY="13.90625" />
+          <ConnectorPoint PointX="12.838540666666665" PointY="13.90625" />
+          <ConnectorPoint PointX="13.005207333333333" PointY="13.90625" />
           <ConnectorPoint PointX="13.916666666666666" PointY="13.90625" />
           <ConnectorPoint PointX="14.083333333333334" PointY="13.90625" />
           <ConnectorPoint PointX="16.5" PointY="13.90625" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_classGroup_OfferingType1" >
-          <ConnectorPoint PointX="4.5" PointY="11.546875" />
-          <ConnectorPoint PointX="4.697916666666667" PointY="11.546874999999998" />
-          <ConnectorPoint PointX="5.020833333333333" PointY="11.546875" />
-          <ConnectorPoint PointX="9.3854166666666661" PointY="11.546875" />
-          <ConnectorPoint PointX="9.5520833333333339" PointY="11.546875" />
-          <ConnectorPoint PointX="10.041666666666666" PointY="11.546874999999998" />
-          <ConnectorPoint PointX="10.333333333333334" PointY="11.546875" />
-          <ConnectorPoint PointX="10.635418666666666" PointY="11.546875" />
-          <ConnectorPoint PointX="10.802085333333334" PointY="11.546875" />
-          <ConnectorPoint PointX="11.541666666666666" PointY="11.546875" />
-          <ConnectorPoint PointX="11.708333333333334" PointY="11.546875" />
-          <ConnectorPoint PointX="16.5" PointY="11.546875" />
+          <ConnectorPoint PointX="4.5" PointY="11.527342500000003" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="11.527342500000003" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="11.527342500000003" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="11.527342500000003" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="11.527342500000003" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="11.527342500000003" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="11.527342500000003" />
+          <ConnectorPoint PointX="8.4010386666666665" PointY="11.527342500000003" />
+          <ConnectorPoint PointX="8.5677053333333344" PointY="11.527342500000003" />
+          <ConnectorPoint PointX="9.1666666666666661" PointY="11.527342500000001" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="11.527342500000003" />
+          <ConnectorPoint PointX="10.041666666666666" PointY="11.527342500000003" />
+          <ConnectorPoint PointX="10.208333333333334" PointY="11.527342500000003" />
+          <ConnectorPoint PointX="10.635419166666667" PointY="11.527342500000003" />
+          <ConnectorPoint PointX="10.802085833333335" PointY="11.527342500000003" />
+          <ConnectorPoint PointX="11.541666666666666" PointY="11.527342500000003" />
+          <ConnectorPoint PointX="11.708333333333334" PointY="11.527342500000003" />
+          <ConnectorPoint PointX="16.5" PointY="11.527342500000003" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_classGroup_siteClusterSubject1" >
           <ConnectorPoint PointX="15.75" PointY="12.615143229166666" />
@@ -2810,30 +2874,160 @@
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.classgroupresource" >
           <ConnectorPoint PointX="17.25" PointY="14.768697916666667" />
-          <ConnectorPoint PointX="17.25" PointY="23.521497337239591" />
-          <ConnectorPoint PointX="11.708333333333334" PointY="23.521497337239591" />
-          <ConnectorPoint PointX="11.541666666666666" PointY="23.521497337239591" />
-          <ConnectorPoint PointX="9.5520833333333339" PointY="23.521497337239591" />
-          <ConnectorPoint PointX="9.3854166666666661" PointY="23.521497337239591" />
-          <ConnectorPoint PointX="5.25" PointY="23.521497337239591" />
+          <ConnectorPoint PointX="17.25" PointY="23.793697029622404" />
+          <ConnectorPoint PointX="11.708333333333334" PointY="23.793697029622404" />
+          <ConnectorPoint PointX="11.541666666666666" PointY="23.793697029622404" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="23.793697029622404" />
+          <ConnectorPoint PointX="9.2916666666666661" PointY="23.793697029622404" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="23.793697029622404" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="23.793697029622404" />
+          <ConnectorPoint PointX="5.25" PointY="23.793697029622404" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.lecturerclassgroup" >
-          <ConnectorPoint PointX="16.5" PointY="11.40625" />
-          <ConnectorPoint PointX="11.708333333333334" PointY="11.40625" />
-          <ConnectorPoint PointX="11.541666666666666" PointY="11.40625" />
-          <ConnectorPoint PointX="10.718752" PointY="11.40625" />
-          <ConnectorPoint PointX="10.718752" PointY="14.375" />
+          <ConnectorPoint PointX="16.5" PointY="11.357418750000008" />
+          <ConnectorPoint PointX="11.708333333333334" PointY="11.357418750000008" />
+          <ConnectorPoint PointX="11.541666666666666" PointY="11.357418750000008" />
+          <ConnectorPoint PointX="10.7187525" PointY="11.357418750000008" />
+          <ConnectorPoint PointX="10.7187525" PointY="14.375" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="timetableModel.oldqualificationcode" Width="1.5" PointX="3" PointY="17.875" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="timetableModel.oldsubjectcode" Width="1.5" PointX="14.25" PointY="17.875" Height="1.7879850260416674" />
+        <AssociationConnector Association="timetableModel.fk_OldQualificationCode_Qualifications1" >
+          <ConnectorPoint PointX="1.5" PointY="16.999492187500003" />
+          <ConnectorPoint PointX="1.5" PointY="18.768992513020834" />
+          <ConnectorPoint PointX="2.6666666666666665" PointY="18.768992513020834" />
+          <ConnectorPoint PointX="2.8333333333333335" PointY="18.768992513020834" />
+          <ConnectorPoint PointX="3" PointY="18.768992513020834" />
+        </AssociationConnector>
+        <AssociationConnector Association="timetableModel.fk_oldSubjectCode_Subject1" >
+          <ConnectorPoint PointX="12.75" PointY="17.326396484375" />
+          <ConnectorPoint PointX="12.75" PointY="18.768992513020834" />
+          <ConnectorPoint PointX="14.25" PointY="18.768992513020834" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="timetableModel.department" Width="1.5" PointX="0.75" PointY="10.625" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="timetableModel.timeslot" Width="1.5" PointX="3" PointY="8.125" Height="3.1340950520833246" />
+        <AssociationConnector Association="timetableModel.fk_Department_school1" >
+          <ConnectorPoint PointX="5.25" PointY="1.53125" />
+          <ConnectorPoint PointX="1.5" PointY="1.53125" />
+          <ConnectorPoint PointX="1.5" PointY="10.625" />
+        </AssociationConnector>
+        <AssociationConnector Association="timetableModel.fk_Lecturer_Department1" >
+          <ConnectorPoint PointX="2.25" PointY="11.593827423076924" />
+          <ConnectorPoint PointX="2.6875" PointY="11.593827423076924" />
+          <ConnectorPoint PointX="2.6875" PointY="13.768697916666667" />
+          <ConnectorPoint PointX="3.6984950897435893" PointY="13.768697916666667" />
+          <ConnectorPoint PointX="3.8651617564102563" PointY="13.768697916666667" />
+          <ConnectorPoint PointX="4.75" PointY="13.768697916666667" />
+          <ConnectorPoint PointX="4.75" PointY="13.375" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="13.375" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="13.375" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="13.375" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="13.375" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="13.375" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="13.375" />
+          <ConnectorPoint PointX="9.1666666666666661" PointY="13.374999999999998" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="13.375" />
+          <ConnectorPoint PointX="10.041666666666666" PointY="13.375" />
+          <ConnectorPoint PointX="10.208333333333334" PointY="13.375" />
+          <ConnectorPoint PointX="10.42187625" PointY="13.375" />
+          <ConnectorPoint PointX="10.42187625" PointY="14.375" />
+        </AssociationConnector>
+        <AssociationConnector Association="timetableModel.fk_Qualification_Department" >
+          <ConnectorPoint PointX="1.5" PointY="13.566793619791667" />
+          <ConnectorPoint PointX="1.5" PointY="14.25" />
+        </AssociationConnector>
+        <AssociationConnector Association="timetableModel.fk_subject_department" >
+          <ConnectorPoint PointX="2.25" PointY="13.064723232972757" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="13.064723232972757" />
+          <ConnectorPoint PointX="2.7708333333333335" PointY="13.064723232972757" />
+          <ConnectorPoint PointX="2.875" PointY="13.064723232972757" />
+          <ConnectorPoint PointX="2.875" PointY="13.831197916666667" />
+          <ConnectorPoint PointX="3.6984950897435893" PointY="13.831197916666667" />
+          <ConnectorPoint PointX="3.8651617564102563" PointY="13.831197916666667" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="13.831197916666666" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="13.831197916666667" />
+          <ConnectorPoint PointX="5.125" PointY="13.831197916666667" />
+          <ConnectorPoint PointX="5.125" PointY="13.5" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="13.5" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="13.5" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="13.5" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="13.5" />
+          <ConnectorPoint PointX="9.1666666666666661" PointY="13.499999999999998" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="13.5" />
+          <ConnectorPoint PointX="10.041666666666666" PointY="13.5" />
+          <ConnectorPoint PointX="10.208333333333334" PointY="13.5" />
+          <ConnectorPoint PointX="10.338542916666667" PointY="13.5" />
+          <ConnectorPoint PointX="10.505209583333334" PointY="13.5" />
+          <ConnectorPoint PointX="10.635419166666667" PointY="13.5" />
+          <ConnectorPoint PointX="10.802085833333335" PointY="13.5" />
+          <ConnectorPoint PointX="11.541666666666666" PointY="13.5" />
+          <ConnectorPoint PointX="11.708333333333334" PointY="13.5" />
+          <ConnectorPoint PointX="12.429685" PointY="13.5" />
+          <ConnectorPoint PointX="12.429685" PointY="14" />
+        </AssociationConnector>
+        <AssociationConnector Association="timetableModel.fk_lsca_timeSlot1" >
+          <ConnectorPoint PointX="3.75" PointY="8.125" />
+          <ConnectorPoint PointX="3.75" PointY="5.5" />
+          <ConnectorPoint PointX="3.75" PointY="5.5" />
+          <ConnectorPoint PointX="3.75" PointY="5.75" />
+        </AssociationConnector>
+        <AssociationConnector Association="timetableModel.fk_lsca_timeSlot2" >
+          <ConnectorPoint PointX="3" PointY="9.6920475260416623" />
+          <ConnectorPoint PointX="2.875" PointY="9.6920475260416623" />
+          <ConnectorPoint PointX="2.875" PointY="7.12474609375" />
+          <ConnectorPoint PointX="3" PointY="7.12474609375" />
+        </AssociationConnector>
+        <AssociationConnector Association="timetableModel.fk_offeringType_TimeSlot1" >
+          <ConnectorPoint PointX="3" PointY="10.426594000400634" />
+          <ConnectorPoint PointX="2.875" PointY="10.426594000400634" />
+          <ConnectorPoint PointX="2.875" PointY="11.215174679487181" />
+          <ConnectorPoint PointX="3" PointY="11.215174679487181" />
+        </AssociationConnector>
+        <AssociationConnector Association="timetableModel.fk_offeringType_TimeSlot2" >
+          <ConnectorPoint PointX="4.5" PointY="10.197048227163457" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="10.197048227163457" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="10.197048227163457" />
+          <ConnectorPoint PointX="5" PointY="10.197048227163457" />
+          <ConnectorPoint PointX="5" PointY="11.215174679487181" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="11.215174679487181" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="11.215174679487181" />
+          <ConnectorPoint PointX="4.5" PointY="11.215174679487181" />
+        </AssociationConnector>
+        <AssociationConnector Association="timetableModel.fk_offeringType_TimeSlot3" >
+          <ConnectorPoint PointX="3" PointY="8.957501051682689" />
+          <ConnectorPoint PointX="2.9583333333333335" PointY="8.957501051682689" />
+          <ConnectorPoint PointX="2.7916666666666665" PointY="8.957501051682689" />
+          <ConnectorPoint PointX="2.75" PointY="8.957501051682689" />
+          <ConnectorPoint PointX="2.75" PointY="12.562653846153847" />
+          <ConnectorPoint PointX="3" PointY="12.562653846153847" />
+        </AssociationConnector>
+        <AssociationConnector Association="timetableModel.fk_offeringType_TimeSlot4" >
+          <ConnectorPoint PointX="4.5" PointY="9.2100014022435861" />
+          <ConnectorPoint PointX="4.75" PointY="9.2100014022435861" />
+          <ConnectorPoint PointX="4.75" PointY="12.562653846153847" />
+          <ConnectorPoint PointX="4.708333333333333" PointY="12.562653846153847" />
+          <ConnectorPoint PointX="4.541666666666667" PointY="12.562653846153847" />
+          <ConnectorPoint PointX="4.5" PointY="12.562653846153847" />
+        </AssociationConnector>
+        <AssociationConnector Association="timetableModel.fk_ResourceSchedule_timeSlot1" >
+          <ConnectorPoint PointX="4.5" PointY="8.6050007011217922" />
+          <ConnectorPoint PointX="6" PointY="8.6050007011217922" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.departmentvenue" >
-          <ConnectorPoint PointX="21.429689375000002" PointY="5.1917936197916656" />
-          <ConnectorPoint PointX="21.429689375000002" PointY="9.55959147135417" />
-          <ConnectorPoint PointX="21.005207083333332" PointY="9.55959147135417" />
-          <ConnectorPoint PointX="20.838540416666667" PointY="9.55959147135417" />
-          <ConnectorPoint PointX="11.708333333333334" PointY="9.55959147135417" />
-          <ConnectorPoint PointX="11.541666666666666" PointY="9.55959147135417" />
-          <ConnectorPoint PointX="10.333333333333334" PointY="9.5595914713541674" />
-          <ConnectorPoint PointX="10.041666666666666" PointY="9.55959147135417" />
-          <ConnectorPoint PointX="9.75" PointY="9.55959147135417" />
+          <ConnectorPoint PointX="1.9062519999999998" PointY="13.566793619791667" />
+          <ConnectorPoint PointX="1.9062519999999998" PointY="13.941793619791667" />
+          <ConnectorPoint PointX="2.6096131326121812" PointY="13.941793619791667" />
+          <ConnectorPoint PointX="2.7762797992788482" PointY="13.941793619791667" />
+          <ConnectorPoint PointX="3.6984950897435893" PointY="13.941793619791667" />
+          <ConnectorPoint PointX="3.8651617564102563" PointY="13.941793619791667" />
+          <ConnectorPoint PointX="4.875" PointY="13.941793619791667" />
+          <ConnectorPoint PointX="4.875" PointY="13.25" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="13.25" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="13.25" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="13.25" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="13.25" />
+          <ConnectorPoint PointX="8.484372" PointY="13.25" />
+          <ConnectorPoint PointX="8.484372" PointY="9.951396484375" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

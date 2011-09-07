@@ -20,12 +20,14 @@
 
     Private Sub grdfaculty_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles Grdfaculty.SelectedIndexChanged
         ''populate field
-        With Grdfaculty
-            Me.txtID.Text = .SelectedRow.Cells(0).Text
-            Me.txtShortName.Text = .SelectedRow.Cells(1).Text
-            Me.txtLongName.Text = .SelectedRow.Cells(2).Text
-            changeMode(eMode.edit)
-        End With
+        Dim vContext As timetableEntities = New timetableEntities()
+        Dim vID = CInt(Grdfaculty.SelectedRow.Cells(0).Text)
+        Dim fcaulty = (From p In vContext.faculties Where p.ID = vID Select p).First
+        Me.txtID.Text = fcaulty.ID.ToString
+        Me.txtCode.Text = fcaulty.code
+        Me.txtShortName.Text = fcaulty.shortName
+        Me.txtLongName.Text = fcaulty.longName
+        changeMode(eMode.edit)
         lblMessage.Text = ""
     End Sub
 
@@ -47,6 +49,7 @@
             Case eMode.create
                 Me.txtID.Enabled = True
                 Me.txtID.Text = ""
+                txtCode.Text = ""
                 Me.txtLongName.Text = ""
                 Me.txtShortName.Text = ""
                 Me.btnDelete.Visible = False
@@ -70,6 +73,7 @@
         Dim vContext As timetableEntities = New timetableEntities()
         Dim vfaculty = New faculty With {
             .ID = CType(Me.txtID.Text, Integer),
+             .code = Me.txtCode.Text,
             .shortName = Me.txtShortName.Text,
             .longName = Me.txtLongName.Text}
         vContext.faculties.AddObject(vfaculty)
@@ -83,6 +87,7 @@
                 Where p.ID = CType(txtID.Text, Integer) _
                     Select p).First
         With vfaculty
+            .code = Me.txtCode.Text
             .longName = Me.txtLongName.Text
             .shortName = Me.txtShortName.Text
         End With

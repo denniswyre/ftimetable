@@ -20,14 +20,20 @@ Public Class _Default
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
-            mvTimetable.SetActiveView(vwDisplay)
-            mvType.SetActiveView(vwQual)
-            Calendar1.SelectedDate = Now
-            showStatus()
-            getlevels()
-            getCluster()
-            loadobjects()
-            setTimeTableType()
+            Try
+                mvTimetable.SetActiveView(vwDisplay)
+                mvType.SetActiveView(vwQual)
+                Calendar1.SelectedDate = Now
+                showStatus()
+                getlevels()
+                getCluster()
+                loadobjects()
+                setTimeTableType()
+                litMessage.Text = ""
+            Catch ex As Exception
+                litMessage.Text = clsGeneral.displaymessage(ex.Message, True)
+            End Try
+           
         End If
     End Sub
 
@@ -55,9 +61,12 @@ Public Class _Default
     End Sub
 
     Sub getQualification()
+        If cboCluster.SelectedIndex < 0 Then
+            Throw New OverflowException("No Cluster available")
+        End If
         Dim vContext As timetableEntities = New timetableEntities()
         Dim vClusterID = CInt(cboCluster.SelectedValue)
-        Dim vCluster = (From p In vContext.siteclusters Where p.ID = vClusterID Select p).First
+        Dim vCluster = (From p In vContext.siteclusters Where p.ID = vClusterID Select p).Single
         Dim vQual = vCluster.qualifications
         With cboQual
             .DataSource = vQual
@@ -68,9 +77,12 @@ Public Class _Default
     End Sub
 
     Sub getSubjects()
+        If cboCluster.SelectedIndex < 0 Then
+            Throw New OverflowException("No Cluster available")
+        End If
         Dim vContext As timetableEntities = New timetableEntities()
         Dim vClusterID = CInt(cboCluster.SelectedValue)
-        Dim vCluster = (From p In vContext.siteclusters Where p.ID = vClusterID Select p).First
+        Dim vCluster = (From p In vContext.siteclusters Where p.ID = vClusterID Select p).Single
         Dim vSubject = (From p In vContext.siteclustersubjects Where p.SiteClusterID = vClusterID Select code = (p.subject.Code), id = p.SubjectID).ToList
         With cboSubject
             .DataSource = vSubject
@@ -82,6 +94,9 @@ Public Class _Default
     End Sub
 
     Sub getSite()
+        If cboCluster.SelectedIndex < 0 Then
+            Throw New OverflowException("No Cluster available")
+        End If
         Dim vContext As timetableEntities = New timetableEntities()
         Dim vClusterID = CInt(cboCluster.SelectedValue)
         Dim vSites = (From p In vContext.sites Where p.SiteClusterID = vClusterID Select p).ToList
@@ -355,8 +370,13 @@ Public Class _Default
     End Sub
 
     Protected Sub Calendar1_SelectionChanged(ByVal sender As Object, ByVal e As EventArgs) Handles Calendar1.SelectionChanged
-        showStatus()
-        setTimeTable()
+        Try
+            showStatus()
+            setTimeTable()
+            litMessage.Text = ""
+        Catch ex As Exception
+            litMessage.Text = clsGeneral.displaymessage(ex.Message, True)
+        End Try
     End Sub
 
     Sub showStatus()
@@ -367,22 +387,45 @@ Public Class _Default
 
 
     Private Sub cboCluster_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboCluster.SelectedIndexChanged
-        loadobjects()
+        Try
+            loadobjects()
+            litMessage.Text = ""
+        Catch ex As Exception
+            litMessage.Text = clsGeneral.displaymessage(ex.Message, True)
+        End Try
     End Sub
 
     Private Sub cboSubject_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboSubject.SelectedIndexChanged
-        getClasses()
+        Try
+            getClasses()
+            litMessage.Text = ""
+        Catch ex As Exception
+            litMessage.Text = clsGeneral.displaymessage(ex.Message, True)
+        End Try
     End Sub
 
     Private Sub cboSite_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboSite.SelectedIndexChanged
-        getRooms()
+        Try
+            getRooms()
+            litMessage.Text = ""
+        Catch ex As Exception
+            litMessage.Text = clsGeneral.displaymessage(ex.Message, True)
+        End Try
     End Sub
 
     Protected Sub btnControl_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnControl.Click
-        setTimeTableType()
+        Try
+            setTimeTableType()
+            litMessage.Text = ""
+        Catch ex As Exception
+            litMessage.Text = clsGeneral.displaymessage(ex.Message, True)
+        End Try
     End Sub
 
     Sub setTimeTableType()
+        If cboCluster.SelectedIndex < 0 Then
+            Throw New OverflowException("No Cluster available")
+        End If
         lblCluster.Text = "Cluster:" + cboCluster.SelectedItem.Text
         lblCluster.ToolTip = cboCluster.SelectedItem.Value
         hdnType.Value = CStr(cboType.SelectedIndex)
@@ -407,6 +450,9 @@ Public Class _Default
     End Sub
 
     Sub setTimeTable()
+        If cboCluster.SelectedIndex < 0 Then
+            Throw New OverflowException("No Cluster available")
+        End If
         Dim vContext As timetableEntities = New timetableEntities()
         Dim dt As DataTable = FormatTimeTable()
         Select Case CInt(hdnType.Value)
@@ -692,4 +738,6 @@ Public Class _Default
         Dim plh = CType(e.Item.FindControl("phLecturer"), PlaceHolder)
         plh.Visible = User.Identity.IsAuthenticated
     End Sub
+
+
 End Class

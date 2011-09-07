@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Flex.Master"
+﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/NoAjaxFlex.Master"
     CodeBehind="uploadClasses.aspx.vb" Inherits="FlexTimeTable.uploadClasses" %>
 
 <%@ Register Src="../userControl/uploadFile.ascx" TagName="uploadFile" TagPrefix="uc2" %>

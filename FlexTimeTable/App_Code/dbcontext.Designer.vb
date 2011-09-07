@@ -16,32 +16,21 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("a3052a1b-da7a-4589-98cd-49f384bd2c94")>
+<Assembly: EdmSchemaAttribute("4a4b7295-31c3-41a8-81cd-f6f06cba73c8")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("timetableModel", "fk_building_site", "site", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(site), "building", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(building), True)>
 <Assembly: EdmRelationshipAttribute("timetableModel", "fk_venue_building", "building", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(building), "venue", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(venue), True)>
 <Assembly: EdmRelationshipAttribute("timetableModel", "fk_campus_siteCluster", "campus", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(campu), "sitecluster", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(sitecluster), True)>
-<Assembly: EdmRelationshipAttribute("timetableModel", "fk_Department_school1", "school", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(school), "department", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(department), True)>
-<Assembly: EdmRelationshipAttribute("timetableModel", "fk_Lecturer_Department1", "department", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(department), "lecturer", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(lecturer), True)>
-<Assembly: EdmRelationshipAttribute("timetableModel", "fk_Qualification_Department", "department", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(department), "qualifications", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(qualification), True)>
-<Assembly: EdmRelationshipAttribute("timetableModel", "fk_subject_department", "department", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(department), "subject", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(subject), True)>
 <Assembly: EdmRelationshipAttribute("timetableModel", "fk_school_faculty", "faculty", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(faculty), "school", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(school), True)>
 <Assembly: EdmRelationshipAttribute("timetableModel", "fk_Lecturer_officers1", "officers", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(officer), "lecturer", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(lecturer), True)>
 <Assembly: EdmRelationshipAttribute("timetableModel", "fk_lsca_lecturer", "lecturer", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(lecturer), "lecturersiteclusteravailability", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(lecturersiteclusteravailability), True)>
 <Assembly: EdmRelationshipAttribute("timetableModel", "fk_lsca_sitecluster", "sitecluster", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(sitecluster), "lecturersiteclusteravailability", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(lecturersiteclusteravailability), True)>
-<Assembly: EdmRelationshipAttribute("timetableModel", "fk_lsca_timeSlot1", "timeslot", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(timeslot), "lecturersiteclusteravailability", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(lecturersiteclusteravailability), True)>
-<Assembly: EdmRelationshipAttribute("timetableModel", "fk_lsca_timeSlot2", "timeslot", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(timeslot), "lecturersiteclusteravailability", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(lecturersiteclusteravailability), True)>
-<Assembly: EdmRelationshipAttribute("timetableModel", "fk_offeringType_TimeSlot1", "timeslot", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(timeslot), "offeringtype", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(offeringtype), True)>
-<Assembly: EdmRelationshipAttribute("timetableModel", "fk_offeringType_TimeSlot2", "timeslot", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(timeslot), "offeringtype", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(offeringtype), True)>
-<Assembly: EdmRelationshipAttribute("timetableModel", "fk_offeringType_TimeSlot3", "timeslot", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(timeslot), "offeringtype", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(offeringtype), True)>
-<Assembly: EdmRelationshipAttribute("timetableModel", "fk_offeringType_TimeSlot4", "timeslot", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(timeslot), "offeringtype", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(offeringtype), True)>
 <Assembly: EdmRelationshipAttribute("timetableModel", "fk_ProgrammeSubject_Qual", "qualifications", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(qualification), "programmesubjects", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(programmesubject), True)>
 <Assembly: EdmRelationshipAttribute("timetableModel", "fk_programmeSubject_Subject", "subject", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(subject), "programmesubjects", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(programmesubject), True)>
 <Assembly: EdmRelationshipAttribute("timetableModel", "fk_ResourceSchedule_Resource1", "resource", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(resource), "resourceschedule", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(resourceschedule), True)>
 <Assembly: EdmRelationshipAttribute("timetableModel", "fk_Resource_has_Venue_Resource1", "resource", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(resource), "resourcepreferredvenue", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(resourcepreferredvenue), True)>
 <Assembly: EdmRelationshipAttribute("timetableModel", "fk_Resource_VenueType1", "resourcetype", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(resourcetype), "resource", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(resource), True)>
 <Assembly: EdmRelationshipAttribute("timetableModel", "fk_Resource_has_Venue_Venue1", "venue", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(venue), "resourcepreferredvenue", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(resourcepreferredvenue), True)>
-<Assembly: EdmRelationshipAttribute("timetableModel", "fk_ResourceSchedule_timeSlot1", "timeslot", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(timeslot), "resourceschedule", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(resourceschedule), True)>
 <Assembly: EdmRelationshipAttribute("timetableModel", "fk_type_venue", "resourcetype", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(resourcetype), "venue", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(venue), True)>
 <Assembly: EdmRelationshipAttribute("timetableModel", "fk_Site_SiteCluster", "sitecluster", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(sitecluster), "site", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(site), True)>
 <Assembly: EdmRelationshipAttribute("timetableModel", "campusaccess", "campus", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(campu), "officers", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(officer))>
@@ -57,6 +46,19 @@ Imports System.Runtime.Serialization
 <Assembly: EdmRelationshipAttribute("timetableModel", "fk_classGroup_siteClusterSubject1", "siteclustersubject", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(siteclustersubject), "classgroup", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(classgroup), True)>
 <Assembly: EdmRelationshipAttribute("timetableModel", "classgroupresource", "classgroup", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(classgroup), "resource", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(resource))>
 <Assembly: EdmRelationshipAttribute("timetableModel", "lecturerclassgroup", "classgroup", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(classgroup), "lecturer", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, GetType(lecturer))>
+<Assembly: EdmRelationshipAttribute("timetableModel", "fk_OldQualificationCode_Qualifications1", "qualification", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(qualification), "oldqualificationcode", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(oldqualificationcode), True)>
+<Assembly: EdmRelationshipAttribute("timetableModel", "fk_oldSubjectCode_Subject1", "subject", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(subject), "oldsubjectcode", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(oldsubjectcode), True)>
+<Assembly: EdmRelationshipAttribute("timetableModel", "fk_Department_school1", "school", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(school), "department", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(department), True)>
+<Assembly: EdmRelationshipAttribute("timetableModel", "fk_Lecturer_Department1", "department", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(department), "lecturer", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(lecturer), True)>
+<Assembly: EdmRelationshipAttribute("timetableModel", "fk_Qualification_Department", "department", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(department), "qualification", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(qualification), True)>
+<Assembly: EdmRelationshipAttribute("timetableModel", "fk_subject_department", "department", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(department), "subject", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(subject), True)>
+<Assembly: EdmRelationshipAttribute("timetableModel", "fk_lsca_timeSlot1", "timeslot", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(timeslot), "lecturersiteclusteravailability", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(lecturersiteclusteravailability), True)>
+<Assembly: EdmRelationshipAttribute("timetableModel", "fk_lsca_timeSlot2", "timeslot", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(timeslot), "lecturersiteclusteravailability", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(lecturersiteclusteravailability), True)>
+<Assembly: EdmRelationshipAttribute("timetableModel", "fk_offeringType_TimeSlot1", "timeslot", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(timeslot), "offeringtype", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(offeringtype), True)>
+<Assembly: EdmRelationshipAttribute("timetableModel", "fk_offeringType_TimeSlot2", "timeslot", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(timeslot), "offeringtype", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(offeringtype), True)>
+<Assembly: EdmRelationshipAttribute("timetableModel", "fk_offeringType_TimeSlot3", "timeslot", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(timeslot), "offeringtype", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(offeringtype), True)>
+<Assembly: EdmRelationshipAttribute("timetableModel", "fk_offeringType_TimeSlot4", "timeslot", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(timeslot), "offeringtype", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(offeringtype), True)>
+<Assembly: EdmRelationshipAttribute("timetableModel", "fk_ResourceSchedule_timeSlot1", "timeslot", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(timeslot), "resourceschedule", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(resourceschedule), True)>
 <Assembly: EdmRelationshipAttribute("timetableModel", "departmentvenue", "department", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(department), "venue", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(venue))>
 
 #End Region
@@ -150,20 +152,6 @@ Public Partial Class timetableEntities
     End Property
 
     Private _campus As ObjectSet(Of campu)
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    Public ReadOnly Property departments() As ObjectSet(Of department)
-        Get
-            If (_departments Is Nothing) Then
-                _departments = MyBase.CreateObjectSet(Of department)("departments")
-            End If
-            Return _departments
-        End Get
-    End Property
-
-    Private _departments As ObjectSet(Of department)
 
     ''' <summary>
     ''' No Metadata Documentation available.
@@ -392,20 +380,6 @@ Public Partial Class timetableEntities
     ''' <summary>
     ''' No Metadata Documentation available.
     ''' </summary>
-    Public ReadOnly Property timeslots() As ObjectSet(Of timeslot)
-        Get
-            If (_timeslots Is Nothing) Then
-                _timeslots = MyBase.CreateObjectSet(Of timeslot)("timeslots")
-            End If
-            Return _timeslots
-        End Get
-    End Property
-
-    Private _timeslots As ObjectSet(Of timeslot)
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
     Public ReadOnly Property userlogs() As ObjectSet(Of userlog)
         Get
             If (_userlogs Is Nothing) Then
@@ -487,6 +461,62 @@ Public Partial Class timetableEntities
 
     Private _classgroups As ObjectSet(Of classgroup)
 
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    Public ReadOnly Property oldqualificationcodes() As ObjectSet(Of oldqualificationcode)
+        Get
+            If (_oldqualificationcodes Is Nothing) Then
+                _oldqualificationcodes = MyBase.CreateObjectSet(Of oldqualificationcode)("oldqualificationcodes")
+            End If
+            Return _oldqualificationcodes
+        End Get
+    End Property
+
+    Private _oldqualificationcodes As ObjectSet(Of oldqualificationcode)
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    Public ReadOnly Property oldsubjectcodes() As ObjectSet(Of oldsubjectcode)
+        Get
+            If (_oldsubjectcodes Is Nothing) Then
+                _oldsubjectcodes = MyBase.CreateObjectSet(Of oldsubjectcode)("oldsubjectcodes")
+            End If
+            Return _oldsubjectcodes
+        End Get
+    End Property
+
+    Private _oldsubjectcodes As ObjectSet(Of oldsubjectcode)
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    Public ReadOnly Property departments() As ObjectSet(Of department)
+        Get
+            If (_departments Is Nothing) Then
+                _departments = MyBase.CreateObjectSet(Of department)("departments")
+            End If
+            Return _departments
+        End Get
+    End Property
+
+    Private _departments As ObjectSet(Of department)
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    Public ReadOnly Property timeslots() As ObjectSet(Of timeslot)
+        Get
+            If (_timeslots Is Nothing) Then
+                _timeslots = MyBase.CreateObjectSet(Of timeslot)("timeslots")
+            End If
+            Return _timeslots
+        End Get
+    End Property
+
+    Private _timeslots As ObjectSet(Of timeslot)
+
     #End Region
     #Region "AddTo Methods"
 
@@ -509,13 +539,6 @@ Public Partial Class timetableEntities
     ''' </summary>
     Public Sub AddTocampus(ByVal campu As campu)
         MyBase.AddObject("campus", campu)
-    End Sub
-
-    ''' <summary>
-    ''' Deprecated Method for adding a new object to the departments EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
-    ''' </summary>
-    Public Sub AddTodepartments(ByVal department As department)
-        MyBase.AddObject("departments", department)
     End Sub
 
     ''' <summary>
@@ -631,13 +654,6 @@ Public Partial Class timetableEntities
     End Sub
 
     ''' <summary>
-    ''' Deprecated Method for adding a new object to the timeslots EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
-    ''' </summary>
-    Public Sub AddTotimeslots(ByVal timeslot As timeslot)
-        MyBase.AddObject("timeslots", timeslot)
-    End Sub
-
-    ''' <summary>
     ''' Deprecated Method for adding a new object to the userlogs EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
     ''' </summary>
     Public Sub AddTouserlogs(ByVal userlog As userlog)
@@ -677,6 +693,34 @@ Public Partial Class timetableEntities
     ''' </summary>
     Public Sub AddToclassgroups(ByVal classgroup As classgroup)
         MyBase.AddObject("classgroups", classgroup)
+    End Sub
+
+    ''' <summary>
+    ''' Deprecated Method for adding a new object to the oldqualificationcodes EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+    ''' </summary>
+    Public Sub AddTooldqualificationcodes(ByVal oldqualificationcode As oldqualificationcode)
+        MyBase.AddObject("oldqualificationcodes", oldqualificationcode)
+    End Sub
+
+    ''' <summary>
+    ''' Deprecated Method for adding a new object to the oldsubjectcodes EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+    ''' </summary>
+    Public Sub AddTooldsubjectcodes(ByVal oldsubjectcode As oldsubjectcode)
+        MyBase.AddObject("oldsubjectcodes", oldsubjectcode)
+    End Sub
+
+    ''' <summary>
+    ''' Deprecated Method for adding a new object to the departments EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+    ''' </summary>
+    Public Sub AddTodepartments(ByVal department As department)
+        MyBase.AddObject("departments", department)
+    End Sub
+
+    ''' <summary>
+    ''' Deprecated Method for adding a new object to the timeslots EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+    ''' </summary>
+    Public Sub AddTotimeslots(ByVal timeslot As timeslot)
+        MyBase.AddObject("timeslots", timeslot)
     End Sub
 
     #End Region
@@ -1795,23 +1839,50 @@ Public Partial Class department
     ''' <summary>
     ''' Create a new department object.
     ''' </summary>
-    ''' <param name="code">Initial value of the code property.</param>
     ''' <param name="id">Initial value of the ID property.</param>
+    ''' <param name="code">Initial value of the code property.</param>
+    ''' <param name="shortName">Initial value of the shortName property.</param>
     ''' <param name="longName">Initial value of the longName property.</param>
     ''' <param name="schoolID">Initial value of the SchoolID property.</param>
-    ''' <param name="shortName">Initial value of the shortName property.</param>
-    Public Shared Function Createdepartment(code As Global.System.String, id As Global.System.Int32, longName As Global.System.String, schoolID As Global.System.Int32, shortName As Global.System.String) As department
+    Public Shared Function Createdepartment(id As Global.System.Int32, code As Global.System.String, shortName As Global.System.String, longName As Global.System.String, schoolID As Global.System.Int32) As department
         Dim department as department = New department
-        department.code = code
         department.ID = id
+        department.code = code
+        department.shortName = shortName
         department.longName = longName
         department.SchoolID = schoolID
-        department.shortName = shortName
         Return department
     End Function
 
     #End Region
     #Region "Primitive Properties"
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property ID() As Global.System.Int32
+        Get
+            Return _ID
+        End Get
+        Set
+            If (_ID <> Value) Then
+                OnIDChanging(value)
+                ReportPropertyChanging("ID")
+                _ID = StructuralObject.SetValidValue(value)
+                ReportPropertyChanged("ID")
+                OnIDChanged()
+            End If
+        End Set
+    End Property
+
+    Private _ID As Global.System.Int32
+    Private Partial Sub OnIDChanging(value As Global.System.Int32)
+    End Sub
+
+    Private Partial Sub OnIDChanged()
+    End Sub
 
     ''' <summary>
     ''' No Metadata Documentation available.
@@ -1841,28 +1912,26 @@ Public Partial Class department
     ''' <summary>
     ''' No Metadata Documentation available.
     ''' </summary>
-    <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
     <DataMemberAttribute()>
-    Public Property ID() As Global.System.Int32
+    Public Property shortName() As Global.System.String
         Get
-            Return _ID
+            Return _shortName
         End Get
         Set
-            If (_ID <> Value) Then
-                OnIDChanging(value)
-                ReportPropertyChanging("ID")
-                _ID = StructuralObject.SetValidValue(value)
-                ReportPropertyChanged("ID")
-                OnIDChanged()
-            End If
+            OnshortNameChanging(value)
+            ReportPropertyChanging("shortName")
+            _shortName = StructuralObject.SetValidValue(value, false)
+            ReportPropertyChanged("shortName")
+            OnshortNameChanged()
         End Set
     End Property
 
-    Private _ID As Global.System.Int32
-    Private Partial Sub OnIDChanging(value As Global.System.Int32)
+    Private _shortName As Global.System.String
+    Private Partial Sub OnshortNameChanging(value As Global.System.String)
     End Sub
 
-    Private Partial Sub OnIDChanged()
+    Private Partial Sub OnshortNameChanged()
     End Sub
 
     ''' <summary>
@@ -1913,31 +1982,6 @@ Public Partial Class department
     End Sub
 
     Private Partial Sub OnSchoolIDChanged()
-    End Sub
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
-    <DataMemberAttribute()>
-    Public Property shortName() As Global.System.String
-        Get
-            Return _shortName
-        End Get
-        Set
-            OnshortNameChanging(value)
-            ReportPropertyChanging("shortName")
-            _shortName = StructuralObject.SetValidValue(value, false)
-            ReportPropertyChanged("shortName")
-            OnshortNameChanged()
-        End Set
-    End Property
-
-    Private _shortName As Global.System.String
-    Private Partial Sub OnshortNameChanging(value As Global.System.String)
-    End Sub
-
-    Private Partial Sub OnshortNameChanged()
     End Sub
 
     #End Region
@@ -1998,14 +2042,14 @@ Public Partial Class department
     <XmlIgnoreAttribute()>
     <SoapIgnoreAttribute()>
     <DataMemberAttribute()>
-    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_Qualification_Department", "qualifications")>
+    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_Qualification_Department", "qualification")>
      Public Property qualifications() As EntityCollection(Of qualification)
         Get
-            Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of qualification)("timetableModel.fk_Qualification_Department", "qualifications")
+            Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of qualification)("timetableModel.fk_Qualification_Department", "qualification")
         End Get
         Set
             If (Not value Is Nothing)
-                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of qualification)("timetableModel.fk_Qualification_Department", "qualifications", value)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of qualification)("timetableModel.fk_Qualification_Department", "qualification", value)
             End If
         End Set
     End Property
@@ -2477,37 +2521,6 @@ Public Partial Class lecturer
     <XmlIgnoreAttribute()>
     <SoapIgnoreAttribute()>
     <DataMemberAttribute()>
-    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_Lecturer_Department1", "department")>
-    Public Property department() As department
-        Get
-            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of department)("timetableModel.fk_Lecturer_Department1", "department").Value
-        End Get
-        Set
-            CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of department)("timetableModel.fk_Lecturer_Department1", "department").Value = value
-        End Set
-    End Property
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <BrowsableAttribute(False)>
-    <DataMemberAttribute()>
-    Public Property departmentReference() As EntityReference(Of department)
-        Get
-            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of department)("timetableModel.fk_Lecturer_Department1", "department")
-        End Get
-        Set
-            If (Not value Is Nothing)
-                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of department)("timetableModel.fk_Lecturer_Department1", "department", value)
-            End If
-        End Set
-    End Property
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <XmlIgnoreAttribute()>
-    <SoapIgnoreAttribute()>
-    <DataMemberAttribute()>
     <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_Lecturer_officers1", "officers")>
     Public Property officer() As officer
         Get
@@ -2583,6 +2596,37 @@ Public Partial Class lecturer
         Set
             If (Not value Is Nothing)
                 CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of classgroup)("timetableModel.lecturerclassgroup", "classgroup", value)
+            End If
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <XmlIgnoreAttribute()>
+    <SoapIgnoreAttribute()>
+    <DataMemberAttribute()>
+    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_Lecturer_Department1", "department")>
+    Public Property department() As department
+        Get
+            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of department)("timetableModel.fk_Lecturer_Department1", "department").Value
+        End Get
+        Set
+            CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of department)("timetableModel.fk_Lecturer_Department1", "department").Value = value
+        End Set
+    End Property
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <BrowsableAttribute(False)>
+    <DataMemberAttribute()>
+    Public Property departmentReference() As EntityReference(Of department)
+        Get
+            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of department)("timetableModel.fk_Lecturer_Department1", "department")
+        End Get
+        Set
+            If (Not value Is Nothing)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of department)("timetableModel.fk_Lecturer_Department1", "department", value)
             End If
         End Set
     End Property
@@ -3312,6 +3356,24 @@ Public Partial Class offeringtype
     <XmlIgnoreAttribute()>
     <SoapIgnoreAttribute()>
     <DataMemberAttribute()>
+    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_classGroup_OfferingType1", "classgroup")>
+     Public Property classgroups() As EntityCollection(Of classgroup)
+        Get
+            Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of classgroup)("timetableModel.fk_classGroup_OfferingType1", "classgroup")
+        End Get
+        Set
+            If (Not value Is Nothing)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of classgroup)("timetableModel.fk_classGroup_OfferingType1", "classgroup", value)
+            End If
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <XmlIgnoreAttribute()>
+    <SoapIgnoreAttribute()>
+    <DataMemberAttribute()>
     <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_offeringType_TimeSlot1", "timeslot")>
     Public Property timeslot() As timeslot
         Get
@@ -3426,24 +3488,6 @@ Public Partial Class offeringtype
         Set
             If (Not value Is Nothing)
                 CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of timeslot)("timetableModel.fk_offeringType_TimeSlot4", "timeslot", value)
-            End If
-        End Set
-    End Property
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <XmlIgnoreAttribute()>
-    <SoapIgnoreAttribute()>
-    <DataMemberAttribute()>
-    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_classGroup_OfferingType1", "classgroup")>
-     Public Property classgroups() As EntityCollection(Of classgroup)
-        Get
-            Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of classgroup)("timetableModel.fk_classGroup_OfferingType1", "classgroup")
-        End Get
-        Set
-            If (Not value Is Nothing)
-                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of classgroup)("timetableModel.fk_classGroup_OfferingType1", "classgroup", value)
             End If
         End Set
     End Property
@@ -3700,6 +3744,288 @@ Public Partial Class officer
         Set
             If (Not value Is Nothing)
                 CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of my_aspnet_users)("timetableModel.officeruserlink", "my_aspnet_users", value)
+            End If
+        End Set
+    End Property
+
+    #End Region
+End Class
+
+''' <summary>
+''' No Metadata Documentation available.
+''' </summary>
+<EdmEntityTypeAttribute(NamespaceName:="timetableModel", Name:="oldqualificationcode")>
+<Serializable()>
+<DataContractAttribute(IsReference:=True)>
+Public Partial Class oldqualificationcode
+    Inherits EntityObject
+    #Region "Factory Method"
+
+    ''' <summary>
+    ''' Create a new oldqualificationcode object.
+    ''' </summary>
+    ''' <param name="id">Initial value of the ID property.</param>
+    ''' <param name="qualID">Initial value of the QualID property.</param>
+    ''' <param name="oldCode">Initial value of the oldCode property.</param>
+    Public Shared Function Createoldqualificationcode(id As Global.System.Int32, qualID As Global.System.Int32, oldCode As Global.System.String) As oldqualificationcode
+        Dim oldqualificationcode as oldqualificationcode = New oldqualificationcode
+        oldqualificationcode.ID = id
+        oldqualificationcode.QualID = qualID
+        oldqualificationcode.oldCode = oldCode
+        Return oldqualificationcode
+    End Function
+
+    #End Region
+    #Region "Primitive Properties"
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property ID() As Global.System.Int32
+        Get
+            Return _ID
+        End Get
+        Set
+            If (_ID <> Value) Then
+                OnIDChanging(value)
+                ReportPropertyChanging("ID")
+                _ID = StructuralObject.SetValidValue(value)
+                ReportPropertyChanged("ID")
+                OnIDChanged()
+            End If
+        End Set
+    End Property
+
+    Private _ID As Global.System.Int32
+    Private Partial Sub OnIDChanging(value As Global.System.Int32)
+    End Sub
+
+    Private Partial Sub OnIDChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property QualID() As Global.System.Int32
+        Get
+            Return _QualID
+        End Get
+        Set
+            OnQualIDChanging(value)
+            ReportPropertyChanging("QualID")
+            _QualID = StructuralObject.SetValidValue(value)
+            ReportPropertyChanged("QualID")
+            OnQualIDChanged()
+        End Set
+    End Property
+
+    Private _QualID As Global.System.Int32
+    Private Partial Sub OnQualIDChanging(value As Global.System.Int32)
+    End Sub
+
+    Private Partial Sub OnQualIDChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property oldCode() As Global.System.String
+        Get
+            Return _oldCode
+        End Get
+        Set
+            OnoldCodeChanging(value)
+            ReportPropertyChanging("oldCode")
+            _oldCode = StructuralObject.SetValidValue(value, false)
+            ReportPropertyChanged("oldCode")
+            OnoldCodeChanged()
+        End Set
+    End Property
+
+    Private _oldCode As Global.System.String
+    Private Partial Sub OnoldCodeChanging(value As Global.System.String)
+    End Sub
+
+    Private Partial Sub OnoldCodeChanged()
+    End Sub
+
+    #End Region
+    #Region "Navigation Properties"
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <XmlIgnoreAttribute()>
+    <SoapIgnoreAttribute()>
+    <DataMemberAttribute()>
+    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_OldQualificationCode_Qualifications1", "qualification")>
+    Public Property qualification() As qualification
+        Get
+            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of qualification)("timetableModel.fk_OldQualificationCode_Qualifications1", "qualification").Value
+        End Get
+        Set
+            CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of qualification)("timetableModel.fk_OldQualificationCode_Qualifications1", "qualification").Value = value
+        End Set
+    End Property
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <BrowsableAttribute(False)>
+    <DataMemberAttribute()>
+    Public Property qualificationReference() As EntityReference(Of qualification)
+        Get
+            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of qualification)("timetableModel.fk_OldQualificationCode_Qualifications1", "qualification")
+        End Get
+        Set
+            If (Not value Is Nothing)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of qualification)("timetableModel.fk_OldQualificationCode_Qualifications1", "qualification", value)
+            End If
+        End Set
+    End Property
+
+    #End Region
+End Class
+
+''' <summary>
+''' No Metadata Documentation available.
+''' </summary>
+<EdmEntityTypeAttribute(NamespaceName:="timetableModel", Name:="oldsubjectcode")>
+<Serializable()>
+<DataContractAttribute(IsReference:=True)>
+Public Partial Class oldsubjectcode
+    Inherits EntityObject
+    #Region "Factory Method"
+
+    ''' <summary>
+    ''' Create a new oldsubjectcode object.
+    ''' </summary>
+    ''' <param name="id">Initial value of the ID property.</param>
+    ''' <param name="subjectID">Initial value of the SubjectID property.</param>
+    ''' <param name="oldCode">Initial value of the OldCode property.</param>
+    Public Shared Function Createoldsubjectcode(id As Global.System.Int32, subjectID As Global.System.Int32, oldCode As Global.System.String) As oldsubjectcode
+        Dim oldsubjectcode as oldsubjectcode = New oldsubjectcode
+        oldsubjectcode.ID = id
+        oldsubjectcode.SubjectID = subjectID
+        oldsubjectcode.OldCode = oldCode
+        Return oldsubjectcode
+    End Function
+
+    #End Region
+    #Region "Primitive Properties"
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property ID() As Global.System.Int32
+        Get
+            Return _ID
+        End Get
+        Set
+            If (_ID <> Value) Then
+                OnIDChanging(value)
+                ReportPropertyChanging("ID")
+                _ID = StructuralObject.SetValidValue(value)
+                ReportPropertyChanged("ID")
+                OnIDChanged()
+            End If
+        End Set
+    End Property
+
+    Private _ID As Global.System.Int32
+    Private Partial Sub OnIDChanging(value As Global.System.Int32)
+    End Sub
+
+    Private Partial Sub OnIDChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property SubjectID() As Global.System.Int32
+        Get
+            Return _SubjectID
+        End Get
+        Set
+            OnSubjectIDChanging(value)
+            ReportPropertyChanging("SubjectID")
+            _SubjectID = StructuralObject.SetValidValue(value)
+            ReportPropertyChanged("SubjectID")
+            OnSubjectIDChanged()
+        End Set
+    End Property
+
+    Private _SubjectID As Global.System.Int32
+    Private Partial Sub OnSubjectIDChanging(value As Global.System.Int32)
+    End Sub
+
+    Private Partial Sub OnSubjectIDChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property OldCode() As Global.System.String
+        Get
+            Return _OldCode
+        End Get
+        Set
+            OnOldCodeChanging(value)
+            ReportPropertyChanging("OldCode")
+            _OldCode = StructuralObject.SetValidValue(value, false)
+            ReportPropertyChanged("OldCode")
+            OnOldCodeChanged()
+        End Set
+    End Property
+
+    Private _OldCode As Global.System.String
+    Private Partial Sub OnOldCodeChanging(value As Global.System.String)
+    End Sub
+
+    Private Partial Sub OnOldCodeChanged()
+    End Sub
+
+    #End Region
+    #Region "Navigation Properties"
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <XmlIgnoreAttribute()>
+    <SoapIgnoreAttribute()>
+    <DataMemberAttribute()>
+    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_oldSubjectCode_Subject1", "subject")>
+    Public Property subject() As subject
+        Get
+            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of subject)("timetableModel.fk_oldSubjectCode_Subject1", "subject").Value
+        End Get
+        Set
+            CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of subject)("timetableModel.fk_oldSubjectCode_Subject1", "subject").Value = value
+        End Set
+    End Property
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <BrowsableAttribute(False)>
+    <DataMemberAttribute()>
+    Public Property subjectReference() As EntityReference(Of subject)
+        Get
+            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of subject)("timetableModel.fk_oldSubjectCode_Subject1", "subject")
+        End Get
+        Set
+            If (Not value Is Nothing)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of subject)("timetableModel.fk_oldSubjectCode_Subject1", "subject", value)
             End If
         End Set
     End Property
@@ -4017,31 +4343,6 @@ Public Partial Class qualification
     ''' <summary>
     ''' No Metadata Documentation available.
     ''' </summary>
-    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
-    <DataMemberAttribute()>
-    Public Property OldCode() As Global.System.String
-        Get
-            Return _OldCode
-        End Get
-        Set
-            OnOldCodeChanging(value)
-            ReportPropertyChanging("OldCode")
-            _OldCode = StructuralObject.SetValidValue(value, true)
-            ReportPropertyChanged("OldCode")
-            OnOldCodeChanged()
-        End Set
-    End Property
-
-    Private _OldCode As Global.System.String
-    Private Partial Sub OnOldCodeChanging(value As Global.System.String)
-    End Sub
-
-    Private Partial Sub OnOldCodeChanged()
-    End Sub
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
     <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
     <DataMemberAttribute()>
     Public Property shortName() As Global.System.String
@@ -4066,37 +4367,6 @@ Public Partial Class qualification
 
     #End Region
     #Region "Navigation Properties"
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <XmlIgnoreAttribute()>
-    <SoapIgnoreAttribute()>
-    <DataMemberAttribute()>
-    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_Qualification_Department", "department")>
-    Public Property department() As department
-        Get
-            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of department)("timetableModel.fk_Qualification_Department", "department").Value
-        End Get
-        Set
-            CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of department)("timetableModel.fk_Qualification_Department", "department").Value = value
-        End Set
-    End Property
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <BrowsableAttribute(False)>
-    <DataMemberAttribute()>
-    Public Property departmentReference() As EntityReference(Of department)
-        Get
-            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of department)("timetableModel.fk_Qualification_Department", "department")
-        End Get
-        Set
-            If (Not value Is Nothing)
-                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of department)("timetableModel.fk_Qualification_Department", "department", value)
-            End If
-        End Set
-    End Property
 
     ''' <summary>
     ''' No Metadata Documentation available.
@@ -4134,6 +4404,55 @@ Public Partial Class qualification
         End Set
     End Property
 
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <XmlIgnoreAttribute()>
+    <SoapIgnoreAttribute()>
+    <DataMemberAttribute()>
+    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_OldQualificationCode_Qualifications1", "oldqualificationcode")>
+     Public Property oldqualificationcodes() As EntityCollection(Of oldqualificationcode)
+        Get
+            Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of oldqualificationcode)("timetableModel.fk_OldQualificationCode_Qualifications1", "oldqualificationcode")
+        End Get
+        Set
+            If (Not value Is Nothing)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of oldqualificationcode)("timetableModel.fk_OldQualificationCode_Qualifications1", "oldqualificationcode", value)
+            End If
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <XmlIgnoreAttribute()>
+    <SoapIgnoreAttribute()>
+    <DataMemberAttribute()>
+    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_Qualification_Department", "department")>
+    Public Property department() As department
+        Get
+            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of department)("timetableModel.fk_Qualification_Department", "department").Value
+        End Get
+        Set
+            CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of department)("timetableModel.fk_Qualification_Department", "department").Value = value
+        End Set
+    End Property
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <BrowsableAttribute(False)>
+    <DataMemberAttribute()>
+    Public Property departmentReference() As EntityReference(Of department)
+        Get
+            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of department)("timetableModel.fk_Qualification_Department", "department")
+        End Get
+        Set
+            If (Not value Is Nothing)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of department)("timetableModel.fk_Qualification_Department", "department", value)
+            End If
+        End Set
+    End Property
+
     #End Region
 End Class
 
@@ -4160,7 +4479,8 @@ Public Partial Class resource
     ''' <param name="amtParticipants">Initial value of the AmtParticipants property.</param>
     ''' <param name="amtTimeSlots">Initial value of the AmtTimeSlots property.</param>
     ''' <param name="maxMergedTimeSlots">Initial value of the MaxMergedTimeSlots property.</param>
-    Public Shared Function Createresource(endWeek As Global.System.Int32, id As Global.System.Int32, name As Global.System.String, resourceTypeID As Global.System.Int32, startWeek As Global.System.Int32, classgrouplinked As Global.System.Boolean, year As Global.System.Int32, amtParticipants As Global.System.Int32, amtTimeSlots As Global.System.Int32, maxMergedTimeSlots As Global.System.Int32) As resource
+    ''' <param name="timeslotsArrangement">Initial value of the TimeslotsArrangement property.</param>
+    Public Shared Function Createresource(endWeek As Global.System.Int32, id As Global.System.Int32, name As Global.System.String, resourceTypeID As Global.System.Int32, startWeek As Global.System.Int32, classgrouplinked As Global.System.Boolean, year As Global.System.Int32, amtParticipants As Global.System.Int32, amtTimeSlots As Global.System.Int32, maxMergedTimeSlots As Global.System.Int32, timeslotsArrangement As Global.System.String) As resource
         Dim resource as resource = New resource
         resource.endWeek = endWeek
         resource.ID = id
@@ -4172,6 +4492,7 @@ Public Partial Class resource
         resource.AmtParticipants = amtParticipants
         resource.AmtTimeSlots = amtTimeSlots
         resource.MaxMergedTimeSlots = maxMergedTimeSlots
+        resource.TimeslotsArrangement = timeslotsArrangement
         Return resource
     End Function
 
@@ -4428,6 +4749,31 @@ Public Partial Class resource
     End Sub
 
     Private Partial Sub OnMaxMergedTimeSlotsChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property TimeslotsArrangement() As Global.System.String
+        Get
+            Return _TimeslotsArrangement
+        End Get
+        Set
+            OnTimeslotsArrangementChanging(value)
+            ReportPropertyChanging("TimeslotsArrangement")
+            _TimeslotsArrangement = StructuralObject.SetValidValue(value, false)
+            ReportPropertyChanged("TimeslotsArrangement")
+            OnTimeslotsArrangementChanged()
+        End Set
+    End Property
+
+    Private _TimeslotsArrangement As Global.System.String
+    Private Partial Sub OnTimeslotsArrangementChanging(value As Global.System.String)
+    End Sub
+
+    Private Partial Sub OnTimeslotsArrangementChanged()
     End Sub
 
     #End Region
@@ -4920,6 +5266,24 @@ Public Partial Class resourceschedule
     <XmlIgnoreAttribute()>
     <SoapIgnoreAttribute()>
     <DataMemberAttribute()>
+    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "resourceschedulevenue", "venue")>
+     Public Property venues() As EntityCollection(Of venue)
+        Get
+            Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of venue)("timetableModel.resourceschedulevenue", "venue")
+        End Get
+        Set
+            If (Not value Is Nothing)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of venue)("timetableModel.resourceschedulevenue", "venue", value)
+            End If
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <XmlIgnoreAttribute()>
+    <SoapIgnoreAttribute()>
+    <DataMemberAttribute()>
     <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_ResourceSchedule_timeSlot1", "timeslot")>
     Public Property timeslot() As timeslot
         Get
@@ -4941,24 +5305,6 @@ Public Partial Class resourceschedule
         Set
             If (Not value Is Nothing)
                 CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of timeslot)("timetableModel.fk_ResourceSchedule_timeSlot1", "timeslot", value)
-            End If
-        End Set
-    End Property
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <XmlIgnoreAttribute()>
-    <SoapIgnoreAttribute()>
-    <DataMemberAttribute()>
-    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "resourceschedulevenue", "venue")>
-     Public Property venues() As EntityCollection(Of venue)
-        Get
-            Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of venue)("timetableModel.resourceschedulevenue", "venue")
-        End Get
-        Set
-            If (Not value Is Nothing)
-                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of venue)("timetableModel.resourceschedulevenue", "venue", value)
             End If
         End Set
     End Property
@@ -5306,24 +5652,6 @@ Public Partial Class school
     <XmlIgnoreAttribute()>
     <SoapIgnoreAttribute()>
     <DataMemberAttribute()>
-    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_Department_school1", "department")>
-     Public Property departments() As EntityCollection(Of department)
-        Get
-            Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of department)("timetableModel.fk_Department_school1", "department")
-        End Get
-        Set
-            If (Not value Is Nothing)
-                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of department)("timetableModel.fk_Department_school1", "department", value)
-            End If
-        End Set
-    End Property
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <XmlIgnoreAttribute()>
-    <SoapIgnoreAttribute()>
-    <DataMemberAttribute()>
     <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_school_faculty", "faculty")>
     Public Property faculty() As faculty
         Get
@@ -5345,6 +5673,24 @@ Public Partial Class school
         Set
             If (Not value Is Nothing)
                 CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of faculty)("timetableModel.fk_school_faculty", "faculty", value)
+            End If
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <XmlIgnoreAttribute()>
+    <SoapIgnoreAttribute()>
+    <DataMemberAttribute()>
+    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_Department_school1", "department")>
+     Public Property departments() As EntityCollection(Of department)
+        Get
+            Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of department)("timetableModel.fk_Department_school1", "department")
+        End Get
+        Set
+            If (Not value Is Nothing)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of department)("timetableModel.fk_Department_school1", "department", value)
             End If
         End Set
     End Property
@@ -6162,31 +6508,6 @@ Public Partial Class subject
     ''' <summary>
     ''' No Metadata Documentation available.
     ''' </summary>
-    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=true)>
-    <DataMemberAttribute()>
-    Public Property oldCode() As Global.System.String
-        Get
-            Return _oldCode
-        End Get
-        Set
-            OnoldCodeChanging(value)
-            ReportPropertyChanging("oldCode")
-            _oldCode = StructuralObject.SetValidValue(value, true)
-            ReportPropertyChanged("oldCode")
-            OnoldCodeChanged()
-        End Set
-    End Property
-
-    Private _oldCode As Global.System.String
-    Private Partial Sub OnoldCodeChanging(value As Global.System.String)
-    End Sub
-
-    Private Partial Sub OnoldCodeChanged()
-    End Sub
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
     <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
     <DataMemberAttribute()>
     Public Property shortName() As Global.System.String
@@ -6243,37 +6564,6 @@ Public Partial Class subject
     <XmlIgnoreAttribute()>
     <SoapIgnoreAttribute()>
     <DataMemberAttribute()>
-    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_subject_department", "department")>
-    Public Property department() As department
-        Get
-            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of department)("timetableModel.fk_subject_department", "department").Value
-        End Get
-        Set
-            CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of department)("timetableModel.fk_subject_department", "department").Value = value
-        End Set
-    End Property
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <BrowsableAttribute(False)>
-    <DataMemberAttribute()>
-    Public Property departmentReference() As EntityReference(Of department)
-        Get
-            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of department)("timetableModel.fk_subject_department", "department")
-        End Get
-        Set
-            If (Not value Is Nothing)
-                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of department)("timetableModel.fk_subject_department", "department", value)
-            End If
-        End Set
-    End Property
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <XmlIgnoreAttribute()>
-    <SoapIgnoreAttribute()>
-    <DataMemberAttribute()>
     <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_programmeSubject_Subject", "programmesubjects")>
      Public Property programmesubjects() As EntityCollection(Of programmesubject)
         Get
@@ -6322,6 +6612,55 @@ Public Partial Class subject
         End Set
     End Property
 
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <XmlIgnoreAttribute()>
+    <SoapIgnoreAttribute()>
+    <DataMemberAttribute()>
+    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_oldSubjectCode_Subject1", "oldsubjectcode")>
+     Public Property oldsubjectcodes() As EntityCollection(Of oldsubjectcode)
+        Get
+            Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of oldsubjectcode)("timetableModel.fk_oldSubjectCode_Subject1", "oldsubjectcode")
+        End Get
+        Set
+            If (Not value Is Nothing)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of oldsubjectcode)("timetableModel.fk_oldSubjectCode_Subject1", "oldsubjectcode", value)
+            End If
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <XmlIgnoreAttribute()>
+    <SoapIgnoreAttribute()>
+    <DataMemberAttribute()>
+    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_subject_department", "department")>
+    Public Property department() As department
+        Get
+            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of department)("timetableModel.fk_subject_department", "department").Value
+        End Get
+        Set
+            CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of department)("timetableModel.fk_subject_department", "department").Value = value
+        End Set
+    End Property
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <BrowsableAttribute(False)>
+    <DataMemberAttribute()>
+    Public Property departmentReference() As EntityReference(Of department)
+        Get
+            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of department)("timetableModel.fk_subject_department", "department")
+        End Get
+        Set
+            If (Not value Is Nothing)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of department)("timetableModel.fk_subject_department", "department", value)
+            End If
+        End Set
+    End Property
+
     #End Region
 End Class
 
@@ -6338,46 +6677,21 @@ Public Partial Class timeslot
     ''' <summary>
     ''' Create a new timeslot object.
     ''' </summary>
-    ''' <param name="duration">Initial value of the Duration property.</param>
     ''' <param name="id">Initial value of the ID property.</param>
     ''' <param name="startTime">Initial value of the StartTime property.</param>
+    ''' <param name="duration">Initial value of the Duration property.</param>
     ''' <param name="lunchPeriod">Initial value of the LunchPeriod property.</param>
-    Public Shared Function Createtimeslot(duration As Global.System.Int32, id As Global.System.Int32, startTime As Global.System.DateTime, lunchPeriod As Global.System.Boolean) As timeslot
+    Public Shared Function Createtimeslot(id As Global.System.Int32, startTime As Global.System.DateTime, duration As Global.System.Int32, lunchPeriod As Global.System.Boolean) As timeslot
         Dim timeslot as timeslot = New timeslot
-        timeslot.Duration = duration
         timeslot.ID = id
         timeslot.StartTime = startTime
+        timeslot.Duration = duration
         timeslot.LunchPeriod = lunchPeriod
         Return timeslot
     End Function
 
     #End Region
     #Region "Primitive Properties"
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
-    <DataMemberAttribute()>
-    Public Property Duration() As Global.System.Int32
-        Get
-            Return _Duration
-        End Get
-        Set
-            OnDurationChanging(value)
-            ReportPropertyChanging("Duration")
-            _Duration = StructuralObject.SetValidValue(value)
-            ReportPropertyChanged("Duration")
-            OnDurationChanged()
-        End Set
-    End Property
-
-    Private _Duration As Global.System.Int32
-    Private Partial Sub OnDurationChanging(value As Global.System.Int32)
-    End Sub
-
-    Private Partial Sub OnDurationChanged()
-    End Sub
 
     ''' <summary>
     ''' No Metadata Documentation available.
@@ -6429,6 +6743,31 @@ Public Partial Class timeslot
     End Sub
 
     Private Partial Sub OnStartTimeChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property Duration() As Global.System.Int32
+        Get
+            Return _Duration
+        End Get
+        Set
+            OnDurationChanging(value)
+            ReportPropertyChanging("Duration")
+            _Duration = StructuralObject.SetValidValue(value)
+            ReportPropertyChanged("Duration")
+            OnDurationChanged()
+        End Set
+    End Property
+
+    Private _Duration As Global.System.Int32
+    Private Partial Sub OnDurationChanging(value As Global.System.Int32)
+    End Sub
+
+    Private Partial Sub OnDurationChanged()
     End Sub
 
     ''' <summary>

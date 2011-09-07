@@ -1,4 +1,4 @@
-﻿Public Class uploadClasses
+﻿Partial Class uploadClasses
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load

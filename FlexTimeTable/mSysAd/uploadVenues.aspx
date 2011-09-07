@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Flex.Master"
+﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/NoAjaxFlex.Master"
     CodeBehind="uploadVenues.aspx.vb" Inherits="FlexTimeTable.uploadVenues" %>
 
 <%@ Register Src="~/userControl/logButton.ascx" TagName="logButton" TagPrefix="uc1" %>

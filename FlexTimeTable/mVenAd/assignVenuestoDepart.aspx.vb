@@ -117,12 +117,19 @@ Public Class assignVenuestoDepart
     End Sub
 
     Protected Sub btnDelete_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnDelete.Click
-        Dim vContext As timetableEntities = New timetableEntities()
-        Dim vDept = (From p In vContext.departments Where p.ID = CInt(cboDepartment.SelectedValue) Select p).First
-        Dim vDeptVenue = (From p In vContext.venues Where p.ID = CInt(lstDepartVenues.SelectedValue) Select p).First
-        vDeptVenue.departments.Remove(vDept)
-        vContext.SaveChanges()
-        loadAssignedVenues()
+        Try
+
+            Dim vContext As timetableEntities = New timetableEntities()
+            Dim vDept = (From p In vContext.departments Where p.ID = CInt(cboDepartment.SelectedValue) Select p).First
+            Dim vDeptVenue = (From p In vContext.venues Where p.ID = CInt(lstDepartVenues.SelectedValue) Select p).First
+            vDeptVenue.departments.Remove(vDept)
+            vContext.SaveChanges()
+            loadAssignedVenues()
+        Catch ex As UpdateException
+            lblMessage.Text = "Entry already exists"
+        Catch ex As Exception
+            lblMessage.Text = "System Error!!! Contact ICT Administrator!!"
+        End Try
     End Sub
 
     Private Sub cboDepartment_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboDepartment.SelectedIndexChanged

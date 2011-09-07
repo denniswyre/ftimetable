@@ -35,7 +35,15 @@
             </tr>
             <tr>
                 <td class="style1">
-                    <asp:Label ID="Label2" runat="server" AssociatedControlID="txtShortName" Text="Code:"></asp:Label>
+                    <asp:Label ID="Label3" runat="server" AssociatedControlID="txtCode" Text="Code:"></asp:Label>
+                </td>
+                <td>
+                    <asp:TextBox ID="txtCode" runat="server"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td class="style1">
+                    <asp:Label ID="Label2" runat="server" AssociatedControlID="txtShortName" Text="Short Name:"></asp:Label>
                 </td>
                 <td>
                     <asp:TextBox ID="txtShortName" runat="server"></asp:TextBox>
@@ -46,7 +54,7 @@
                     <asp:Label ID="Label1" runat="server" AssociatedControlID="txtLongName" Text="Name:"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtLongName" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtLongName" Width="500px" runat="server"></asp:TextBox>
                 </td>
             </tr>
             <tr>

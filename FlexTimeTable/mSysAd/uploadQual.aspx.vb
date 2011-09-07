@@ -1,4 +1,4 @@
-﻿Public Class uploadQual
+﻿Partial Class uploadQual
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -51,11 +51,11 @@
         With uploadFile1.filetotable
             .fields = New ListItemCollection()
             ' Add items to the collection.
-            .fields.Add(New ListItem("qualificationcode", "0"))
+            .fields.Add(New ListItem("code", "0"))
             .fields.Add(New ListItem("qualificationname", "0"))
             .fields.Add(New ListItem("deptcode", "0"))
             .fields.Add(New ListItem("departmentname", "0"))
-            .fields.Add(New ListItem("newqualcode", "0"))
+            .fields.Add(New ListItem("oldcode", "0"))
         End With
         uploadFile1.header = "Upload Class Groups File"
         uploadFile1.Initialize()
@@ -64,24 +64,27 @@
 
 
     Protected Sub processFile(ByVal vDataTable As DataTable)
+        If cboSchool.SelectedIndex < 0 Then
+            litMessage.Text = clsGeneral.displaymessage("No school is loaded!!", True)
+            Exit Sub
+        End If
+        litMessage.Text = ""
         Dim RowIndex As Integer = 0
         Dim MaxPeriods As Integer = CType(ConfigurationManager.AppSettings("maxperiods"), Integer)
         Dim MaxClassSize As Integer = CType(ConfigurationManager.AppSettings("maxclasssize"), Integer)
 
-
-
         Dim vContext As timetableEntities = New timetableEntities()
-        'get school ID
+
         Dim vSchoolID = CInt(cboSchool.SelectedValue)
         Dim prevError As String = ""
         For Each dr As DataRow In vDataTable.Rows
             Try
                 'essential fields
-                Dim vNewQualcode = Trim(CType(dr("newqualcode"), String))
-                Dim vQualCode = Trim(CType(dr("qualificationcode"), String))
+                Dim vQualCode = Trim(CType(dr("code"), String))
                 Dim vQualName = Trim(CType(dr("qualificationname"), String))
                 Dim vDeptCode = Trim(CType(dr("deptcode"), String))
                 Dim vDeptName = Trim(CType(dr("departmentname"), String))
+                Dim voldcode = Trim(CType(dr("oldcode"), String))
 
                 'get department
                 Dim vDept = (From p In vContext.departments Where p.code = vDeptCode Select p).FirstOrDefault
@@ -104,6 +107,15 @@
                         .longName = vQualName,
                         .shortName = vQualName}
                     vContext.qualifications.AddObject(vQual)
+                    vContext.SaveChanges()
+                End If
+                'old code
+                Dim vOldQual = (From p In vContext.oldqualificationcodes Where p.oldCode = voldcode Select p).FirstOrDefault
+                If IsNothing(vOldQual) Then
+                    vOldQual = New oldqualificationcode With {
+                        .QualID = vQual.ID,
+                        .oldCode = voldcode}
+                    vContext.oldqualificationcodes.AddObject(vOldQual)
                     vContext.SaveChanges()
                 End If
             Catch ex As Exception

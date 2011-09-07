@@ -29,8 +29,13 @@
             Me.txtCode.Text = .Code
             Me.txtShortName.Text = .shortName
             Me.txtLongName.Text = .longName
-            Me.txtOldCode.Text = .OldCode
             changeMode(eMode.edit)
+            With lstOldCodes
+                .DataSource = (From p In vContext.oldqualificationcodes Where p.QualID = vID Select p.oldCode, p.ID).ToList
+                .DataTextField = "oldCode"
+                .DataValueField = "ID"
+                .DataBind()
+            End With
         End With
         litMessage.Text = ""
     End Sub
@@ -54,7 +59,6 @@
                 Me.txtCode.Text = ""
                 Me.txtShortName.Text = "" '.shortName
                 Me.txtLongName.Text = "" '.longName
-                Me.txtOldCode.Text = "" '.OldCode
                 Me.btnDelete.Visible = False
                 Me.btnSave.Visible = True
                 btnSave.Text = "Save"
@@ -78,7 +82,6 @@
             .longName = Me.txtShortName.Text,
             .shortName = Me.txtCode.Text,
             .Code = txtCode.Text,
-            .OldCode = txtOldCode.Text,
             .DepartmentID = getDepartment1.getID}
         vContext.qualifications.AddObject(vQualification)
         vContext.SaveChanges()

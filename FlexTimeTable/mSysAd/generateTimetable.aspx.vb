@@ -315,12 +315,19 @@
         Dim vClass = (From p In vContext.classgroups Where p.ID = vClassID Select p).First
         Dim vClusterID = vClass.siteclustersubject.sitecluster.ID
         'Dim vRoster = vClass.lecturer.lecturersiteclusteravailabilities
-        Dim vAvail = (From p In vClass.lecturer.lecturersiteclusteravailabilities
-                         Where p.SiteClusterID = vClusterID And
-                               p.DayOfWeek = vSlot.WeekDay And
-                               p.StartTimeSlot <= vSlot.timeslot And
-                               p.EndTimeSlot >= vSlot.timeslot
-                               Select p).FirstOrDefault
+        Dim vAvail As lecturersiteclusteravailability
+        Try
+            vAvail = (From p In vClass.lecturer.lecturersiteclusteravailabilities
+                        Where p.SiteClusterID = vClusterID And
+                              p.DayOfWeek = vSlot.WeekDay And
+                              p.StartTimeSlot <= vSlot.timeslot And
+                              p.EndTimeSlot >= vSlot.timeslot
+                              Select p).FirstOrDefault
+        Catch ex As NullReferenceException
+            Return False
+        Catch ex As Exception
+            Throw ex
+        End Try
         If IsNothing(vAvail) Then
             Return False
         Else

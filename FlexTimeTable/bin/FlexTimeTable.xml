@@ -6,239 +6,7 @@ FlexTimeTable
 </name>
 </assembly>
 <members>
-<member name="F:FlexTimeTable.uploadClasses.pnlUpload">
-	<summary>
-pnlUpload control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.uploadClasses.uploadFile1">
-	<summary>
-uploadFile1 control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.uploadClasses.ldap1">
-	<summary>
-ldap1 control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.uploadQual.litMessage">
-	<summary>
-litMessage control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.uploadQual.litFaculty">
-	<summary>
-litFaculty control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.uploadQual.cboFaculty">
-	<summary>
-cboFaculty control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.uploadQual.Literal1">
-	<summary>
-Literal1 control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.uploadQual.cboSchool">
-	<summary>
-cboSchool control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.uploadQual.pnlUpload">
-	<summary>
-pnlUpload control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.uploadQual.uploadFile1">
-	<summary>
-uploadFile1 control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.NoAjaxFlex.Head1">
-	<summary>
-Head1 control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.NoAjaxFlex.HeadContent">
-	<summary>
-HeadContent control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.NoAjaxFlex.Form1">
-	<summary>
-Form1 control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.NoAjaxFlex.HeadLoginView">
-	<summary>
-HeadLoginView control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.NoAjaxFlex.NavigationMenu">
-	<summary>
-NavigationMenu control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.NoAjaxFlex.SiteMapDataSource1">
-	<summary>
-SiteMapDataSource1 control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.NoAjaxFlex.MainContent">
-	<summary>
-MainContent control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.assignDepartment.cboFaculty">
-	<summary>
-cboFaculty control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.assignDepartment.cboSchoolA">
-	<summary>
-cboSchoolA control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.assignDepartment.lstDepartmentA">
-	<summary>
-lstDepartmentA control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.assignDepartment.btnAddto">
-	<summary>
-btnAddB control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.assignDepartment.btnAddfr">
-	<summary>
-btnAddA control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.assignDepartment.cboSchoolB">
-	<summary>
-cboSchoolB control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.assignDepartment.lstDepartmentB">
-	<summary>
-lstDepartmentB control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.assignSubject.getDepartment1">
-	<summary>
-getDepartment1 control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.assignSubject.lstUnassigned">
-	<summary>
-lstUnassigned control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.assignSubject.btnAssigned">
-	<summary>
-btnAssigned control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.assignSubject.btnUnassigned">
-	<summary>
-btnUnassigned control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.assignSubject.lstAssigned">
-	<summary>
-lstAssigned control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.lecturerWorkload.litMessage">
+<member name="F:FlexTimeTable.lecturerWorkload.litMessage">
 	<summary>
 litMessage control.
 </summary>
@@ -1010,6 +778,102 @@ To modify move field declaration from designer file to code-behind file.
 </member><member name="F:FlexTimeTable.getDepartment.LitEnd">
 	<summary>
 LitEnd control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.assignDepartment.cboFaculty">
+	<summary>
+cboFaculty control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.assignDepartment.cboSchoolA">
+	<summary>
+cboSchoolA control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.assignDepartment.lstDepartmentA">
+	<summary>
+lstDepartmentA control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.assignDepartment.btnAddto">
+	<summary>
+btnAddB control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.assignDepartment.btnAddfr">
+	<summary>
+btnAddA control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.assignDepartment.cboSchoolB">
+	<summary>
+cboSchoolB control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.assignDepartment.lstDepartmentB">
+	<summary>
+lstDepartmentB control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.assignSubject.getDepartment1">
+	<summary>
+getDepartment1 control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.assignSubject.lstUnassigned">
+	<summary>
+lstUnassigned control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.assignSubject.btnAssigned">
+	<summary>
+btnAssigned control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.assignSubject.btnUnassigned">
+	<summary>
+btnUnassigned control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.assignSubject.lstAssigned">
+	<summary>
+lstAssigned control.
 </summary>
 	<remarks>
 Auto-generated field.
@@ -2055,6 +1919,14 @@ To modify move field declaration from designer file to code-behind file.
 	<summary>
  No Metadata Documentation available.
  </summary>
+</member><member name="P:FlexTimeTable.timetableEntities.uploadtables">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.timetableEntities.transaction_upload">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
 </member><member name="M:FlexTimeTable.timetableEntities.AddToacademicblocks(FlexTimeTable.academicblock)">
 	<summary>
  Deprecated Method for adding a new object to the academicblocks EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
@@ -2170,6 +2042,14 @@ To modify move field declaration from designer file to code-behind file.
 </member><member name="M:FlexTimeTable.timetableEntities.AddTotimeslots(FlexTimeTable.timeslot)">
 	<summary>
  Deprecated Method for adding a new object to the timeslots EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+ </summary>
+</member><member name="M:FlexTimeTable.timetableEntities.AddTouploadtables(FlexTimeTable.uploadtable)">
+	<summary>
+ Deprecated Method for adding a new object to the uploadtables EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+ </summary>
+</member><member name="M:FlexTimeTable.timetableEntities.AddTotransaction_upload(FlexTimeTable.transaction_upload)">
+	<summary>
+ Deprecated Method for adding a new object to the transaction_upload EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
  </summary>
 </member><member name="T:FlexTimeTable.timetableEntities">
 	<summary>
@@ -3281,7 +3161,7 @@ To modify move field declaration from designer file to code-behind file.
 	<summary>
  No Metadata Documentation available.
  </summary>
-</member><member name="M:FlexTimeTable.sitecluster.Createsitecluster(System.Int32,System.Int32,System.String,System.String)">
+</member><member name="M:FlexTimeTable.sitecluster.Createsitecluster(System.Int32,System.Int32,System.String,System.String,System.Int32)">
 	<summary>
  Create a new sitecluster object.
  </summary>
@@ -3289,6 +3169,7 @@ To modify move field declaration from designer file to code-behind file.
 	<param name="id">Initial value of the ID property.</param>
 	<param name="longName">Initial value of the longName property.</param>
 	<param name="shortName">Initial value of the shortName property.</param>
+	<param name="code">Initial value of the code property.</param>
 </member><member name="P:FlexTimeTable.sitecluster.CampusID">
 	<summary>
  No Metadata Documentation available.
@@ -3302,6 +3183,10 @@ To modify move field declaration from designer file to code-behind file.
  No Metadata Documentation available.
  </summary>
 </member><member name="P:FlexTimeTable.sitecluster.shortName">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.sitecluster.code">
 	<summary>
  No Metadata Documentation available.
  </summary>
@@ -3491,6 +3376,160 @@ To modify move field declaration from designer file to code-behind file.
  No Metadata Documentation available.
  </summary>
 </member><member name="T:FlexTimeTable.timeslot">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="M:FlexTimeTable.transaction_upload.Createtransaction_upload(System.Int32)">
+	<summary>
+ Create a new transaction_upload object.
+ </summary>
+	<param name="id">Initial value of the ID property.</param>
+</member><member name="P:FlexTimeTable.transaction_upload.ID">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.transaction_upload.clusterCode">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.transaction_upload.Schoolcode">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.transaction_upload.SchoolName">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.transaction_upload.oldQualCode">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.transaction_upload.oldSubjectCode">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.transaction_upload.DeptCode">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.transaction_upload.DeptName">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.transaction_upload.Offering">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.transaction_upload.ClassGroup">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.transaction_upload.lname">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.transaction_upload.lsurname">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.transaction_upload.classsize">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="T:FlexTimeTable.transaction_upload">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="M:FlexTimeTable.uploadtable.Createuploadtable(System.Int32)">
+	<summary>
+ Create a new uploadtable object.
+ </summary>
+	<param name="id">Initial value of the id property.</param>
+</member><member name="P:FlexTimeTable.uploadtable.id">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.uploadtable.col1">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.uploadtable.col2">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.uploadtable.col3">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.uploadtable.col4">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.uploadtable.col5">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.uploadtable.col6">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.uploadtable.col7">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.uploadtable.col8">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.uploadtable.col9">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.uploadtable.col10">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.uploadtable.col11">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.uploadtable.col12">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.uploadtable.col13">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.uploadtable.col14">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.uploadtable.col15">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.uploadtable.col16">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.uploadtable.col17">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.uploadtable.col18">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.uploadtable.col19">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.uploadtable.col20">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="T:FlexTimeTable.uploadtable">
 	<summary>
  No Metadata Documentation available.
  </summary>
@@ -3927,6 +3966,62 @@ btnCancel control.
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
+</member><member name="F:FlexTimeTable.NoAjaxFlex.Head1">
+	<summary>
+Head1 control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.NoAjaxFlex.HeadContent">
+	<summary>
+HeadContent control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.NoAjaxFlex.Form1">
+	<summary>
+Form1 control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.NoAjaxFlex.HeadLoginView">
+	<summary>
+HeadLoginView control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.NoAjaxFlex.NavigationMenu">
+	<summary>
+NavigationMenu control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.NoAjaxFlex.SiteMapDataSource1">
+	<summary>
+SiteMapDataSource1 control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.NoAjaxFlex.MainContent">
+	<summary>
+MainContent control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
 </member><member name="F:FlexTimeTable.ResourceAllocation.ActionStatus">
 	<summary>
 ActionStatus control.
@@ -4162,6 +4257,30 @@ To modify move field declaration from designer file to code-behind file.
 </member><member name="F:FlexTimeTable.spaceutilisation.grdUtilize">
 	<summary>
 grdUtilize control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.uploadClasses.btnProcess">
+	<summary>
+btnProcess control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.uploadClasses.lstError">
+	<summary>
+lstError control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.uploadClasses.ldap1">
+	<summary>
+ldap1 control.
 </summary>
 	<remarks>
 Auto-generated field.
@@ -5706,6 +5825,62 @@ To modify move field declaration from designer file to code-behind file.
 </member><member name="F:FlexTimeTable.Flex.MainContent">
 	<summary>
 MainContent control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.uploadQual.litMessage">
+	<summary>
+litMessage control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.uploadQual.litFaculty">
+	<summary>
+litFaculty control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.uploadQual.cboFaculty">
+	<summary>
+cboFaculty control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.uploadQual.Literal1">
+	<summary>
+Literal1 control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.uploadQual.cboSchool">
+	<summary>
+cboSchool control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.uploadQual.pnlUpload">
+	<summary>
+pnlUpload control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.uploadQual.uploadFile1">
+	<summary>
+uploadFile1 control.
 </summary>
 	<remarks>
 Auto-generated field.

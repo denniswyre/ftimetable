@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="main">
-            <asp:ScriptManager ID="ScriptManager1" runat="server">
+            <asp:ScriptManager ID="ScriptManager1" runat="server" AsyncPostBackTimeout="360000">
             </asp:ScriptManager>
             <asp:UpdateProgress ID="UpdateProgress1" runat="server" 
                 AssociatedUpdatePanelID="UpdatePanel1">

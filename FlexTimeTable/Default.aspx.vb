@@ -220,7 +220,10 @@ Public Class _Default
                                 vVenue = y.venues.First
                                 Dim SubjectDetail = "Subject:" + vClass.siteclustersubject.subject.Code + " [" + vClass.siteclustersubject.subject.longName + "]"
                                 Dim ClassDetail = "Class Group:" + vClass.code + " Resource Type:" + vResource.resourcetype.code
-                                Dim LecturerDetail = vClass.lecturer.officer.Surname + "," + vClass.lecturer.officer.FirstName
+                                Dim LecturerDetail = ""
+                                If Not IsNothing(vClass.lecturer) Then
+                                    LecturerDetail = vClass.lecturer.officer.Surname + "," + vClass.lecturer.officer.FirstName
+                                End If
                                 Dim VenueDetail = "Room:" + vVenue.Code + " Building:" + vVenue.building.shortName + " Site:" + vVenue.building.site.shortName
                                 vDetails.Add(New sSlotDetails With {
                                              .subject = SubjectDetail,

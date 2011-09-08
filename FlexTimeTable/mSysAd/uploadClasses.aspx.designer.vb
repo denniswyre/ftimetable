@@ -14,22 +14,22 @@ Option Explicit On
 Partial Public Class uploadClasses
 
     '''<summary>
-    '''pnlUpload control.
+    '''btnProcess control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents pnlUpload As Global.System.Web.UI.WebControls.Panel
+    Protected WithEvents btnProcess As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''uploadFile1 control.
+    '''lstError control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents uploadFile1 As Global.FlexTimeTable.uploadFile
+    Protected WithEvents lstError As Global.System.Web.UI.WebControls.ListBox
 
     '''<summary>
     '''ldap1 control.

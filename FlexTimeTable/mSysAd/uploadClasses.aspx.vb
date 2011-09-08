@@ -3,128 +3,139 @@
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
-            PrepareFile()
+
         End If
     End Sub
 
-    Protected Sub PrepareFile()
-        'create valid fields
-        uploadFile1.filetotable = New clsfiletotableconversion
-        'Dim vfiletotable As New clsfiletotableconversion
-        With uploadFile1.filetotable
-            .fields = New ListItemCollection()
-            ' Add items to the collection.
-            .fields.Add(New ListItem("subjectcode", "0"))
-            .fields.Add(New ListItem("level", "0"))
-            .fields.Add(New ListItem("blockcode", "0"))
-            .fields.Add(New ListItem("qualcode", "0"))
-            .fields.Add(New ListItem("classgroup", "0"))
-            .fields.Add(New ListItem("classsize", "0"))
-            .fields.Add(New ListItem("timeslots", "0"))
-            .fields.Add(New ListItem("venuetype", "0"))
-            .fields.Add(New ListItem("lusername", "0"))
-            .fields.Add(New ListItem("deliverysite", "0"))
-            .fields.Add(New ListItem("periodtype", "0"))
-            .fields.Add(New ListItem("practicals", "0"))
-            .fields.Add(New ListItem("pvenuetype", "0"))
-            .fields.Add(New ListItem("prefvenue", "0"))
-        End With
-        uploadFile1.header = "Upload Class Groups File"
-        uploadFile1.Initialize()
+   
+
+    Protected Sub btnProcess_Click(sender As Object, e As EventArgs) Handles btnProcess.Click
+        processFile()
     End Sub
 
-    Private Sub uploadFile1_UploadComplete(ByVal sender As Object, ByVal e As System.EventArgs) Handles uploadFile1.UploadComplete
-        processFile(uploadFile1.filetotable.pDatatable)
-    End Sub
-
-    Protected Sub processFile(ByVal vDataTable As DataTable)
+    Protected Sub processFile()
         Dim RowIndex As Integer = 0
         Dim MaxPeriods As Integer = CType(ConfigurationManager.AppSettings("maxperiods"), Integer)
         Dim MaxClassSize As Integer = CType(ConfigurationManager.AppSettings("maxclasssize"), Integer)
 
         Dim vContext As timetableEntities = New timetableEntities()
         'get data table from user control
-
+        Dim defaultlecturetype = 8
         Dim prevError As String = ""
-        For Each dr As DataRow In vDataTable.Rows
-            'essential fields
-            Dim vSubjectcode As String
-            Dim vLevel As Integer
-            Dim vBlockID As Integer
-            Dim vQualcode As String
-            Dim vClassCode As String
-            Dim vClasssize As Integer
-            Dim vTimeslots As Integer
-            Dim vVenuetype As String
-            Dim vDeliverysite As String
+        For Each x In (From p In vContext.transaction_upload Select p).ToList
+            Dim fields As New sTablefields
+            With fields
+                .schoolcode = x.Schoolcode
+                .schoolname = x.SchoolName
+                .deptcode = x.DeptCode
+                .deptname = x.DeptName
+                .OLDQualcode = x.oldQualCode
+                .OLDSubjectcode = clsGeneral.correctCode(x.oldSubjectCode)
+                .offeringString = x.Offering
+                .ClassCode = clsGeneral.correctCode(x.ClassGroup)
+                .Classsize = CType(x.classsize, Integer)
+                .cluster = x.clusterCode
+                .lname = x.lname
+                .lsurname = x.lsurname
+                .Timeslots = 4
+                .RowIndex = RowIndex
+            End With
             ' non essential fields
-            Dim vLusername As String
-            Dim vPeriodType As String
-            Dim vPTimeSlots As Integer
-            Dim vPVenueType As String
-            Dim vPrefVenue As String
-            Dim vOfferingTypeID As Integer = getOfferingTypeID("")  'need to look at this
-            Try
-                'essential fields
-                vSubjectcode = clsGeneral.correctCode(CType(dr("subjectcode"), String))
-                vLevel = clsGeneral.correctSubjectLevel(CType(dr("level"), String))
-                vBlockID = getBlockID(CType(dr("blockcode"), String))
-                vQualcode = Trim(CType(dr("qualcode"), String))
-                vClassCode = clsGeneral.correctCode(CType(dr("classgroup"), String))
-                vClasssize = CType(dr("classsize"), Integer)
-                vTimeslots = CType(dr("timeslots"), Integer)
-                vVenuetype = CType(dr("venuetype"), String)
-                vDeliverysite = CType(dr("deliverysite"), String)
-                ' non essential fields
-                Try
-                    vLusername = CType(dr("lusername"), String)
-                Catch ex As Exception
-                    vLusername = Nothing
-                End Try
-                Try
-                    vPeriodType = CType(dr("periodtype"), String)
-                Catch ex As Exception
-                    vPeriodType = Nothing
-                End Try
-                Try
-                    vPTimeSlots = CType(dr("practicals"), Integer)
-                Catch ex As Exception
-                    vPTimeSlots = 0
-                End Try
-                Try
-                    vPVenueType = CType(dr("pvenuetype"), String)
-                Catch ex As Exception
-                    vPVenueType = Nothing
-                End Try
-                Try
-                    vPrefVenue = CType(dr("prefvenue"), String)
-                Catch ex As Exception
-                    vPrefVenue = Nothing
-                End Try
+            processRow(fields)
+            RowIndex += 1
+        Next
+    End Sub
 
-                'get key IDs
-                Dim vSite As site
-                Try
-                    vSite = (From p In vContext.sites Where p.longName = vDeliverysite Select p).First
-                Catch ex As Exception
-                    Throw New Exception("DeliverySite Error:" + ex.Message)
-                End Try
-                Dim vSiteCluster = (From p In vContext.sites Where p.longName = vDeliverysite Select p.sitecluster).First
+
+
+
+    Structure sTablefields
+        Dim schoolcode As String '= Trim(CType(dr("schoolcode"), String))
+        Dim schoolname As String '=' Trim(CType(dr("schoolname"), String))
+        Dim deptcode As String '=' Trim(CType(dr("deptcode"), String))
+        Dim deptname As String '=' Trim(CType(dr("deptname"), String))
+        Dim OLDQualcode As String '= Trim(CType(dr("oldqualcode"), String))
+        Dim OLDSubjectcode As String '= clsGeneral.correctCode(CType(dr("oldsubjectcode"), String))
+        Dim offeringString As String '= Trim(CType(dr("offering"), String))
+        Dim ClassCode As String '= clsGeneral.correctCode(CType(dr("classgroup"), String))
+        Dim Classsize As Integer '= CType(dr("classsize"), Integer)
+        Dim cluster As String '= Trim(CType(dr("clustercode"), String))
+        Dim lname As String '= Trim(CType(dr("lname"), String))
+        Dim lsurname As String '= Trim(CType(dr("lsurname"), String))
+        Dim Timeslots As Integer
+        Dim RowIndex As Integer
+    End Structure
+
+    Protected Sub processRow(ByVal fields As sTablefields)
+        'essential fields
+        With fields
+            Try
+                Dim vContext As timetableEntities = New timetableEntities()
+
+                'get data table from user control
+                Dim defaultlecturetype = 8
+                Dim vsitecluster As sitecluster = Nothing
+                Dim vclusternum = CInt(.cluster)
+                Dim vSiteClusterlist = (From p In vContext.siteclusters Select p).ToList
+                For Each x In vSiteClusterlist
+                    Dim testnum = CInt(x.code)
+                    If vclusternum = testnum Then
+                        vsitecluster = x
+                        Exit For
+                    End If
+                Next
+
+                If IsNothing(vsitecluster) Then
+                    Throw New OverflowException("cluster " + .cluster + " does not exist")
+                End If
 
                 'qualification
-                Dim vQual As qualification
-                Try
-                    vQual = (From p In vContext.qualifications Where p.Code.Contains(vQualcode) Select p).First
-                Catch ex As Exception
-                    Throw New Exception("Qualification Error:" + ex.Message)
-                End Try
+                Dim vQual As qualification = (From p In vContext.oldqualificationcodes Where p.oldCode.Contains(.OLDQualcode) Select p.qualification).FirstOrDefault
+                If IsNothing(vQual) Then
+                    Throw New Exception("Qualification " + .OLDQualcode + " not found ")
+                End If
+                vQual = (From p In vContext.oldqualificationcodes Where p.oldCode.Contains(.OLDQualcode) Select p.qualification).First
+
                 'subject
-                Dim vSubject As subject
-                Try
-                    vSubject = (From p In vContext.subjects Where p.Code = vSubjectcode Select p).First
-                Catch ex As Exception
-                    Throw New Exception("Subject Error:" + ex.Message)
-                End Try
+                Dim vSubject As subject = (From p In vContext.oldsubjectcodes Where p.OldCode.Contains(.OLDSubjectcode) Select p.subject).FirstOrDefault
+                If IsNothing(vSubject) Then
+                    Throw New Exception("Subject Error:" + .OLDSubjectcode + " not found")
+                End If
+
+                ''''adjust department
+                Dim correctdepartment = (From p In vContext.departments Where p.code = .deptcode Select p).FirstOrDefault
+                If Not IsNothing(correctdepartment) AndAlso vSubject.DepartmentID <> correctdepartment.ID Then
+                    vSubject.DepartmentID = correctdepartment.ID
+                    vContext.SaveChanges()
+                End If
+
+                ''''adjust school
+                Dim vfaculty As faculty = Nothing
+                Dim vschool = (From p In vContext.schools Where p.code = .schoolcode Select p).FirstOrDefault
+                If IsNothing(vschool) Then
+                    Dim facultyid = getfacultyid(.schoolname)
+                    vfaculty = (From p In vContext.faculties Where p.ID = facultyid Select p).SingleOrDefault
+                    If Not IsNothing(vfaculty) Then
+                        ''create new school
+                        vschool = New school With {
+                            .code = fields.schoolcode,
+                            .facultyID = facultyid,
+                            .longName = fields.schoolname,
+                            .shortName = fields.schoolcode}
+                        vContext.schools.AddObject(vschool)
+                        vContext.SaveChanges()
+                    End If
+                Else
+                    vfaculty = vschool.faculty
+                End If
+                If Not IsNothing(vschool) Then
+                    If correctdepartment.SchoolID <> vschool.id Then
+                        'adjust department school 
+                        correctdepartment.SchoolID = vschool.id
+                        vContext.SaveChanges()
+                    End If
+                End If
+
                 ''''''set programmesubjects
                 Dim vProgrammeSubject = (From p In vContext.programmesubjects
                                          Where p.QualID = vQual.ID And
@@ -138,42 +149,48 @@
                     vContext.SaveChanges()
                 End If
                 'set siteclusterprogramme
-                If Not vSiteCluster.qualifications.Contains(vQual) Then
-                    vSiteCluster.qualifications.Add(vQual)
+                If Not vsitecluster.qualifications.Contains(vQual) Then
+                    vsitecluster.qualifications.Add(vQual)
                     vContext.SaveChanges()
                 End If
                 'set siteclustersubject
                 Dim vClusterSubject = (From p In vContext.siteclustersubjects
-                                       Where p.SiteClusterID = vSite.SiteClusterID And
+                                       Where p.SiteClusterID = vsitecluster.ID And
                                        p.SubjectID = vSubject.ID Select p).FirstOrDefault
                 If IsNothing(vClusterSubject) Then
                     vClusterSubject = New siteclustersubject With {
-                        .SiteClusterID = vSite.SiteClusterID,
+                        .SiteClusterID = vsitecluster.ID,
                         .SubjectID = vSubject.ID}
                     vContext.siteclustersubjects.AddObject(vClusterSubject)
                     vContext.SaveChanges()
                 End If
+
+                'get offering type
+                Dim vOfferingTypeID As Integer = getOfferingTypeID(.offeringString)  'need to look at this
+                Dim vblockid = getBlockID("")
                 'class group
                 Dim vClassgrp = (From p In vContext.classgroups
-                                 Where p.code = vClassCode And
-                                       p.SiteClusterID = vSite.SiteClusterID And
+                                 Where p.code = .ClassCode And
+                                       p.SiteClusterID = vsitecluster.ID And
                                        p.SubjectID = vSubject.ID Select p).FirstOrDefault
                 If IsNothing(vClassgrp) Then
                     vClassgrp = New classgroup With {
-                        .code = vClassCode,
-                        .SiteClusterID = vSite.SiteClusterID,
+                        .code = fields.ClassCode,
+                        .SiteClusterID = vsitecluster.ID,
                         .SubjectID = vSubject.ID,
-                        .AcademicBlockID = vBlockID,
-                        .classSize = vClasssize,
+                        .AcademicBlockID = vblockid,
+                        .classSize = fields.Classsize,
                         .OfferingTypeID = vOfferingTypeID,
-                        .TimeSlotTotal = vTimeslots}
+                        .TimeSlotTotal = CInt(fields.Timeslots)}
                     vContext.classgroups.AddObject(vClassgrp)
                     vContext.SaveChanges()
                 End If
+
                 ' set lecturer
-                Dim vLecturerID = getLecturer(vLusername)
+                Dim vlusername = clsGeneral.createusername(.lname, .lsurname)
+                Dim vLecturerID = getLecturer(vlusername)
                 If vLecturerID = 0 Then
-                    uploadFile1.errorlist = New ListItem("Row No:" + CStr(RowIndex + 1) + "-->err:" + "Lecturer does not exist")
+                    lstError.Items.Add(New ListItem("Row No:" + CStr(.RowIndex + 1) + "-->err:" + "Lecturer does not exist"))
                 Else
                     Dim vLecturer = (From p In vContext.lecturers Where p.LecturerID = vLecturerID Select p).FirstOrDefault
                     Try
@@ -183,53 +200,56 @@
                                        .DepartmentID = vSubject.DepartmentID}
                             vContext.lecturers.AddObject(vLecturer)
                         End If
-                        vLecturer.subjects.Add(vSubject)
-                        vLecturer.classgroups.Add(vClassgrp)
-                        vContext.SaveChanges()
+                        Dim dosave As Boolean = False
+                        'check if lecturer has subject
+                        If (From p In vLecturer.subjects Where p.ID = vSubject.ID Select p).Count = 0 Then
+                            dosave = True
+                            vLecturer.subjects.Add(vSubject)
+                        End If
+                        If (From p In vLecturer.classgroups Where p.ID = vClassgrp.ID Select p).Count = 0 Then
+                            dosave = True
+                            vLecturer.classgroups.Add(vClassgrp)
+                        End If
+                        If dosave = True Then
+                            vContext.SaveChanges()
+                        End If
                     Catch ex As Exception
-                        uploadFile1.errorlist = New ListItem("Row No:" + CStr(RowIndex + 1) + "-->err:Lecturer Error:" + ex.Message)
+                        lstError.Items.Add(New ListItem("Row No:" + CStr(.RowIndex + 1) + "-->err:Lecturer Error:" + ex.Message))
                     End Try
                 End If
                 ' resources
                 Dim vResourceCnt = getGetResourceCount(vClassgrp.ID)
-                Dim vResourceTypeID = getResourceTypeID(vVenuetype)
-                Dim vMaxMergedTimeSlots = GetMaxMergedTimeSlots(vPeriodType, vTimeslots)
-                Dim vResourceName = vSubjectcode + "[" + vClassgrp.code + "]"
-                If vPTimeSlots > 0 And vResourceCnt = 0 Then
-                    'only if practical(lab) details exists
-                    CreateResource(vClassgrp.ID, vResourceName, vResourceTypeID, vClasssize, vTimeslots, vMaxMergedTimeSlots)
-                    ''deal with practicals later
-                    Dim vPResourceTypeID = getResourceTypeID(vPVenueType)
-                    ' Dim LabPeriods As Integer = vPTimeSlots
-                    If vPResourceTypeID > 0 And vPTimeSlots > 0 Then
-                        Dim nlabsize As Integer = CType(ConfigurationManager.AppSettings("nlabsize"), Integer)
-                        ''''Get Number of lab groups
-                        Dim NoOfLabs As Integer = CType(vClasssize / nlabsize, Integer) + 1
-                        For i As Integer = 1 To NoOfLabs
-                            Dim LabClassSize As Integer
-                            vResourceName = vResourceName + "-lab" + i.ToString
-                            If i = NoOfLabs Then
-                                LabClassSize = vClasssize - (NoOfLabs - 1) * CType(vClasssize / NoOfLabs, Integer)
-                            Else
-                                LabClassSize = CType(vClasssize / NoOfLabs, Integer)
-                            End If
-                            CreateResource(vClassgrp.ID, vResourceName, vPResourceTypeID, LabClassSize, vPTimeSlots, 2)
-                        Next
-                    End If
-                ElseIf vPTimeSlots = 0 Then
-                    ' no practical(lab) details exist
-                    vResourceName = vResourceName + "-" + CStr(vResourceCnt)
-                    Dim TotalNoOfResources = getTotalSubGroup(vDataTable, vSubjectcode, vClassCode, vDeliverysite, vLevel)
-                    If vResourceCnt < TotalNoOfResources Then
-                        CreateResource(vClassgrp.ID, vResourceName, vResourceTypeID, vClasssize, vTimeslots, vMaxMergedTimeSlots)
-                    End If
-                End If
+                Dim vResourceType = (From p In vContext.resourcetypes Where p.ID = defaultlecturetype Select p).First
+                Dim vMaxMergedTimeSlots = GetMaxMergedTimeSlots("0", CInt(.Timeslots))
+                Dim vResourceName = vSubject.Code + "[" + vClassgrp.code + "]"
+                CreateResource(vClassgrp.ID, vResourceName, vResourceType.ID, CInt(.Classsize), CInt(.Timeslots), vMaxMergedTimeSlots)
+            Catch ex As OverflowException
+                lstError.Items.Add(New ListItem("Row No:" + CStr(.RowIndex + 1) + "-->err:" + ex.Message))
             Catch ex As Exception
-                uploadFile1.errorlist = New ListItem("Row No:" + CStr(RowIndex + 1) + "-->err:" + ex.Message)
+                lstError.Items.Add(New ListItem("Row No:" + CStr(.RowIndex + 1) + "-->err:" + ex.Message))
             End Try
-            RowIndex += 1
-        Next
+        End With
     End Sub
+
+    Function getfacultyid(ByVal searchstring As String) As Integer
+        Dim vContext As timetableEntities = New timetableEntities()
+        If InStr(UCase(searchstring), "FACULTY OF EDUCATION") > 0 Then
+            Return 1
+        End If
+        If InStr(UCase(searchstring), "FACULTY OF HEALTH SCIENCES") > 0 Then
+            Return 2
+        End If
+        If InStr(UCase(searchstring), "BUS- MAN SCIENCES") > 0 Then
+            Return 3
+        End If
+        If InStr(UCase(searchstring), "INFO & COMMUNIC TECHNOLOGY") > 0 Then
+            Return 4
+        End If
+        If InStr(UCase(searchstring), "FACULTY OF ENG AND SCIENCE") > 0 Then
+            Return 4
+        End If
+        Return 0
+    End Function
 
     Function getGetResourceCount(ByVal vClassID As Integer) As Integer
         Dim vContext As timetableEntities = New timetableEntities()
@@ -263,11 +283,12 @@
         End If
     End Function
 
-    Function getOfferingTypeID(ByVal OfferingCode As String) As Integer
-        Dim vContext As timetableEntities = New timetableEntities()
-        Dim vOfferingType = (From p In vContext.offeringtypes Select p).First
-        'need to imporve
-        Return vOfferingType.ID
+    Function getOfferingTypeID(ByVal OfferingString As String) As Integer
+        If InStr(LCase(OfferingString), "part") > 0 Then
+            Return 2
+        Else
+            Return 1
+        End If
     End Function
 
     Function getBlockID(ByVal BlockCode As String) As Integer
@@ -321,23 +342,27 @@
     Function CreateResource(ByVal vClassgroupID As Integer, ByVal vName As String, ByVal vResourceTypeID As Integer, ByVal vAmtParticipants As Integer, ByVal vAmtTimeSlots As Integer, ByVal vMaxMergedTimeSlots As Integer) As Integer
         Dim vContext As timetableEntities = New timetableEntities()
         Dim vClassgroup = (From p In vContext.classgroups Where p.ID = vClassgroupID Select p).First
-        Dim vResource = New resource With {
-          .Name = vName,
-          .AmtParticipants = vAmtParticipants,
-          .AmtTimeSlots = vAmtTimeSlots,
-          .MaxMergedTimeSlots = vMaxMergedTimeSlots,
-          .year = getResourceYear(vClassgroup.academicblock.startWeek, vClassgroup.academicblock.endWeek),
-          .startWeek = vClassgroup.academicblock.startWeek,
-          .endWeek = vClassgroup.academicblock.endWeek,
-          .classgrouplinked = True,
-          .ResourceTypeID = vResourceTypeID}
-        vContext.resources.AddObject(vResource)
-        vClassgroup.resources.Add(vResource)
-        Try
-            vContext.SaveChanges()
-        Catch ex As Exception
-            Throw New Exception("Resource Error:" + ex.Message)
-        End Try
+        Dim vResource = (From p In vClassgroup.resources Where p.ResourceTypeID = vResourceTypeID Select p).FirstOrDefault
+        If IsNothing(vResource) Then
+            vResource = New resource With {
+              .Name = vName,
+              .AmtParticipants = vAmtParticipants,
+              .AmtTimeSlots = vAmtTimeSlots,
+              .MaxMergedTimeSlots = vMaxMergedTimeSlots,
+              .year = getResourceYear(vClassgroup.academicblock.startWeek, vClassgroup.academicblock.endWeek),
+              .startWeek = vClassgroup.academicblock.startWeek,
+              .endWeek = vClassgroup.academicblock.endWeek,
+              .classgrouplinked = True,
+              .TimeslotsArrangement = "",
+              .ResourceTypeID = vResourceTypeID}
+            vContext.resources.AddObject(vResource)
+            vClassgroup.resources.Add(vResource)
+            Try
+                vContext.SaveChanges()
+            Catch ex As Exception
+                Throw New Exception("Resource Error:" + ex.Message)
+            End Try
+        End If
         Return vResource.ID
     End Function
 
@@ -388,4 +413,5 @@
         Return vCount
     End Function
 
+   
 End Class

@@ -48,4 +48,23 @@
         Return newcode
     End Function
 
+
+
+    Public Shared Function createusername(ByVal firstname As String, ByVal surname As String) As String
+        Dim username As String = LCase(Left(Trim(firstname), 1))
+        For Each i As Char In Trim(surname)
+            Select Case Asc(i)
+                Case 48 To 57  'numbers
+                    username = username + i
+                Case 65 To 90 'uppercase letters
+                    username = username + LCase(i)
+                Case 97 To 122  'lowercase letters
+                    username = username + i
+                Case Else
+            End Select
+        Next
+        Return username
+    End Function
+
+
 End Class

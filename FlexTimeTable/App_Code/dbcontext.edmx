@@ -40,6 +40,8 @@
           <EntitySet Name="siteclustersubject" EntityType="timetableModel.Store.siteclustersubject" store:Type="Tables" Schema="timetable" />
           <EntitySet Name="subject" EntityType="timetableModel.Store.subject" store:Type="Tables" Schema="timetable" />
           <EntitySet Name="timeslot" EntityType="timetableModel.Store.timeslot" store:Type="Tables" Schema="timetable" />
+          <EntitySet Name="transaction_upload" EntityType="timetableModel.Store.transaction_upload" store:Type="Tables" Schema="timetable" />
+          <EntitySet Name="uploadtable" EntityType="timetableModel.Store.uploadtable" store:Type="Tables" Schema="timetable" />
           <EntitySet Name="userlog" EntityType="timetableModel.Store.userlog" store:Type="Tables" Schema="timetable" />
           <EntitySet Name="venue" EntityType="timetableModel.Store.venue" store:Type="Tables" Schema="timetable" />
           <EntitySet Name="campususer" EntityType="timetableModel.Store.campususer" store:Type="Views" store:Schema="timetable" store:Name="campususer">
@@ -549,6 +551,7 @@
           <Property Name="CampusID" Type="int" Nullable="false" />
           <Property Name="longName" Type="varchar" Nullable="false" MaxLength="45" />
           <Property Name="shortName" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="code" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="siteclusterprogramme">
           <Key>
@@ -586,6 +589,50 @@
           <Property Name="StartTime" Type="datetime" Nullable="false" />
           <Property Name="Duration" Type="int" Nullable="false" />
           <Property Name="LunchPeriod" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="transaction_upload">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="clusterCode" Type="varchar" MaxLength="100" />
+          <Property Name="Schoolcode" Type="varchar" MaxLength="100" />
+          <Property Name="SchoolName" Type="varchar" MaxLength="100" />
+          <Property Name="oldQualCode" Type="varchar" MaxLength="100" />
+          <Property Name="oldSubjectCode" Type="varchar" MaxLength="100" />
+          <Property Name="DeptCode" Type="varchar" MaxLength="100" />
+          <Property Name="DeptName" Type="varchar" MaxLength="100" />
+          <Property Name="Offering" Type="varchar" MaxLength="100" />
+          <Property Name="ClassGroup" Type="varchar" MaxLength="100" />
+          <Property Name="lname" Type="varchar" MaxLength="100" />
+          <Property Name="lsurname" Type="varchar" MaxLength="100" />
+          <Property Name="classsize" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="uploadtable">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="col1" Type="varchar" MaxLength="45" />
+          <Property Name="col2" Type="varchar" MaxLength="45" />
+          <Property Name="col3" Type="varchar" MaxLength="45" />
+          <Property Name="col4" Type="varchar" MaxLength="45" />
+          <Property Name="col5" Type="varchar" MaxLength="45" />
+          <Property Name="col6" Type="varchar" MaxLength="45" />
+          <Property Name="col7" Type="varchar" MaxLength="45" />
+          <Property Name="col8" Type="varchar" MaxLength="45" />
+          <Property Name="col9" Type="varchar" MaxLength="45" />
+          <Property Name="col10" Type="varchar" MaxLength="45" />
+          <Property Name="col11" Type="varchar" MaxLength="45" />
+          <Property Name="col12" Type="varchar" MaxLength="45" />
+          <Property Name="col13" Type="varchar" MaxLength="45" />
+          <Property Name="col14" Type="varchar" MaxLength="45" />
+          <Property Name="col15" Type="varchar" MaxLength="45" />
+          <Property Name="col16" Type="varchar" MaxLength="45" />
+          <Property Name="col17" Type="varchar" MaxLength="45" />
+          <Property Name="col18" Type="varchar" MaxLength="45" />
+          <Property Name="col19" Type="varchar" MaxLength="45" />
+          <Property Name="col20" Type="varchar" MaxLength="45" />
         </EntityType>
         <EntityType Name="userlog">
           <Key>
@@ -1461,6 +1508,8 @@
             <End Role="department" EntitySet="departments" />
             <End Role="venue" EntitySet="venues" />
           </AssociationSet>
+          <EntitySet Name="uploadtables" EntityType="timetableModel.uploadtable" />
+          <EntitySet Name="transaction_upload" EntityType="timetableModel.transaction_upload" />
           </EntityContainer>
         <EntityType Name="academicblock">
           <Key>
@@ -1697,6 +1746,7 @@
           <NavigationProperty Name="sites" Relationship="timetableModel.fk_Site_SiteCluster" FromRole="sitecluster" ToRole="site" />
           <NavigationProperty Name="qualifications" Relationship="timetableModel.siteclusterprogramme" FromRole="sitecluster" ToRole="qualifications" />
           <NavigationProperty Name="siteclustersubjects" Relationship="timetableModel.fk_siteClusterSubject_SiteCluster" FromRole="sitecluster" ToRole="siteclustersubject" />
+          <Property Type="Int32" Name="code" Nullable="false" />
         </EntityType>
         <EntityType Name="subject">
           <Key>
@@ -2284,6 +2334,50 @@
           <End Type="timetableModel.department" Role="department" Multiplicity="*" />
           <End Type="timetableModel.venue" Role="venue" Multiplicity="*" />
         </Association>
+        <EntityType Name="uploadtable">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="col1" />
+          <Property Type="String" Name="col2" />
+          <Property Type="String" Name="col3" />
+          <Property Type="String" Name="col4" />
+          <Property Type="String" Name="col5" />
+          <Property Type="String" Name="col6" />
+          <Property Type="String" Name="col7" />
+          <Property Type="String" Name="col8" />
+          <Property Type="String" Name="col9" />
+          <Property Type="String" Name="col10" />
+          <Property Type="String" Name="col11" />
+          <Property Type="String" Name="col12" />
+          <Property Type="String" Name="col13" />
+          <Property Type="String" Name="col14" />
+          <Property Type="String" Name="col15" />
+          <Property Type="String" Name="col16" />
+          <Property Type="String" Name="col17" />
+          <Property Type="String" Name="col18" />
+          <Property Type="String" Name="col19" />
+          <Property Type="String" Name="col20" />
+        </EntityType>
+        <EntityType Name="transaction_upload">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="clusterCode" />
+          <Property Type="String" Name="Schoolcode" />
+          <Property Type="String" Name="SchoolName" />
+          <Property Type="String" Name="oldQualCode" />
+          <Property Type="String" Name="oldSubjectCode" />
+          <Property Type="String" Name="DeptCode" />
+          <Property Type="String" Name="DeptName" />
+          <Property Type="String" Name="Offering" />
+          <Property Type="String" Name="ClassGroup" />
+          <Property Type="String" Name="lname" />
+          <Property Type="String" Name="lsurname" />
+          <Property Type="String" Name="classsize" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2410,7 +2504,8 @@
             <ScalarProperty Name="SiteClusterID" ColumnName="SiteClusterID" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="siteclusters"><EntityTypeMapping TypeName="timetableModel.sitecluster"><MappingFragment StoreEntitySet="sitecluster">
-            <ScalarProperty Name="CampusID" ColumnName="CampusID" />
+            <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="CampusID" ColumnName="CampusID" />
             <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="longName" ColumnName="longName" />
             <ScalarProperty Name="shortName" ColumnName="shortName" />
@@ -2590,6 +2685,52 @@
               <ScalarProperty Name="ID" ColumnName="departmentID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="uploadtables">
+            <EntityTypeMapping TypeName="timetableModel.uploadtable">
+              <MappingFragment StoreEntitySet="uploadtable">
+                <ScalarProperty Name="col20" ColumnName="col20" />
+                <ScalarProperty Name="col19" ColumnName="col19" />
+                <ScalarProperty Name="col18" ColumnName="col18" />
+                <ScalarProperty Name="col17" ColumnName="col17" />
+                <ScalarProperty Name="col16" ColumnName="col16" />
+                <ScalarProperty Name="col15" ColumnName="col15" />
+                <ScalarProperty Name="col14" ColumnName="col14" />
+                <ScalarProperty Name="col13" ColumnName="col13" />
+                <ScalarProperty Name="col12" ColumnName="col12" />
+                <ScalarProperty Name="col11" ColumnName="col11" />
+                <ScalarProperty Name="col10" ColumnName="col10" />
+                <ScalarProperty Name="col9" ColumnName="col9" />
+                <ScalarProperty Name="col8" ColumnName="col8" />
+                <ScalarProperty Name="col7" ColumnName="col7" />
+                <ScalarProperty Name="col6" ColumnName="col6" />
+                <ScalarProperty Name="col5" ColumnName="col5" />
+                <ScalarProperty Name="col4" ColumnName="col4" />
+                <ScalarProperty Name="col3" ColumnName="col3" />
+                <ScalarProperty Name="col2" ColumnName="col2" />
+                <ScalarProperty Name="col1" ColumnName="col1" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="transaction_upload">
+            <EntityTypeMapping TypeName="timetableModel.transaction_upload">
+              <MappingFragment StoreEntitySet="transaction_upload">
+                <ScalarProperty Name="classsize" ColumnName="classsize" />
+                <ScalarProperty Name="lsurname" ColumnName="lsurname" />
+                <ScalarProperty Name="lname" ColumnName="lname" />
+                <ScalarProperty Name="ClassGroup" ColumnName="ClassGroup" />
+                <ScalarProperty Name="Offering" ColumnName="Offering" />
+                <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+                <ScalarProperty Name="DeptCode" ColumnName="DeptCode" />
+                <ScalarProperty Name="oldSubjectCode" ColumnName="oldSubjectCode" />
+                <ScalarProperty Name="oldQualCode" ColumnName="oldQualCode" />
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="Schoolcode" ColumnName="Schoolcode" />
+                <ScalarProperty Name="clusterCode" ColumnName="clusterCode" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -3029,6 +3170,8 @@
           <ConnectorPoint PointX="8.484372" PointY="13.25" />
           <ConnectorPoint PointX="8.484372" PointY="9.951396484375" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="timetableModel.uploadtable" Width="1.5" PointX="14.375" PointY="0.75" Height="5.05710937500001" />
+        <EntityTypeShape EntityType="timetableModel.transaction_upload" Width="1.5" PointX="13.375" PointY="6.75" Height="3.5186979166666674" />
       </Diagram>
     </Diagrams>
   </Designer>

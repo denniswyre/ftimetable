@@ -101,6 +101,37 @@ Public Class clsfiletotableconversion
         Next
     End Sub
 
+    Public Sub cvFileToBigTable(ByVal csvStr As String, ByVal vDelimiter As Char)
+        Dim dr As DataRow
+        Dim StrArray() As String = Split(csvStr, vDelimiter, -1)
+        Dim LineArray() As String
+        Dim CurCell As String = ""
+
+        Dim isFirstRow As Boolean = True
+        For j As Integer = StrArray.GetLowerBound(0) To (StrArray.GetUpperBound(0) - 1)
+            LineArray = LineToArray(StrArray(j))
+
+            If isFirstRow Then
+                SetTableColumns(LineArray)
+                isFirstRow = False
+            Else
+                dr = mDatatable.NewRow()
+                For i As Integer = LineArray.GetLowerBound(0) To LineArray.GetUpperBound(0)
+                    Try
+                        CurCell = Trim(LineArray(i))
+                    Catch ex As IndexOutOfRangeException
+                        ' insertError("UploadCourse:CSV File Record " + j.ToString, "Column " + (i + 1).ToString + " is Blank!!!")
+                    End Try
+                    InsertCell(dr, i, CurCell)
+                Next
+                Try
+                    mDatatable.Rows.Add(dr)
+                Catch ex As Exception
+                End Try
+            End If
+        Next
+    End Sub
+
 
 
     Private Shared Function LineToArray(ByVal line As String) As String()

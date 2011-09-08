@@ -6,18 +6,21 @@
         SideBarStyle-HorizontalAlign="Left" SideBarStyle-VerticalAlign="Top" DisplaySideBar="false"
         EnableTheming="True" FinishCompleteButtonText="" FinishCompleteButtonType="Link"
         FinishPreviousButtonText="" FinishPreviousButtonType="Link">
+        <SideBarStyle HorizontalAlign="Left" VerticalAlign="Top" Wrap="False" />
         <WizardSteps>
             <asp:WizardStep ID="WizStart" runat="server" Title="Select CSV File">
-                <asp:FileUpload ID="FileUpload" runat="server" Width="300px" BorderStyle="Inset"
-                    BorderWidth="2px" />
+                <asp:FileUpload ID="FileUpload" runat="server" BorderStyle="Inset" 
+                    BorderWidth="2px" Width="600px" />
                 <br />
                 <br />
                 <asp:Literal ID="litFields" runat="server"></asp:Literal>
             </asp:WizardStep>
             <asp:WizardStep ID="WizConfirm" runat="server" Title="Map Fields">
-                <asp:Panel ID="Panel2" runat="server" Width="400px" ScrollBars="Auto">
-                    <h4>Verify file Columns</h4>
-                    <asp:GridView ID="GridView1" runat="server" PageSize="5" Width="100%" AllowPaging="True">
+                <asp:Panel ID="Panel2" runat="server" ScrollBars="Auto" Width="400px">
+                    <h4>
+                        Verify file Columns</h4>
+                    <asp:GridView ID="GridView1" runat="server" AllowPaging="True" PageSize="5" 
+                        Width="100%">
                         <PagerTemplate>
                             <table width="100%">
                                 <tr>
@@ -28,10 +31,11 @@
                             </table>
                         </PagerTemplate>
                     </asp:GridView>
-                                   </asp:Panel>
+                </asp:Panel>
             </asp:WizardStep>
             <asp:WizardStep ID="WizComplete" runat="server" Title="Final">
-            <h4>List of Errors Found!!</h4>
+                <h4>
+                    List of Errors Found!!</h4>
                 <asp:ListBox ID="lstError" runat="server"></asp:ListBox>
             </asp:WizardStep>
         </WizardSteps>

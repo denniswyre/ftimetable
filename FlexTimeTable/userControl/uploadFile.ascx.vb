@@ -2,14 +2,12 @@
     Inherits System.Web.UI.UserControl
     Public Event UploadComplete As EventHandler
 
-    Property Enabled As Boolean
-
     Public Property filetotable() As clsfiletotableconversion
         Get
-            Return CType(Session(" filetotable"), clsfiletotableconversion)
+            Return CType(Session("filetotable"), clsfiletotableconversion)
         End Get
         Set(ByVal value As clsfiletotableconversion)
-            Session(" filetotable") = value
+            Session("filetotable") = value
         End Set
     End Property
 
@@ -85,7 +83,7 @@
         Dim csvString As String = ""
         Dim fileExtension As String
         Dim allowedExtensions As String() = {".txt", ".csv"}
-        Dim FileLenMax As Integer = 999999
+        Dim FileLenMax As Integer = 99999
         Dim vSuccess As Boolean = False
         Dim Input() As Byte
 

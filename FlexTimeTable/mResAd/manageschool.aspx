@@ -16,6 +16,7 @@
     Faculty:<asp:DropDownList ID="cboFaculty" AutoPostBack="true" runat="server">
     </asp:DropDownList>
     <br />
+    <asp:Literal ID="ErrorMessage" runat="server"></asp:Literal>
     <asp:MultiView ID="mvSchool" runat="server">
         <asp:View ID="vwGrid" runat="server">
             <asp:LinkButton ID="lnkCreate" runat="server">New School</asp:LinkButton>
@@ -68,8 +69,8 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <asp:Button ID="btnSave" runat="server" Text="Save" />
-                        <asp:Button ID="btnDelete" runat="server" Text="Delete" />
+                        <uc1:logButton ID="logSave" runat="server" />
+                        <uc1:logButton ID="logDelete" runat="server" />
                         <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
                     </td>
                 </tr>

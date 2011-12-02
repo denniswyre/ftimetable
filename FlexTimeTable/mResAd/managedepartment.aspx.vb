@@ -4,8 +4,8 @@
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
             loadFaculty()
-            btnSave.Text = "Save"
-            btnDelete.Text = "Delete"
+            logSave.Text = "Save"
+            logDelete.Text = "Delete"
         End If
     End Sub
 
@@ -83,18 +83,18 @@
         mvDept.SetActiveView(vwEdit)
         Select Case vMode
             Case eMode.edit
-                Me.btnDelete.Visible = True
-                Me.btnSave.Visible = True
-                btnSave.Text = "Update"
+                Me.logDelete.Visible = True
+                Me.logSave.Visible = True
+                logSave.Text = "Update"
                 litEdit.Text = "Edit Department"
             Case eMode.create
                 Me.lblID.Text = ""
                 Me.txtCode.Text = ""
                 Me.txtShortName.Text = "" '.shortName
                 Me.txtLongName.Text = "" '.longName
-                Me.btnDelete.Visible = False
-                Me.btnSave.Visible = True
-                btnSave.Text = "Save"
+                Me.logDelete.Visible = False
+                Me.logSave.Visible = True
+                logSave.Text = "Save"
                 litEdit.Text = "Create Department"
         End Select
     End Sub
@@ -116,16 +116,20 @@
             .shortName = Me.txtCode.Text,
             .code = txtCode.Text,
             .SchoolID = CType(Me.cboSchool.SelectedItem.Value, Integer)}
-        vContext.Departments.AddObject(vDepartment)
+        logSave.Function = "Create Department"
+        logSave.Description = txtCode.Text + "---" + txtLongName.Text
+        vContext.departments.AddObject(vDepartment)
         vContext.SaveChanges()
     End Sub
 
     Protected Sub UpdateDepartment()
         Dim vContext As timetableEntities = New timetableEntities()
-        Dim vDepartment As Department = _
-            (From p In vContext.Departments _
+        Dim vDepartment As department = _
+            (From p In vContext.departments _
                 Where p.ID = CType(lblID.Text, Integer) _
                     Select p).First
+        logSave.Function = "Update Department"
+        logSave.Description = "From:" + vDepartment.code + "---" + vDepartment.longName + "---To:" + txtCode.Text + "---" + txtLongName.Text
         With vDepartment
             .code = Me.txtCode.Text
             .longName = Me.txtLongName.Text
@@ -136,14 +140,20 @@
 
     Protected Sub DeleteDepartment()
         Dim vContext As timetableEntities = New timetableEntities()
-        Dim vDepartment = (From p In vContext.Departments _
+        Dim vDepartment = (From p In vContext.departments _
                             Where p.ID = CType(Me.lblID.Text, Integer) _
                             Select p).First
+        logSave.Function = "Delete Department"
+        logSave.Description = vDepartment.code + "---" + vDepartment.longName
+        Dim DummyFacultyID = CType(ConfigurationManager.AppSettings("dummyfaculty"), Integer)
+        If vDepartment.school.facultyID = DummyFacultyID Then
+            Throw New Exception("You cannot delete this department!!!")
+        End If
         vContext.DeleteObject(vDepartment)
         vContext.SaveChanges()
     End Sub
 
-    Private Sub btnSave_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSave.Click
+    Private Sub logSave_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles logSave.Click
 
         Try
             If Me.lblID.Text = "" Then
@@ -158,7 +168,7 @@
         End Try
     End Sub
 
-    Private Sub btnDelete_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnDelete.Click
+    Private Sub logDelete_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles logDelete.Click
         Try
             DeleteDepartment()
             loadDepartments()

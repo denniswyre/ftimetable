@@ -2,13 +2,14 @@
     CodeBehind="manageprogramme.aspx.vb" Inherits="FlexTimeTable.manageprogramme" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-<%@ Register src="../userControl/getDepartment.ascx" tagname="getDepartment" tagprefix="uc1" %>
+<%@ Register Src="../userControl/getDepartment.ascx" TagName="getDepartment" TagPrefix="uc1" %>
+<%@ Register Src="../userControl/logButton.ascx" TagName="logButton" TagPrefix="uc2" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h3>
         Programme Management</h3>
-    <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
+    <asp:Literal ID="errorMessage" runat="server"></asp:Literal>
     <br />
     <uc1:getDepartment ID="getDepartment1" runat="server" />
     <table>
@@ -40,6 +41,8 @@
             </tr>
         </asp:PlaceHolder>
     </table>
+    <uc2:logButton ID="logSave" runat="server" />
+    <asp:Button ID="btnRefresh" runat="server" Text="Refresh" />
     <asp:TabContainer ID="TabContainer1" runat="server" ActiveTabIndex="0">
         <asp:TabPanel runat="server" HeaderText="Core Subjects" ID="TabCore">
             <HeaderTemplate>
@@ -52,16 +55,21 @@
                             <td valign="top">
                                 <asp:TextBox ID="txtCoreSearch" runat="server"></asp:TextBox>
                                 <asp:Button ID="btnCoreSearch" runat="server" ToolTip="Search for subjects" Text="Find" /><br />
-                                <asp:ListBox ID="lstCoreSubjects" runat="server" Width="300px" Height="300px"></asp:ListBox>
+                                <div id='Div1' style="z-index: 102; left: 13px; overflow: auto; width: 400px; height: 300px">
+                                    <asp:ListBox ID="lstCoreSubjects" runat="server" Font-Size="Smaller" Width="800px"
+                                        Height="10000px"></asp:ListBox>
+                                </div>
                             </td>
                             <td align="center" valign="middle" style="width: 120">
-                                <asp:Button ID="btnCoreAdd" runat="server" Text="Add" Width="100px" /><br />
-                                <asp:Button ID="btnCoreRemove" runat="server" Text="Remove" Width="100px" />
+                                <asp:Button ID="btnCoreAdd" runat="server" Text="Add" /><br />
+                                <asp:Button ID="btnCoreRemove" runat="server" Text="Remove" />
                             </td>
                             <td valign="top">
                                 <strong>Selected Subjects</strong><br />
-                                <asp:ListBox ID="lstSelectedCoreSubjects" runat="server" Width="300px" Height="300px">
-                                </asp:ListBox>
+                                <div id='Div5' style="z-index: 102; left: 13px; overflow: auto; width: 400px; height: 300px">
+                                    <asp:ListBox ID="lstSelectedCoreSubjects" runat="server" Font-Size="Smaller" Width="800px"
+                                        Height="10000px"></asp:ListBox>
+                                </div>
                             </td>
                         </tr>
                     </table>
@@ -79,17 +87,21 @@
                             <td>
                                 <asp:TextBox ID="txtServiceSearch" runat="server"></asp:TextBox><asp:Button ID="btnServiceSearch"
                                     runat="server" ToolTip="Search for a subject" Text="Find" /><br />
-                                <asp:ListBox ID="lstServiceSubjects" runat="server" Width="300px" Height="300px">
-                                </asp:ListBox>
+                                <div id='hello' style="z-index: 102; left: 13px; overflow: auto; width: 400px; height: 300px">
+                                    <asp:ListBox ID="lstServiceSubjects" runat="server" Font-Size="Smaller" Width="800px"
+                                        Height="24500px"></asp:ListBox>
+                                </div>
                             </td>
                             <td align="center" valign="middle" style="width: 120">
-                                <asp:Button ID="btnServiceAdd" runat="server" Text="Add" Width="100px" /><br />
-                                <asp:Button ID="btnServiceRemove" runat="server" Text="Remove" Width="100px" />
+                                <asp:Button ID="btnServiceAdd" runat="server" Text="Add" /><br />
+                                <asp:Button ID="btnServiceRemove" runat="server" Text="Remove" />
                             </td>
                             <td>
                                 <strong>Selected Subjects</strong><br />
-                                <asp:ListBox ID="lstSelectedServiceSubject" runat="server" Width="300px" Height="300px">
-                                </asp:ListBox>
+                                <div id='Div2' style="z-index: 102; left: 13px; overflow: auto; width: 400px; height: 300px">
+                                    <asp:ListBox ID="lstSelectedServiceSubject" runat="server" Font-Size="Smaller" Width="800px"
+                                        Height="10000px"></asp:ListBox>
+                                </div>
                             </td>
                         </tr>
                     </table>
@@ -102,15 +114,17 @@
                     <tr>
                         <td>
                             <strong>All Site Clusters</strong><br />
-                            <asp:ListBox ID="lstAllClusters" runat="server" Width="300px"></asp:ListBox>
+                            <asp:ListBox ID="lstAllClusters" runat="server" Font-Size="Smaller" Width="400px"
+                                Height="300px"></asp:ListBox>
                         </td>
                         <td align="center" valign="middle" style="width: 120">
-                            <asp:Button ID="btnClusterAdd" runat="server" Text="Add" Width="100px" /><br />
-                            <asp:Button ID="btnClusterRemove" runat="server" Text="Remove" Width="100px" />
+                            <asp:Button ID="btnClusterAdd" runat="server" Text="Add" /><br />
+                            <asp:Button ID="btnClusterRemove" runat="server" Text="Remove" />
                         </td>
                         <td>
                             <strong>Selected Site Clusters</strong><br />
-                            <asp:ListBox ID="lstSelectedClusters" runat="server" Width="300px"></asp:ListBox>
+                            <asp:ListBox ID="lstSelectedClusters" runat="server" Font-Size="Smaller" Width="400px"
+                                Height="300px"></asp:ListBox>
                         </td>
                     </tr>
                 </table>

@@ -23,6 +23,15 @@ Partial Public Class manageschool
     Protected WithEvents cboFaculty As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''ErrorMessage control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ErrorMessage As Global.System.Web.UI.WebControls.Literal
+
+    '''<summary>
     '''mvSchool control.
     '''</summary>
     '''<remarks>
@@ -149,22 +158,22 @@ Partial Public Class manageschool
     Protected WithEvents txtLongName As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''btnSave control.
+    '''logSave control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnSave As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents logSave As Global.FlexTimeTable.logButton
 
     '''<summary>
-    '''btnDelete control.
+    '''logDelete control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnDelete As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents logDelete As Global.FlexTimeTable.logButton
 
     '''<summary>
     '''btnCancel control.

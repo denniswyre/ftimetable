@@ -14,13 +14,13 @@ Option Explicit On
 Partial Public Class managesubject
 
     '''<summary>
-    '''lblMessage control.
+    '''errorMessage control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblMessage As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents errorMessage As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
     '''getDepartment1 control.
@@ -212,22 +212,22 @@ Partial Public Class managesubject
     Protected WithEvents chkYearBlock As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
-    '''btnSave control.
+    '''logSave control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnSave As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents logSave As Global.FlexTimeTable.logButton
 
     '''<summary>
-    '''btnDelete control.
+    '''logDelete control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnDelete As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents logDelete As Global.FlexTimeTable.logButton
 
     '''<summary>
     '''btnCancel control.

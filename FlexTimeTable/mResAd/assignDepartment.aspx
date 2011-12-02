@@ -1,26 +1,28 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Flex.Master" CodeBehind="assignDepartment.aspx.vb" Inherits="FlexTimeTable.assignDepartment" %>
+<%@ Register src="../userControl/logButton.ascx" tagname="logButton" tagprefix="uc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
  <h3>
         Move Departments between schools</h3>
+
     Faculty:<asp:DropDownList ID="cboFaculty" AutoPostBack="true" runat="server">
     </asp:DropDownList><br />
-    <table>
+    <asp:Literal ID="ErrorMessage" runat="server"></asp:Literal>
+    <table align="center">
         <tr>
-            <td>School A:<asp:DropDownList ID="cboSchoolA" runat="server" Width="245px" 
-                    AutoPostBack="True">
-                </asp:DropDownList><br />
-                <asp:ListBox ID="lstDepartmentA" runat="server" Height="300px" Width="300px"></asp:ListBox>
+            <td>Unknown Departments<br />
+                <asp:ListBox ID="lstUnknownDepart" runat="server" Height="300px" Font-Size="Smaller" Width="400px"></asp:ListBox>
             </td>
-            <td>
-                <asp:Button ID="btnAddto" runat="server" Text="--->" /><br />
-                 <asp:Button ID="btnAddfr" runat="server" Text="<---" />
+            <td align="center">
+                <uc1:logButton ID="logAdd" runat="server" /><br />
+                <uc1:logButton ID="logDel" runat="server" />
+                <asp:Button ID="btnRefresh" runat="server" Text="Refresh" Width="100px" />
             </td>
-            <td>School B:<asp:DropDownList ID="cboSchoolB" runat="server" AutoPostBack="True" 
-                    Width="245px">
+            <td>School:<asp:DropDownList ID="cboSchool" runat="server" AutoPostBack="True" 
+                    Width="345px">
                 </asp:DropDownList><br />
-                <asp:ListBox ID="lstDepartmentB" runat="server" Height="300px" Width="300px"></asp:ListBox>
+                <asp:ListBox ID="lstSelectedDepart" runat="server" Height="300px" Font-Size="Smaller" Width="400px"></asp:ListBox>
              </td>
         </tr>
        

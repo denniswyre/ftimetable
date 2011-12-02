@@ -14,13 +14,13 @@ Option Explicit On
 Partial Public Class manageprogramme
 
     '''<summary>
-    '''lblMessage control.
+    '''errorMessage control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblMessage As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents errorMessage As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
     '''getDepartment1 control.
@@ -75,6 +75,24 @@ Partial Public Class manageprogramme
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents cboLevel As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''logSave control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents logSave As Global.FlexTimeTable.logButton
+
+    '''<summary>
+    '''btnRefresh control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnRefresh As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''TabContainer1 control.

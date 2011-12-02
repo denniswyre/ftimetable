@@ -4,8 +4,8 @@
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
             getDepartment1.loadFaculty(User.Identity.Name)
-            btnSave.Text = "Save"
-            btnDelete.Text = "Delete"
+            logSave.Text = "Save"
+            logDelete.Text = "Delete"
         End If
     End Sub
 
@@ -50,18 +50,18 @@
         mvQual.SetActiveView(vwEdit)
         Select Case vMode
             Case eMode.edit
-                Me.btnDelete.Visible = True
-                Me.btnSave.Visible = True
-                btnSave.Text = "Update"
+                Me.logDelete.Visible = True
+                Me.logSave.Visible = True
+                logSave.Text = "Update"
                 litEdit.Text = "Edit Qualification"
             Case eMode.create
                 Me.lblID.Text = ""
                 Me.txtCode.Text = ""
                 Me.txtShortName.Text = "" '.shortName
                 Me.txtLongName.Text = "" '.longName
-                Me.btnDelete.Visible = False
-                Me.btnSave.Visible = True
-                btnSave.Text = "Save"
+                Me.logDelete.Visible = False
+                Me.logSave.Visible = True
+                logSave.Text = "Save"
                 litEdit.Text = "Create Qualification"
         End Select
     End Sub
@@ -83,6 +83,8 @@
             .shortName = Me.txtCode.Text,
             .Code = txtCode.Text,
             .DepartmentID = getDepartment1.getID}
+        logSave.Function = "Create Qualification"
+        logSave.Description = "New:" + vQualification.Code + ":" + vQualification.longName
         vContext.qualifications.AddObject(vQualification)
         vContext.SaveChanges()
     End Sub
@@ -93,10 +95,13 @@
             (From p In vContext.qualifications _
                 Where p.ID = CType(lblID.Text, Integer) _
                     Select p).First
+        Dim pQualification = vQualification
         With vQualification
             .longName = Me.txtShortName.Text
             .shortName = Me.txtCode.Text
         End With
+        logSave.Function = "Update Qualification"
+        logSave.Description = "From:" + pQualification.Code + ":" + pQualification.longName + "-----" + vQualification.Code + ":" + vQualification.longName
         vContext.SaveChanges()
     End Sub
 
@@ -105,12 +110,14 @@
         Dim vQualification = (From p In vContext.qualifications _
                             Where p.ID = CType(Me.lblID.Text, Integer) _
                             Select p).First
+        logDelete.Function = "Delete Qualification"
+        logDelete.Description = "Delete:" + vQualification.Code + ":" + vQualification.longName
         vContext.DeleteObject(vQualification)
         vContext.SaveChanges()
     End Sub
 
-    Private Sub btnSave_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSave.Click
-       
+    Private Sub logSave_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles logSave.Click
+
         Try
             If Me.lblID.Text = "" Then
                 CreateQualification()
@@ -124,7 +131,7 @@
         End Try
     End Sub
 
-    Private Sub btnDelete_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnDelete.Click
+    Private Sub logDelete_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles logDelete.Click
         Try
             DeleteQualification()
             loadQualifications(getDepartment1.getID)

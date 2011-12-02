@@ -10,6 +10,7 @@
             loadAllClusters()
             TabContainer1.ActiveTabIndex = 0
             setTabHeader(0)
+            logSave.Text = "Save"
         End If
     End Sub
 
@@ -64,7 +65,8 @@
                                               p.Level = CInt(cboLevel.SelectedValue)
                                                Select p).ToList
         For Each prog As programmesubject In programmesubjectList
-            Dim vItem As New ListItem(prog.subject.longName, CStr(prog.SubjectID))
+            Dim oldstr = getOldStr(prog.SubjectID)
+            Dim vItem As New ListItem(prog.subject.longName + "[" + prog.subject.Code + "]" + oldstr, CStr(prog.SubjectID))
             If prog.subject.DepartmentID = getDepartment1.getID Then
                 'core subject
                 lstSelectedCoreSubjects.Items.Add(vItem)
@@ -119,43 +121,107 @@
     Protected Sub SaveSubjects()
         Dim vContext As timetableEntities = New timetableEntities()
         Dim vProgrammeSubject = (From p In vContext.programmesubjects Where p.QualID = CInt(cboQualification.SelectedValue) Select p)
+        'delete subjects
+        For Each prog As programmesubject In vProgrammeSubject
+            'if already exists in both core and service then leave. if not delete
+            Dim SubjectExists = False
+            For Each vSubject As ListItem In lstSelectedCoreSubjects.Items
+                If prog.SubjectID = CInt(vSubject.Value) Then
+                    SubjectExists = True
+                    Exit For
+                End If
+            Next
+            For Each vSubject As ListItem In lstSelectedServiceSubject.Items
+                If prog.SubjectID = CInt(vSubject.Value) Then
+                    SubjectExists = True
+                    Exit For
+                End If
+            Next
+            If Not SubjectExists Then
+                vContext.DeleteObject(prog)
+            End If
+        Next
+        'add core  subjects
+        For Each vSubject As ListItem In lstSelectedCoreSubjects.Items
+            Dim SubjectExists = False
+            For Each prog As programmesubject In vProgrammeSubject
+                If prog.SubjectID = CInt(vSubject.Value) Then
+                    SubjectExists = True
+                    Exit For
+                End If
+            Next
+            If Not SubjectExists Then
+                Dim ProgSubject As New programmesubject With {
+                                      .QualID = CInt(cboQualification.SelectedValue),
+                                      .SubjectID = CInt(vSubject.Value),
+                                      .Level = CInt(cboLevel.SelectedValue)}
+                vContext.programmesubjects.AddObject(ProgSubject)
+            End If
+        Next
+        'add service subjects
+        For Each vSubject As ListItem In lstSelectedServiceSubject.Items
+            Dim SubjectExists = False
+            For Each prog As programmesubject In vProgrammeSubject
+                If prog.SubjectID = CInt(vSubject.Value) Then
+                    SubjectExists = True
+                    Exit For
+                End If
+            Next
+            If Not SubjectExists Then
+                Dim ProgSubject As New programmesubject With {
+                                      .QualID = CInt(cboQualification.SelectedValue),
+                                      .SubjectID = CInt(vSubject.Value),
+                                      .Level = CInt(cboLevel.SelectedValue)}
+                vContext.programmesubjects.AddObject(ProgSubject)
+            End If
+        Next
+        vContext.SaveChanges()
+    End Sub
+
+    Protected Sub SaveSubjects2()
+        Dim vContext As timetableEntities = New timetableEntities()
+        Dim vProgrammeSubject = (From p In vContext.programmesubjects Where p.QualID = CInt(cboQualification.SelectedValue) Select p)
         If vProgrammeSubject.Count > 0 Then
             For Each prog As programmesubject In vProgrammeSubject
                 vContext.DeleteObject(prog)
             Next
         End If
-        For Each vSubject As ListItem In lstSelectedCoreSubjects.Items
-            Dim ProgSubject As New programmesubject With {
-                .QualID = CInt(cboQualification.SelectedValue),
-                .SubjectID = CInt(vSubject.Value),
-                .Level = CInt(cboLevel.SelectedValue)}
-            vContext.programmesubjects.AddObject(ProgSubject)
-        Next
-        For Each vSubject As ListItem In lstSelectedServiceSubject.Items
-            Dim ProgSubject As New programmesubject With {
-                .QualID = CInt(cboQualification.SelectedValue),
-                .SubjectID = CInt(vSubject.Value),
-                .Level = CInt(cboLevel.SelectedValue)}
-            vContext.programmesubjects.AddObject(ProgSubject)
-        Next
-        vContext.SaveChanges()
+
     End Sub
+
+
+    Function getOldStr(ByVal subjectid As Integer) As String
+        Dim vContext As timetableEntities = New timetableEntities()
+        Dim oldcodes = (From p In vContext.oldsubjectcodes Where p.SubjectID = subjectid Select p).ToList
+        Dim oStr As String = ""
+        For Each ox In oldcodes
+            If oStr = "" Then
+                oStr = " -->" + ox.OldCode
+            Else
+                oStr = oStr + ", " + ox.OldCode
+            End If
+        Next
+        Return oStr
+    End Function
 
 #End Region
 
 #Region "Core Subjects"
     Sub loadCoreSubjects(ByVal vSearch As String, DepartID As Integer)
-        lstCoreSubjects.Items.Clear()
         Dim vContext As timetableEntities = New timetableEntities()
         Dim QualExist As Boolean = CBool(IIf(cboQualification.SelectedIndex > -1, True, False))
-        lstCoreSubjects.DataSource = (From p In vContext.subjects
+        Dim CoreSubjects = (From p In vContext.subjects
                                            Order By p.longName
                                              Where QualExist And p.DepartmentID = DepartID And p.longName.Contains(vSearch)
-                                                Select p.longName, p.ID)
-        lstCoreSubjects.DataTextField = "longName"
-        lstCoreSubjects.DataValueField = "ID"
-        lstCoreSubjects.DataBind()
-
+                                                Select p).ToList
+        With lstCoreSubjects
+            .Items.Clear()
+            For Each x In CoreSubjects
+                Dim ostr = getOldStr(x.ID)
+                Dim vItem As New ListItem(x.longName + " [" + x.Code + "]" + oStr, CStr(x.ID))
+                .Items.Add(vItem)
+            Next
+        End With
     End Sub
 
     Protected Sub btnCoreAdd_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnCoreAdd.Click
@@ -163,7 +229,6 @@
             lstSelectedCoreSubjects.SelectedIndex = -1
             If lstSelectedCoreSubjects.Items.IndexOf(lstCoreSubjects.SelectedItem) = -1 Then
                 lstSelectedCoreSubjects.Items.Add(lstCoreSubjects.SelectedItem)
-                SaveSubjects()
             End If
         End If
     End Sub
@@ -171,7 +236,6 @@
     Protected Sub btnCoreRemove_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnCoreRemove.Click
         If lstSelectedCoreSubjects.SelectedIndex > -1 Then
             lstSelectedCoreSubjects.Items.RemoveAt(lstSelectedCoreSubjects.SelectedIndex)
-            SaveSubjects()
         End If
     End Sub
 #End Region
@@ -180,18 +244,22 @@
 
 
     Sub loadServiceSubjects(ByVal vSearch As String)
-        lstServiceSubjects.Items.Clear()
         Dim vContext As timetableEntities = New timetableEntities()
         Dim DepartID As Integer = getDepartment1.getID
         Dim QualExist As Boolean = CBool(IIf(cboQualification.SelectedIndex > -1, True, False))
-        lstServiceSubjects.DataSource = (From p In vContext.subjects
+        Dim serviceSubjects = (From p In vContext.subjects
                                             Order By p.longName
                                                 Where QualExist And p.DepartmentID <> DepartID And
                                                       p.longName.Contains(vSearch)
-                                                    Select p.longName, p.ID)
-        lstServiceSubjects.DataTextField = "longName"
-        lstServiceSubjects.DataValueField = "ID"
-        lstServiceSubjects.DataBind()
+                                                    Select p).ToList
+        With lstServiceSubjects
+            .Items.Clear()
+            For Each x In serviceSubjects
+                Dim ostr = getOldStr(x.ID)
+                Dim vItem As New ListItem(x.longName + "[" + x.Code + "]" + ostr, CStr(x.ID))
+                .Items.Add(vItem)
+            Next
+        End With
     End Sub
 
     Protected Sub btnServiceAdd_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnServiceAdd.Click
@@ -199,7 +267,6 @@
             lstSelectedServiceSubject.SelectedIndex = -1
             If lstSelectedServiceSubject.Items.IndexOf(lstServiceSubjects.SelectedItem) = -1 Then
                 lstSelectedServiceSubject.Items.Add(lstServiceSubjects.SelectedItem)
-                SaveSubjects()
             End If
         End If
     End Sub
@@ -207,7 +274,6 @@
     Protected Sub btnServiceRemove_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnServiceRemove.Click
         If lstSelectedServiceSubject.SelectedIndex > -1 Then
             lstSelectedServiceSubject.Items.RemoveAt(lstSelectedServiceSubject.SelectedIndex)
-            SaveSubjects()
         End If
     End Sub
 #End Region
@@ -229,7 +295,6 @@
             lstSelectedClusters.SelectedIndex = -1
             If lstSelectedClusters.Items.IndexOf(lstAllClusters.SelectedItem) = -1 Then
                 lstSelectedClusters.Items.Add(lstAllClusters.SelectedItem)
-                SaveSiteProgramme()
             End If
         End If
     End Sub
@@ -237,10 +302,8 @@
     Protected Sub btnClusterRemove_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnClusterRemove.Click
         If lstSelectedClusters.SelectedIndex > -1 Then
             lstSelectedClusters.Items.RemoveAt(lstSelectedClusters.SelectedIndex)
-            SaveSiteProgramme()
         End If
     End Sub
-
 
 
     Protected Sub SaveSiteProgramme()
@@ -282,12 +345,11 @@
                 End If
             Next
             vContext.SaveChanges()
-            lblMessage.Text = "Updated!!"
+            errorMessage.Text = clsGeneral.displaymessage("Updated!!", False)
         Catch ex As Exception
-            lblMessage.Text = ex.Message
+            errorMessage.Text = clsGeneral.displaymessage(ex.Message, True)
         End Try
     End Sub
-
 #End Region
 
     Private Sub getDepartment1_DepartmentClick(E As Object, Args As clsDepartmentEvent) Handles getDepartment1.DepartmentClick
@@ -296,4 +358,15 @@
     End Sub
 
    
+    Private Sub logSave_Click(sender As Object, e As System.EventArgs) Handles logSave.Click
+        logSave.Function = "save"
+        logSave.Description = "ID" + cboQualification.SelectedValue + "---Name" + cboQualification.SelectedItem.Text
+        SaveSiteProgramme()
+        SaveSubjects()
+        displayQualificationDetails()
+    End Sub
+
+    Private Sub btnRefresh_Click(sender As Object, e As System.EventArgs) Handles btnRefresh.Click
+        displayQualificationDetails()
+    End Sub
 End Class

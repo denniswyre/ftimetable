@@ -4,8 +4,8 @@
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
             loadFaculty()
-            btnSave.Text = "Save"
-            btnDelete.Text = "Delete"
+            logSave.Text = "Save"
+            logDelete.Text = "Delete"
         End If
     End Sub
 
@@ -51,7 +51,7 @@
             Me.txtShortName.Text = .shortName
             changeMode(eMode.edit)
         End With
-
+        ErrorMessage.Text = ""
     End Sub
 
     Enum eMode
@@ -64,30 +64,34 @@
         mvSchool.SetActiveView(vwEdit)
         Select Case vMode
             Case eMode.edit
-                Me.btnDelete.Visible = True
-                Me.btnSave.Visible = True
-                btnSave.Text = "Update"
+                Me.logDelete.Visible = True
+                logSave.Visible = True
+                logSave.Text = "Update"
                 litEdit.Text = "Edit School"
             Case eMode.create
                 Me.lblID.Text = ""
                 Me.txtLongName.Text = ""
                 Me.txtShortName.Text = ""
-                Me.btnDelete.Visible = False
-                Me.btnSave.Visible = True
-                btnSave.Text = "Save"
+                Me.logDelete.Visible = False
+                logSave.Visible = True
+                logSave.Text = "Save"
                 litEdit.Text = "Create School"
         End Select
     End Sub
 
     Private Sub lnkCreate_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles lnkCreate.Click
         changeMode(eMode.create)
+        ErrorMessage.Text = ""
     End Sub
 
     Protected Sub btnCancel_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnCancel.Click
+        ErrorMessage.Text = ""
         mvSchool.SetActiveView(vwGrid)
     End Sub
 
     Protected Sub Createschool()
+        logSave.Function = "Create School"
+        logSave.Description = "Create:" + txtCode.Text + "---" + txtLongName.Text
         Dim vContext As timetableEntities = New timetableEntities()
         Dim vschool = New school With {
             .code = Me.txtCode.Text,
@@ -99,11 +103,13 @@
     End Sub
 
     Protected Sub Updateschool()
+        logSave.Function = "Update School"
         Dim vContext As timetableEntities = New timetableEntities()
         Dim vschool As school = _
             (From p In vContext.schools _
                 Where p.ID = CType(lblID.Text, Integer) _
                     Select p).First
+        logSave.Description = "changed from:" + vschool.code + "---" + vschool.longName + "---changed to:" + txtCode.Text + "----" + txtLongName.Text
         With vschool
             .code = Me.txtCode.Text
             .longName = Me.txtLongName.Text
@@ -113,29 +119,48 @@
     End Sub
 
     Protected Sub Deleteschool()
+        logDelete.Function = "Delete School"
         Dim vContext As timetableEntities = New timetableEntities()
         Dim vschool = (From p In vContext.schools _
-                            Where p.ID = CType(Me.lblID.Text, Integer) _
+                            Where p.id = CType(Me.lblID.Text, Integer) _
                             Select p).First
+        logDelete.Description = "Delete:" + vschool.code + "---" + vschool.longName
+        Dim DummyFacultyID = CType(ConfigurationManager.AppSettings("dummyfaculty"), Integer)
+        If vschool.facultyID = DummyFacultyID Then
+            Throw New Exception("You cannot delete this school!!!")
+        End If
         vContext.DeleteObject(vschool)
         vContext.SaveChanges()
         loadschools()
     End Sub
 
-    Private Sub btnSave_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSave.Click
-        If Me.lblID.Text = "" Then
-            Createschool()
-        Else
-            Updateschool()
-        End If
-        loadschools()
-    End Sub
 
-    Private Sub btnDelete_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnDelete.Click
-        Deleteschool()
+    Private Sub logDelete_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles logDelete.Click
+        Try
+            Deleteschool()
+            ErrorMessage.Text = ""
+        Catch ex As Exception
+            ErrorMessage.Text = clsGeneral.displaymessage(ex.Message, True)
+        End Try
     End Sub
 
     Private Sub cboFaculty_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboFaculty.SelectedIndexChanged
         loadschools()
+        ErrorMessage.Text = ""
+    End Sub
+
+    Private Sub logSave_Click(sender As Object, e As System.EventArgs) Handles logSave.Click
+        Try
+            If Me.lblID.Text = "" Then
+                Createschool()
+            Else
+                Updateschool()
+            End If
+            loadschools()
+            ErrorMessage.Text = ""
+        Catch ex As Exception
+            ErrorMessage.Text = clsGeneral.displaymessage(ex.Message, True)
+        End Try
+        
     End Sub
 End Class

@@ -14,7 +14,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h3>
         Manage subjects</h3>
-    <asp:Label ID="lblMessage" runat="server" Text="Label"></asp:Label><br />
+    <asp:Literal ID="errorMessage" runat="server"></asp:Literal><br />
     <uc2:getDepartment ID="getDepartment1" runat="server" />
     <br />
     <asp:MultiView ID="mvSubject" runat="server">
@@ -102,8 +102,8 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <asp:Button ID="btnSave" runat="server" Text="Save" />
-                        <asp:Button ID="btnDelete" runat="server" Text="Delete" />
+                        <uc1:logButton ID="logSave" runat="server" />
+                        <uc1:logButton ID="logDelete" runat="server" />
                         <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
                     </td>
                 </tr>

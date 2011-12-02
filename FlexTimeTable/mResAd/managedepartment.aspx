@@ -71,8 +71,8 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <asp:Button ID="btnSave" runat="server" Text="Save" />
-                        <asp:Button ID="btnDelete" runat="server" Text="Delete" />
+                        <uc1:logButton ID="logSave" runat="server" />
+                        <uc1:logButton ID="logDelete" runat="server" />
                         <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
                     </td>
                 </tr>

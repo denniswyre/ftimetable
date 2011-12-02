@@ -31,23 +31,67 @@
     End Function
 
     Public Shared Function correctCode(ByVal oldcode As String) As String
-        Dim newcode As String = ""
+        Dim xCode As String = ""
         For Each i As Char In Trim(oldcode)
             Select Case Asc(i)
                 Case 32 'space
                 Case 48 To 57  'numbers
-                    newcode = newcode + i
+                    xCode = xCode + i
                 Case 65 To 90 'uppercase letters
-                    newcode = newcode + i
+                    xCode = xCode + i
                 Case 97 To 122  'lowercase letters
-                    newcode = newcode + UCase(i)
+                    xCode = xCode + UCase(i)
                 Case Else
-                    newcode = newcode + "_"
+                    xCode = xCode + "_"
             End Select
         Next
-        Return newcode
+        Return xCode
     End Function
 
+
+    Public Shared Function DisplayOldCode(ByVal oldcode As String) As String
+        Dim xCode As String = ""
+        For Each i As Char In Trim(oldcode)
+            Select Case i
+                Case CChar("_")
+                    xCode = xCode + "/"
+                Case Else
+                    xCode = xCode + i
+            End Select
+        Next
+        Return xCode
+    End Function
+
+
+    Public Shared Function NormalizeString(ByVal oldStr As String) As String
+        Dim xStr As String = ""
+        For Each i As Char In Trim(oldStr)
+            Select Case Asc(i)
+                Case 32 'space
+                    ''''''if previous char is a space remove it
+                    Dim vlen = xStr.Length
+                    If vlen > 0 Then
+                        If Asc(CChar(Right(xStr, 1))) <> 32 Then
+                            xStr = xStr + i
+                        End If
+                    End If
+                Case 34
+                Case 48 To 57  'numbers
+                    xStr = xStr + i
+                Case 65 To 90 'uppercase letters
+                    xStr = xStr + i
+                Case Asc(","), Asc("&"), Asc(".")
+                    xStr = xStr + i
+                Case 97 To 122  'lowercase letters
+                    xStr = xStr + UCase(i)
+                Case Else
+                    If xStr.Length > 0 Then
+                        xStr = xStr + "_"
+                    End If
+            End Select
+        Next
+        Return xStr
+    End Function
 
 
     Public Shared Function createusername(ByVal firstname As String, ByVal surname As String) As String

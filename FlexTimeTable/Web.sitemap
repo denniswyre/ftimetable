@@ -22,7 +22,7 @@
       <siteMapNode url="~/mSysAd/uploadQual.aspx" title="Upload Qualifications"  description="" roles="SystemAdmin" />
       <siteMapNode url="~/mSysAd/uploadClasses.aspx" title="Upload Classes"  description="" roles="SystemAdmin" />
       <siteMapNode url="~/mSysAd/uploadVenues.aspx" title="Upload Venue File" description="" roles="SystemAdmin" />
-      <siteMapNode url="~/mSysAd/purge.aspx" title="Purge Data"  description="" roles="SystemAdmin" />
+      <siteMapNode url="~/mSysAd/normalsubject.aspx" title="Normalize Subject"  description="" roles="SystemAdmin" />
       <siteMapNode url="~/mSysAd/generateTimeTable.aspx" title="Generate TimeTable"  description="" roles="SystemAdmin" />
     </siteMapNode>
     <siteMapNode title="Space Management"  description="" roles="venueAdmin">
@@ -38,11 +38,14 @@
       <siteMapNode url="~/mResAd/manageprogramme.aspx" title="Programmes"  description="" roles="resourceAdmin" />
       <siteMapNode url="~/mResAd/assignsubject.aspx" title="Assign Subjects"  description="" roles="resourceAdmin" />
       <siteMapNode url="~/mResAd/managesubject.aspx" title="Manage Subjects"  description="" roles="resourceAdmin" />
+      <siteMapNode url="~/mResAd/assignQualification.aspx" title="Assign Qual."  description="" roles="resourceAdmin" />
       <siteMapNode url="~/mResAd/managequalification.aspx" title="Qualifications"  description="" roles="resourceAdmin" />
       <siteMapNode url="~/mResAd/assignDepartment.aspx" title="Rearrange Departments"  description="" roles="resourceAdmin" />
       <siteMapNode url="~/mResAd/managedepartment.aspx" title="Departments"  description="" roles="resourceAdmin" />
       <siteMapNode url="~/mResAd/manageschool.aspx" title="Schools"  description="" roles="resourceAdmin" />
     </siteMapNode>
+    <siteMapNode url="subjectsearch.aspx" title="Subjects"  description="" roles="*"/>
+    <siteMapNode url="qualificationsearch.aspx" title="Qualifications"  description="" roles="*"/>
     <siteMapNode url="About.aspx" title="About"  description="" roles="*"/>
   </siteMapNode>
 </siteMap>

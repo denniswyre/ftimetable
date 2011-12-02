@@ -16,6 +16,33 @@ Public Class logButton
         End Set
     End Property
 
+    Public Property Enabled() As Boolean
+        Get
+            Return Button.Enabled
+        End Get
+        Set(ByVal value As Boolean)
+            Button.Enabled = value
+        End Set
+    End Property
+
+    Public Property Width() As Unit
+        Get
+            Return Button.Width
+        End Get
+        Set(ByVal value As Unit)
+            Button.Width = value
+        End Set
+    End Property
+
+    Public Property Height() As Unit
+        Get
+            Return Button.Height
+        End Get
+        Set(ByVal value As Unit)
+            Button.Height = value
+        End Set
+    End Property
+
     Public WriteOnly Property Text() As String
         Set(ByVal value As String)
             Button.Text = value

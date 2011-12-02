@@ -23,6 +23,15 @@ Partial Public Class assignSubject
     Protected WithEvents getDepartment1 As Global.FlexTimeTable.getDepartment
 
     '''<summary>
+    '''errorMessage control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents errorMessage As Global.System.Web.UI.WebControls.Literal
+
+    '''<summary>
     '''lstUnassigned control.
     '''</summary>
     '''<remarks>
@@ -32,22 +41,31 @@ Partial Public Class assignSubject
     Protected WithEvents lstUnassigned As Global.System.Web.UI.WebControls.ListBox
 
     '''<summary>
-    '''btnAssigned control.
+    '''logAssigned control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnAssigned As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents logAssigned As Global.FlexTimeTable.logButton
 
     '''<summary>
-    '''btnUnassigned control.
+    '''logUnassigned control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnUnassigned As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents logUnassigned As Global.FlexTimeTable.logButton
+
+    '''<summary>
+    '''btnRefresh control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnRefresh As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''lstAssigned control.

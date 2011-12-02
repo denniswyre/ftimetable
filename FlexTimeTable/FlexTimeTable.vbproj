@@ -115,6 +115,10 @@
     <Content Include="bin\FlexTimeTable.xml" />
     <Content Include="images\ajax-loader.gif" />
     <Content Include="Login.aspx" />
+    <Content Include="mResAd\assignQualification.aspx" />
+    <Content Include="mSysAd\NormalSubject.aspx" />
+    <Content Include="qualificationsearch.aspx" />
+    <Content Include="subjectsearch.aspx" />
     <Content Include="member\ClassSummary.aspx" />
     <Content Include="member\lecturerWorkload.aspx" />
     <Content Include="mResAd\assignDepartment.aspx" />
@@ -182,6 +186,34 @@
     <Compile Include="App_Code\departmentEvent.vb" />
     <Compile Include="App_Code\filetotableconversion.vb" />
     <Compile Include="App_Code\general.vb" />
+    <Compile Include="mResAd\assignQualification.aspx.designer.vb">
+      <DependentUpon>assignQualification.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mResAd\assignQualification.aspx.vb">
+      <DependentUpon>assignQualification.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="mSysAd\NormalSubject.aspx.designer.vb">
+      <DependentUpon>NormalSubject.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mSysAd\NormalSubject.aspx.vb">
+      <DependentUpon>NormalSubject.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="qualificationsearch.aspx.designer.vb">
+      <DependentUpon>qualificationsearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="qualificationsearch.aspx.vb">
+      <DependentUpon>qualificationsearch.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="subjectsearch.aspx.designer.vb">
+      <DependentUpon>subjectsearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="subjectsearch.aspx.vb">
+      <DependentUpon>subjectsearch.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="mSysAd\uploadClasses.aspx.designer.vb">
       <DependentUpon>uploadClasses.aspx</DependentUpon>
     </Compile>

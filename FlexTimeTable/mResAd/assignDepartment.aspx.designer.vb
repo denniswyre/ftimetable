@@ -23,56 +23,65 @@ Partial Public Class assignDepartment
     Protected WithEvents cboFaculty As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''cboSchoolA control.
+    '''ErrorMessage control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents cboSchoolA As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ErrorMessage As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
-    '''lstDepartmentA control.
+    '''lstUnknownDepart control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lstDepartmentA As Global.System.Web.UI.WebControls.ListBox
+    Protected WithEvents lstUnknownDepart As Global.System.Web.UI.WebControls.ListBox
 
     '''<summary>
-    '''btnAddB control.
+    '''logAdd control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnAddto As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents logAdd As Global.FlexTimeTable.logButton
 
     '''<summary>
-    '''btnAddA control.
+    '''logDel control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnAddfr As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents logDel As Global.FlexTimeTable.logButton
 
     '''<summary>
-    '''cboSchoolB control.
+    '''btnRefresh control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents cboSchoolB As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents btnRefresh As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''lstDepartmentB control.
+    '''cboSchool control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lstDepartmentB As Global.System.Web.UI.WebControls.ListBox
+    Protected WithEvents cboSchool As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''lstSelectedDepart control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lstSelectedDepart As Global.System.Web.UI.WebControls.ListBox
 End Class

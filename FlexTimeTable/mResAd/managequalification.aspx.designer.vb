@@ -176,22 +176,22 @@ Partial Public Class managequalification
     Protected WithEvents lstOldCodes As Global.System.Web.UI.WebControls.ListBox
 
     '''<summary>
-    '''btnSave control.
+    '''logSave control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnSave As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents logSave As Global.FlexTimeTable.logButton
 
     '''<summary>
-    '''btnDelete control.
+    '''logDelete control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnDelete As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents logDelete As Global.FlexTimeTable.logButton
 
     '''<summary>
     '''btnCancel control.

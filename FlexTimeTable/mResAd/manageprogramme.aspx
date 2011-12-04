@@ -56,8 +56,8 @@
                                 <asp:TextBox ID="txtCoreSearch" runat="server"></asp:TextBox>
                                 <asp:Button ID="btnCoreSearch" runat="server" ToolTip="Search for subjects" Text="Find" /><br />
                                 <div id='Div1' style="z-index: 102; left: 13px; overflow: auto; width: 400px; height: 300px">
-                                    <asp:ListBox ID="lstCoreSubjects" runat="server" Font-Size="Smaller" Width="800px"
-                                        Height="10000px"></asp:ListBox>
+                                    <asp:ListBox ID="lstCoreSubjects" runat="server" Font-Size="Smaller" Width="700px"
+                                        Height="600px"></asp:ListBox>
                                 </div>
                             </td>
                             <td align="center" valign="middle" style="width: 120">
@@ -67,8 +67,8 @@
                             <td valign="top">
                                 <strong>Selected Subjects</strong><br />
                                 <div id='Div5' style="z-index: 102; left: 13px; overflow: auto; width: 400px; height: 300px">
-                                    <asp:ListBox ID="lstSelectedCoreSubjects" runat="server" Font-Size="Smaller" Width="800px"
-                                        Height="10000px"></asp:ListBox>
+                                    <asp:ListBox ID="lstSelectedCoreSubjects" runat="server" Font-Size="Smaller" Width="700px"
+                                        Height="600px"></asp:ListBox>
                                 </div>
                             </td>
                         </tr>
@@ -88,8 +88,8 @@
                                 <asp:TextBox ID="txtServiceSearch" runat="server"></asp:TextBox><asp:Button ID="btnServiceSearch"
                                     runat="server" ToolTip="Search for a subject" Text="Find" /><br />
                                 <div id='hello' style="z-index: 102; left: 13px; overflow: auto; width: 400px; height: 300px">
-                                    <asp:ListBox ID="lstServiceSubjects" runat="server" Font-Size="Smaller" Width="800px"
-                                        Height="24500px"></asp:ListBox>
+                                    <asp:ListBox ID="lstServiceSubjects" runat="server" Font-Size="Smaller" Width="700px"
+                                        Height="600px"></asp:ListBox>
                                 </div>
                             </td>
                             <td align="center" valign="middle" style="width: 120">
@@ -99,8 +99,8 @@
                             <td>
                                 <strong>Selected Subjects</strong><br />
                                 <div id='Div2' style="z-index: 102; left: 13px; overflow: auto; width: 400px; height: 300px">
-                                    <asp:ListBox ID="lstSelectedServiceSubject" runat="server" Font-Size="Smaller" Width="800px"
-                                        Height="10000px"></asp:ListBox>
+                                    <asp:ListBox ID="lstSelectedServiceSubject" runat="server" Font-Size="Smaller" Width="700px"
+                                        Height="600px"></asp:ListBox>
                                 </div>
                             </td>
                         </tr>

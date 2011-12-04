@@ -6,7 +6,7 @@
             ucGetDepartment.loadFaculty(User.Identity.Name)
             loadDummyQualifications()
             loadAssigneQualifications()
-            logAssigned.Text = "Assigned"
+            logAssigned.Text = "Add"
             logUnassigned.Text = "Remove"
             logAssigned.Width = btnRefresh.Width
             logUnassigned.Width = btnRefresh.Width

@@ -6,8 +6,8 @@
             getDepartment1.loadFaculty(User.Identity.Name)
             loadDummySubjects()
             loadAssigneSubjects()
-            logAssigned.Text = "Assigned"
-            logUnassigned.Text = "Unassigned"
+            logAssigned.Text = "Add"
+            logUnassigned.Text = "Remove"
             logAssigned.Width = btnRefresh.Width
             logUnassigned.Width = btnRefresh.Width
         End If

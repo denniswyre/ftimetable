@@ -120,7 +120,9 @@
 
     Protected Sub SaveSubjects()
         Dim vContext As timetableEntities = New timetableEntities()
-        Dim vProgrammeSubject = (From p In vContext.programmesubjects Where p.QualID = CInt(cboQualification.SelectedValue) Select p)
+        Dim vQualID = CInt(cboQualification.SelectedValue)
+        Dim vlevel = CInt(cboLevel.SelectedItem.Text)
+        Dim vProgrammeSubject = (From p In vContext.programmesubjects Where p.QualID = vQualID And p.Level = vlevel Select p)
         'delete subjects
         For Each prog As programmesubject In vProgrammeSubject
             'if already exists in both core and service then leave. if not delete
@@ -178,17 +180,6 @@
         vContext.SaveChanges()
     End Sub
 
-    Protected Sub SaveSubjects2()
-        Dim vContext As timetableEntities = New timetableEntities()
-        Dim vProgrammeSubject = (From p In vContext.programmesubjects Where p.QualID = CInt(cboQualification.SelectedValue) Select p)
-        If vProgrammeSubject.Count > 0 Then
-            For Each prog As programmesubject In vProgrammeSubject
-                vContext.DeleteObject(prog)
-            Next
-        End If
-
-    End Sub
-
 
     Function getOldStr(ByVal subjectid As Integer) As String
         Dim vContext As timetableEntities = New timetableEntities()
@@ -210,7 +201,7 @@
     Sub loadCoreSubjects(ByVal vSearch As String, DepartID As Integer)
         Dim vContext As timetableEntities = New timetableEntities()
         Dim QualExist As Boolean = CBool(IIf(cboQualification.SelectedIndex > -1, True, False))
-        Dim CoreSubjects = (From p In vContext.subjects
+        Dim CoreSubjects = (From p In vContext.subjects Take 50
                                            Order By p.longName
                                              Where QualExist And p.DepartmentID = DepartID And p.longName.Contains(vSearch)
                                                 Select p).ToList
@@ -247,7 +238,7 @@
         Dim vContext As timetableEntities = New timetableEntities()
         Dim DepartID As Integer = getDepartment1.getID
         Dim QualExist As Boolean = CBool(IIf(cboQualification.SelectedIndex > -1, True, False))
-        Dim serviceSubjects = (From p In vContext.subjects
+        Dim serviceSubjects = (From p In vContext.subjects Take 50
                                             Order By p.longName
                                                 Where QualExist And p.DepartmentID <> DepartID And
                                                       p.longName.Contains(vSearch)
@@ -307,48 +298,43 @@
 
 
     Protected Sub SaveSiteProgramme()
-        Try
-            Dim vContext As timetableEntities = New timetableEntities()
-            Dim vQual = (From p In vContext.qualifications Where p.ID = CInt(cboQualification.SelectedValue) Select p).First
-            ' delete all those that are not selected
-            Dim ClusterDelArr As New ArrayList
-            If vQual.siteclusters.Count > 0 Then
-                'mark those that need to be deleted
-                For Each vCluster As sitecluster In vQual.siteclusters
-                    Dim ClusterFound As Boolean = False
-                    For Each vSelCluster As ListItem In lstSelectedClusters.Items
-                        If vCluster.ID = CInt(vSelCluster.Value) Then
-                            ClusterFound = True
-                            Exit For
-                        End If
-                    Next
-                    If Not ClusterFound Then
-                        ClusterDelArr.Add(vCluster.ID)
+        Dim vContext As timetableEntities = New timetableEntities()
+        Dim vQual = (From p In vContext.qualifications Where p.ID = CInt(cboQualification.SelectedValue) Select p).First
+        ' delete all those that are not selected
+        Dim ClusterDelArr As New ArrayList
+        If vQual.siteclusters.Count > 0 Then
+            'mark those that need to be deleted
+            For Each vCluster As sitecluster In vQual.siteclusters
+                Dim ClusterFound As Boolean = False
+                For Each vSelCluster As ListItem In lstSelectedClusters.Items
+                    If vCluster.ID = CInt(vSelCluster.Value) Then
+                        ClusterFound = True
+                        Exit For
                     End If
                 Next
-                'delete those that are not in the selected list
-                For Each vclu As Integer In ClusterDelArr
-                    Dim ClusterID As Integer = vclu
-                    Dim cluster As sitecluster = (From p In vQual.siteclusters Where p.ID = ClusterID Select p).First
-                    vQual.siteclusters.Remove(cluster)
-                Next
-            End If
-            For Each vCluster As ListItem In lstSelectedClusters.Items
-                'check if cluster exists 
-                Dim vID As Integer = CInt(vCluster.Value)
-                Dim clusterSearch = From p In vQual.siteclusters Where p.ID = vID Select p
-                If clusterSearch.Count = 0 Then
-                    Dim vNewCluster As sitecluster = (From p In vContext.siteclusters
-                                                        Where p.ID = vID
-                                                            Select p).First
-                    vQual.siteclusters.Add(vNewCluster)
+                If Not ClusterFound Then
+                    ClusterDelArr.Add(vCluster.ID)
                 End If
             Next
-            vContext.SaveChanges()
-            errorMessage.Text = clsGeneral.displaymessage("Updated!!", False)
-        Catch ex As Exception
-            errorMessage.Text = clsGeneral.displaymessage(ex.Message, True)
-        End Try
+            'delete those that are not in the selected list
+            For Each vclu As Integer In ClusterDelArr
+                Dim ClusterID As Integer = vclu
+                Dim cluster As sitecluster = (From p In vQual.siteclusters Where p.ID = ClusterID Select p).First
+                vQual.siteclusters.Remove(cluster)
+            Next
+        End If
+        For Each vCluster As ListItem In lstSelectedClusters.Items
+            'check if cluster exists 
+            Dim vID As Integer = CInt(vCluster.Value)
+            Dim clusterSearch = From p In vQual.siteclusters Where p.ID = vID Select p
+            If clusterSearch.Count = 0 Then
+                Dim vNewCluster As sitecluster = (From p In vContext.siteclusters
+                                                    Where p.ID = vID
+                                                        Select p).First
+                vQual.siteclusters.Add(vNewCluster)
+            End If
+        Next
+        vContext.SaveChanges()
     End Sub
 #End Region
 
@@ -361,9 +347,16 @@
     Private Sub logSave_Click(sender As Object, e As System.EventArgs) Handles logSave.Click
         logSave.Function = "save"
         logSave.Description = "ID" + cboQualification.SelectedValue + "---Name" + cboQualification.SelectedItem.Text
-        SaveSiteProgramme()
-        SaveSubjects()
-        displayQualificationDetails()
+        Try
+            SaveSiteProgramme()
+            SaveSubjects()
+            displayQualificationDetails()
+            errorMessage.Text = clsGeneral.displaymessage("Updated!!", False)
+        Catch ex As UpdateException
+            errorMessage.Text = clsGeneral.displaymessage("This subject exists already for this programme!!!", True)
+        Catch ex As Exception
+            errorMessage.Text = clsGeneral.displaymessage(ex.Message, True)
+        End Try
     End Sub
 
     Private Sub btnRefresh_Click(sender As Object, e As System.EventArgs) Handles btnRefresh.Click

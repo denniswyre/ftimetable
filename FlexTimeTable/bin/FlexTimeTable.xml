@@ -6,39 +6,7 @@ FlexTimeTable
 </name>
 </assembly>
 <members>
-<member name="F:FlexTimeTable.NormalSubject.btnNormize">
-	<summary>
-btnNormize control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.NormalSubject.txtValue">
-	<summary>
-txtValue control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.NormalSubject.btnTest">
-	<summary>
-btnTest control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.NormalSubject.litResult">
-	<summary>
-litResult control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.subjectsearch.lblMessage">
+<member name="F:FlexTimeTable.subjectsearch.lblMessage">
 	<summary>
 lblMessage control.
 </summary>
@@ -5969,6 +5937,38 @@ To modify move field declaration from designer file to code-behind file.
 </member><member name="F:FlexTimeTable.assignVenuestoDepart.lstDepartVenues">
 	<summary>
 lstDepartVenues control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.NormalSubject.btnNormize">
+	<summary>
+btnNormize control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.NormalSubject.txtValue">
+	<summary>
+txtValue control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.NormalSubject.btnTest">
+	<summary>
+btnTest control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.NormalSubject.litResult">
+	<summary>
+litResult control.
 </summary>
 	<remarks>
 Auto-generated field.

@@ -185,6 +185,24 @@ Partial Public Class managelecturer
     Protected WithEvents pnlSubject As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
+    '''txtSubjectSearch control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtSubjectSearch As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''btnSubjectSearch control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnSubjectSearch As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
     '''lstAvailableSubjects control.
     '''</summary>
     '''<remarks>

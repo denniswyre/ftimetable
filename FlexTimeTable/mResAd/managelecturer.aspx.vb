@@ -34,15 +34,20 @@ Public Class managelecturer
         loadLecturerDetails()
     End Sub
 
-    Sub loadsubjects()
+
+
+    Sub loadSearchSubjects()
         Dim vContext As timetableEntities = New timetableEntities()
-        Dim DepartmentID = getDepartment1.getID
-        lstAvailableSubjects.DataSource = (From p In vContext.subjects Where p.DepartmentID = DepartmentID _
-                                       Select p.longName, p.ID)
-        lstAvailableSubjects.DataTextField = "longName"
-        lstAvailableSubjects.DataValueField = "ID"
-        lstAvailableSubjects.DataBind()
+        Dim SearchSubjects = (From p In vContext.subjects Where p.longName.Contains(txtSubjectSearch.Text) Select p)
+        With lstAvailableSubjects
+            .Items.Clear()
+            For Each x In SearchSubjects
+                Dim ostr = clsGeneral.getOldStr(x.ID)
+                .Items.Add(New ListItem(x.longName + " [" + x.Code + "]" + ostr, CStr(x.ID)))
+            Next
+        End With
     End Sub
+
 
     Sub loadLecturerDetails()
         Dim Lecturername As String = ""
@@ -55,7 +60,7 @@ Public Class managelecturer
                          vlecturer.officer.FirstName + " " + _
                          vlecturer.officer.Initials
             'list subjects
-            lstSelectedSubjects.DataSource = vlecturer.subjects
+            loadSelectedsubjects(vlecturer.subjects.ToList)
             'list roster
             grdRoster.DataSource = (From p In vlecturer.lecturersiteclusteravailabilities
                                         Order By p.DayOfWeek, p.timeslot.StartTime
@@ -67,13 +72,23 @@ Public Class managelecturer
             grdRoster.DataBind()
         Catch ex As Exception
             lstSelectedSubjects.DataSource = Nothing
+            lstSelectedSubjects.DataBind()
             grdRoster.DataSource = Nothing
             grdRoster.DataBind()
         End Try
-        lstSelectedSubjects.DataTextField = "longName"
-        lstSelectedSubjects.DataValueField = "ID"
-        lstSelectedSubjects.DataBind()
         ''headers
+    End Sub
+
+    Sub loadSelectedsubjects(ByVal vSubjects As List(Of subject))
+        Dim vContext As timetableEntities = New timetableEntities()
+        With lstSelectedSubjects
+            .Items.Clear()
+            For Each x In vSubjects
+                Dim ostr = clsGeneral.getOldStr(x.ID)
+                Dim vItem As New ListItem(x.longName + " [" + x.Code + "]" + ostr, CStr(x.ID))
+                .Items.Add(vItem)
+            Next
+        End With
     End Sub
 
 
@@ -138,12 +153,13 @@ Public Class managelecturer
 
             Dim vReturn As FlexTimeTable.clsOfficer.sOfficerStatus = _
                            FlexTimeTable.clsOfficer.getOfficerID(vLdapUser)
+
             Select Case vReturn.Status
                 Case FlexTimeTable.clsOfficer.eOfficerStatus.matched
                     'nothing to be done. Everything is in order
                 Case FlexTimeTable.clsOfficer.eOfficerStatus.unmatched
                     'create officer record
-                    FlexTimeTable.clsOfficer.CreateOfficer(vLdapUser)
+                    vReturn.ID = FlexTimeTable.clsOfficer.CreateOfficer(vLdapUser)
                 Case FlexTimeTable.clsOfficer.eOfficerStatus.unlinked
                     ' link record to membership
                     FlexTimeTable.clsOfficer.LinkOfficer(vReturn.ID, vLdapUser.username)
@@ -152,14 +168,26 @@ Public Class managelecturer
                     Throw New Exception("Lecturer might exist with a different username!")
             End Select
 
-            'create lecturer and add to department
-            ''= (From p In vContext.lecturers Where p.LecturerID = vReturn.ID Select p).FirstOrDefault
             Dim vContext As timetableEntities = New timetableEntities()
-            Dim vlecturer As New lecturer With {
-                .DepartmentID = getDepartment1.getID,
-                .LecturerID = vReturn.ID}
-            vContext.lecturers.AddObject(vlecturer)
-            vContext.SaveChanges()
+            Dim vlecturer As lecturer = (From p In vContext.lecturers Where p.LecturerID = vReturn.ID Select p).SingleOrDefault
+            'check if lecturer exists
+            If IsNothing(vlecturer) Then
+                'create lecturer and assigned to this department
+                vlecturer = New lecturer With {.DepartmentID = getDepartment1.getID, .LecturerID = vReturn.ID}
+                vContext.lecturers.AddObject(vlecturer)
+                vContext.SaveChanges()
+            Else
+                Dim DummyFacultyID = CType(ConfigurationManager.AppSettings("dummyfaculty"), Integer)
+                'check if lecturer already assigned to the correct department
+                If vlecturer.DepartmentID = getDepartment1.getID Then
+                ElseIf vlecturer.department.school.facultyID = DummyFacultyID Then
+                    'if lecturer belongs to dummy faculty move to this department
+                    vlecturer.DepartmentID = getDepartment1.getID
+                    vContext.SaveChanges()
+                Else
+                    Throw New Exception("Lecturer belongs to department:" + vlecturer.department.longName + "; school" + vlecturer.department.school.longName + ", " + vlecturer.department.school.faculty.code)
+                End If
+            End If
             loadlecturers()
         Catch ex As Exception
             litErrorMessage.Text = clsGeneral.displaymessage(ex.Message, True)
@@ -183,7 +211,7 @@ Public Class managelecturer
             loadlecturers()
             litErrorMessage.Text = ""
         Catch ex As Exception
-           litErrorMessage.Text = clsGeneral.displaymessage(ex.Message, True)
+            litErrorMessage.Text = clsGeneral.displaymessage(ex.Message, True)
         End Try
         loadLecturerDetails()
     End Sub
@@ -363,6 +391,10 @@ Public Class managelecturer
         litErrorMessage.Text = ""
         mvLecturer.SetActiveView(vwSelect)
         loadlecturers()
-        loadsubjects()
+        lstAvailableSubjects.Items.Clear()
+    End Sub
+
+    Private Sub btnSubjectSearch_Click(sender As Object, e As System.EventArgs) Handles btnSubjectSearch.Click
+        loadSearchSubjects()
     End Sub
 End Class

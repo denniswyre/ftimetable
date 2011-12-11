@@ -14,33 +14,6 @@ Option Explicit On
 Partial Public Class getDepartment
 
     '''<summary>
-    '''LitStart control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents LitStart As Global.System.Web.UI.WebControls.Literal
-
-    '''<summary>
-    '''cboDepartments control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cboDepartments As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''LitMiddle control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents LitMiddle As Global.System.Web.UI.WebControls.Literal
-
-    '''<summary>
     '''cboFaculty control.
     '''</summary>
     '''<remarks>
@@ -50,11 +23,20 @@ Partial Public Class getDepartment
     Protected WithEvents cboFaculty As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''LitEnd control.
+    '''cboSchool control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents LitEnd As Global.System.Web.UI.WebControls.Literal
+    Protected WithEvents cboSchool As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''cboDepartment control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cboDepartment As Global.System.Web.UI.WebControls.DropDownList
 End Class

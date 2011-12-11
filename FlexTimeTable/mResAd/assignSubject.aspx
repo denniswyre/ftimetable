@@ -16,8 +16,11 @@
         <tr>
             <td>
                 Unassigned Subjects<br />
+                Search: <asp:TextBox ID="txtSubjectSearch" runat="server"></asp:TextBox><asp:Button ID="btnSearch"
+                runat="server" Text="Search" />
                 <asp:ListBox ID="lstUnassigned" runat="server" Height="300px" Font-Size="Smaller" Width="400px"></asp:ListBox>
             </td>
+           
             <td align="center">
                 <uc2:logButton ID="logAssigned" runat="server" /><br />
                 <uc2:logButton ID="logUnassigned" runat="server" /><br />

@@ -3,7 +3,7 @@
 
 <%@ Register Src="../userControl/ldap.ascx" TagName="ldap" TagPrefix="uc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-<%@ Register src="../userControl/getDepartment.ascx" tagname="getDepartment" tagprefix="uc2" %>
+<%@ Register Src="../userControl/getDepartment.ascx" TagName="getDepartment" TagPrefix="uc2" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -60,16 +60,23 @@
                             <table width="100%">
                                 <tr>
                                     <td width="40%">
-                                        Available Subjects
-                                        <asp:ListBox ID="lstAvailableSubjects" runat="server" Width="100%"></asp:ListBox>
+                                        Search:<asp:TextBox ID="txtSubjectSearch" runat="server"></asp:TextBox><asp:Button
+                                            ID="btnSubjectSearch" runat="server" Text="Search" /><br />
+                                        <div id='hello' style="z-index: 102; left: 13px; overflow: auto; width: 350px; height: 300px">
+                                            <asp:ListBox ID="lstAvailableSubjects" runat="server" Font-Size="Smaller" Width="700px"
+                                                Height="600px"></asp:ListBox>
+                                        </div>
                                     </td>
                                     <td valign="middle" align="center" width="20%">
-                                        <asp:Button ID="btnAdd" runat="server" Text="Add" Width="100px" /><br />
-                                        <asp:Button ID="btnRemove" runat="server" Text="Remove" Width="100px" />
+                                        <asp:Button ID="btnAdd" runat="server" Text="Add" Width="80px" /><br />
+                                        <asp:Button ID="btnRemove" runat="server" Text="Remove" Width="80px" />
                                     </td>
                                     <td width="40%">
                                         Selected Subjects
-                                        <asp:ListBox ID="lstSelectedSubjects" runat="server" Width="100%"></asp:ListBox>
+                                        <div id='Div1' style="z-index: 102; left: 13px; overflow: auto; width: 350px; height: 300px">
+                                            <asp:ListBox ID="lstSelectedSubjects" runat="server" Font-Size="Smaller" Width="700px"
+                                                Height="600px"></asp:ListBox>
+                                        </div>
                                     </td>
                                 </tr>
                             </table>

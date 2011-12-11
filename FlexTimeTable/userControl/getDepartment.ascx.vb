@@ -2,13 +2,20 @@
     Inherits System.Web.UI.UserControl
 
     Public Event DepartmentClick(ByVal E As Object, ByVal Args As clsDepartmentEvent)
+
     Sub generateEvent()
-        Dim Args As New clsDepartmentEvent(CInt(cboDepartments.SelectedValue))
+        Dim DepartID As Integer
+        If cboDepartment.SelectedIndex < 0 Then
+            DepartID = 0
+        Else
+            DepartID = CInt(cboDepartment.SelectedValue)
+        End If
+        Dim Args As New clsDepartmentEvent(DepartID)
         RaiseEvent DepartmentClick(Me, Args)
     End Sub
 
     Public Function getID() As Integer
-        Return CInt(cboDepartments.SelectedValue)
+        Return CInt(cboDepartment.SelectedValue)
     End Function
 
     Public Sub loadFaculty(ByVal username As String)
@@ -20,8 +27,7 @@
         Me.cboFaculty.DataTextField = "FacultyCode"
         Me.cboFaculty.DataValueField = "FacultyID"
         Me.cboFaculty.DataBind()
-
-        loadDepartments()
+        loadSchools()
     End Sub
 
     Private Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
@@ -37,43 +43,54 @@
         Else
             stylewidth = "style=""" + "width: " + CStr(LabelWidth) + """"
         End If
-        If AlignVertical Then
-            LitStart.Text = "<table><tr><td " + stylewidth + ">Department:</td><td>"
-            LitMiddle.Text = "</td><tr><td>Campus:</td><td>"
-            LitEnd.Text = "</td></tr></table>"
-        Else
-            LitStart.Text = "<table><tr><td " + stylewidth + ">Department:</td><td>"
-            LitMiddle.Text = ""
-            LitEnd.Text = "</td></tr></table>"
-        End If
+    End Sub
 
+
+    Sub loadSchools()
+        Dim vContext As timetableEntities = New timetableEntities
+        If cboFaculty.SelectedIndex >= 0 Then
+            Dim FacultyID = CType(Me.cboFaculty.SelectedValue, Integer)
+            Me.cboSchool.DataSource = (From p In vContext.schools
+                                Where p.facultyID = FacultyID
+                                    Order By p.longName
+                                        Select longName = p.longName, p.id)
+        Else
+            Me.cboSchool.DataSource = Nothing
+        End If
+        Me.cboSchool.DataTextField = "longName"
+        Me.cboSchool.DataValueField = "ID"
+        Me.cboSchool.DataBind()
+        loadDepartments()
     End Sub
 
     Sub loadDepartments()
         Dim vContext As timetableEntities = New timetableEntities
-        If cboFaculty.SelectedIndex >= 0 Then
-            Dim FacultyID = CType(Me.cboFaculty.SelectedValue, Integer)
-            Me.cboDepartments.DataSource = (From p In vContext.departments _
-                                Where p.school.facultyID = FacultyID _
-                                Order By p.school.longName, p.longName _
-                                  Select longName = (p.longName + "," + p.school.shortName), p.ID)
+        If cboSchool.SelectedIndex >= 0 Then
+            Dim SchoolID = CType(Me.cboSchool.SelectedValue, Integer)
+            Me.cboDepartment.DataSource = (From p In vContext.departments
+                                Where p.SchoolID = SchoolID
+                                    Order By p.longName
+                                        Select longName = p.longName, p.ID)
         Else
-            Me.cboDepartments.DataSource = Nothing
+            Me.cboDepartment.DataSource = Nothing
         End If
-        Me.cboDepartments.DataTextField = "longName"
-        Me.cboDepartments.DataValueField = "ID"
-        Me.cboDepartments.DataBind()
+        Me.cboDepartment.DataTextField = "longName"
+        Me.cboDepartment.DataValueField = "ID"
+        Me.cboDepartment.DataBind()
         generateEvent()
     End Sub
 
     Private Sub cboFaculty_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboFaculty.SelectedIndexChanged
-        loadDepartments()
+        loadSchools()
     End Sub
 
 
-    Private Sub cboDepartments_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles cboDepartments.SelectedIndexChanged
+    Private Sub cboDepartment_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles cboDepartment.SelectedIndexChanged
         generateEvent()
     End Sub
 
    
+    Private Sub cboSchool_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles cboSchool.SelectedIndexChanged
+        loadDepartments()
+    End Sub
 End Class

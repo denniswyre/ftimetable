@@ -274,7 +274,7 @@
                     userInfo.IsApproved = True
                     Membership.UpdateUser(userInfo)
                 End If
-                Return clsOfficer.CreateOfficer(vOfficer, True)
+                Return clsOfficer.CreateOfficer(vOfficer)
             Else
                 Return 0
             End If

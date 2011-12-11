@@ -28,11 +28,7 @@ Public Class clsOfficer
         Public Title As String
     End Structure
 
-    Public Shared Sub CreateOfficer(ByVal vOfficer As sOfficer)
-        CreateOfficer(vOfficer, False)
-    End Sub
-
-    Public Shared Function CreateOfficer(ByVal vOfficer As sOfficer, ByVal isLecturer As Boolean) As Integer
+    Public Shared Function CreateOfficer(ByVal vOfficer As sOfficer) As Integer
         Dim vContext As timetableEntities = New timetableEntities()
         Dim vUser As my_aspnet_users = _
             (From p In vContext.my_aspnet_users _
@@ -45,9 +41,6 @@ Public Class clsOfficer
             NewOfficer.title = ""
             NewOfficer.my_aspnet_users = vUser
             vContext.officers.AddObject(NewOfficer)
-            If isLecturer Then
-               
-            End If
             vContext.SaveChanges()
             Return NewOfficer.ID
         Else

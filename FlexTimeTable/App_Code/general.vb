@@ -22,6 +22,24 @@
     End Function
 
 
+    Public Shared Function getOldStr(ByVal subjectid As Integer) As String
+        Dim vContext As timetableEntities = New timetableEntities()
+        Dim oldcodes = (From p In vContext.oldsubjectcodes Where p.SubjectID = subjectid Select p).ToList
+        If oldcodes.Count = 0 Then
+            Return ""
+        End If
+        Dim oStr As String = ""
+        For Each ox In oldcodes
+            If oStr = "" Then
+                oStr = " -->" + ox.OldCode
+            Else
+                oStr = oStr + ", " + ox.OldCode
+            End If
+        Next
+        Return oStr
+    End Function
+
+
     Public Shared Function correctSubjectLevel(ByVal oldlevel As String) As Integer
         Try
             Return CInt(oldlevel)

@@ -823,30 +823,6 @@ btnAddUser control.
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
-</member><member name="F:FlexTimeTable.getDepartment.LitStart">
-	<summary>
-LitStart control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.getDepartment.cboDepartments">
-	<summary>
-cboDepartments control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.getDepartment.LitMiddle">
-	<summary>
-LitMiddle control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
 </member><member name="F:FlexTimeTable.getDepartment.cboFaculty">
 	<summary>
 cboFaculty control.
@@ -855,9 +831,17 @@ cboFaculty control.
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
-</member><member name="F:FlexTimeTable.getDepartment.LitEnd">
+</member><member name="F:FlexTimeTable.getDepartment.cboSchool">
 	<summary>
-LitEnd control.
+cboSchool control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.getDepartment.cboDepartment">
+	<summary>
+cboDepartment control.
 </summary>
 	<remarks>
 Auto-generated field.
@@ -903,6 +887,14 @@ logDel control.
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
+</member><member name="F:FlexTimeTable.assignDepartment.logErase">
+	<summary>
+logErase control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
 </member><member name="F:FlexTimeTable.assignDepartment.btnRefresh">
 	<summary>
 btnRefresh control.
@@ -938,6 +930,22 @@ To modify move field declaration from designer file to code-behind file.
 </member><member name="F:FlexTimeTable.assignSubject.errorMessage">
 	<summary>
 errorMessage control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.assignSubject.txtSubjectSearch">
+	<summary>
+txtSubjectSearch control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.assignSubject.btnSearch">
+	<summary>
+btnSearch control.
 </summary>
 	<remarks>
 Auto-generated field.
@@ -4753,6 +4761,22 @@ To modify move field declaration from designer file to code-behind file.
 </member><member name="F:FlexTimeTable.managelecturer.pnlSubject">
 	<summary>
 pnlSubject control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.managelecturer.txtSubjectSearch">
+	<summary>
+txtSubjectSearch control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.managelecturer.btnSubjectSearch">
+	<summary>
+btnSubjectSearch control.
 </summary>
 	<remarks>
 Auto-generated field.

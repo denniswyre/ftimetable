@@ -16,7 +16,7 @@
          <uc1:getDepartment ID="getDepartment1" runat="server" />
         <table>
             <tr>
-                <td style="width: 200">
+                <td width="200px">
                     <asp:Literal ID="litSiteCluster" runat="server"></asp:Literal>
                 </td>
                 <td>
@@ -25,7 +25,7 @@
                 </td>
             </tr>
             <tr>
-                <td style="width: 200">
+                <td width="200px">
                     <asp:Literal ID="litSubject" runat="server"></asp:Literal>
                 </td>
                 <td>

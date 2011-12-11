@@ -14,7 +14,7 @@
     <uc1:getDepartment ID="getDepartment1" runat="server" />
     <table>
         <tr>
-            <td style="width: 220">
+           <td width="200px">
                 <asp:Literal ID="litQualification" runat="server" Text="Qualification:"></asp:Literal>
             </td>
             <td>
@@ -24,7 +24,7 @@
         </tr>
         <asp:PlaceHolder ID="phLevel" runat="server">
             <tr>
-                <td style="width: 220">
+               <td width="200px">
                     <asp:Literal ID="litLevel" runat="server" Text="Level:"></asp:Literal>
                 </td>
                 <td>

@@ -17,6 +17,7 @@
             <td align="center">
                 <uc1:logButton ID="logAdd" runat="server" /><br />
                 <uc1:logButton ID="logDel" runat="server" />
+                <uc1:logButton ID="logErase" runat="server" />
                 <asp:Button ID="btnRefresh" runat="server" Text="Refresh" Width="100px" />
             </td>
             <td>School:<asp:DropDownList ID="cboSchool" runat="server" AutoPostBack="True" 

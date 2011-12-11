@@ -6,8 +6,10 @@
             loadFaculty()
             logAdd.Text = "Add"
             logDel.Text = "Remove"
+            logErase.Text = "Erase"
             logAdd.Width = btnRefresh.Width
             logDel.Width = btnRefresh.Width
+            logErase.Width = btnRefresh.Width
         End If
     End Sub
 
@@ -109,5 +111,64 @@
 
     Private Sub cboFaculty_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles cboFaculty.SelectedIndexChanged
         loadSchools()
+    End Sub
+
+    Private Sub logErase_Click(sender As Object, e As System.EventArgs) Handles logErase.Click
+        Try
+            If lstUnknownDepart.SelectedIndex >= 0 Then
+                EraseDepartment(CInt(lstUnknownDepart.SelectedValue))
+                logAdd.Function = "Erase Department from Dummy"
+                logAdd.Description = lstUnknownDepart.SelectedItem.Text
+                loadUnknownDepartments()
+                loadDepartments()
+            Else
+                Throw New Exception("You must select an unknown department!")
+            End If
+        Catch ex As Exception
+            ErrorMessage.Text = clsGeneral.displaymessage(ex.Message, True)
+        End Try
+    End Sub
+
+
+
+    Private Sub EraseDepartment(ByVal DepartID As Integer)
+        Dim vContext As timetableEntities = New timetableEntities()
+        Dim DummyDepartName = "Dummy Department"
+        Dim vDummyDePartID = (From p In vContext.departments Where p.longName = DummyDepartName Select p).Single.ID
+        Dim vSelDepart = (From p In vContext.departments Where p.ID = DepartID Select p).Single
+
+        If vSelDepart.ID = vDummyDePartID Then
+            Throw New Exception("Cannot Erase this Dummy Department!!")
+        End If
+
+        'move all subjects to dummy department
+        Do While vSelDepart.subjects.Count > 0
+            vSelDepart.subjects.First()
+            vSelDepart.subjects.First.DepartmentID = vDummyDePartID
+            vContext.SaveChanges()
+        Loop
+        'move all qualifications to dummy department
+        Do While vSelDepart.qualifications.Count > 0
+            vSelDepart.qualifications.First()
+            vSelDepart.qualifications.First.DepartmentID = vDummyDePartID
+            vContext.SaveChanges()
+        Loop
+
+        'move lecturers to dummy department
+        Do While vSelDepart.lecturers.Count > 0
+            vSelDepart.lecturers.First()
+            vSelDepart.lecturers.First.DepartmentID = vDummyDePartID
+            vContext.SaveChanges()
+        Loop
+
+        'delete department venues 
+        Do While vSelDepart.venues.Count > 0
+            vContext.DeleteObject(vSelDepart.venues.First())
+            vContext.SaveChanges()
+        Loop
+
+        'delete departement
+        vContext.DeleteObject(vSelDepart)
+        vContext.SaveChanges()
     End Sub
 End Class

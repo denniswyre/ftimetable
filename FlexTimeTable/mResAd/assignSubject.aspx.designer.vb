@@ -32,6 +32,24 @@ Partial Public Class assignSubject
     Protected WithEvents errorMessage As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
+    '''txtSubjectSearch control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtSubjectSearch As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''btnSearch control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnSearch As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
     '''lstUnassigned control.
     '''</summary>
     '''<remarks>

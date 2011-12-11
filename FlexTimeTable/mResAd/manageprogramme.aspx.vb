@@ -65,7 +65,7 @@
                                               p.Level = CInt(cboLevel.SelectedValue)
                                                Select p).ToList
         For Each prog As programmesubject In programmesubjectList
-            Dim oldstr = getOldStr(prog.SubjectID)
+            Dim oldstr = clsGeneral.getOldStr(prog.SubjectID)
             Dim vItem As New ListItem(prog.subject.longName + "[" + prog.subject.Code + "]" + oldstr, CStr(prog.SubjectID))
             If prog.subject.DepartmentID = getDepartment1.getID Then
                 'core subject
@@ -181,20 +181,6 @@
     End Sub
 
 
-    Function getOldStr(ByVal subjectid As Integer) As String
-        Dim vContext As timetableEntities = New timetableEntities()
-        Dim oldcodes = (From p In vContext.oldsubjectcodes Where p.SubjectID = subjectid Select p).ToList
-        Dim oStr As String = ""
-        For Each ox In oldcodes
-            If oStr = "" Then
-                oStr = " -->" + ox.OldCode
-            Else
-                oStr = oStr + ", " + ox.OldCode
-            End If
-        Next
-        Return oStr
-    End Function
-
 #End Region
 
 #Region "Core Subjects"
@@ -208,7 +194,7 @@
         With lstCoreSubjects
             .Items.Clear()
             For Each x In CoreSubjects
-                Dim ostr = getOldStr(x.ID)
+                Dim ostr = clsGeneral.getOldStr(x.ID)
                 Dim vItem As New ListItem(x.longName + " [" + x.Code + "]" + oStr, CStr(x.ID))
                 .Items.Add(vItem)
             Next
@@ -246,7 +232,7 @@
         With lstServiceSubjects
             .Items.Clear()
             For Each x In serviceSubjects
-                Dim ostr = getOldStr(x.ID)
+                Dim ostr = clsGeneral.getOldStr(x.ID)
                 Dim vItem As New ListItem(x.longName + "[" + x.Code + "]" + ostr, CStr(x.ID))
                 .Items.Add(vItem)
             Next

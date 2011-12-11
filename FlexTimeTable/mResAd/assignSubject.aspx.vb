@@ -18,7 +18,7 @@
     Sub loadDummySubjects()
         Dim vContext As timetableEntities = New timetableEntities()
         Dim DummyFacultyID = CType(ConfigurationManager.AppSettings("dummyfaculty"), Integer)
-        Dim vSubject = (From p In vContext.subjects Where p.department.school.facultyID = DummyFacultyID Order By p.longName Select p).ToList
+        Dim vSubject = (From p In vContext.subjects Where p.department.school.facultyID = DummyFacultyID And p.longName.Contains(txtSubjectSearch.Text) Order By p.longName Select p).ToList
         With lstUnassigned.Items
             .Clear()
             For Each x In vSubject
@@ -82,5 +82,9 @@
         loadDummySubjects()
         loadAssigneSubjects()
         errorMessage.Text = ""
+    End Sub
+
+    Private Sub btnSearch_Click(sender As Object, e As System.EventArgs) Handles btnSearch.Click
+        loadDummySubjects()
     End Sub
 End Class

@@ -115,24 +115,23 @@
     <Content Include="bin\FlexTimeTable.xml" />
     <Content Include="images\ajax-loader.gif" />
     <Content Include="Login.aspx" />
-    <Content Include="Scripts\mResAd\assignQualification.aspx" />
     <Content Include="mSysAd\NormalSubject.aspx" />
-    <Content Include="qualificationsearch.aspx" />
-    <Content Include="subjectsearch.aspx" />
+    <Content Include="userControl\getSchool.ascx" />
+    <Content Include="userControl\departmentSearch.ascx" />
+    <Content Include="userControl\qualificationDetails.ascx" />
+    <Content Include="userControl\qualificationsearch.ascx" />
+    <Content Include="userControl\subjectsearch.ascx" />
     <Content Include="member\ClassSummary.aspx" />
     <Content Include="member\lecturerWorkload.aspx" />
-    <Content Include="Scripts\mResAd\assignDepartment.aspx" />
-    <Content Include="Scripts\mResAd\assignSubject.aspx" />
     <Content Include="mSysAd\generateTimetable.aspx" />
     <Content Include="mSysAd\uploadSubject.aspx" />
     <Content Include="mSysAd\uploadQual.aspx" />
-    <Content Include="Scripts\mResAd\manageclusterclasses.aspx" />
-    <Content Include="Scripts\mResAd\managelecturer.aspx" />
-    <Content Include="Scripts\mResAd\managedepartment.aspx" />
-    <Content Include="Scripts\mResAd\managesubject.aspx" />
-    <Content Include="Scripts\mResAd\manageprogramme.aspx" />
-    <Content Include="Scripts\mResAd\managequalification.aspx" />
-    <Content Include="Scripts\mResAd\manageschool.aspx" />
+    <Content Include="mResAd\manageclusterclasses.aspx" />
+    <Content Include="mResAd\managelecturer.aspx" />
+    <Content Include="managedepartment.aspx" />
+    <Content Include="managesubject.aspx" />
+    <Content Include="managequalification.aspx" />
+    <Content Include="mResAd\manageschool.aspx" />
     <Content Include="images\wsulogo.gif" />
     <Content Include="mSysAd\uploadClasses.aspx" />
     <Content Include="mSysAd\AcademicBlock.aspx" />
@@ -183,16 +182,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dbcontext.edmx</DependentUpon>
     </Compile>
-    <Compile Include="App_Code\departmentEvent.vb" />
+    <Compile Include="App_Code\EventClasses.vb" />
     <Compile Include="App_Code\filetotableconversion.vb" />
     <Compile Include="App_Code\general.vb" />
-    <Compile Include="Scripts\mResAd\assignQualification.aspx.designer.vb">
-      <DependentUpon>assignQualification.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Scripts\mResAd\assignQualification.aspx.vb">
-      <DependentUpon>assignQualification.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
     <Compile Include="mSysAd\NormalSubject.aspx.designer.vb">
       <DependentUpon>NormalSubject.aspx</DependentUpon>
     </Compile>
@@ -200,18 +192,39 @@
       <DependentUpon>NormalSubject.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-    <Compile Include="qualificationsearch.aspx.designer.vb">
-      <DependentUpon>qualificationsearch.aspx</DependentUpon>
+    <Compile Include="userControl\getSchool.ascx.designer.vb">
+      <DependentUpon>getSchool.ascx</DependentUpon>
     </Compile>
-    <Compile Include="qualificationsearch.aspx.vb">
-      <DependentUpon>qualificationsearch.aspx</DependentUpon>
+    <Compile Include="userControl\getSchool.ascx.vb">
+      <DependentUpon>getSchool.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="userControl\departmentSearch.ascx.designer.vb">
+      <DependentUpon>departmentSearch.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="userControl\departmentSearch.ascx.vb">
+      <DependentUpon>departmentSearch.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="userControl\qualificationDetails.ascx.designer.vb">
+      <DependentUpon>qualificationDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="userControl\qualificationDetails.ascx.vb">
+      <DependentUpon>qualificationDetails.ascx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-    <Compile Include="subjectsearch.aspx.designer.vb">
-      <DependentUpon>subjectsearch.aspx</DependentUpon>
+    <Compile Include="userControl\qualificationsearch.ascx.designer.vb">
+      <DependentUpon>qualificationsearch.ascx</DependentUpon>
     </Compile>
-    <Compile Include="subjectsearch.aspx.vb">
-      <DependentUpon>subjectsearch.aspx</DependentUpon>
+    <Compile Include="userControl\qualificationsearch.ascx.vb">
+      <DependentUpon>qualificationsearch.ascx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="userControl\subjectsearch.ascx.designer.vb">
+      <DependentUpon>subjectsearch.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="userControl\subjectsearch.ascx.vb">
+      <DependentUpon>subjectsearch.ascx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="mSysAd\uploadClasses.aspx.designer.vb">
@@ -248,21 +261,7 @@
       <DependentUpon>lecturerWorkload.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-    <Compile Include="Scripts\mResAd\assignDepartment.aspx.designer.vb">
-      <DependentUpon>assignDepartment.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Scripts\mResAd\assignDepartment.aspx.vb">
-      <DependentUpon>assignDepartment.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="Scripts\mResAd\assignSubject.aspx.designer.vb">
-      <DependentUpon>assignSubject.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Scripts\mResAd\assignSubject.aspx.vb">
-      <DependentUpon>assignSubject.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="Scripts\mResAd\manageclusterclasses.aspx.designer.vb">
+    <Compile Include="mResAd\manageclusterclasses.aspx.designer.vb">
       <DependentUpon>manageclusterclasses.aspx</DependentUpon>
     </Compile>
     <Compile Include="mSysAd\generateTimetable.aspx.designer.vb">
@@ -283,49 +282,42 @@
       <DependentUpon>uploadQual.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-    <Compile Include="Scripts\mResAd\manageclusterclasses.aspx.vb">
+    <Compile Include="mResAd\manageclusterclasses.aspx.vb">
       <DependentUpon>manageclusterclasses.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-    <Compile Include="Scripts\mResAd\managelecturer.aspx.designer.vb">
+    <Compile Include="mResAd\managelecturer.aspx.designer.vb">
       <DependentUpon>managelecturer.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Scripts\mResAd\managelecturer.aspx.vb">
+    <Compile Include="mResAd\managelecturer.aspx.vb">
       <DependentUpon>managelecturer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Scripts\mResAd\managedepartment.aspx.designer.vb">
+    <Compile Include="managedepartment.aspx.designer.vb">
       <DependentUpon>managedepartment.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Scripts\mResAd\managedepartment.aspx.vb">
+    <Compile Include="managedepartment.aspx.vb">
       <DependentUpon>managedepartment.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-    <Compile Include="Scripts\mResAd\managesubject.aspx.designer.vb">
+    <Compile Include="managesubject.aspx.designer.vb">
       <DependentUpon>managesubject.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Scripts\mResAd\managesubject.aspx.vb">
+    <Compile Include="managesubject.aspx.vb">
       <DependentUpon>managesubject.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-    <Compile Include="Scripts\mResAd\manageprogramme.aspx.designer.vb">
-      <DependentUpon>manageprogramme.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Scripts\mResAd\manageprogramme.aspx.vb">
-      <DependentUpon>manageprogramme.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="Scripts\mResAd\managequalification.aspx.designer.vb">
+    <Compile Include="managequalification.aspx.designer.vb">
       <DependentUpon>managequalification.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Scripts\mResAd\managequalification.aspx.vb">
+    <Compile Include="managequalification.aspx.vb">
       <DependentUpon>managequalification.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-    <Compile Include="Scripts\mResAd\manageschool.aspx.designer.vb">
+    <Compile Include="mResAd\manageschool.aspx.designer.vb">
       <DependentUpon>manageschool.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Scripts\mResAd\manageschool.aspx.vb">
+    <Compile Include="mResAd\manageschool.aspx.vb">
       <DependentUpon>manageschool.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
@@ -548,7 +540,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="mVenAd\web.config" />
-    <Content Include="Scripts\mResAd\web.config" />
+    <Content Include="mResAd\web.config" />
     <EntityDeploy Include="App_Code\dbcontext.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>dbcontext.Designer.vb</LastGenOutput>
@@ -582,7 +574,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>55824</DevelopmentServerPort>
+          <DevelopmentServerPort>61445</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

@@ -14,34 +14,58 @@ Public Class managelecturer
 
 #Region "general"
 
-
-    Sub loadlecturers()
+    Sub LoadLecturers()
         Dim vContext As timetableEntities = New timetableEntities()
         Dim DepartmentID = getDepartment1.getID
-        Dim vLecturers = (From p In vContext.lecturers
+
+        'load departmental lecturers
+        grdLecturers.DataSource = (From p In vContext.lecturers
                             Order By p.officer.Surname, p.officer.FirstName
                                     Where p.DepartmentID = DepartmentID
-                                       Select surname = p.officer.Surname,
+                                     Select surname = p.officer.Surname,
                                               firstname = p.officer.FirstName,
                                               initials = p.officer.Initials,
                                               title = p.officer.title,
                                               username = p.officer.my_aspnet_users.name,
                                               id = p.LecturerID).ToList
-        pnlLecturers.GroupingText = "Lecturers" '+ cboDepartments.SelectedItem.Text
-        grdLecturers.DataSource = vLecturers
         grdLecturers.DataBind()
+
+        'load external lecturers who lecture departmental subjects
+        Dim UniqueExtLecturers As New List(Of lecturer)
+
+        'loop through all subjects belonging to department
+        For Each x In (From p In vContext.subjects Where p.DepartmentID = DepartmentID Select p).ToList
+            For Each y In (From q In x.lecturers Where q.DepartmentID <> DepartmentID Select q).ToList
+                Dim yLecturer = y.LecturerID
+                'ensure that there is no duplicate
+                If (From r In UniqueExtLecturers Where r.LecturerID = yLecturer Select r).Count = 0 Then
+                    UniqueExtLecturers.Add(y)
+                End If
+            Next
+        Next
+        grdExtLecturer.DataSource = (From p In UniqueExtLecturers
+                                       Order By p.officer.Surname, p.officer.FirstName
+                                              Select surname = p.officer.Surname,
+                                                    firstname = p.officer.FirstName,
+                                                    initials = p.officer.Initials,
+                                                    title = p.officer.title,
+                                                    username = p.officer.my_aspnet_users.name,
+                                                    id = p.LecturerID).ToList
+
+        grdExtLecturer.DataBind()
         pnlgetLecturer.Enabled = True
-        loadLecturerDetails()
     End Sub
 
 
 
     Sub loadSearchSubjects()
         Dim vContext As timetableEntities = New timetableEntities()
-        Dim SearchSubjects = (From p In vContext.subjects Where p.longName.Contains(txtSubjectSearch.Text) Select p)
+        Dim DepartmentID = getDepartment1.getID
         With lstAvailableSubjects
             .Items.Clear()
-            For Each x In SearchSubjects
+            For Each x In (From p In vContext.subjects
+                                 Where p.DepartmentID = DepartmentID And p.longName.Contains(txtSubjectSearch.Text)
+                                   Order By p.longName Select p).ToList
                 Dim ostr = clsGeneral.getOldStr(x.ID)
                 .Items.Add(New ListItem(x.longName + " [" + x.Code + "]" + ostr, CStr(x.ID)))
             Next
@@ -60,7 +84,13 @@ Public Class managelecturer
                          vlecturer.officer.FirstName + " " + _
                          vlecturer.officer.Initials
             'list subjects
-            loadSelectedsubjects(vlecturer.subjects.ToList)
+            Dim vDepartID = CInt(getDepartment1.getID)
+            Dim departSubjects = (From p In vlecturer.subjects Where p.DepartmentID = vDepartID Select p).ToList
+            Dim otherSubjects = (From p In vlecturer.subjects Where p.DepartmentID <> vDepartID Select p).ToList
+            'list departmental subjects
+            loadSelectedsubjects(departSubjects, lstSelectedSubjects.Items)
+            'list other subjects
+            loadSelectedsubjects(otherSubjects, lstExtSelectedSubjects.Items)
             'list roster
             grdRoster.DataSource = (From p In vlecturer.lecturersiteclusteravailabilities
                                         Order By p.DayOfWeek, p.timeslot.StartTime
@@ -79,16 +109,14 @@ Public Class managelecturer
         ''headers
     End Sub
 
-    Sub loadSelectedsubjects(ByVal vSubjects As List(Of subject))
+    Sub loadSelectedsubjects(ByVal vSubjects As List(Of subject), ByRef vItems As ListItemCollection)
         Dim vContext As timetableEntities = New timetableEntities()
-        With lstSelectedSubjects
-            .Items.Clear()
-            For Each x In vSubjects
-                Dim ostr = clsGeneral.getOldStr(x.ID)
-                Dim vItem As New ListItem(x.longName + " [" + x.Code + "]" + ostr, CStr(x.ID))
-                .Items.Add(vItem)
-            Next
-        End With
+        vItems.Clear()
+        For Each x In vSubjects
+            Dim ostr = clsGeneral.getOldStr(x.ID)
+            Dim vItem As New ListItem(x.longName + " [" + x.Code + "]" + ostr, CStr(x.ID))
+            vItems.Add(vItem)
+        Next
     End Sub
 
 
@@ -168,27 +196,28 @@ Public Class managelecturer
                     Throw New Exception("Lecturer might exist with a different username!")
             End Select
 
+            Dim DummyFacultyID = CType(ConfigurationManager.AppSettings("dummyfaculty"), Integer)
             Dim vContext As timetableEntities = New timetableEntities()
             Dim vlecturer As lecturer = (From p In vContext.lecturers Where p.LecturerID = vReturn.ID Select p).SingleOrDefault
-            'check if lecturer exists
+            'create lecturer if it does not exists
             If IsNothing(vlecturer) Then
                 'create lecturer and assigned to this department
                 vlecturer = New lecturer With {.DepartmentID = getDepartment1.getID, .LecturerID = vReturn.ID}
                 vContext.lecturers.AddObject(vlecturer)
                 vContext.SaveChanges()
-            Else
-                Dim DummyFacultyID = CType(ConfigurationManager.AppSettings("dummyfaculty"), Integer)
-                'check if lecturer already assigned to the correct department
-                If vlecturer.DepartmentID = getDepartment1.getID Then
-                ElseIf vlecturer.department.school.facultyID = DummyFacultyID Then
-                    'if lecturer belongs to dummy faculty move to this department
-                    vlecturer.DepartmentID = getDepartment1.getID
-                    vContext.SaveChanges()
-                Else
-                    Throw New Exception("Lecturer belongs to department:" + vlecturer.department.longName + "; school" + vlecturer.department.school.longName + ", " + vlecturer.department.school.faculty.code)
-                End If
+            ElseIf vlecturer.department.school.facultyID = DummyFacultyID Then
+                'if lecturer belongs to dummy faculty move to this department
+                vlecturer.DepartmentID = getDepartment1.getID
+                vContext.SaveChanges()
             End If
-            loadlecturers()
+            'select lecturer 
+            If vlecturer.DepartmentID = getDepartment1.getID Then
+                '''''''select int lecturer  
+                selectLecturer(vlecturer.LecturerID, False)
+            Else
+                '''''''select ext lecturer
+                selectLecturer(vlecturer.LecturerID, True)
+             End If
         Catch ex As Exception
             litErrorMessage.Text = clsGeneral.displaymessage(ex.Message, True)
         End Try
@@ -205,32 +234,42 @@ Public Class managelecturer
         Try
             Dim vLecturerID As Integer = CInt(grdLecturers.DataKeys(e.RowIndex).Values(0))
             Dim vContext As timetableEntities = New timetableEntities()
-            Dim vlecturer = (From p In vContext.lecturers Where p.LecturerID = vLecturerID Select p).First
-            vContext.lecturers.DeleteObject(vlecturer)
+            Dim vlecturer = (From p In vContext.lecturers Where p.LecturerID = vLecturerID Select p).Single
+            Dim DummyFacultyID = CType(ConfigurationManager.AppSettings("dummyfaculty"), Integer)
+            Dim DummyDepartName = "Dummy Department"
+            Dim vDummyDePartID = (From p In vContext.departments Where p.school.facultyID = DummyFacultyID And p.longName = DummyDepartName Select p).Single.ID
+            vlecturer.DepartmentID = vDummyDePartID
             vContext.SaveChanges()
-            loadlecturers()
+            LoadLecturers()
             litErrorMessage.Text = ""
         Catch ex As Exception
             litErrorMessage.Text = clsGeneral.displaymessage(ex.Message, True)
         End Try
-        loadLecturerDetails()
     End Sub
 
     Private Sub grdLecturers_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles grdLecturers.SelectedIndexChanged
         litErrorMessage.Text = ""
-        Dim vlecturerID = CInt(grdLecturers.SelectedDataKey.Values(0))
+        selectLecturer(CInt(grdLecturers.SelectedDataKey.Values(0)), False)
+    End Sub
+
+
+    Sub selectLecturer(ByVal vID As Integer, ByVal IsExternal As Boolean)
         Dim vContext As timetableEntities = New timetableEntities()
-        Dim vlecturer = (From p In vContext.lecturers Where p.LecturerID = vlecturerID Select p).First
+        Dim vlecturer = (From p In vContext.lecturers Where p.LecturerID = vID Select p).First
         With vlecturer
-            litLecturer.Text = "<b>Lecturer:</b><span class=""lecturer"">" + CType(IIf(.officer.title = "", "", .officer.title + "&nbsp;"), String) + .officer.Surname +
-                                                             ", " + .officer.FirstName +
-                                                             " " + .officer.Initials +
-                                                             " [" + .officer.my_aspnet_users.name + "]</span>"
+            Dim DepartInfo = CStr(IIf(IsExternal, "---->" + .department.longName + "," + .department.school.longName + ", " + vlecturer.department.school.faculty.code, ""))
+            litLecturer.Text = "<b>Lecturer:</b><span class=""lecturer"">" +
+                                CType(IIf(.officer.title = "", "", .officer.title + "&nbsp;"), String) + .officer.Surname +
+                                ", " + .officer.FirstName + " " + .officer.Initials + " [" + .officer.my_aspnet_users.name +
+                                DepartInfo + "]</span>"
         End With
-        ViewState("lecturerID") = vlecturerID
+        ViewState("lecturerID") = vID
         mvLecturer.SetActiveView(vwDetails)
+        pnlRosterButtons.Enabled = Not IsExternal
+        grdRoster.Columns(7).Visible = Not IsExternal
         loadLecturerDetails()
     End Sub
+
 
 #End Region
 
@@ -356,7 +395,6 @@ Public Class managelecturer
         Catch ex As Exception
             litErrorMessage.Text = clsGeneral.displaymessage(ex.Message, True)
         End Try
-        loadLecturerDetails()
     End Sub
 
     Private Sub grdRoster_RowDeleting(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewDeleteEventArgs) Handles grdRoster.RowDeleting
@@ -384,17 +422,45 @@ Public Class managelecturer
 #End Region
 
     Private Sub lnkReturn_Click(sender As Object, e As System.EventArgs) Handles lnkReturn.Click
+        LoadLecturers()
         mvLecturer.SetActiveView(vwSelect)
     End Sub
 
     Private Sub getDepartment1_DepartmentClick(E As Object, Args As clsDepartmentEvent) Handles getDepartment1.DepartmentClick
         litErrorMessage.Text = ""
         mvLecturer.SetActiveView(vwSelect)
-        loadlecturers()
+        LoadLecturers()
         lstAvailableSubjects.Items.Clear()
     End Sub
 
     Private Sub btnSubjectSearch_Click(sender As Object, e As System.EventArgs) Handles btnSubjectSearch.Click
         loadSearchSubjects()
     End Sub
+
+    Private Sub grdExtLecturer_RowCommand(sender As Object, e As System.Web.UI.WebControls.GridViewCommandEventArgs) Handles grdExtLecturer.RowCommand
+        litErrorMessage.Text = ""
+        Dim RowNo = CInt(e.CommandArgument)
+        Dim vlecturerID = CInt(grdExtLecturer.DataKeys(RowNo).Value)
+        Try
+            Select Case LCase(e.CommandName)
+                Case "select"
+                    selectLecturer(vlecturerID, True)
+                Case "transfer"
+                    Dim vContext As timetableEntities = New timetableEntities()
+                    Dim vlecturer = (From p In vContext.lecturers Where p.LecturerID = vlecturerID Select p).Single
+                    Dim DummyFacultyID = CType(ConfigurationManager.AppSettings("dummyfaculty"), Integer)
+                    If vlecturer.department.school.facultyID = DummyFacultyID Then
+                        'if lecturer belongs to dummy faculty move to this department
+                        vlecturer.DepartmentID = getDepartment1.getID
+                        vContext.SaveChanges()
+                    Else
+                        Throw New Exception("Lecturer belongs to department:" + vlecturer.department.longName + "; school" + vlecturer.department.school.longName + ", " + vlecturer.department.school.faculty.code)
+                    End If
+                    LoadLecturers()
+            End Select
+        Catch ex As Exception
+            litErrorMessage.Text = clsGeneral.displaymessage(ex.Message, True)
+        End Try
+    End Sub
+
 End Class

@@ -11,52 +11,25 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class managedepartment
+Partial Public Class managequalification
 
     '''<summary>
-    '''lblMessage control.
+    '''litMessage control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblMessage As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents litMessage As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
-    '''litSchool control.
+    '''mvQual control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents litSchool As Global.System.Web.UI.WebControls.Literal
-
-    '''<summary>
-    '''cboSchool control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cboSchool As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''cboFaculty control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cboFaculty As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''mvDept control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents mvDept As Global.System.Web.UI.WebControls.MultiView
+    Protected WithEvents mvQual As Global.System.Web.UI.WebControls.MultiView
 
     '''<summary>
     '''vwGrid control.
@@ -77,13 +50,13 @@ Partial Public Class managedepartment
     Protected WithEvents lnkCreate As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
-    '''grdDepartment control.
+    '''ucQualificationSearch control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents grdDepartment As Global.System.Web.UI.WebControls.GridView
+    Protected WithEvents ucQualificationSearch As Global.FlexTimeTable.qualificationsearch
 
     '''<summary>
     '''vwEdit control.
@@ -95,13 +68,67 @@ Partial Public Class managedepartment
     Protected WithEvents vwEdit As Global.System.Web.UI.WebControls.View
 
     '''<summary>
-    '''litEdit control.
+    '''btnCancel control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents litEdit As Global.System.Web.UI.WebControls.Literal
+    Protected WithEvents btnCancel As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
+    '''phAccess control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents phAccess As Global.System.Web.UI.WebControls.PlaceHolder
+
+    '''<summary>
+    '''lnkEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lnkEdit As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
+    '''pnlDetail control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlDetail As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''litOldDepartment control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents litOldDepartment As Global.System.Web.UI.WebControls.Literal
+
+    '''<summary>
+    '''ucGetDepartment control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ucGetDepartment As Global.FlexTimeTable.getDepartment
+
+    '''<summary>
+    '''phID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents phID As Global.System.Web.UI.WebControls.PlaceHolder
 
     '''<summary>
     '''Label4 control.
@@ -176,6 +203,33 @@ Partial Public Class managedepartment
     Protected WithEvents txtLongName As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''phOldCodes control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents phOldCodes As Global.System.Web.UI.WebControls.PlaceHolder
+
+    '''<summary>
+    '''Label6 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label6 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblOldCodes control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblOldCodes As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''logSave control.
     '''</summary>
     '''<remarks>
@@ -194,11 +248,20 @@ Partial Public Class managedepartment
     Protected WithEvents logDelete As Global.FlexTimeTable.logButton
 
     '''<summary>
-    '''btnCancel control.
+    '''btnCancelEdit control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnCancel As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnCancelEdit As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''ucQualDetail control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ucQualDetail As Global.FlexTimeTable.qualificationDetails
 End Class

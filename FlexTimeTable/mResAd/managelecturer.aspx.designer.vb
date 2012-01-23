@@ -131,6 +131,24 @@ Partial Public Class managelecturer
     Protected WithEvents grdLecturers As Global.System.Web.UI.WebControls.GridView
 
     '''<summary>
+    '''pnlExtLecturers control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlExtLecturers As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''grdExtLecturer control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents grdExtLecturer As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
     '''vwDetails control.
     '''</summary>
     '''<remarks>
@@ -174,15 +192,6 @@ Partial Public Class managelecturer
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents TabSubject As Global.AjaxControlToolkit.TabPanel
-
-    '''<summary>
-    '''pnlSubject control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents pnlSubject As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
     '''txtSubjectSearch control.
@@ -239,6 +248,15 @@ Partial Public Class managelecturer
     Protected WithEvents lstSelectedSubjects As Global.System.Web.UI.WebControls.ListBox
 
     '''<summary>
+    '''lstExtSelectedSubjects control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lstExtSelectedSubjects As Global.System.Web.UI.WebControls.ListBox
+
+    '''<summary>
     '''TabRoster control.
     '''</summary>
     '''<remarks>
@@ -248,15 +266,6 @@ Partial Public Class managelecturer
     Protected WithEvents TabRoster As Global.AjaxControlToolkit.TabPanel
 
     '''<summary>
-    '''pnlRoster control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents pnlRoster As Global.System.Web.UI.WebControls.Panel
-
-    '''<summary>
     '''grdRoster control.
     '''</summary>
     '''<remarks>
@@ -264,6 +273,15 @@ Partial Public Class managelecturer
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents grdRoster As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
+    '''pnlRosterButtons control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlRosterButtons As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
     '''cboCluster control.

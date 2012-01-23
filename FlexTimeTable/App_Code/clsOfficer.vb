@@ -143,5 +143,32 @@ Public Class clsOfficer
         Return dsOfficer
     End Function
 
+
+    'determine whether officer has access to any faculty
+    Public Shared Function isAccessValid(ByVal username As String, vFacultyJD As Integer) As Boolean
+        'check role first
+        If Not Roles.IsUserInRole(username, "resourceAdmin") Then
+            Return False
+        End If
+        Dim vContext As timetableEntities = New timetableEntities()
+        Dim OfficerID As Integer = clsOfficer.getOfficer(username).ID
+        Dim fCount = 0
+        If OfficerID > 0 Then
+            Dim FacultyList As List(Of facultyuser)
+            If vFacultyJD = 0 Then
+                FacultyList = (From p In vContext.facultyusers
+                                       Where p.OfficerID = OfficerID
+                                         Select p).ToList
+            Else
+                FacultyList = (From p In vContext.facultyusers
+                                       Where p.OfficerID = OfficerID And p.FacultyID = vFacultyJD
+                                         Select p).ToList
+
+            End If
+            fCount = FacultyList.Count
+        End If
+        Return CType(IIf(fCount > 0, True, False), Boolean)
+    End Function
+
 End Class
 

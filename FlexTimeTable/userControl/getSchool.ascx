@@ -1,5 +1,5 @@
-﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="getDepartment.ascx.vb"
-    Inherits="FlexTimeTable.getDepartment" %>
+﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="getSchool.ascx.vb"
+    Inherits="FlexTimeTable.getSchool" %>
 <hr />
 <table>
     <tr>
@@ -17,15 +17,6 @@
         </td>
         <td>
             <asp:DropDownList ID="cboSchool" AutoPostBack="true" runat="server">
-            </asp:DropDownList>
-        </td>
-    </tr>
-    <tr>
-        <td width="200px">
-            Department:
-        </td>
-        <td>
-            <asp:DropDownList ID="cboDepartment" AutoPostBack="true" runat="server">
             </asp:DropDownList>
         </td>
     </tr>

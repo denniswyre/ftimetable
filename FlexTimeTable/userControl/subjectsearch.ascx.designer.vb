@@ -14,6 +14,15 @@ Option Explicit On
 Partial Public Class subjectsearch
 
     '''<summary>
+    '''Panel1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Panel1 As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
     '''lblMessage control.
     '''</summary>
     '''<remarks>
@@ -23,24 +32,6 @@ Partial Public Class subjectsearch
     Protected WithEvents lblMessage As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''mvSubject control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents mvSubject As Global.System.Web.UI.WebControls.MultiView
-
-    '''<summary>
-    '''vwGrid control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents vwGrid As Global.System.Web.UI.WebControls.View
-
-    '''<summary>
     '''optSearchType control.
     '''</summary>
     '''<remarks>
@@ -48,6 +39,15 @@ Partial Public Class subjectsearch
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents optSearchType As Global.System.Web.UI.WebControls.RadioButtonList
+
+    '''<summary>
+    '''pnlSearch control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlSearch As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
     '''txtSearchValue control.
@@ -68,6 +68,15 @@ Partial Public Class subjectsearch
     Protected WithEvents btnGet As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
+    '''ucDepartment control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ucDepartment As Global.FlexTimeTable.getDepartment
+
+    '''<summary>
     '''grdsubject control.
     '''</summary>
     '''<remarks>
@@ -75,31 +84,4 @@ Partial Public Class subjectsearch
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents grdsubject As Global.System.Web.UI.WebControls.GridView
-
-    '''<summary>
-    '''vwView control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents vwView As Global.System.Web.UI.WebControls.View
-
-    '''<summary>
-    '''litsubjectdetails control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents litsubjectdetails As Global.System.Web.UI.WebControls.Literal
-
-    '''<summary>
-    '''btnCancel control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnCancel As Global.System.Web.UI.WebControls.LinkButton
 End Class

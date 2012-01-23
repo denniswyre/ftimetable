@@ -1,34 +1,32 @@
-﻿Public Class getDepartment
+﻿Partial Class getSchool
     Inherits System.Web.UI.UserControl
 
-    Public Event DepartmentClick(ByVal E As Object, ByVal Args As clsDepartmentEvent)
+    Public Event SchoolClick(ByVal E As Object, ByVal Args As clsSchoolEvent)
 
 
     Public WriteOnly Property enabled As Boolean
         Set(value As Boolean)
             cboFaculty.Enabled = value
             cboSchool.Enabled = value
-            cboDepartment.Enabled = value
         End Set
     End Property
 
 
 
     Sub generateEvent()
-        Dim DepartID = 0
+        Dim SchoolID = 0
         Try
-            DepartID = CInt(cboDepartment.SelectedValue)
+            SchoolID = CInt(cboSchool.SelectedValue)
         Catch ex As Exception
         End Try
-        Session("departmentID") = CStr(DepartID)
-        Dim Args As New clsDepartmentEvent(DepartID)
-        RaiseEvent DepartmentClick(Me, Args)
+        Session("SchoolID") = CStr(SchoolID)
+        Dim Args As New clsSchoolEvent(SchoolID)
+        RaiseEvent SchoolClick(Me, Args)
     End Sub
 
     Enum eType
         faculty
         school
-        department
     End Enum
 
     Private Sub SelectType(ByVal vType As eType)
@@ -48,11 +46,6 @@
                         If Not IsNothing(vSchItem) Then
                             cboSchool.SelectedValue = vSchItem.Value
                         End If
-                    Case eType.department
-                        Dim vDepItem = cboDepartment.Items.FindByValue(CStr(Depart.ID))
-                        If Not IsNothing(vDepItem) Then
-                            cboDepartment.SelectedValue = vDepItem.Value
-                        End If
                 End Select
             End If
         Catch ex As Exception
@@ -61,16 +54,15 @@
 
     Public Sub setID(ByVal vID As Integer)
         Dim vContext As timetableEntities = New timetableEntities()
-        Dim vDepart = (From p In vContext.departments Where p.ID = vID Select p).Single
-        cboFaculty.SelectedValue = CStr(vDepart.school.facultyID)
-        cboSchool.SelectedValue = CStr(vDepart.SchoolID)
-        cboDepartment.SelectedValue = CStr(vDepart.ID)
+        Dim vSchool = (From p In vContext.schools Where p.id = vID Select p).Single
+        cboFaculty.SelectedValue = CStr(vSchool.facultyID)
+        cboSchool.SelectedValue = CStr(vSchool.id)
     End Sub
 
     Public Function getID() As Integer
         Dim vID = 0
         Try
-            vID = CInt(cboDepartment.SelectedValue)
+            vID = CInt(cboSchool.SelectedValue)
         Catch ex As Exception
             vID = 0
         End Try
@@ -133,27 +125,6 @@
         If SetDefault Then
             SelectType(eType.school)
         End If
-        loadDepartments(SetDefault)
-    End Sub
-
-    Sub loadDepartments(ByVal SetDefault As Boolean)
-        Dim vContext As timetableEntities = New timetableEntities
-        cboDepartment.Items.Clear()
-        If cboSchool.SelectedIndex >= 0 Then
-            Dim SchoolID = CType(Me.cboSchool.SelectedValue, Integer)
-            Me.cboDepartment.DataSource = (From p In vContext.departments
-                                Where p.SchoolID = SchoolID
-                                    Order By p.longName
-                                        Select longName = p.longName, p.ID)
-        Else
-            Me.cboDepartment.DataSource = Nothing
-        End If
-        Me.cboDepartment.DataTextField = "longName"
-        Me.cboDepartment.DataValueField = "ID"
-        Me.cboDepartment.DataBind()
-        If SetDefault Then
-            SelectType(eType.department)
-        End If
         generateEvent()
     End Sub
 
@@ -162,11 +133,7 @@
     End Sub
 
 
-    Private Sub cboDepartment_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles cboDepartment.SelectedIndexChanged
-        generateEvent()
-    End Sub
-
     Private Sub cboSchool_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles cboSchool.SelectedIndexChanged
-        loadDepartments(False)
+        generateEvent()
     End Sub
 End Class

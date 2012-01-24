@@ -291,4 +291,13 @@ Partial Public Class managesubject
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnCancelEdit As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''ucClassGroups control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ucClassGroups As Global.FlexTimeTable.classgroups
 End Class

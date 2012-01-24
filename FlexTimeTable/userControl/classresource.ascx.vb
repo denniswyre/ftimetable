@@ -10,6 +10,11 @@
         End Set
     End Property
 
+    Public Sub SetView(ByVal ViewOnly As Boolean)
+        grdResource.Columns(5).Visible = Not ViewOnly
+        lnkCreate.Visible = Not ViewOnly
+    End Sub
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
             LoadResourceTypes()
@@ -31,7 +36,7 @@
     Private Sub LoadResourceTypes()
         Dim vContext As timetableEntities = New timetableEntities()
         With cboResourceType
-            .DataSource = (From p In vContext.resourcetypes Order By p.code Select name = (p.code + "(" + p.Description + ")"), p.ID)
+            .DataSource = (From p In vContext.resourcetypes Order By p.code Select name = p.code + " (" + p.Description + ")", p.ID)
             .DataTextField = "name"
             .DataValueField = "ID"
             .DataBind()
@@ -51,17 +56,17 @@
                                              slots = p.AmtTimeSlots,
                                              size = p.AmtParticipants)
         grdResource.DataBind()
-        loadAvailableVenues()
         Pages.ActiveViewIndex = 0
     End Sub
 
     Sub loadAvailableVenues()
         With cboAvailVenue
             Dim vContext As timetableEntities = New timetableEntities()
-            Dim vClusterID = (From p In vContext.classgroups Where p.ID = ClassID Select p.SiteClusterID).First
+            Dim vResourceID = CInt(cboResourceType.SelectedValue)
+            Dim vClusterID = (From p In vContext.classgroups Where p.ID = ClassID Select p.SiteClusterID).Single
             Dim vVenues = (From p In vContext.venues
                              Where p.building.site.SiteClusterID = vClusterID And
-                                   p.resourcetype.ID = CInt(cboResourceType.SelectedValue)
+                                   p.resourcetype.ID = vResourceID
                                Select name = (p.Code + "," + p.Description + p.building.shortName), p.ID).ToList
             .DataSource = vVenues
             .DataTextField = "name"
@@ -124,7 +129,7 @@
                 Pages.ActiveViewIndex = 1
             Case eMode.create
                 Me.lblID.Text = ""
-                txtName.Text = ""
+                txtName.Text = getResourceName()
                 txtNoOfParticipants.Text = ""
                 cboAmtTimeSlots.SelectedIndex = 0
                 cboMergedTimeSlots.SelectedIndex = 0
@@ -163,6 +168,7 @@
         Dim AmtParticipants As Integer
         Dim AmtTimeSlots As Integer
         Dim MaxMergedTimeSlots As Integer
+        Dim TimeslotsArrangement As String
     End Structure
 
     Function prepareClassResource() As sResource
@@ -177,7 +183,8 @@
             .year = getResourceYear(classgroup.academicblock.startWeek, classgroup.academicblock.endWeek),
             .startWeek = classgroup.academicblock.startWeek,
             .endWeek = classgroup.academicblock.endWeek,
-            .classgrouplinked = True}
+            .classgrouplinked = True,
+            .TimeslotsArrangement = ""}
         Return vRes
     End Function
 
@@ -186,7 +193,7 @@
         Dim vContext As timetableEntities = New timetableEntities()
         Dim classgroup = (From p In vContext.classgroups Where p.ID = ClassID Select p).First
         Dim vRes As New sResource With {
-            .Name = "Main",
+            .Name = getResourceName(),
             .AmtParticipants = classgroup.classSize,
             .AmtTimeSlots = classgroup.TimeSlotTotal,
             .MaxMergedTimeSlots = CInt(ConfigurationManager.AppSettings("defaultClassMaxMergedSlots")),
@@ -194,12 +201,32 @@
             .year = getResourceYear(classgroup.academicblock.startWeek, classgroup.academicblock.endWeek),
             .startWeek = classgroup.academicblock.startWeek,
             .endWeek = classgroup.academicblock.endWeek,
-            .classgrouplinked = True}
+            .classgrouplinked = True,
+            .TimeslotsArrangement = ""}
         Return CreateResource(vRes)
     End Function
 
     Protected Function CreateResource() As Integer
         Return CreateResource(prepareClassResource())
+    End Function
+
+
+    Function getResourceName() As String
+        Dim vContext As timetableEntities = New timetableEntities()
+        Dim vclassgroup = (From p In vContext.classgroups Where p.ID = ClassID Select p).First
+        Dim i = 0
+        Do
+            Dim vName = vclassgroup.siteclustersubject.subject.Code + CStr(vclassgroup.SiteClusterID) + vclassgroup.code + CStr(i)
+            Dim vResource As resource =
+                   (From p In vContext.resources
+                       Where p.Name = vName
+                           Select p).FirstOrDefault
+            If IsNothing(vResource) Then
+                Return vName
+            End If
+            i = i + 1
+        Loop While True
+        Return ""
     End Function
 
     Protected Function CreateResource(ByVal vRes As sResource) As Integer
@@ -214,7 +241,8 @@
           .startWeek = vRes.startweek,
           .endWeek = vRes.endweek,
           .classgrouplinked = vRes.classgrouplinked,
-          .ResourceTypeID = vRes.ResourceTypeID}
+          .ResourceTypeID = vRes.ResourceTypeID,
+          .TimeslotsArrangement = vRes.TimeslotsArrangement}
         vContext.resources.AddObject(vResource)
         vContext.SaveChanges()
         vResource.classgroups.Add(vclassgroup)
@@ -243,6 +271,7 @@
             .endWeek = vRes.endweek
             .classgrouplinked = vRes.classgrouplinked
             .ResourceTypeID = vRes.ResourceTypeID
+            .TimeslotsArrangement = vRes.TimeslotsArrangement
         End With
         vContext.SaveChanges()
         saveVenues(vResource)
@@ -278,10 +307,6 @@
         Catch ex As Exception
             lblMessage.Text = ex.Message
         End Try
-    End Sub
-
-    Private Sub cboResourceType_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboResourceType.SelectedIndexChanged
-        loadAvailableVenues()
     End Sub
 
     Protected Sub btnVenueAdd_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnVenueAdd.Click
@@ -348,5 +373,9 @@
             vContext.SaveChanges()
         Next
 
+    End Sub
+
+    Private Sub Page_PreRender(sender As Object, e As System.EventArgs) Handles Me.PreRender
+        loadAvailableVenues()
     End Sub
 End Class

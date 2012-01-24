@@ -1,8 +1,13 @@
 ﻿Public Class ClassLecturer
     Inherits System.Web.UI.UserControl
 
-    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
+    Public Sub setView(ByVal ViewOnly As Boolean)
+        phEdit.Visible = Not ViewOnly
+        If ViewOnly Then
+            litLabel.Text = ""
+        Else
+            litLabel.Text = "Assigned:"
+        End If
     End Sub
 
     Public Property mSubjectID() As Integer

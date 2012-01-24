@@ -4,6 +4,7 @@
 <%@ Register Src="~/userControl/logButton.ascx" TagName="logButton" TagPrefix="uc1" %>
 <%@ Register Src="~/userControl/getDepartment.ascx" TagName="getDepartment" TagPrefix="uc2" %>
 <%@ Register Src="~/userControl/subjectsearch.ascx" TagName="subjectsearch" TagPrefix="uc3" %>
+<%@ Register src="~/userControl/classgroups.ascx" tagname="classgroups" tagprefix="uc4" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <style type="text/css">
         .style1
@@ -106,6 +107,8 @@
                     </tr>
                 </table>
             </asp:Panel>
+                        <uc4:classgroups ID="ucClassGroups" runat="server" />
+            
         </asp:View>
     </asp:MultiView>
 </asp:Content>

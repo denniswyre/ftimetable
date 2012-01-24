@@ -11,266 +11,248 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class manageprogramme
+Partial Public Class classgroups
 
     '''<summary>
-    '''errorMessage control.
+    '''pnlMain control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents errorMessage As Global.System.Web.UI.WebControls.Literal
+    Protected WithEvents pnlMain As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
-    '''getDepartment1 control.
+    '''litMessage control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents getDepartment1 As Global.FlexTimeTable.getDepartment
+    Protected WithEvents litMessage As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
-    '''litQualification control.
+    '''pnlDelivery control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents litQualification As Global.System.Web.UI.WebControls.Literal
+    Protected WithEvents pnlDelivery As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
-    '''cboQualification control.
+    '''lstQualification control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents cboQualification As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents lstQualification As Global.System.Web.UI.WebControls.ListBox
 
     '''<summary>
-    '''phLevel control.
+    '''cboCluster control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents phLevel As Global.System.Web.UI.WebControls.PlaceHolder
+    Protected WithEvents cboCluster As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''litLevel control.
+    '''pnlClass control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents litLevel As Global.System.Web.UI.WebControls.Literal
+    Protected WithEvents pnlClass As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
-    '''cboLevel control.
+    '''mvClass control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents cboLevel As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents mvClass As Global.System.Web.UI.WebControls.MultiView
 
     '''<summary>
-    '''logSave control.
+    '''vwClassList control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents logSave As Global.FlexTimeTable.logButton
+    Protected WithEvents vwClassList As Global.System.Web.UI.WebControls.View
 
     '''<summary>
-    '''btnRefresh control.
+    '''lnkClass control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnRefresh As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents lnkClass As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
-    '''TabContainer1 control.
+    '''grdClasses control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents TabContainer1 As Global.AjaxControlToolkit.TabContainer
+    Protected WithEvents grdClasses As Global.System.Web.UI.WebControls.GridView
 
     '''<summary>
-    '''TabCore control.
+    '''vwClassDetail control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents TabCore As Global.AjaxControlToolkit.TabPanel
+    Protected WithEvents vwClassDetail As Global.System.Web.UI.WebControls.View
 
     '''<summary>
-    '''txtCoreSearch control.
+    '''btnReturn control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtCoreSearch As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents btnReturn As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
-    '''btnCoreSearch control.
+    '''pnlClassDetail control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnCoreSearch As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents pnlClassDetail As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
-    '''lstCoreSubjects control.
+    '''lblID control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lstCoreSubjects As Global.System.Web.UI.WebControls.ListBox
+    Protected WithEvents lblID As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''btnCoreAdd control.
+    '''txtCode control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnCoreAdd As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents txtCode As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''btnCoreRemove control.
+    '''cboOffering control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnCoreRemove As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents cboOffering As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''lstSelectedCoreSubjects control.
+    '''txtSize control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lstSelectedCoreSubjects As Global.System.Web.UI.WebControls.ListBox
+    Protected WithEvents txtSize As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''TabService control.
+    '''cboBlock control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents TabService As Global.AjaxControlToolkit.TabPanel
+    Protected WithEvents cboBlock As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''txtServiceSearch control.
+    '''Label1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtServiceSearch As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents Label1 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''btnServiceSearch control.
+    '''cboTimeSlots control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnServiceSearch As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents cboTimeSlots As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''lstServiceSubjects control.
+    '''ucClassLecturer control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lstServiceSubjects As Global.System.Web.UI.WebControls.ListBox
+    Protected WithEvents ucClassLecturer As Global.FlexTimeTable.ClassLecturer
 
     '''<summary>
-    '''btnServiceAdd control.
+    '''ucClassResource control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnServiceAdd As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents ucClassResource As Global.FlexTimeTable.classresource
 
     '''<summary>
-    '''btnServiceRemove control.
+    '''pnlControl control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnServiceRemove As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents pnlControl As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
-    '''lstSelectedServiceSubject control.
+    '''btnSave control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lstSelectedServiceSubject As Global.System.Web.UI.WebControls.ListBox
+    Protected WithEvents btnSave As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''TabClusters control.
+    '''btnDelete control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents TabClusters As Global.AjaxControlToolkit.TabPanel
+    Protected WithEvents btnDelete As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''lstAllClusters control.
+    '''btnCancel control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lstAllClusters As Global.System.Web.UI.WebControls.ListBox
+    Protected WithEvents btnCancel As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''btnClusterAdd control.
+    '''btnEdit control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnClusterAdd As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''btnClusterRemove control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnClusterRemove As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''lstSelectedClusters control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lstSelectedClusters As Global.System.Web.UI.WebControls.ListBox
+    Protected WithEvents btnEdit As Global.System.Web.UI.WebControls.Button
 End Class

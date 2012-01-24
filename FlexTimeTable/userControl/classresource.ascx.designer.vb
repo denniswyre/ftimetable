@@ -14,6 +14,15 @@ Option Explicit On
 Partial Public Class classresource
 
     '''<summary>
+    '''PnlResources control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents PnlResources As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
     '''Pages control.
     '''</summary>
     '''<remarks>

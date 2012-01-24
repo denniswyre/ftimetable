@@ -47,12 +47,14 @@
                                                 " <b>Faculty:</b>" + vDepart.school.faculty.code
             End If
             Dim vFacultyID = .department.school.facultyID
+            Dim FacAccess = clsOfficer.isAccessValid(User.Identity.Name, vFacultyID)
             If vFacultyID = DummyFacultyID Then
                 phAccess.Visible = clsOfficer.isAccessValid(User.Identity.Name, 0)
             Else
-                phAccess.Visible = clsOfficer.isAccessValid(User.Identity.Name, vFacultyID)
+                phAccess.Visible = FacAccess
             End If
-            logDelete.Visible = clsOfficer.isAccessValid(User.Identity.Name, vFacultyID)
+            logDelete.Visible = FacAccess
+            ucClassGroups.setSubject(vID, FacAccess)
         End With
 
         changeMode(eMode.view)
@@ -78,6 +80,7 @@
                 pnlDetail.GroupingText = "Subject Details"
                 phID.Visible = True
                 phOldCodes.Visible = True
+                ucClassGroups.Visible = True
             Case eMode.edit
                 ucGetDepartment.Visible = True
                 pnlDetail.Enabled = True
@@ -87,6 +90,7 @@
                 btnCancelEdit.Visible = True
                 phID.Visible = True
                 phOldCodes.Visible = True
+                ucClassGroups.Visible = False
             Case eMode.create
                 lblOldCodes.Text = ""
                 litOldDepartment.Text = ""
@@ -104,6 +108,7 @@
                 btnCancelEdit.Visible = True
                 phID.Visible = False
                 phOldCodes.Visible = False
+                ucClassGroups.Visible = False
         End Select
     End Sub
 

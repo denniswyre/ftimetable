@@ -14,6 +14,24 @@ Option Explicit On
 Partial Public Class ClassLecturer
 
     '''<summary>
+    '''pnlLecturer control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlLecturer As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''litLabel control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents litLabel As Global.System.Web.UI.WebControls.Literal
+
+    '''<summary>
     '''lblLecturer control.
     '''</summary>
     '''<remarks>
@@ -21,6 +39,15 @@ Partial Public Class ClassLecturer
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblLecturer As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''phEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents phEdit As Global.System.Web.UI.WebControls.PlaceHolder
 
     '''<summary>
     '''cboLecturer control.

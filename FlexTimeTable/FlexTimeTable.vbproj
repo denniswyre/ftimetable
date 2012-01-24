@@ -58,6 +58,9 @@
       <HintPath>obj\Release\Artem.Google.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data, Version=6.3.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="OpenPop">
+      <HintPath>..\..\..\..\..\..\Public\Documents\Components\OpenPop.NET 2.0.2\OpenPop.NET 2.0.2\binaries\signed (strong name)\OpenPop.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
@@ -118,6 +121,7 @@
     <Content Include="mSysAd\NormalSubject.aspx" />
     <Content Include="userControl\getSchool.ascx" />
     <Content Include="userControl\departmentSearch.ascx" />
+    <Content Include="userControl\classgroups.ascx" />
     <Content Include="userControl\qualificationDetails.ascx" />
     <Content Include="userControl\qualificationsearch.ascx" />
     <Content Include="userControl\subjectsearch.ascx" />
@@ -192,6 +196,9 @@
       <DependentUpon>NormalSubject.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="userControl\classgroups.ascx.designer.vb">
+      <DependentUpon>classgroups.ascx</DependentUpon>
+    </Compile>
     <Compile Include="userControl\getSchool.ascx.designer.vb">
       <DependentUpon>getSchool.ascx</DependentUpon>
     </Compile>
@@ -205,6 +212,13 @@
     <Compile Include="userControl\departmentSearch.ascx.vb">
       <DependentUpon>departmentSearch.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="userControl\classgroups.ascx.vb">
+      <DependentUpon>classgroups.ascx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="userControl\logButton.ascx.designer.vb">
+      <DependentUpon>logButton.ascx</DependentUpon>
     </Compile>
     <Compile Include="userControl\qualificationDetails.ascx.designer.vb">
       <DependentUpon>qualificationDetails.ascx</DependentUpon>
@@ -507,9 +521,6 @@
     <Compile Include="userControl\ldap.ascx.vb">
       <DependentUpon>ldap.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="userControl\logButton.ascx.designer.vb">
-      <DependentUpon>logButton.ascx</DependentUpon>
     </Compile>
     <Compile Include="userControl\logButton.ascx.vb">
       <DependentUpon>logButton.ascx</DependentUpon>

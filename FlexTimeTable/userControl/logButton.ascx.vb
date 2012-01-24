@@ -1,5 +1,5 @@
 ﻿Imports System.Web.HttpContext
-Public Class logButton
+Partial Class logButton
     Inherits System.Web.UI.UserControl
 
     Public Event Click As System.EventHandler

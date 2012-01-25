@@ -113,6 +113,15 @@ Partial Public Class classgroups
     Protected WithEvents vwClassDetail As Global.System.Web.UI.WebControls.View
 
     '''<summary>
+    '''btnEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnEdit As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
     '''btnReturn control.
     '''</summary>
     '''<remarks>
@@ -194,24 +203,6 @@ Partial Public Class classgroups
     Protected WithEvents cboTimeSlots As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''ucClassLecturer control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ucClassLecturer As Global.FlexTimeTable.ClassLecturer
-
-    '''<summary>
-    '''ucClassResource control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ucClassResource As Global.FlexTimeTable.classresource
-
-    '''<summary>
     '''pnlControl control.
     '''</summary>
     '''<remarks>
@@ -248,11 +239,20 @@ Partial Public Class classgroups
     Protected WithEvents btnCancel As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''btnEdit control.
+    '''ucClassLecturer control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnEdit As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents ucClassLecturer As Global.FlexTimeTable.ClassLecturer
+
+    '''<summary>
+    '''ucClassResource control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ucClassResource As Global.FlexTimeTable.classresource
 End Class

@@ -283,6 +283,26 @@ Public Class classgroups
         End With
     End Sub
 
+    Function isClassCodeValid(ByVal vCode As String, ByVal vClassID As Integer, vSiteClusterID As Integer, vSubjectID As Integer) As Boolean
+        Dim vContext As timetableEntities = New timetableEntities()
+        Dim vClass As classgroup =
+            (From p In vContext.classgroups
+                Where p.code = vCode And
+                      p.SiteClusterID = vSiteClusterID And
+                      p.SubjectID = vSubjectID
+                            Select p).FirstOrDefault
+        If IsNothing(vClass) Then
+            Return True
+        Else
+            If vClass.ID = vClassID Then
+                Return True
+            Else
+                Return False
+            End If
+        End If
+    End Function
+
+
     Protected Function CreateClass() As Integer
         Dim vContext As timetableEntities = New timetableEntities()
         Dim vSiteClusterID = CType(cboCluster.SelectedItem.Value, Integer)
@@ -299,6 +319,10 @@ Public Class classgroups
                             .SubjectID = vSubjectID}
             vContext.siteclustersubjects.AddObject(vSiteSubject)
             vContext.SaveChanges()
+        End If
+
+        If Not isClassCodeValid(txtCode.Text, 0, vSiteClusterID, vSubjectID) Then
+            Throw New OverflowException("Code already exists for this Subject and Cluster")
         End If
 
         Dim vClass = New classgroup With {
@@ -318,9 +342,15 @@ Public Class classgroups
 
     Protected Sub UpdateClass()
         Dim vContext As timetableEntities = New timetableEntities()
+        Dim vSiteClusterID = CType(cboCluster.SelectedItem.Value, Integer)
+        Dim vSubjectID = GetSubjectID()
+        Dim vClassID = CType(lblID.Text, Integer)
+        If Not isClassCodeValid(txtCode.Text, vClassID, vSiteClusterID, vSubjectID) Then
+            Throw New OverflowException("Code already exists for this Subject and Cluster")
+        End If
         Dim vClass As classgroup = _
             (From p In vContext.classgroups _
-                Where p.ID = CType(lblID.Text, Integer) _
+                Where p.ID = vClassID _
                     Select p).First
         With vClass
             .code = txtCode.Text

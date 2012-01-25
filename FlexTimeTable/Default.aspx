@@ -11,9 +11,13 @@
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <h2>
-        Welcome to Multi-Campus TimeTable Management System
+        WSU TimeTable System
     </h2>
     <asp:Literal ID="litMessage" runat="server"></asp:Literal>
+    <div>
+    
+  
+    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Changes.aspx" Target="_blank">Click Here to View Summary of Changes Made</asp:HyperLink>  </div>
     <table>
         <tr>
             <td>

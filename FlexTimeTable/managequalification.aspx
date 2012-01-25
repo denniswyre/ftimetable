@@ -79,9 +79,11 @@
                     </asp:PlaceHolder>
                     <tr>
                         <td colspan="2" align="center">
-                            <uc1:logButton ID="logSave" runat="server" />
-                            <uc1:logButton ID="logDelete" runat="server" />
-                            <asp:Button ID="btnCancelEdit" runat="server" Text="Cancel" />
+                            <asp:Panel ID="pnlControl" runat="server">
+                                <uc1:logButton ID="logSave" runat="server" />
+                                <uc1:logButton ID="logDelete" runat="server" />
+                                <asp:Button ID="btnCancelEdit" runat="server" Text="Cancel" />
+                            </asp:Panel>
                         </td>
                     </tr>
                 </table>

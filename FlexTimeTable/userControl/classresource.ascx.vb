@@ -13,6 +13,7 @@
     Public Sub SetView(ByVal ViewOnly As Boolean)
         grdResource.Columns(5).Visible = Not ViewOnly
         lnkCreate.Visible = Not ViewOnly
+        Pages.ActiveViewIndex = CInt(IIf(ViewOnly, 0, 1))
     End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load

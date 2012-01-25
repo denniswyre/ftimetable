@@ -16,7 +16,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h3>
         Manage Department</h3>
-    <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
+    <asp:Literal ID="litMessage" runat="server" Text=""></asp:Literal><br />
     <asp:MultiView ID="mvDept" runat="server" ActiveViewIndex="0">
         <asp:View ID="vwGrid" runat="server">
             <asp:LinkButton ID="lnkCreate" runat="server">New Department</asp:LinkButton>
@@ -67,9 +67,11 @@
                     </tr>
                     <tr>
                         <td colspan="2" align="center">
-                            <uc1:logButton ID="logSave" runat="server" />
-                            <uc1:logButton ID="logDelete" runat="server" />
-                            <asp:Button ID="btnCancelEdit" runat="server" Text="Cancel" />
+                            <asp:Panel ID="pnlControl" runat="server">
+                                <uc1:logButton ID="logSave" runat="server" />
+                                <uc1:logButton ID="logDelete" runat="server" />
+                                <asp:Button ID="btnCancelEdit" runat="server" Text="Cancel" />
+                            </asp:Panel>
                         </td>
                     </tr>
                 </table>

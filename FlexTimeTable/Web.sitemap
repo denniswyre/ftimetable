@@ -33,7 +33,6 @@
       <siteMapNode url="~/mVenAd/managecluster.aspx" title="Site Clusters"  description="" roles="venueAdmin" />
     </siteMapNode>
     <siteMapNode title="Academic Management"  description="" roles="*">
-      <siteMapNode url="~/mResAd/manageclusterclasses.aspx" title="Classes"  description="" roles="resourceAdmin" />
       <siteMapNode url="~/mResAd/managelecturer.aspx" title="Lecturers"  description="" roles="resourceAdmin" />
       <siteMapNode url="~/managequalification.aspx" title="Qualifications"  description="" roles="*" />
       <siteMapNode url="~/managesubject.aspx" title="Subjects"  description="" roles="*" />

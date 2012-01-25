@@ -266,6 +266,15 @@ Partial Public Class managesubject
     Protected WithEvents chkYearBlock As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
+    '''pnlControl control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlControl As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
     '''logSave control.
     '''</summary>
     '''<remarks>

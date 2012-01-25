@@ -73,7 +73,7 @@
             Case eMode.view
                 ucGetDepartment.Visible = False
                 logSave.Text = "Update"
-                btnCancelEdit.Visible = False
+                pnlControl.Visible = False
                 pnlDetail.Enabled = False
                 pnlDetail.GroupingText = "Qualification Details"
                 phID.Visible = True
@@ -85,7 +85,7 @@
                 logSave.Text = "Update"
                 pnlDetail.GroupingText = "Edit Qualification"
                 phAccess.Visible = False
-                btnCancelEdit.Visible = True
+                pnlControl.Visible = True
                 phID.Visible = True
                 phOldCodes.Visible = True
                 ucQualDetail.Visible = False
@@ -103,7 +103,7 @@
                 Me.logSave.Visible = True
                 pnlDetail.GroupingText = "Create Qualification"
                 phAccess.Visible = False
-                btnCancelEdit.Visible = True
+                pnlControl.Visible = True
                 phID.Visible = False
                 phOldCodes.Visible = False
                 ucQualDetail.Visible = False

@@ -230,6 +230,15 @@ Partial Public Class managequalification
     Protected WithEvents lblOldCodes As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''pnlControl control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlControl As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
     '''logSave control.
     '''</summary>
     '''<remarks>

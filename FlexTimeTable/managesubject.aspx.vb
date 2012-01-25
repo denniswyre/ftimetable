@@ -75,7 +75,7 @@
             Case eMode.view
                 ucGetDepartment.Visible = False
                 logSave.Text = "Update"
-                btnCancelEdit.Visible = False
+                pnlControl.Visible = False
                 pnlDetail.Enabled = False
                 pnlDetail.GroupingText = "Subject Details"
                 phID.Visible = True
@@ -87,7 +87,7 @@
                 logSave.Text = "Update"
                 pnlDetail.GroupingText = "Edit subject"
                 phAccess.Visible = False
-                btnCancelEdit.Visible = True
+                pnlControl.Visible = True
                 phID.Visible = True
                 phOldCodes.Visible = True
                 ucClassGroups.Visible = False
@@ -105,7 +105,7 @@
                 logSave.Text = "Save"
                 pnlDetail.GroupingText = "Create subject"
                 phAccess.Visible = False
-                btnCancelEdit.Visible = True
+                pnlControl.Visible = True
                 phID.Visible = False
                 phOldCodes.Visible = False
                 ucClassGroups.Visible = False

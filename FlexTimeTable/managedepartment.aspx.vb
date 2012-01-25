@@ -1,4 +1,4 @@
-﻿Public Class managedepartment
+﻿Partial Class managedepartment
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -10,7 +10,39 @@
         End If
     End Sub
 
-    
+
+    Sub DisplayDepartment(ByVal vID As Integer)
+        Dim vContext As timetableEntities = New timetableEntities()
+        Dim vDepart As department = _
+                   (From p In vContext.departments _
+                       Where p.ID = vID Select p).First
+        With vDepart
+            Me.lblID.Text = .ID.ToString
+            Me.txtCode.Text = .code
+            Me.txtShortName.Text = .shortName
+            Me.txtLongName.Text = .longName
+
+            Dim DummyFacultyID = CType(ConfigurationManager.AppSettings("dummyfaculty"), Integer)
+            Dim vSchoolID = .SchoolID
+            If .school.facultyID = DummyFacultyID Then
+                litOldSchool.Text = "<b>Linked School:None</b>"
+            Else
+                litOldSchool.Text = "<b>Linked School:</b>" + .school.longName +
+                                   " <b>Faculty:</b>" + .school.faculty.code
+            End If
+            changeMode(eMode.view)
+
+            Dim vFacultyID = .school.faculty.ID
+            If vFacultyID = DummyFacultyID Then
+                phAccess.Visible = clsOfficer.isAccessValid(User.Identity.Name, 0)
+            Else
+                phAccess.Visible = clsOfficer.isAccessValid(User.Identity.Name, .school.faculty.ID)
+            End If
+            logDelete.Visible = clsOfficer.isAccessValid(User.Identity.Name, .school.faculty.ID)
+            litMessage.Text = ""
+            mvDept.SetActiveView(vwEdit)
+        End With
+    End Sub
 
     Enum eMode
         view
@@ -24,22 +56,18 @@
         Select Case vMode
             Case eMode.view
                 ucSchool.Visible = False
-                '   Me.logDelete.Visible = False
-                '  Me.logSave.Visible = False
                 logSave.Text = "Update"
-                btnCancelEdit.Visible = False
+                pnlControl.Visible = False
                 pnlDetail.Enabled = False
                 pnlDetail.GroupingText = "Department Details"
                 phID.Visible = True
             Case eMode.edit
                 ucSchool.Visible = True
                 pnlDetail.Enabled = True
-                ' Me.logDelete.Visible = True
-                'Me.logSave.Visible = True
                 logSave.Text = "Update"
                 pnlDetail.GroupingText = "Edit Department"
                 phAccess.Visible = False
-                btnCancelEdit.Visible = True
+                pnlControl.Visible = True
                 phID.Visible = True
             Case eMode.create
                 litOldSchool.Text = ""
@@ -54,19 +82,19 @@
                 logSave.Text = "Save"
                 pnlDetail.GroupingText = "Create Department"
                 phAccess.Visible = False
-                btnCancelEdit.Visible = True
+                pnlControl.Visible = True
                 phID.Visible = False
         End Select
     End Sub
 
     Private Sub lnkCreate_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles lnkCreate.Click
         changeMode(eMode.create)
-        lblMessage.Text = ""
+        litMessage.Text = ""
     End Sub
 
     Protected Sub btnCancel_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnCancel.Click
         mvDept.SetActiveView(vwGrid)
-        lblMessage.Text = ""
+        litMessage.Text = ""
     End Sub
 
     Protected Function CreateDepartment() As Integer
@@ -184,59 +212,25 @@
                 vID = CInt(Me.lblID.Text)
                 UpdateDepartment()
             End If
-            lblMessage.Text = ""
+            litMessage.Text = ""
             DisplayDepartment(vID)
         Catch ex As Exception
-            lblMessage.Text = ex.Message
+            litMessage.Text = clsGeneral.displaymessage(ex.Message, True)
         End Try
     End Sub
 
     Private Sub logDelete_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles logDelete.Click
         Try
             DeleteDepartment()
-            lblMessage.Text = ""
+            litMessage.Text = ""
             mvDept.SetActiveView(vwGrid)
         Catch ex As Exception
-            lblMessage.Text = ex.Message
+            litMessage.Text = clsGeneral.displaymessage(ex.Message, True)
         End Try
     End Sub
 
     Private Sub ucDepartmentSearch_DepartmentClick(E As Object, Args As clsDepartmentEvent) Handles ucDepartmentSearch.DepartmentClick
         DisplayDepartment(Args.mDepartmentID)
-    End Sub
-
-
-    Sub DisplayDepartment(ByVal vID As Integer)
-        Dim vContext As timetableEntities = New timetableEntities()
-        Dim vDepart As department = _
-                   (From p In vContext.departments _
-                       Where p.ID = vID Select p).First
-        With vDepart
-            Me.lblID.Text = .ID.ToString
-            Me.txtCode.Text = .code
-            Me.txtShortName.Text = .shortName
-            Me.txtLongName.Text = .longName
-
-            Dim DummyFacultyID = CType(ConfigurationManager.AppSettings("dummyfaculty"), Integer)
-            Dim vSchoolID = .SchoolID
-            If .school.facultyID = DummyFacultyID Then
-                litOldSchool.Text = "<b>Linked School:None</b>"
-            Else
-                litOldSchool.Text = "<b>Linked School:</b>" + .school.longName +
-                                   " <b>Faculty:</b>" + .school.faculty.code
-            End If
-            changeMode(eMode.view)
-
-            Dim vFacultyID = .school.faculty.ID
-            If vFacultyID = DummyFacultyID Then
-                phAccess.Visible = clsOfficer.isAccessValid(User.Identity.Name, 0)
-            Else
-                phAccess.Visible = clsOfficer.isAccessValid(User.Identity.Name, .school.faculty.ID)
-            End If
-            logDelete.Visible = clsOfficer.isAccessValid(User.Identity.Name, .school.faculty.ID)
-            lblMessage.Text = ""
-            mvDept.SetActiveView(vwEdit)
-        End With
     End Sub
 
     Private Sub lnkEdit_Click(sender As Object, e As System.EventArgs) Handles lnkEdit.Click
@@ -249,6 +243,6 @@
         Else
             DisplayDepartment(CInt(Me.lblID.Text))
         End If
-        lblMessage.Text = ""
+        litMessage.Text = ""
     End Sub
 End Class

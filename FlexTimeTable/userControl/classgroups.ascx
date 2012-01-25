@@ -53,6 +53,7 @@
             <asp:View ID="vwClassDetail" runat="server">
                 <div style="float: right">
                     <a href="#top">Top</a>&nbsp;&nbsp; <a href="#bottom">Bottom</a> &nbsp;&nbsp;
+                    <asp:LinkButton ID="btnEdit" runat="server">Edit</asp:LinkButton>&nbsp;&nbsp;
                     <asp:LinkButton ID="btnReturn" runat="server">Close</asp:LinkButton>
                 </div>
                 <div style="clear: both">
@@ -110,17 +111,20 @@
                                 </asp:DropDownList>
                             </td>
                         </tr>
+                        <tr>
+                            <td colspan="2">
+                                <asp:Panel ID="pnlControl" runat="server">
+                                    <asp:Button ID="btnSave" runat="server" Text="Save"></asp:Button>
+                                    <asp:Button ID="btnDelete" runat="server" Text="Delete"></asp:Button>
+                                    <asp:Button ID="btnCancel" runat="server" Text="Cancel"></asp:Button>
+                                </asp:Panel>
+                            </td>
+                        </tr>
                     </table>
                 </asp:Panel>
                 <a name="bottom"></a>
                 <uc2:ClassLecturer ID="ucClassLecturer" runat="server" />
                 <uc3:classresource id="ucClassResource" runat="server" />
-                <asp:Panel ID="pnlControl" runat="server">
-                    <asp:Button ID="btnSave" runat="server" Text="Save"></asp:Button>
-                    <asp:Button ID="btnDelete" runat="server" Text="Delete"></asp:Button>
-                    <asp:Button ID="btnCancel" runat="server" Text="Cancel"></asp:Button>
-                    <asp:Button ID="btnEdit" runat="server" Text="Edit"></asp:Button>
-                </asp:Panel>
             </asp:View>
         </asp:MultiView>
     </asp:Panel>

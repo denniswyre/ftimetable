@@ -116,6 +116,7 @@
     <Content Include="bin\FlexTimeTable.dll" />
     <Content Include="bin\FlexTimeTable.pdb" />
     <Content Include="bin\FlexTimeTable.xml" />
+    <Content Include="Changes.aspx" />
     <Content Include="images\ajax-loader.gif" />
     <Content Include="Login.aspx" />
     <Content Include="mSysAd\NormalSubject.aspx" />
@@ -189,6 +190,16 @@
     <Compile Include="App_Code\EventClasses.vb" />
     <Compile Include="App_Code\filetotableconversion.vb" />
     <Compile Include="App_Code\general.vb" />
+    <Compile Include="Changes.aspx.designer.vb">
+      <DependentUpon>Changes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Changes.aspx.vb">
+      <DependentUpon>Changes.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="managedepartment.aspx.designer.vb">
+      <DependentUpon>managedepartment.aspx</DependentUpon>
+    </Compile>
     <Compile Include="mSysAd\NormalSubject.aspx.designer.vb">
       <DependentUpon>NormalSubject.aspx</DependentUpon>
     </Compile>
@@ -306,9 +317,6 @@
     <Compile Include="mResAd\managelecturer.aspx.vb">
       <DependentUpon>managelecturer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="managedepartment.aspx.designer.vb">
-      <DependentUpon>managedepartment.aspx</DependentUpon>
     </Compile>
     <Compile Include="managedepartment.aspx.vb">
       <DependentUpon>managedepartment.aspx</DependentUpon>

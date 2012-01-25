@@ -4,7 +4,7 @@
 <%@ Register Src="~/userControl/logButton.ascx" TagName="logButton" TagPrefix="uc1" %>
 <%@ Register Src="~/userControl/getDepartment.ascx" TagName="getDepartment" TagPrefix="uc2" %>
 <%@ Register Src="~/userControl/subjectsearch.ascx" TagName="subjectsearch" TagPrefix="uc3" %>
-<%@ Register src="~/userControl/classgroups.ascx" tagname="classgroups" tagprefix="uc4" %>
+<%@ Register Src="~/userControl/classgroups.ascx" TagName="classgroups" TagPrefix="uc4" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <style type="text/css">
         .style1
@@ -100,15 +100,16 @@
                     </tr>
                     <tr>
                         <td colspan="2" align="center">
-                            <uc1:logButton ID="logSave" runat="server" />
-                            <uc1:logButton ID="logDelete" runat="server" />
-                            <asp:Button ID="btnCancelEdit" runat="server" Text="Cancel" />
+                            <asp:Panel ID="pnlControl" runat="server">
+                                <uc1:logButton ID="logSave" runat="server" />
+                                <uc1:logButton ID="logDelete" runat="server" />
+                                <asp:Button ID="btnCancelEdit" runat="server" Text="Cancel" />
+                            </asp:Panel>
                         </td>
                     </tr>
                 </table>
             </asp:Panel>
-                        <uc4:classgroups ID="ucClassGroups" runat="server" />
-            
+            <uc4:classgroups ID="ucClassGroups" runat="server" />
         </asp:View>
     </asp:MultiView>
 </asp:Content>

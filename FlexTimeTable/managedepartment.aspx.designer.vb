@@ -14,13 +14,13 @@ Option Explicit On
 Partial Public Class managedepartment
 
     '''<summary>
-    '''lblMessage control.
+    '''litMessage control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblMessage As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents litMessage As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
     '''mvDept control.
@@ -201,6 +201,15 @@ Partial Public Class managedepartment
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtLongName As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''pnlControl control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlControl As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
     '''logSave control.

@@ -6,6 +6,7 @@
             Return CInt(ViewState("classid"))
         End Get
         Set(ByVal value As Integer)
+            Pages.ActiveViewIndex = 0
             ViewState("classid") = CStr(value)
         End Set
     End Property
@@ -13,7 +14,7 @@
     Public Sub SetView(ByVal ViewOnly As Boolean)
         grdResource.Columns(5).Visible = Not ViewOnly
         lnkCreate.Visible = Not ViewOnly
-        Pages.ActiveViewIndex = CInt(IIf(ViewOnly, 0, 1))
+        Pages.ActiveViewIndex = 0
     End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -22,6 +23,7 @@
             loadTimeSlots()
             btnSave.Text = "Save"
             btnDelete.Text = "Delete"
+            Pages.ActiveViewIndex = 0
         End If
     End Sub
 

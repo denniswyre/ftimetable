@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="classresource.ascx.vb"
     Inherits="FlexTimeTable.classresource" %>
 <asp:Panel ID="PnlResources" GroupingText="Resources" Width="100%" runat="server">
-    <asp:MultiView ID="Pages" runat="server">
+    <asp:MultiView ID="Pages" runat="server" ActiveViewIndex="0">
         <asp:View ID="ViewGrid" runat="server">
             <asp:LinkButton ID="lnkCreate" runat="server">New Resource</asp:LinkButton>
             <asp:GridView ID="grdResource" runat="server" DataKeyNames="ID" AutoGenerateColumns="False">

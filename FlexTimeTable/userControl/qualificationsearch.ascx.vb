@@ -3,13 +3,29 @@ Partial Class qualificationsearch
     Inherits System.Web.UI.UserControl
 
     Public Event QualClick(ByVal E As Object, ByVal Args As clsQualEvent)
+    Public Event ExitClick(ByVal E As Object, ByVal Args As System.EventArgs)
+    Private Sub btnReturn_Click(sender As Object, e As System.EventArgs) Handles btnReturn.Click
+        RaiseEvent ExitClick(Me, e)
+    End Sub
 
+    Public Sub activateExit(ByVal Activate As Boolean)
+        btnReturn.Visible = Activate
+    End Sub
+
+    Public Sub getQualifications()
+        If optSearchType.SelectedIndex = 1 Then
+            loadQualificationsBySearch()
+        Else
+            loadByDepartment(ucDepartment.getID)
+        End If
+    End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
             ucDepartment.loadFaculty(Nothing)
             optSearchType.SelectedIndex = 0
             displaySearchType()
+            btnReturn.Visible = False
         End If
     End Sub
 

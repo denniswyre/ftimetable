@@ -8,7 +8,7 @@
     <asp:Panel ID="pnlDelivery" runat="server" GroupingText="Delivery Information" Width="100%">
         <table width="100%">
             <tr>
-                <td>
+                <td width="200px">
                     Qualification(s):
                 </td>
                 <td>
@@ -16,7 +16,7 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td width="200px">
                     Cluster:
                 </td>
                 <td>

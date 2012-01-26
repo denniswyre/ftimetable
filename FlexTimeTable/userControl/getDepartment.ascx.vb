@@ -2,7 +2,7 @@
     Inherits System.Web.UI.UserControl
 
     Public Event DepartmentClick(ByVal E As Object, ByVal Args As clsDepartmentEvent)
-
+    Public Event UpdateDepartment(ByVal e As Object, ByVal Args As System.EventArgs)
 
     Public WriteOnly Property enabled As Boolean
         Set(value As Boolean)
@@ -12,7 +12,9 @@
         End Set
     End Property
 
-
+    Public Sub setUpdate(ByVal activateButton As Boolean)
+        phUpdate.Visible = activateButton
+    End Sub
 
     Sub generateEvent()
         Dim DepartID = 0
@@ -102,6 +104,7 @@
     Private Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         If Not IsPostBack Then
             SetLabel(False)
+            phUpdate.Visible = False
         End If
     End Sub
 
@@ -168,5 +171,9 @@
 
     Private Sub cboSchool_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles cboSchool.SelectedIndexChanged
         loadDepartments(False)
+    End Sub
+
+    Private Sub btnUpdate_Click(sender As Object, e As System.EventArgs) Handles btnUpdate.Click
+        RaiseEvent UpdateDepartment(Me, e)
     End Sub
 End Class

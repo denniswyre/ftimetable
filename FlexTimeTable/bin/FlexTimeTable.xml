@@ -254,6 +254,14 @@ Panel1 control.
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
+</member><member name="F:FlexTimeTable.subjectsearch.btnReturn">
+	<summary>
+btnReturn control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
 </member><member name="F:FlexTimeTable.subjectsearch.lblMessage">
 	<summary>
 lblMessage control.
@@ -1343,6 +1351,22 @@ cboDepartment control.
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
+</member><member name="F:FlexTimeTable.getDepartment.phUpdate">
+	<summary>
+phUpdate control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.getDepartment.btnUpdate">
+	<summary>
+btnUpdate control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
 </member><member name="F:FlexTimeTable.getSchool.cboFaculty">
 	<summary>
 cboFaculty control.
@@ -1354,6 +1378,22 @@ To modify move field declaration from designer file to code-behind file.
 </member><member name="F:FlexTimeTable.getSchool.cboSchool">
 	<summary>
 cboSchool control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.getSchool.phUpdate">
+	<summary>
+phUpdate control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.getSchool.btnUpdate">
+	<summary>
+btnUpdate control.
 </summary>
 	<remarks>
 Auto-generated field.
@@ -5814,6 +5854,22 @@ lstError control.
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
+</member><member name="F:FlexTimeTable._Default.mvGeneral">
+	<summary>
+mvGeneral control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable._Default.vwMain">
+	<summary>
+vwMain control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
 </member><member name="F:FlexTimeTable._Default.litMessage">
 	<summary>
 litMessage control.
@@ -5894,25 +5950,25 @@ cboCluster control.
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
-</member><member name="F:FlexTimeTable._Default.mvType">
+</member><member name="F:FlexTimeTable._Default.phQual">
 	<summary>
-mvType control.
+phQual control.
 </summary>
 	<remarks>
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
-</member><member name="F:FlexTimeTable._Default.vwQual">
+</member><member name="F:FlexTimeTable._Default.lblQualCode">
 	<summary>
-vwQual control.
+lblQualCode control.
 </summary>
 	<remarks>
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
-</member><member name="F:FlexTimeTable._Default.cboQual">
+</member><member name="F:FlexTimeTable._Default.btnQual">
 	<summary>
-cboQual control.
+btnQual control.
 </summary>
 	<remarks>
 Auto-generated field.
@@ -5926,17 +5982,25 @@ cboLevel control.
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
-</member><member name="F:FlexTimeTable._Default.vwClass">
+</member><member name="F:FlexTimeTable._Default.phClass">
 	<summary>
-vwClass control.
+phClass control.
 </summary>
 	<remarks>
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
-</member><member name="F:FlexTimeTable._Default.cboSubject">
+</member><member name="F:FlexTimeTable._Default.lblSubjectCode">
 	<summary>
-cboSubject control.
+lblSubjectCode control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable._Default.btnSubject">
+	<summary>
+btnSubject control.
 </summary>
 	<remarks>
 Auto-generated field.
@@ -5950,9 +6014,9 @@ cboClassgroup control.
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
-</member><member name="F:FlexTimeTable._Default.vwVenue">
+</member><member name="F:FlexTimeTable._Default.phVenue">
 	<summary>
-vwVenue control.
+phVenue control.
 </summary>
 	<remarks>
 Auto-generated field.
@@ -6057,6 +6121,38 @@ To modify move field declaration from designer file to code-behind file.
 </member><member name="F:FlexTimeTable._Default.litFooter">
 	<summary>
 litFooter control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable._Default.vwQualification">
+	<summary>
+vwQualification control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable._Default.ucQqualificationSearch">
+	<summary>
+ucQqualificationSearch control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable._Default.vwSubject">
+	<summary>
+vwSubject control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable._Default.ucSubjectSearch">
+	<summary>
+ucSubjectSearch control.
 </summary>
 	<remarks>
 Auto-generated field.
@@ -6489,6 +6585,14 @@ To modify move field declaration from designer file to code-behind file.
 </member><member name="F:FlexTimeTable.qualificationsearch.pnlQual">
 	<summary>
 pnlQual control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.qualificationsearch.btnReturn">
+	<summary>
+btnReturn control.
 </summary>
 	<remarks>
 Auto-generated field.

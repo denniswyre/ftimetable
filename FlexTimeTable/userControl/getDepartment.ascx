@@ -29,5 +29,14 @@
             </asp:DropDownList>
         </td>
     </tr>
+    <asp:PlaceHolder ID="phUpdate" runat="server">
+        <tr>
+            <td width="200px">
+            </td>
+            <td>
+                <asp:Button ID="btnUpdate" runat="server" Text="Update Department" />
+            </td>
+        </tr>
+    </asp:PlaceHolder>
 </table>
 <hr />

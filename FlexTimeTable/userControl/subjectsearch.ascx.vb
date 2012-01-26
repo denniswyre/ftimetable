@@ -3,12 +3,29 @@ Partial Class subjectsearch
     Inherits System.Web.UI.UserControl
 
     Public Event SubjectClick(ByVal E As Object, ByVal Args As clsSubjectEvent)
+    Public Event ExitClick(ByVal E As Object, ByVal Args As System.EventArgs)
+    Private Sub btnReturn_Click(sender As Object, e As System.EventArgs) Handles btnReturn.Click
+        RaiseEvent ExitClick(Me, e)
+    End Sub
+    Public Sub activateExit(ByVal Activate As Boolean)
+        btnReturn.Visible = Activate
+    End Sub
+
+
+    Public Sub getSubjects()
+        If optSearchType.SelectedIndex = 1 Then
+            LoadSubjectsBySearch()
+        Else
+            loadByDepartment(ucDepartment.getID)
+        End If
+    End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
             ucDepartment.loadFaculty(Nothing)
             optSearchType.SelectedIndex = 0
             displaySearchType()
+            btnReturn.Visible = False
         End If
     End Sub
 
@@ -31,24 +48,33 @@ Partial Class subjectsearch
 
     Sub loadByDepartment(ByVal DepartmentID As Integer)
         Dim vContext As timetableEntities = New timetableEntities()
-        Me.grdsubject.DataSource = (From p In vContext.subjects Order By p.Code Where p.DepartmentID = DepartmentID Select p)
+        If DepartmentID > 0 Then
+            Me.grdsubject.DataSource = (From p In vContext.subjects Order By p.Code Where p.DepartmentID = DepartmentID Select p)
+        Else
+            Me.grdsubject.DataSource = Nothing
+        End If
         Me.grdsubject.DataBind()
     End Sub
 
 
     Sub LoadSubjectsBySearch()
+        Dim searchStr = txtSearchValue.Text
+        If Len(Trim(searchStr)) = 0 Then
+            loadByDepartment(0)
+            Exit Sub
+        End If
         Dim vContext As timetableEntities = New timetableEntities()
         Dim vSubjects As New List(Of subject)
         'add new code search
-        vSubjects = (From p In vContext.subjects Where p.Code.Contains(txtSearchValue.Text) Select p).ToList
-        Dim ProperOldCodeText = clsGeneral.correctCode(txtSearchValue.Text)
+        vSubjects = (From p In vContext.subjects Where p.Code.Contains(searchStr) Select p).ToList
+        Dim ProperOldCodeText = clsGeneral.correctCode(searchStr)
         Dim oldcodes = (From p In vContext.oldsubjectcodes Where p.OldCode.Contains(ProperOldCodeText) Select p)
         'add old code search
         For Each x In oldcodes.ToList
             vSubjects.Add(x.subject)
         Next
         'add name search
-        Dim NameSubjectSearch = (From p In vContext.subjects Where p.longName.Contains(txtSearchValue.Text) Select p).ToList
+        Dim NameSubjectSearch = (From p In vContext.subjects Where p.longName.Contains(searchStr) Select p).ToList
         For Each x In NameSubjectSearch
             vSubjects.Add(x)
         Next
@@ -84,11 +110,13 @@ Partial Class subjectsearch
 
 
     Protected Sub btnGet_Click(sender As Object, e As EventArgs) Handles btnGet.Click
-        LoadSubjectsBySearch()
+        getSubjects()  'LoadSubjectsBySearch()
     End Sub
 
 
     Private Sub ucDepartment_DepartmentClick(E As Object, Args As clsDepartmentEvent) Handles ucDepartment.DepartmentClick
-        loadByDepartment(Args.mDepartmentID)
+        getSubjects() '   loadByDepartment(Args.mDepartmentID)
     End Sub
+
+    
 End Class

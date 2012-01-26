@@ -3,6 +3,11 @@
 <%@ Register Src="~/userControl/logButton.ascx" TagName="logButton" TagPrefix="uc1" %>
 <%@ Register Src="getDepartment.ascx" TagName="getDepartment" TagPrefix="uc2" %>
 <asp:Panel ID="Panel1" GroupingText="Browse/Search Subjects" runat="server">
+    <div style="float: right">
+        <asp:LinkButton ID="btnReturn" runat="server">Close</asp:LinkButton>
+    </div>
+    <div style="clear: both">
+    </div>
     <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
     <asp:RadioButtonList ID="optSearchType" runat="server" AutoPostBack="True" RepeatDirection="Horizontal">
         <asp:ListItem>Browse</asp:ListItem>

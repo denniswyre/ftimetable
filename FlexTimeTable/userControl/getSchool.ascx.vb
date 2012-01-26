@@ -2,6 +2,7 @@
     Inherits System.Web.UI.UserControl
 
     Public Event SchoolClick(ByVal E As Object, ByVal Args As clsSchoolEvent)
+    Public Event UpdateSchool(ByVal e As Object, ByVal Args As System.EventArgs)
 
 
     Public WriteOnly Property enabled As Boolean
@@ -11,7 +12,9 @@
         End Set
     End Property
 
-
+    Public Sub setUpdate(ByVal activateButton As Boolean)
+        phUpdate.Visible = activateButton
+    End Sub
 
     Sub generateEvent()
         Dim SchoolID = 0
@@ -94,6 +97,7 @@
     Private Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         If Not IsPostBack Then
             SetLabel(False)
+            phUpdate.Visible = False
         End If
     End Sub
 
@@ -135,5 +139,10 @@
 
     Private Sub cboSchool_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles cboSchool.SelectedIndexChanged
         generateEvent()
+    End Sub
+
+
+    Private Sub btnUpdate_Click(sender As Object, e As System.EventArgs) Handles btnUpdate.Click
+        RaiseEvent UpdateSchool(Me, e)
     End Sub
 End Class

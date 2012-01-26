@@ -23,6 +23,15 @@ Partial Public Class subjectsearch
     Protected WithEvents Panel1 As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
+    '''btnReturn control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnReturn As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
     '''lblMessage control.
     '''</summary>
     '''<remarks>

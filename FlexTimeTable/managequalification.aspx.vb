@@ -79,6 +79,7 @@
                 phID.Visible = True
                 phOldCodes.Visible = True
                 ucQualDetail.Visible = True
+                ucGetDepartment.setUpdate(False)
             Case eMode.edit
                 ucGetDepartment.Visible = True
                 pnlDetail.Enabled = True
@@ -89,6 +90,8 @@
                 phID.Visible = True
                 phOldCodes.Visible = True
                 ucQualDetail.Visible = False
+                ucGetDepartment.setUpdate(True)
+                btnCancelEdit.Visible = True
             Case eMode.create
                 lblOldCodes.Text = ""
                 litOldDepartment.Text = ""
@@ -107,6 +110,8 @@
                 phID.Visible = False
                 phOldCodes.Visible = False
                 ucQualDetail.Visible = False
+                ucGetDepartment.setUpdate(False)
+                btnCancelEdit.Visible = False
         End Select
     End Sub
 
@@ -116,6 +121,7 @@
     End Sub
 
     Protected Sub btnCancel_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnCancel.Click
+        ucQualificationSearch.getQualifications()
         mvQual.SetActiveView(vwGrid)
         litMessage.Text = ""
     End Sub
@@ -145,7 +151,6 @@
             .longName = Me.txtLongName.Text
             .shortName = Me.txtShortName.Text
             .Code = txtCode.Text
-            .DepartmentID = ucGetDepartment.getID
         End With
         logSave.Function = "Update Qualification"
         logSave.Description = "From:" + pQualification.Code + ":" + pQualification.longName + "-----" + vQualification.Code + ":" + vQualification.longName
@@ -174,6 +179,28 @@
         End If
     End Sub
 
+    Private Sub ucGetDepartment_UpdateDepartment(e As Object, Args As System.EventArgs) Handles ucGetDepartment.UpdateDepartment
+        Try
+            Dim vContext As timetableEntities = New timetableEntities()
+            Dim vQualification As qualification = _
+                (From p In vContext.qualifications _
+                    Where p.ID = CType(lblID.Text, Integer) _
+                        Select p).First
+            Dim pQualification = vQualification
+            With vQualification
+                .DepartmentID = ucGetDepartment.getID
+            End With
+            logSave.Function = "Update Qualification"
+            logSave.Description = "From:" + CStr(pQualification.ID) + ":" + CStr(pQualification.DepartmentID) + "-----" + ":" + CStr(ucGetDepartment.getID)
+            vContext.SaveChanges()
+            DisplayQualification(vQualification.ID)
+            litMessage.Text = ""
+        Catch ex As Exception
+            litMessage.Text = clsGeneral.displaymessage(ex.Message, True)
+        End Try
+    End Sub
+
+
     Private Sub logSave_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles logSave.Click
         Try
             Dim vID As Integer
@@ -193,6 +220,8 @@
     Private Sub logDelete_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles logDelete.Click
         Try
             DeleteQualification()
+            ucQualificationSearch.getQualifications()
+            mvQual.SetActiveView(vwGrid)
             litMessage.Text = ""
         Catch ex As Exception
             litMessage.Text = clsGeneral.displaymessage(ex.Message, True)
@@ -209,12 +238,9 @@
     End Sub
 
     Private Sub btnCancelEdit_Click(sender As Object, e As System.EventArgs) Handles btnCancelEdit.Click
-        If Me.lblID.Text = "" Then
-            mvQual.SetActiveView(vwGrid)
-        Else
-            DisplayQualification(CInt(Me.lblID.Text))
-        End If
+        DisplayQualification(CInt(Me.lblID.Text))
         litMessage.Text = ""
     End Sub
+   
    
 End Class

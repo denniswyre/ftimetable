@@ -14,6 +14,24 @@ Option Explicit On
 Partial Public Class _Default
 
     '''<summary>
+    '''mvGeneral control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents mvGeneral As Global.System.Web.UI.WebControls.MultiView
+
+    '''<summary>
+    '''vwMain control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents vwMain As Global.System.Web.UI.WebControls.View
+
+    '''<summary>
     '''litMessage control.
     '''</summary>
     '''<remarks>
@@ -104,31 +122,31 @@ Partial Public Class _Default
     Protected WithEvents cboCluster As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''mvType control.
+    '''phQual control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents mvType As Global.System.Web.UI.WebControls.MultiView
+    Protected WithEvents phQual As Global.System.Web.UI.WebControls.PlaceHolder
 
     '''<summary>
-    '''vwQual control.
+    '''lblQualCode control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents vwQual As Global.System.Web.UI.WebControls.View
+    Protected WithEvents lblQualCode As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''cboQual control.
+    '''btnQual control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents cboQual As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents btnQual As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''cboLevel control.
@@ -140,22 +158,31 @@ Partial Public Class _Default
     Protected WithEvents cboLevel As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''vwClass control.
+    '''phClass control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents vwClass As Global.System.Web.UI.WebControls.View
+    Protected WithEvents phClass As Global.System.Web.UI.WebControls.PlaceHolder
 
     '''<summary>
-    '''cboSubject control.
+    '''lblSubjectCode control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents cboSubject As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents lblSubjectCode As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''btnSubject control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnSubject As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''cboClassgroup control.
@@ -167,13 +194,13 @@ Partial Public Class _Default
     Protected WithEvents cboClassgroup As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''vwVenue control.
+    '''phVenue control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents vwVenue As Global.System.Web.UI.WebControls.View
+    Protected WithEvents phVenue As Global.System.Web.UI.WebControls.PlaceHolder
 
     '''<summary>
     '''cboSite control.
@@ -291,4 +318,40 @@ Partial Public Class _Default
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents litFooter As Global.System.Web.UI.WebControls.Literal
+
+    '''<summary>
+    '''vwQualification control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents vwQualification As Global.System.Web.UI.WebControls.View
+
+    '''<summary>
+    '''ucQqualificationSearch control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ucQqualificationSearch As Global.FlexTimeTable.qualificationsearch
+
+    '''<summary>
+    '''vwSubject control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents vwSubject As Global.System.Web.UI.WebControls.View
+
+    '''<summary>
+    '''ucSubjectSearch control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ucSubjectSearch As Global.FlexTimeTable.subjectsearch
 End Class

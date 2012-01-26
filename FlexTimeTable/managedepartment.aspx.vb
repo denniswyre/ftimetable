@@ -61,6 +61,7 @@
                 pnlDetail.Enabled = False
                 pnlDetail.GroupingText = "Department Details"
                 phID.Visible = True
+                ucSchool.setUpdate(False)
             Case eMode.edit
                 ucSchool.Visible = True
                 pnlDetail.Enabled = True
@@ -69,6 +70,8 @@
                 phAccess.Visible = False
                 pnlControl.Visible = True
                 phID.Visible = True
+                btnCancelEdit.Visible = True
+                ucSchool.setUpdate(True)
             Case eMode.create
                 litOldSchool.Text = ""
                 pnlDetail.Enabled = True
@@ -84,6 +87,8 @@
                 phAccess.Visible = False
                 pnlControl.Visible = True
                 phID.Visible = False
+                btnCancelEdit.Visible = False
+                ucSchool.setUpdate(False)
         End Select
     End Sub
 
@@ -93,6 +98,7 @@
     End Sub
 
     Protected Sub btnCancel_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnCancel.Click
+        ucDepartmentSearch.getDepartments()
         mvDept.SetActiveView(vwGrid)
         litMessage.Text = ""
     End Sub
@@ -130,7 +136,6 @@
             .code = Me.txtCode.Text
             .longName = Me.txtLongName.Text
             .shortName = Me.txtShortName.Text
-            .SchoolID = vSchooID
         End With
         vContext.SaveChanges()
     End Sub
@@ -203,6 +208,32 @@
     End Sub
 
 
+    Private Sub ucSchool_UpdateSchool(e As Object, Args As System.EventArgs) Handles ucSchool.UpdateSchool
+        Try
+            Dim DummyDepartID = CType(ConfigurationManager.AppSettings("dummyDepartment"), Integer)
+            Dim vDepartID = CType(lblID.Text, Integer)
+            If DummyDepartID = vDepartID Then
+                Throw New OverflowException("This is a reserved department. It cannot be updated")
+            End If
+            Dim vContext As timetableEntities = New timetableEntities()
+            Dim vDepartment As department = _
+                       (From p In vContext.departments
+                           Where p.ID = vDepartID
+                               Select p).First
+            Dim vSchooID = ucSchool.getID
+            logSave.Function = "Update Department"
+            logSave.Description = "" + CStr(vDepartment.ID)
+            With vDepartment
+                .SchoolID = vSchooID
+            End With
+            vContext.SaveChanges()
+            litMessage.Text = ""
+            DisplayDepartment(vDepartment.ID)
+        Catch ex As Exception
+            litMessage.Text = clsGeneral.displaymessage(ex.Message, True)
+        End Try
+    End Sub
+
     Private Sub logSave_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles logSave.Click
         Try
             Dim vID As Integer
@@ -223,6 +254,7 @@
         Try
             DeleteDepartment()
             litMessage.Text = ""
+            ucDepartmentSearch.getDepartments()
             mvDept.SetActiveView(vwGrid)
         Catch ex As Exception
             litMessage.Text = clsGeneral.displaymessage(ex.Message, True)
@@ -238,11 +270,9 @@
     End Sub
 
     Private Sub btnCancelEdit_Click(sender As Object, e As System.EventArgs) Handles btnCancelEdit.Click
-        If Me.lblID.Text = "" Then
-            mvDept.SetActiveView(vwGrid)
-        Else
-            DisplayDepartment(CInt(Me.lblID.Text))
-        End If
+        DisplayDepartment(CInt(Me.lblID.Text))
         litMessage.Text = ""
     End Sub
+
+    
 End Class

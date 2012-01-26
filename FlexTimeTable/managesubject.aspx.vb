@@ -81,6 +81,7 @@
                 phID.Visible = True
                 phOldCodes.Visible = True
                 ucClassGroups.Visible = True
+                ucGetDepartment.setUpdate(False)
             Case eMode.edit
                 ucGetDepartment.Visible = True
                 pnlDetail.Enabled = True
@@ -91,6 +92,8 @@
                 phID.Visible = True
                 phOldCodes.Visible = True
                 ucClassGroups.Visible = False
+                btnCancelEdit.Visible = True
+                ucGetDepartment.setUpdate(True)
             Case eMode.create
                 lblOldCodes.Text = ""
                 litOldDepartment.Text = ""
@@ -109,6 +112,8 @@
                 phID.Visible = False
                 phOldCodes.Visible = False
                 ucClassGroups.Visible = False
+                btnCancelEdit.Visible = False
+                ucGetDepartment.setUpdate(False)
         End Select
     End Sub
 
@@ -118,6 +123,7 @@
     End Sub
 
     Protected Sub btnCancel_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnCancel.Click
+        ucSubjectSearch.getSubjects()
         mvSubject.SetActiveView(vwGrid)
         errorMessage.Text = ""
     End Sub
@@ -151,7 +157,6 @@
             .Code = txtCode.Text
             .yearBlock = chkYearBlock.Checked
             .Level = CType(Me.cboLevel.SelectedItem.Value, Integer)
-            .DepartmentID = ucGetDepartment.getID
         End With
         logSave.Function = "Update Subject"
         logSave.Description = "Previous:" + pSubject.Code + ":" + pSubject.longName + "  to:" + vsubject.Code + ":" + vsubject.longName
@@ -179,6 +184,25 @@
         End If
     End Sub
 
+    Private Sub ucGetDepartment_UpdateDepartment(e As Object, Args As System.EventArgs) Handles ucGetDepartment.UpdateDepartment
+        Try
+            Dim vContext As timetableEntities = New timetableEntities()
+            Dim vsubject As subject =
+                (From p In vContext.subjects
+                    Where p.ID = CType(lblID.Text, Integer)
+                        Select p).First
+            Dim pSubject = vsubject
+            vsubject.DepartmentID = ucGetDepartment.getID
+            logSave.Function = "Update Subject Department"
+            logSave.Description = "Previous:" + CStr(pSubject.ID) + ":" + CStr(pSubject.DepartmentID) + "  to:" + CStr(ucGetDepartment.getID)
+            vContext.SaveChanges()
+            errorMessage.Text = ""
+            DisplaySubject(vsubject.ID)
+        Catch ex As Exception
+            errorMessage.Text = clsGeneral.displaymessage(ex.Message, True)
+        End Try
+    End Sub
+
     Private Sub logSave_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles logSave.Click
         Try
             Dim vID As Integer
@@ -199,6 +223,7 @@
         Try
             Deletesubject()
             errorMessage.Text = ""
+            ucSubjectSearch.getSubjects()
             mvSubject.SetActiveView(vwGrid)
         Catch ex As Exception
             errorMessage.Text = clsGeneral.displaymessage(ex.Message, True)
@@ -215,11 +240,9 @@
     End Sub
 
     Private Sub btnCancelEdit_Click(sender As Object, e As System.EventArgs) Handles btnCancelEdit.Click
-        If Me.lblID.Text = "" Then
-            mvSubject.SetActiveView(vwGrid)
-        Else
-            DisplaySubject(CInt(Me.lblID.Text))
-        End If
+        DisplaySubject(CInt(Me.lblID.Text))
         errorMessage.Text = ""
     End Sub
+
+    
 End Class

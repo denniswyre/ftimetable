@@ -20,26 +20,162 @@ Public Class _Default
 
     Enum eDisplayType
         qualification = 0
-        subject = 1
+        classgroup = 1
         venue = 2
     End Enum
 
-    Sub setDisplayType(ByVal vType As eDisplayType)
-        Select Case vType
-            Case eDisplayType.qualification
-                phQual.Visible = True
-                phClass.Visible = False
-                phVenue.Visible = False
-            Case eDisplayType.subject
-                phQual.Visible = False
-                phClass.Visible = True
-                phVenue.Visible = False
-            Case eDisplayType.venue
-                phQual.Visible = False
-                phClass.Visible = False
-                phVenue.Visible = True
-        End Select
-    End Sub
+    Property pType As eDisplayType
+        Set(value As eDisplayType)
+            hdnType.Value = CStr(value)
+        End Set
+        Get
+            Return CType(hdnType.Value, eDisplayType)
+        End Get
+    End Property
+
+    Property pClusterID As Integer
+        Set(value As Integer)
+            Try
+                If value = 0 Then
+                    Throw New Exception("")
+                End If
+                Dim vContext As timetableEntities = New timetableEntities()
+                Dim vClu = (From p In vContext.siteclusters Where p.ID = value Select p).Single
+                litCluster.Text = "<b>Cluster:</b>" + vClu.shortName
+                ViewState("cluster") = CStr(value)
+            Catch ex As Exception
+                litCluster.Text = ""
+                ViewState("cluster") = "0"
+            End Try
+        End Set
+        Get
+            Return CInt(ViewState("cluster"))
+        End Get
+    End Property
+
+    Property pQualID As Integer
+        Set(value As Integer)
+            Try
+                If value = 0 Then
+                    Throw New Exception("")
+                End If
+                Dim vContext As timetableEntities = New timetableEntities()
+
+                Dim vQua = (From p In vContext.qualifications Where p.ID = value Select p).SingleOrDefault
+
+                'load clusters
+                With cboCluster
+                    .DataSource = (From p In vQua.siteclusters Select p).ToList
+                    .DataTextField = "longName"
+                    .DataValueField = "ID"
+                    .DataBind()
+                End With
+
+                ViewState("QualCode") = CStr(value)
+                lblQualCode.Text = vQua.Code
+                lblQualCode.ToolTip = vQua.longName
+                litMessage.Text = ""
+            Catch ex As Exception
+                litMessage.Text = clsGeneral.displaymessage(ex.Message, True)
+                ViewState("QualCode") = "0"
+                lblQualCode.Text = ""
+                lblQualCode.ToolTip = ""
+                cboCluster.DataSource = Nothing
+                cboCluster.DataBind()
+            End Try
+        End Set
+        Get
+            Return CInt(ViewState("QualCode"))
+        End Get
+    End Property
+
+    Property pSubjectID As Integer
+        Set(value As Integer)
+            Try
+                If value = 0 Then
+                    Throw New Exception("")
+                End If
+
+                Dim vContext As timetableEntities = New timetableEntities()
+                Dim vSub = (From p In vContext.subjects Where p.ID = value Select p).Single
+
+                'load clusters
+                With cboCluster
+                    .DataSource = (From p In vSub.siteclustersubjects Select p.sitecluster).ToList
+                    .DataTextField = "longName"
+                    .DataValueField = "ID"
+                    .DataBind()
+                End With
+
+                getClasses()
+
+                ViewState("subjectID") = CStr(value)
+                lblSubjectCode.Text = vSub.Code
+                lblSubjectCode.ToolTip = vSub.longName
+                litMessage.Text = ""
+            Catch ex As Exception
+                litMessage.Text = clsGeneral.displaymessage(ex.Message, True)
+                ViewState("subjectID") = "0"
+                lblSubjectCode.Text = ""
+                lblSubjectCode.ToolTip = ""
+                cboCluster.DataSource = Nothing
+                cboCluster.DataBind()
+                cboClassgroup.DataSource = Nothing
+                cboClassgroup.DataBind()
+            End Try
+        End Set
+        Get
+            Return CInt(ViewState("subjectID"))
+        End Get
+    End Property
+
+
+
+    Property pObject0 As Integer
+        Set(value As Integer)
+            If value > 0 Then
+                Dim vContext As timetableEntities = New timetableEntities()
+                Select Case pType
+                    Case eDisplayType.qualification
+                        Dim vqu = (From p In vContext.qualifications Where p.ID = value Select p).Single
+                        litObject0.Text = "<b>Qual:</b>" + vqu.longName
+                    Case eDisplayType.classgroup
+                        Dim vcla = (From p In vContext.classgroups Where p.ID = value Select p).Single
+                        litObject0.Text = "<b>Subject:</b>" + vcla.siteclustersubject.subject.longName + " <b>Class:</b>" + vcla.code
+                    Case eDisplayType.venue
+                        Dim ven = (From p In vContext.venues Where p.ID = value Select p).Single
+                        litObject0.Text = "<b>Venue:</b>" + ven.Code + "," + ven.building.shortName + "," + ven.building.site.shortName
+                End Select
+            Else
+                litObject0.Text = ""
+            End If
+            ViewState("object0") = CStr(value)
+        End Set
+        Get
+            Return CInt(ViewState("object0"))
+        End Get
+    End Property
+
+    Property pObject1 As Integer
+        Set(value As Integer)
+            If value > 0 Then
+                Select Case pType
+                    Case eDisplayType.qualification
+                        litObject1.Text = "<b>Level:</b>" + CStr(value)
+                    Case eDisplayType.classgroup
+                        litObject1.Text = ""
+                    Case eDisplayType.venue
+                        litObject1.Text = ""
+                End Select
+            Else
+                litObject1.Text = ""
+            End If
+            ViewState("object1") = CStr(value)
+        End Set
+        Get
+            Return CInt(ViewState("object1"))
+        End Get
+    End Property
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
@@ -49,12 +185,12 @@ Public Class _Default
                 ucQqualificationSearch.activateExit(True)
                 ucSubjectSearch.activateExit(True)
                 mvTimetable.SetActiveView(vwDisplay)
+                cboType.SelectedIndex = 0
                 setDisplayType(eDisplayType.qualification)
                 Calendar1.SelectedDate = Now
                 showStatus()
                 getlevels()
-                getCluster()
-                loadobjects()
+                loadTypeProperties()
                 setTimeTableType()
                 litMessage.Text = ""
             Catch ex As Exception
@@ -64,47 +200,52 @@ Public Class _Default
         End If
     End Sub
 
-    Sub loadobjects()
-        Dim vDisplayType = CType(cboType.SelectedIndex, eDisplayType)
-        setDisplayType(vDisplayType)
-        Select Case vDisplayType
+    Sub setDisplayType(ByVal vType As eDisplayType)
+        cboCluster.Items.Clear()
+        pQualID = 0
+        pSubjectID = 0
+        Select Case vType
             Case eDisplayType.qualification
-            Case eDisplayType.subject
+                phQual.Visible = True
+                phClass.Visible = False
+                phVenue.Visible = False
+            Case eDisplayType.classgroup
+                phQual.Visible = False
+                phClass.Visible = True
+                phVenue.Visible = False
             Case eDisplayType.venue
-                getSite()
+                phQual.Visible = False
+                phClass.Visible = False
+                phVenue.Visible = True
+                getAllClusters()
         End Select
     End Sub
 
-    Sub getCluster()
-        Dim vContext As timetableEntities = New timetableEntities()
-        Dim vCluster = (From p In vContext.siteclusters Select p).ToList
-        With cboCluster
-            .DataSource = vCluster
-            .DataTextField = "shortName"
-            .DataValueField = "ID"
-            .DataBind()
-        End With
+    Sub loadTypeProperties()
+        Select Case CType(cboType.SelectedIndex, eDisplayType)
+            Case eDisplayType.qualification
+
+            Case eDisplayType.classgroup
+                getClasses()
+            Case eDisplayType.venue
+                getSites()
+        End Select
     End Sub
 
 
-    Sub getSite()
-        If cboCluster.SelectedIndex < 0 Then
-            Throw New OverflowException("No Cluster available")
-        End If
+    Sub getAllClusters()
         Dim vContext As timetableEntities = New timetableEntities()
-        Dim vClusterID = CInt(cboCluster.SelectedValue)
-        Dim vSites = (From p In vContext.sites Where p.SiteClusterID = vClusterID Select p).ToList
-        With cboSite
-            .DataSource = vSites
-            .DataTextField = "shortName"
+        With cboCluster
+            .DataSource = (From p In vContext.siteclusters Select p).ToList
+            .DataTextField = "shortname"
             .DataValueField = "id"
             .DataBind()
         End With
-        getRooms()
+        getSites()
     End Sub
 
     Sub getClasses()
-        If pSubjectID > 0 Then
+        If pSubjectID > 0 And cboCluster.SelectedIndex >= 0 Then
             Dim vContext As timetableEntities = New timetableEntities()
             Dim vClusterID = CInt(cboCluster.SelectedValue)
             Dim vClasses = (From p In vContext.classgroups
@@ -167,18 +308,13 @@ Public Class _Default
                 .week = DatePart(DateInterval.WeekOfYear, Calendar1.SelectedDate),
                 .year = DatePart(DateInterval.Year, Calendar1.SelectedDate)
             }
-        Select Case CInt(hdnType.Value)
-            Case 0 'qual
-                Dim vClusterID = CInt(lblCluster.ToolTip)
-                Dim vQualID = CInt(lblObject0.ToolTip)
-                Dim vLevel = CInt(lblObject1.ToolTip)
-                displayQualDetails(vQualID, vLevel, vClusterID, vSlot)
-            Case 1 'class
-                Dim vClassID = CInt(lblObject0.ToolTip)
-                displayClassDetails(vClassID, vSlot)
-            Case 2 'venue
-                Dim vVenueID = CInt(lblObject0.ToolTip)
-                displayVenueDetails(vVenueID, vSlot)
+        Select Case pType
+            Case eDisplayType.qualification 'qual
+                displayQualDetails(pObject0, pObject1, pClusterID, vSlot)
+            Case eDisplayType.classgroup 'class
+                displayClassDetails(pObject0, vSlot)
+            Case eDisplayType.venue 'venue
+                displayVenueDetails(pObject0, vSlot)
         End Select
         mvTimetable.SetActiveView(vwDetail)
     End Sub
@@ -362,7 +498,7 @@ Public Class _Default
     End Sub
 
     Protected Sub cboType_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles cboType.SelectedIndexChanged
-        loadobjects()
+        setDisplayType(CType(cboType.SelectedIndex, eDisplayType))
     End Sub
 
     Protected Sub Calendar1_SelectionChanged(ByVal sender As Object, ByVal e As EventArgs) Handles Calendar1.SelectionChanged
@@ -384,7 +520,7 @@ Public Class _Default
 
     Private Sub cboCluster_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboCluster.SelectedIndexChanged
         Try
-            loadobjects()
+            loadTypeProperties()
             litMessage.Text = ""
         Catch ex As Exception
             litMessage.Text = clsGeneral.displaymessage(ex.Message, True)
@@ -410,45 +546,39 @@ Public Class _Default
     End Sub
 
     Sub setTimeTableType()
-        If cboCluster.SelectedIndex < 0 Then
-            Throw New OverflowException("No Cluster available")
-        End If
-        lblCluster.Text = "Cluster:" + cboCluster.SelectedItem.Text
-        lblCluster.ToolTip = cboCluster.SelectedItem.Value
-        hdnType.Value = CStr(cboType.SelectedIndex)
-        Select Case cboType.SelectedIndex
-            Case 0 'qual
-                lblObject0.Text = "Qual:" + lblQualCode.Text
-                lblObject0.ToolTip = CStr(pQualID)
-                lblObject1.Text = "Level:" + cboLevel.SelectedItem.Text
-                lblObject1.ToolTip = cboLevel.SelectedItem.Text
-            Case 1 'class
-                lblObject0.Text = "Subject:" + lblSubjectCode.Text + " Class:" + cboClassgroup.SelectedItem.Text
-                lblObject0.ToolTip = cboClassgroup.SelectedItem.Value
-                lblObject1.Text = ""
-                lblObject1.ToolTip = ""
-            Case 2 'venue
-                lblObject0.Text = "Site:" + cboSite.SelectedItem.Text + " Venue:" + cboRoom.SelectedItem.Text
-                lblObject0.ToolTip = cboRoom.SelectedItem.Value
-                lblObject1.Text = ""
-                lblObject1.ToolTip = ""
-        End Select
-        setTimeTable()
+        Try
+            pClusterID = CInt(cboCluster.SelectedItem.Value)
+            pType = CType(cboType.SelectedIndex, eDisplayType)
+            Select Case pType
+                Case eDisplayType.qualification 'qual
+                    pObject0 = pQualID
+                    pObject1 = CInt(cboLevel.SelectedItem.Text)
+                Case eDisplayType.classgroup 'class
+                    pObject0 = CInt(cboClassgroup.SelectedItem.Value)
+                    pObject1 = 0
+                Case eDisplayType.venue 'venue
+                    pObject0 = CInt(cboRoom.SelectedItem.Value)
+                    pObject1 = 0
+            End Select
+            setTimeTable()
+        Catch ex As Exception
+            pClusterID = 0
+            pObject0 = 0
+            pObject1 = 0
+            setBlankTimetable()
+        End Try
     End Sub
 
     Sub setTimeTable()
-        If cboCluster.SelectedIndex < 0 Then
-            Throw New OverflowException("No Cluster available")
-        End If
         Dim vContext As timetableEntities = New timetableEntities()
         Dim dt As DataTable = FormatTimeTable()
-        Select Case CInt(hdnType.Value)
-            Case 0 'qual
-                setQualTimetable(dt, CInt(lblObject0.ToolTip), CInt(lblObject1.ToolTip), CInt(lblCluster.ToolTip))
-            Case 1 'class
-                setClassTimetable(dt, CInt(lblObject0.ToolTip))
-            Case 2 'venue
-                setVenueTimetable(dt, CInt(lblObject0.ToolTip))
+        Select Case pType ' CType(CInt(hdnType.Value),
+            Case eDisplayType.qualification ' 0 'qual
+                setQualTimetable(dt, pObject0, pObject1, pClusterID)
+            Case eDisplayType.classgroup '1 'class
+                setClassTimetable(dt, pObject0)
+            Case eDisplayType.venue '2 'venue
+                setVenueTimetable(dt, pObject0)
         End Select
         grdTimeTable.DataSource = dt
         grdTimeTable.DataBind()
@@ -675,6 +805,28 @@ Public Class _Default
     End Sub
 
 
+
+    Sub setBlankTimetable()
+        Dim vContext As timetableEntities = New timetableEntities()
+        Dim vTimeSlots = (From p In vContext.timeslots Select p).ToList
+        Dim vDate = Calendar1.SelectedDate
+        Dim vWeek = DatePart(DateInterval.WeekOfYear, vDate)
+        Dim vYear = DatePart(DateInterval.Year, vDate)
+        Dim dt As DataTable = FormatTimeTable()
+        Dim dr As DataRow
+        For Each x In vTimeSlots
+            ' Populate the datatable with your data (put this in appropriate loop)
+            dr = dt.NewRow
+            dr("TimeSlotID") = x.ID
+            ' Add the row
+            dt.Rows.Add(dr)
+        Next
+        dt.AcceptChanges()
+        grdTimeTable.DataSource = dt
+        grdTimeTable.DataBind()
+        mvTimetable.SetActiveView(vwDisplay)
+    End Sub
+
     Protected Sub DisplayDetails(ByVal vDetail As HashSet(Of sSlotDetails))
         Dim dt As DataTable = New DataTable()
         dt.Columns.Add("qualification", System.Type.GetType("System.String"))
@@ -735,80 +887,9 @@ Public Class _Default
         mvGeneral.ActiveViewIndex = 0
     End Sub
 
-
-    Property pQualID As Integer
-        Set(value As Integer)
-            Try
-                If cboCluster.SelectedIndex < 0 Then
-                    Throw New OverflowException("No Cluster available")
-                End If
-                If value = 0 Then
-                    Throw New Exception("")
-                End If
-                Dim vContext As timetableEntities = New timetableEntities()
-
-                Dim vClusterID = CInt(cboCluster.SelectedValue)
-                Dim vCluster = (From p In vContext.siteclusters Where p.ID = vClusterID Select p).Single
-                Dim vQua = (From p In vCluster.qualifications Where p.ID = value Select p).SingleOrDefault
-                If IsNothing(vQua) Then
-                    Throw New Exception("Qualification is not rendered at this cluster!")
-                End If
-
-                ViewState("QualCode") = CStr(value)
-                lblQualCode.Text = vQua.Code
-                lblQualCode.ToolTip = vQua.longName
-                litMessage.Text = ""
-            Catch ex As Exception
-                litMessage.Text = clsGeneral.displaymessage(ex.Message, True)
-                ViewState("QualCode") = "0"
-                lblQualCode.Text = ""
-                lblQualCode.ToolTip = ""
-            End Try
-        End Set
-        Get
-            Return CInt(ViewState("QualCode"))
-        End Get
-    End Property
-
-    Property pSubjectID As Integer
-        Set(value As Integer)
-            Try
-                If cboCluster.SelectedIndex < 0 Then
-                    Throw New OverflowException("No Cluster available")
-                End If
-                If value = 0 Then
-                    Throw New Exception("")
-                End If
-                Dim vContext As timetableEntities = New timetableEntities()
-                Dim vClusterID = CInt(cboCluster.SelectedValue)
-                Dim vClusterSubject = (From p In vContext.siteclustersubjects Where p.SiteClusterID = vClusterID Select p.subject).ToList
-
-                Dim vSub = (From p In vClusterSubject Where p.ID = value Select p).SingleOrDefault
-                If IsNothing(vSub) Then
-                    Throw New Exception("Subject is not rendered at this cluster!")
-                End If
-
-                ViewState("subjectID") = CStr(value)
-                lblSubjectCode.Text = vSub.Code
-                lblSubjectCode.ToolTip = vSub.longName
-                litMessage.Text = ""
-                getClasses()
-            Catch ex As Exception
-                litMessage.Text = clsGeneral.displaymessage(ex.Message, True)
-                ViewState("subjectID") = "0"
-                lblSubjectCode.Text = ""
-                lblSubjectCode.ToolTip = ""
-                getClasses()
-            End Try
-        End Set
-        Get
-            Return CInt(ViewState("subjectID"))
-        End Get
-    End Property
-
-
     Private Sub ucSubjectSearch_SubjectClick(E As Object, Args As clsSubjectEvent) Handles ucSubjectSearch.SubjectClick
         pSubjectID = Args.mSubjectID
+        loadTypeProperties()
         mvGeneral.ActiveViewIndex = 0
     End Sub
 
@@ -820,5 +901,20 @@ Public Class _Default
     Private Sub btnSubject_Click(sender As Object, e As System.EventArgs) Handles btnSubject.Click
         ucSubjectSearch.activateExit(True)
         mvGeneral.ActiveViewIndex = 2
+    End Sub
+
+    Private Sub getSites()
+        If cboCluster.SelectedIndex >= 0 Then
+            Dim vContext As timetableEntities = New timetableEntities()
+            Dim vclusterID = CInt(cboCluster.SelectedItem.Value)
+            Dim vSites = (From p In vContext.sites Where p.SiteClusterID = vclusterID Select p).ToList
+            With cboSite
+                .DataSource = vSites
+                .DataTextField = "shortName"
+                .DataValueField = "id"
+                .DataBind()
+            End With
+            getRooms()
+        End If
     End Sub
 End Class

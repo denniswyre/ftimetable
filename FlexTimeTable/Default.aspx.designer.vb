@@ -41,15 +41,6 @@ Partial Public Class _Default
     Protected WithEvents litMessage As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
-    '''HyperLink1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents HyperLink1 As Global.System.Web.UI.WebControls.HyperLink
-
-    '''<summary>
     '''lblStatus control.
     '''</summary>
     '''<remarks>
@@ -59,31 +50,31 @@ Partial Public Class _Default
     Protected WithEvents lblStatus As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''lblCluster control.
+    '''litCluster control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblCluster As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents litCluster As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
-    '''lblObject0 control.
+    '''litObject0 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblObject0 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents litObject0 As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
-    '''lblObject1 control.
+    '''litObject1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblObject1 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents litObject1 As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
     '''hdnType control.
@@ -111,15 +102,6 @@ Partial Public Class _Default
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents cboType As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''cboCluster control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cboCluster As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
     '''phQual control.
@@ -192,6 +174,15 @@ Partial Public Class _Default
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents cboClassgroup As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''cboCluster control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cboCluster As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
     '''phVenue control.

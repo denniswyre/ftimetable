@@ -39,6 +39,7 @@
       <siteMapNode url="~/managedepartment.aspx" title="Departments"  description="" roles="resourceAdmin" />
       <siteMapNode url="~/mResAd/manageschool.aspx" title="Schools"  description="" roles="resourceAdmin" />
     </siteMapNode>
+    <siteMapNode url="Changes.aspx" title="Changes"  description="" roles="*"/>
     <siteMapNode url="About.aspx" title="About"  description="" roles="*"/>
   </siteMapNode>
 </siteMap>

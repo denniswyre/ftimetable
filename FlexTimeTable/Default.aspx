@@ -13,18 +13,15 @@
     <asp:MultiView ID="mvGeneral" runat="server" ActiveViewIndex="0">
         <asp:View ID="vwMain" runat="server">
             <asp:Literal ID="litMessage" runat="server"></asp:Literal>
-            <div>
-                <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Changes.aspx" Target="_blank">Click Here to View Summary of Changes Made</asp:HyperLink>
-            </div>
             <table>
                 <tr>
                     <td>
                         <asp:Label ID="lblStatus" runat="server"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="lblCluster" runat="server"></asp:Label>
-                        <asp:Label ID="lblObject0" runat="server"></asp:Label>
-                        <asp:Label ID="lblObject1" runat="server"></asp:Label>
+                        <asp:Literal ID="litCluster" runat="server"></asp:Literal>
+                        <asp:Literal ID="litObject0" runat="server"></asp:Literal>
+                        <asp:Literal ID="litObject1" runat="server"></asp:Literal>
                         <asp:HiddenField ID="hdnType" runat="server" />
                     </td>
                 </tr>
@@ -45,92 +42,108 @@
                         <br />
                         <table>
                             <tr>
-                                <td valign="top" align="left">
+                                <td valign="top" align="left" width="50px">
                                     Type:
                                 </td>
-                                <td valign="top" align="left">
-                                    <asp:DropDownList ID="cboType" runat="server" AutoPostBack="True" Width="100px">
+                                <td valign="top" align="left" Width="150px">
+                                    <asp:DropDownList ID="cboType" runat="server" AutoPostBack="True" Width="100%">
                                         <asp:ListItem>Qualification</asp:ListItem>
                                         <asp:ListItem>Subject</asp:ListItem>
                                         <asp:ListItem>Venue</asp:ListItem>
                                     </asp:DropDownList>
                                 </td>
                             </tr>
-                            <tr>
-                                <td valign="top" align="left">
-                                    Cluster:
-                                </td>
-                                <td valign="top" align="left">
-                                    <asp:DropDownList ID="cboCluster" runat="server" AutoPostBack="True" Width="100px">
-                                    </asp:DropDownList>
-                                </td>
-                            </tr>
                             <asp:PlaceHolder ID="phQual" runat="server">
                                 <tr>
-                                    <td valign="top" align="left">
+                                    <td valign="top" align="left" width="50px">
                                         Qual:
                                     </td>
-                                    <td valign="top" align="left">
-                                        <asp:Label ID="lblQualCode" runat="server" Font-Bold="true" Text=" " Height="18px"
-                                            Width="80px" BorderWidth="1" BorderStyle="Solid"></asp:Label>
-                                        <asp:Button ID="btnQual" runat="server" Text="" Height="18px" Width="20px" />
+                                    <td valign="top" align="left" Width="150px">
+                                        <table width="100%">
+                                            <tr>
+                                                <td>
+                                                    <asp:Label ID="lblQualCode" runat="server" Font-Bold="true" Text=" " Height="20px"
+                                                        Width="100%" BorderWidth="1" BorderStyle="Solid"></asp:Label>
+                                                </td>
+                                                <td width="20px">
+                                                    <asp:Button ID="btnQual" runat="server" Text="" Height="20px" Width="100%" />
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td valign="top" align="left">
+                                    <td valign="top" align="left" width="50px">
                                         Level:
                                     </td>
-                                    <td valign="top" align="left">
-                                        <asp:DropDownList ID="cboLevel" runat="server" Width="100px">
+                                    <td valign="top" align="left" Width="150px">
+                                        <asp:DropDownList ID="cboLevel" runat="server" Width="100%">
                                         </asp:DropDownList>
                                     </td>
                                 </tr>
                             </asp:PlaceHolder>
                             <asp:PlaceHolder ID="phClass" runat="server">
                                 <tr>
-                                    <td valign="top" align="left">
+                                    <td valign="top" align="left" width="50px">
                                         Subject:
                                     </td>
-                                    <td valign="top" align="left">
-                                        <asp:Label ID="lblSubjectCode" runat="server" Text="" Font-Bold="true" Height="18px"
-                                            Width="80px" BorderWidth="1" BorderStyle="Solid"></asp:Label>
-                                        <asp:Button ID="btnSubject" runat="server" Height="18px" Text="" Width="20px" />
+                                    <td valign="top" align="left" Width="150px">
+                                         <table width="100%">
+                                            <tr>
+                                                <td>
+                                                    <asp:Label ID="lblSubjectCode" runat="server" Text="" Font-Bold="true" Height="20px"
+                                                        Width="100%" BorderWidth="1" BorderStyle="Solid"></asp:Label>
+                                                </td>
+                                                  <td width="20px">
+                                                    <asp:Button ID="btnSubject" runat="server" Height="20px" Text="" Width="100%" />
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td valign="top" align="left">
+                                    <td valign="top" align="left" width="50px">
                                         Class:
                                     </td>
-                                    <td valign="top" align="left">
-                                        <asp:DropDownList ID="cboClassgroup" runat="server" Width="100px">
-                                        </asp:DropDownList>
-                                    </td>
-                                </tr>
-                            </asp:PlaceHolder>
-                            <asp:PlaceHolder ID="phVenue" runat="server">
-                                <tr>
-                                    <td valign="top" align="left">
-                                        Site:
-                                    </td>
-                                    <td valign="top" align="left">
-                                        <asp:DropDownList ID="cboSite" runat="server" AutoPostBack="True" Width="100px">
-                                        </asp:DropDownList>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td valign="top" align="left">
-                                        Room:
-                                    </td>
-                                    <td valign="top" align="left">
-                                        <asp:DropDownList ID="cboRoom" runat="server" Width="100px" Font-Strikeout="False">
+                                    <td valign="top" align="left" Width="150px">
+                                        <asp:DropDownList ID="cboClassgroup" runat="server" Width="100%">
                                         </asp:DropDownList>
                                     </td>
                                 </tr>
                             </asp:PlaceHolder>
                             <tr>
-                                <td valign="top" align="left">
+                                <td valign="top" align="left" width="50px">
+                                    Cluster:
                                 </td>
-                                <td valign="top" align="left">
+                                <td valign="top" align="left" Width="150px">
+                                    <asp:DropDownList ID="cboCluster" runat="server" AutoPostBack="True" Width="100%">
+                                    </asp:DropDownList>
+                                </td>
+                            </tr>
+                            <asp:PlaceHolder ID="phVenue" runat="server">
+                                <tr>
+                                    <td valign="top" align="left" width="50px">
+                                        Site:
+                                    </td>
+                                    <td valign="top" align="left" Width="150px">
+                                        <asp:DropDownList ID="cboSite" runat="server" AutoPostBack="True" Width="100%">
+                                        </asp:DropDownList>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top" align="left" width="50px">
+                                        Room:
+                                    </td>
+                                    <td valign="top" align="left" Width="150px">
+                                        <asp:DropDownList ID="cboRoom" runat="server" Width="100%" Font-Strikeout="False">
+                                        </asp:DropDownList>
+                                    </td>
+                                </tr>
+                            </asp:PlaceHolder>
+                            <tr>
+                                <td valign="top" align="left" width="50px">
+                                </td>
+                                <td valign="top" align="left" Width="150px">
                                     <asp:Button ID="btnControl" runat="server" Text="Display" />
                                 </td>
                             </tr>
@@ -154,37 +167,37 @@
                                             <asp:ButtonField DataTextField="slot1" CommandName="1" ItemStyle-HorizontalAlign="Center"
                                                 HeaderText="Sun" SortExpression="slot1">
                                                 <HeaderStyle HorizontalAlign="Center" />
-                                                <ItemStyle HorizontalAlign="Center" Font-Size="X-Small" />
+                                                <ItemStyle HorizontalAlign="Center" Width="70px" Font-Size="X-Small" />
                                             </asp:ButtonField>
                                             <asp:ButtonField DataTextField="slot2" CommandName="2" ItemStyle-HorizontalAlign="Center"
                                                 HeaderText="Mon" SortExpression="slot2">
                                                 <HeaderStyle HorizontalAlign="Center" />
-                                                <ItemStyle HorizontalAlign="Center" Font-Size="X-Small" />
+                                                <ItemStyle HorizontalAlign="Center" Width="70px" Font-Size="X-Small" />
                                             </asp:ButtonField>
                                             <asp:ButtonField DataTextField="slot3" CommandName="3" ItemStyle-HorizontalAlign="Center"
                                                 HeaderText="Tue" SortExpression="slot3">
                                                 <HeaderStyle HorizontalAlign="Center" />
-                                                <ItemStyle HorizontalAlign="Center" Font-Size="X-Small" />
+                                                <ItemStyle HorizontalAlign="Center" Width="70px" Font-Size="X-Small" />
                                             </asp:ButtonField>
                                             <asp:ButtonField DataTextField="slot4" CommandName="4" ItemStyle-HorizontalAlign="Center"
                                                 HeaderText="Wed" SortExpression="slot4">
                                                 <HeaderStyle HorizontalAlign="Center" />
-                                                <ItemStyle HorizontalAlign="Center" Font-Size="X-Small" />
+                                                <ItemStyle HorizontalAlign="Center" Width="70px" Font-Size="X-Small" />
                                             </asp:ButtonField>
                                             <asp:ButtonField DataTextField="slot5" CommandName="5" ItemStyle-HorizontalAlign="Center"
                                                 HeaderText="Thu" SortExpression="slot5">
                                                 <HeaderStyle HorizontalAlign="Center" />
-                                                <ItemStyle HorizontalAlign="Center" Font-Size="X-Small" />
+                                                <ItemStyle HorizontalAlign="Center" Width="70px" Font-Size="X-Small" />
                                             </asp:ButtonField>
                                             <asp:ButtonField DataTextField="slot6" CommandName="6" ItemStyle-HorizontalAlign="Center"
                                                 HeaderText="Fri" SortExpression="slot6">
                                                 <HeaderStyle HorizontalAlign="Center" />
-                                                <ItemStyle HorizontalAlign="Center" Font-Size="X-Small" />
+                                                <ItemStyle HorizontalAlign="Center" Width="70px" Font-Size="X-Small" />
                                             </asp:ButtonField>
                                             <asp:ButtonField DataTextField="slot7" CommandName="7" ItemStyle-HorizontalAlign="Center"
                                                 HeaderText="Sat" SortExpression="slot7">
                                                 <HeaderStyle HorizontalAlign="Center" />
-                                                <ItemStyle HorizontalAlign="Center" Font-Size="X-Small" />
+                                                <ItemStyle HorizontalAlign="Center" Width="70px" Font-Size="X-Small" />
                                             </asp:ButtonField>
                                         </Columns>
                                         <FooterStyle BackColor="#CCCCCC" />

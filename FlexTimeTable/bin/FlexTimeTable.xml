@@ -5878,14 +5878,6 @@ litMessage control.
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
-</member><member name="F:FlexTimeTable._Default.HyperLink1">
-	<summary>
-HyperLink1 control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
 </member><member name="F:FlexTimeTable._Default.lblStatus">
 	<summary>
 lblStatus control.
@@ -5894,25 +5886,25 @@ lblStatus control.
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
-</member><member name="F:FlexTimeTable._Default.lblCluster">
+</member><member name="F:FlexTimeTable._Default.litCluster">
 	<summary>
-lblCluster control.
+litCluster control.
 </summary>
 	<remarks>
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
-</member><member name="F:FlexTimeTable._Default.lblObject0">
+</member><member name="F:FlexTimeTable._Default.litObject0">
 	<summary>
-lblObject0 control.
+litObject0 control.
 </summary>
 	<remarks>
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
-</member><member name="F:FlexTimeTable._Default.lblObject1">
+</member><member name="F:FlexTimeTable._Default.litObject1">
 	<summary>
-lblObject1 control.
+litObject1 control.
 </summary>
 	<remarks>
 Auto-generated field.
@@ -5937,14 +5929,6 @@ To modify move field declaration from designer file to code-behind file.
 </member><member name="F:FlexTimeTable._Default.cboType">
 	<summary>
 cboType control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable._Default.cboCluster">
-	<summary>
-cboCluster control.
 </summary>
 	<remarks>
 Auto-generated field.
@@ -6009,6 +5993,14 @@ To modify move field declaration from designer file to code-behind file.
 </member><member name="F:FlexTimeTable._Default.cboClassgroup">
 	<summary>
 cboClassgroup control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable._Default.cboCluster">
+	<summary>
+cboCluster control.
 </summary>
 	<remarks>
 Auto-generated field.

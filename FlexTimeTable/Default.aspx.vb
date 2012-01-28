@@ -182,11 +182,12 @@ Public Class _Default
             Try
                 pSubjectID = 0
                 pQualID = 0
+                cboType.SelectedIndex = 0
+                pType = eDisplayType.qualification
                 ucQqualificationSearch.activateExit(True)
                 ucSubjectSearch.activateExit(True)
                 mvTimetable.SetActiveView(vwDisplay)
-                cboType.SelectedIndex = 0
-                setDisplayType(eDisplayType.qualification)
+                setDisplayType(pType)
                 Calendar1.SelectedDate = Now
                 showStatus()
                 getlevels()

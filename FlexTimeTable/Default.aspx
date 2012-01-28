@@ -164,37 +164,37 @@
                                                 <HeaderStyle Font-Size="XX-Small" />
                                                 <ItemStyle Font-Size="XX-Small" />
                                             </asp:TemplateField>
-                                            <asp:ButtonField DataTextField="slot1" CommandName="1" ItemStyle-HorizontalAlign="Center"
+                                            <asp:ButtonField ButtonType="button" DataTextField="slot1" CommandName="1" ItemStyle-HorizontalAlign="Center"
                                                 HeaderText="Sun" SortExpression="slot1">
                                                 <HeaderStyle HorizontalAlign="Center" />
                                                 <ItemStyle HorizontalAlign="Center" Width="70px" Font-Size="X-Small" />
                                             </asp:ButtonField>
-                                            <asp:ButtonField DataTextField="slot2" CommandName="2" ItemStyle-HorizontalAlign="Center"
+                                            <asp:ButtonField ButtonType="button" DataTextField="slot2" CommandName="2" ItemStyle-HorizontalAlign="Center"
                                                 HeaderText="Mon" SortExpression="slot2">
                                                 <HeaderStyle HorizontalAlign="Center" />
                                                 <ItemStyle HorizontalAlign="Center" Width="70px" Font-Size="X-Small" />
                                             </asp:ButtonField>
-                                            <asp:ButtonField DataTextField="slot3" CommandName="3" ItemStyle-HorizontalAlign="Center"
+                                            <asp:ButtonField ButtonType="button" DataTextField="slot3" CommandName="3" ItemStyle-HorizontalAlign="Center"
                                                 HeaderText="Tue" SortExpression="slot3">
                                                 <HeaderStyle HorizontalAlign="Center" />
                                                 <ItemStyle HorizontalAlign="Center" Width="70px" Font-Size="X-Small" />
                                             </asp:ButtonField>
-                                            <asp:ButtonField DataTextField="slot4" CommandName="4" ItemStyle-HorizontalAlign="Center"
+                                            <asp:ButtonField ButtonType="button" DataTextField="slot4" CommandName="4" ItemStyle-HorizontalAlign="Center"
                                                 HeaderText="Wed" SortExpression="slot4">
                                                 <HeaderStyle HorizontalAlign="Center" />
                                                 <ItemStyle HorizontalAlign="Center" Width="70px" Font-Size="X-Small" />
                                             </asp:ButtonField>
-                                            <asp:ButtonField DataTextField="slot5" CommandName="5" ItemStyle-HorizontalAlign="Center"
+                                            <asp:ButtonField ButtonType="button" DataTextField="slot5" CommandName="5" ItemStyle-HorizontalAlign="Center"
                                                 HeaderText="Thu" SortExpression="slot5">
                                                 <HeaderStyle HorizontalAlign="Center" />
                                                 <ItemStyle HorizontalAlign="Center" Width="70px" Font-Size="X-Small" />
                                             </asp:ButtonField>
-                                            <asp:ButtonField DataTextField="slot6" CommandName="6" ItemStyle-HorizontalAlign="Center"
+                                            <asp:ButtonField ButtonType="button" DataTextField="slot6" CommandName="6" ItemStyle-HorizontalAlign="Center"
                                                 HeaderText="Fri" SortExpression="slot6">
                                                 <HeaderStyle HorizontalAlign="Center" />
                                                 <ItemStyle HorizontalAlign="Center" Width="70px" Font-Size="X-Small" />
                                             </asp:ButtonField>
-                                            <asp:ButtonField DataTextField="slot7" CommandName="7" ItemStyle-HorizontalAlign="Center"
+                                            <asp:ButtonField ButtonType="button" DataTextField="slot7" CommandName="7" ItemStyle-HorizontalAlign="Center"
                                                 HeaderText="Sat" SortExpression="slot7">
                                                 <HeaderStyle HorizontalAlign="Center" />
                                                 <ItemStyle HorizontalAlign="Center" Width="70px" Font-Size="X-Small" />

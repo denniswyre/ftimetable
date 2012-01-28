@@ -7,6 +7,7 @@ Public Class classgroups
         If Not Page.IsPostBack Then
             loadOffering()
             loadTimeSlots()
+            loadAllClusters()
             btnSave.Text = "Save"
             btnDelete.Text = "Delete"
         End If
@@ -15,12 +16,14 @@ Public Class classgroups
     Public Sub setSubject(ByVal vSubjectID As Integer, vEditAccess As Boolean)
         ViewState("SubjectID") = CStr(vSubjectID)
         ViewState("EditAccess") = CStr(vEditAccess)
-        lnkClass.Visible = vEditAccess
+        btnCreateClass.Visible = vEditAccess
+        btnClusterEdit.Visible = vEditAccess
+        mvCluster.SetActiveView(vwClusterView)
         litMessage.Text = ""
         loadBlock()
         createSiteClusterSubjects()
         loadAssociatedQual()
-        loadCluster()
+        loadSelectedClusters()
         LoadClasses()
         changeMode(eMode.reset)
         ''''''''''''''''''''set classs   set  cluster
@@ -72,20 +75,31 @@ Public Class classgroups
         Next
     End Sub
 
-    Sub loadCluster()
+    Sub loadAllClusters()
+        Dim vContext As timetableEntities = New timetableEntities()
+        Dim vClusters = (From p In vContext.siteclusters Order By p.longName Select name = p.longName, ID = p.ID).ToList
+        lstAllClusters.Items.Clear()
+        For Each x In vClusters
+            Dim vItem As New ListItem(x.name, CStr(x.ID))
+            lstAllClusters.Items.Add(vItem)
+        Next
+    End Sub
+
+    Sub loadSelectedClusters()
         Dim vSubjID = GetSubjectID()
         Dim vContext As timetableEntities = New timetableEntities()
         Dim vClusterSubjects = (From p In vContext.siteclustersubjects Where p.SubjectID = vSubjID Select p.sitecluster).ToList
         Dim vClusters = (From p In vClusterSubjects Order By p.longName Select name = p.longName, ID = p.ID).ToList
         cboCluster.Items.Clear()
+        lstSelClusters.Items.Clear()
         For Each x In vClusters
             Dim vItem As New ListItem(x.name, CStr(x.ID))
             cboCluster.Items.Add(vItem)
+            lstSelClusters.Items.Add(vItem)
         Next
-        If cboCluster.Items.Count > 0 Then
-            cboCluster.SelectedIndex = 0
-        End If
     End Sub
+
+
 
 
     Sub loadAssociatedQual()
@@ -106,9 +120,8 @@ Public Class classgroups
     Sub LoadClasses()
         litMessage.Text = ""
         grdClasses.DataSource = Nothing
-        If lstQualification.Items.Count > 0 And cboCluster.Items.Count > 0 Then
-            lnkClass.Enabled = True
-            pnlMain.Visible = True
+        If cboCluster.Items.Count > 0 Then
+            btnCreateClass.Enabled = True
             Dim vContext As timetableEntities = New timetableEntities()
             Dim vSiteClusterID = CType(cboCluster.SelectedItem.Value, Integer)
             Dim vSubjectID = GetSubjectID()
@@ -120,8 +133,11 @@ Public Class classgroups
                 grdClasses.DataSource = From p In vClasses Select p
             End If
         Else
-            pnlMain.Visible = False
-            lnkClass.Enabled = False
+            btnCreateClass.Enabled = False
+            If btnClusterEdit.Visible Then
+                pnlClass.Visible = False
+                mvCluster.SetActiveView(vwClusterEdit)
+            End If
         End If
         grdClasses.DataBind()
     End Sub
@@ -196,7 +212,7 @@ Public Class classgroups
         End Select
     End Sub
 
-    Private Sub lnkClass_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles lnkClass.Click
+    Private Sub btnCreateClass_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCreateClass.Click
         changeMode(eMode.create)
         ucClassLecturer.mClassID = 0
         ucClassLecturer.mSubjectID = GetSubjectID()
@@ -376,6 +392,7 @@ Public Class classgroups
         Try
             If lblID.Text = "" Then
                 lblID.Text = CStr(CreateClass())
+                'changeMode(eMode.reset)
             Else
                 UpdateClass()
             End If
@@ -434,5 +451,70 @@ Public Class classgroups
 
     Private Sub classgroups_PreRender(sender As Object, e As System.EventArgs) Handles Me.PreRender
         LoadClasses()
+    End Sub
+
+    Protected Sub btnClusterEdit_Click(sender As Object, e As EventArgs) Handles btnClusterEdit.Click
+        pnlClass.Visible = False
+        mvCluster.SetActiveView(vwClusterEdit)
+    End Sub
+
+    Protected Sub btnClusterReturn_Click(sender As Object, e As EventArgs) Handles btnClusterReturn.Click
+        pnlClass.Visible = True
+        mvCluster.SetActiveView(vwClusterView)
+    End Sub
+
+    Protected Sub btnAddCluster_Click(sender As Object, e As EventArgs) Handles btnAddCluster.Click
+        'check if selected
+        If lstAllClusters.SelectedIndex < 0 Then
+            Exit Sub
+        End If
+
+        Dim NewClusterID = CInt(lstAllClusters.SelectedValue)
+        'check if already exists
+        If Not IsNothing(lstSelClusters.Items.FindByValue(CStr(NewClusterID))) Then
+            Exit Sub
+        End If
+       
+        Dim vSubjID = GetSubjectID()
+        Dim vContext As timetableEntities = New timetableEntities()
+
+        Dim NewClusterSubject As New siteclustersubject With {
+            .SubjectID = GetSubjectID(),
+            .SiteClusterID = NewClusterID}
+        Try
+            vContext.siteclustersubjects.AddObject(NewClusterSubject)
+            vContext.SaveChanges()
+        Catch ex As UpdateException
+            litMessage.Text = clsGeneral.displaymessage("Cluster already exists!", True)
+        Catch ex As Exception
+            litMessage.Text = ""
+        End Try
+        loadSelectedClusters()
+    End Sub
+
+    Protected Sub btnRemCluster_Click(sender As Object, e As EventArgs) Handles btnRemCluster.Click
+        'check if selected
+        If lstSelClusters.SelectedIndex < 0 Then
+            Exit Sub
+        End If
+
+        Dim vClusterID = CInt(lstSelClusters.SelectedValue)
+
+        Dim vSubjID = GetSubjectID()
+        Dim vContext As timetableEntities = New timetableEntities()
+        Dim vClusterSubject = (From p In vContext.siteclustersubjects
+                                   Where p.SubjectID = vSubjID And
+                                         p.SiteClusterID = vClusterID
+                                    Select p).Single
+        Try
+            vContext.siteclustersubjects.DeleteObject(vClusterSubject)
+            vContext.SaveChanges()
+            litMessage.Text = ""
+        Catch ex As UpdateException
+            litMessage.Text = clsGeneral.displaymessage("Classes are tied to this Cluster!!", True)
+        Catch ex As Exception
+            litMessage.Text = clsGeneral.displaymessage(ex.Message, True)
+        End Try
+        loadSelectedClusters()
     End Sub
 End Class

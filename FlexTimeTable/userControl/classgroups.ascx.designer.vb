@@ -32,13 +32,13 @@ Partial Public Class classgroups
     Protected WithEvents litMessage As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
-    '''pnlDelivery control.
+    '''pnlQualification control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents pnlDelivery As Global.System.Web.UI.WebControls.Panel
+    Protected WithEvents pnlQualification As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
     '''lstQualification control.
@@ -50,6 +50,42 @@ Partial Public Class classgroups
     Protected WithEvents lstQualification As Global.System.Web.UI.WebControls.ListBox
 
     '''<summary>
+    '''pnlCluster control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlCluster As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''mvCluster control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents mvCluster As Global.System.Web.UI.WebControls.MultiView
+
+    '''<summary>
+    '''vwClusterView control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents vwClusterView As Global.System.Web.UI.WebControls.View
+
+    '''<summary>
+    '''btnClusterEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnClusterEdit As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
     '''cboCluster control.
     '''</summary>
     '''<remarks>
@@ -57,6 +93,78 @@ Partial Public Class classgroups
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents cboCluster As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''vwClusterEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents vwClusterEdit As Global.System.Web.UI.WebControls.View
+
+    '''<summary>
+    '''btnClusterReturn control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnClusterReturn As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
+    '''lblAllCluster control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblAllCluster As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lstAllClusters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lstAllClusters As Global.System.Web.UI.WebControls.ListBox
+
+    '''<summary>
+    '''btnAddCluster control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnAddCluster As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''btnRemCluster control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnRemCluster As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''lblSelCluster control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblSelCluster As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lstSelClusters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lstSelClusters As Global.System.Web.UI.WebControls.ListBox
 
     '''<summary>
     '''pnlClass control.
@@ -86,13 +194,13 @@ Partial Public Class classgroups
     Protected WithEvents vwClassList As Global.System.Web.UI.WebControls.View
 
     '''<summary>
-    '''lnkClass control.
+    '''btnCreateClass control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lnkClass As Global.System.Web.UI.WebControls.LinkButton
+    Protected WithEvents btnCreateClass As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
     '''grdClasses control.

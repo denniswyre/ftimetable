@@ -194,13 +194,18 @@
     'auto generate first resource for newly created classgroup
     Public Function createFirstResource() As Integer
         Dim vContext As timetableEntities = New timetableEntities()
+        Dim vResourceType = (From p In vContext.resourcetypes Where p.isClassRoom = True Select p).FirstOrDefault
+        If IsNothing(vResourceType) Then
+            Return 0
+        End If
+        Dim DefaultResourceTypeID = vResourceType.ID
         Dim classgroup = (From p In vContext.classgroups Where p.ID = ClassID Select p).First
         Dim vRes As New sResource With {
             .Name = getResourceName(),
             .AmtParticipants = classgroup.classSize,
             .AmtTimeSlots = classgroup.TimeSlotTotal,
             .MaxMergedTimeSlots = CInt(ConfigurationManager.AppSettings("defaultClassMaxMergedSlots")),
-            .ResourceTypeID = CInt(ConfigurationManager.AppSettings("defaultClassResourceType")),
+            .ResourceTypeID = DefaultResourceTypeID,
             .year = getResourceYear(classgroup.academicblock.startWeek, classgroup.academicblock.endWeek),
             .startWeek = classgroup.academicblock.startWeek,
             .endWeek = classgroup.academicblock.endWeek,

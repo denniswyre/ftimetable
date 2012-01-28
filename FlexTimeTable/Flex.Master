@@ -45,8 +45,8 @@
         <div class="main">
             <asp:ScriptManager ID="ScriptManager1" runat="server" AsyncPostBackTimeout="360000">
             </asp:ScriptManager>
-            <asp:UpdateProgress ID="UpdateProgress1" runat="server" 
-                AssociatedUpdatePanelID="UpdatePanel1">
+            <asp:UpdateProgress ID="UpdateProgress1"  runat="server" 
+                AssociatedUpdatePanelID="UpdatePanel1" DynamicLayout="False">
                 <ProgressTemplate>
                   <asp:Image ID="Image1" runat="server" ImageUrl="~/images/ajax-loader.gif" />
                 </ProgressTemplate>

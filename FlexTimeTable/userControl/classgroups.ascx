@@ -5,31 +5,51 @@
 <%@ Register Src="~/userControl/classresource.ascx" TagName="classresource" TagPrefix="uc3" %>
 <asp:Panel ID="pnlMain" runat="server">
     <asp:Literal ID="litMessage" runat="server"></asp:Literal>
-    <asp:Panel ID="pnlDelivery" runat="server" GroupingText="Delivery Information" Width="100%">
-        <table width="100%">
-            <tr>
-                <td width="200px">
-                    Qualification(s):
-                </td>
-                <td>
-                    <asp:ListBox ID="lstQualification" runat="server" Width="100%" Height="50px"></asp:ListBox>
-                </td>
-            </tr>
-            <tr>
-                <td width="200px">
-                    Cluster:
-                </td>
-                <td>
-                    <asp:DropDownList ID="cboCluster" runat="server" AutoPostBack="True" Width="100%">
-                    </asp:DropDownList>
-                </td>
-            </tr>
-        </table>
+    <asp:Panel ID="pnlQualification" runat="server" GroupingText="Associated Qualifications"
+        Width="100%">
+        <asp:ListBox ID="lstQualification" runat="server" Width="100%" Height="60px"></asp:ListBox>
+    </asp:Panel>
+    <asp:Panel ID="pnlCluster" runat="server" GroupingText="Delivery Clusters" Width="100%">
+        <asp:MultiView ID="mvCluster" runat="server" ActiveViewIndex="0">
+            <asp:View ID="vwClusterView" runat="server">
+                <div style="margin-top: -20px">
+                    <asp:LinkButton ID="btnClusterEdit" runat="server">Edit</asp:LinkButton></div>
+                <asp:DropDownList ID="cboCluster" runat="server" AutoPostBack="True" Width="100%">
+                </asp:DropDownList>
+            </asp:View>
+            <asp:View ID="vwClusterEdit" runat="server">
+                <div style="float: right; margin-top: -20px">
+                    <asp:LinkButton ID="btnClusterReturn" runat="server">Close</asp:LinkButton>
+                </div>
+                <div style="clear: both">
+                </div>
+                <div style="margin-top: -10px">
+                    <table>
+                        <tr>
+                            <td>
+                                <asp:Label ID="lblAllCluster" runat="server" Text="ALL Clusters" Font-Bold="True"
+                                    Font-Underline="True" Width="200px" Font-Size="Small"></asp:Label><br />
+                                <asp:ListBox ID="lstAllClusters" runat="server" Width="200px" Height="100px"></asp:ListBox>
+                            </td>
+                            <td>
+                                <asp:Button ID="btnAddCluster" runat="server" Text="Add" Width="100px" /><br />
+                                <asp:Button ID="btnRemCluster" runat="server" Text="Remove" Width="100px" />
+                            </td>
+                            <td>
+                                <asp:Label ID="lblSelCluster" runat="server" Text="Selected Clusters" Font-Bold="True"
+                                    Font-Underline="True" Width="200px" Font-Size="Small"></asp:Label><br />
+                                <asp:ListBox ID="lstSelClusters" runat="server" Width="200px" Height="100px"></asp:ListBox>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </asp:View>
+        </asp:MultiView>
     </asp:Panel>
     <asp:Panel ID="pnlClass" Width="100%" GroupingText="Class Groups" runat="server">
         <asp:MultiView ID="mvClass" ActiveViewIndex="0" runat="server">
             <asp:View ID="vwClassList" runat="server">
-                <asp:LinkButton ID="lnkClass" runat="server">New Class Group</asp:LinkButton>
+                <asp:LinkButton ID="btnCreateClass" runat="server">New Class Group</asp:LinkButton>
                 <asp:GridView ID="grdClasses" runat="server" DataKeyNames="ID" AutoGenerateColumns="False">
                     <Columns>
                         <asp:BoundField DataField="ID" HeaderText="ID" Visible="false" SortExpression="ID" />

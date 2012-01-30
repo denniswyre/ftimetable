@@ -268,7 +268,7 @@
                             'check if lecturer is rostered
                             If Not IsLecturerRostered(xSlot, vClassgroup.ID) Then
                                 'need to roster lecturers first.
-                                'Continue For 
+                                Continue For
                             End If
                             '''''''''''''''''''''''''''''''''''''TIME PERIOD''''''''''''''''''''''''
                             If IsSlotFree(vUsedResourceSlots,

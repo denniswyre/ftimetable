@@ -77,15 +77,6 @@ Partial Public Class _Default
     Protected WithEvents litObject1 As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
-    '''hdnType control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents hdnType As Global.System.Web.UI.WebControls.HiddenField
-
-    '''<summary>
     '''Calendar1 control.
     '''</summary>
     '''<remarks>
@@ -212,15 +203,6 @@ Partial Public Class _Default
     Protected WithEvents cboRoom As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''btnControl control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnControl As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
     '''pnlDisplay control.
     '''</summary>
     '''<remarks>
@@ -246,6 +228,15 @@ Partial Public Class _Default
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents vwDisplay As Global.System.Web.UI.WebControls.View
+
+    '''<summary>
+    '''btnCreateTimeSlot control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnCreateTimeSlot As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
     '''grdTimeTable control.
@@ -275,13 +266,22 @@ Partial Public Class _Default
     Protected WithEvents pnlDetails As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
+    '''btnSlotDelete control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnSlotDelete As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
     '''btnReturn control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnReturn As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnReturn As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
     '''litHeader control.
@@ -309,6 +309,24 @@ Partial Public Class _Default
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents litFooter As Global.System.Web.UI.WebControls.Literal
+
+    '''<summary>
+    '''vwEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents vwEdit As Global.System.Web.UI.WebControls.View
+
+    '''<summary>
+    '''ucEditTimeslot control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ucEditTimeslot As Global.FlexTimeTable.EditTimeslot
 
     '''<summary>
     '''vwQualification control.

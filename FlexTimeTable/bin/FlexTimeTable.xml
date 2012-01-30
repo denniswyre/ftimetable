@@ -6,7 +6,39 @@ FlexTimeTable
 </name>
 </assembly>
 <members>
-<member name="F:FlexTimeTable.managedepartment.litMessage">
+<member name="F:FlexTimeTable.BulkEmail.ErrorMessage">
+	<summary>
+ErrorMessage control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.BulkEmail.txtSubject">
+	<summary>
+txtSubject control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.BulkEmail.btnSend">
+	<summary>
+btnSend control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.BulkEmail.txtBody">
+	<summary>
+txtBody control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.managedepartment.litMessage">
 	<summary>
 litMessage control.
 </summary>
@@ -1210,6 +1242,118 @@ To modify move field declaration from designer file to code-behind file.
 </member><member name="F:FlexTimeTable.classgroups.ucClassResource">
 	<summary>
 ucClassResource control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.EditTimeslot.pnlMain">
+	<summary>
+pnlMain control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.EditTimeslot.btnReturn">
+	<summary>
+btnReturn control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.EditTimeslot.errorMessage">
+	<summary>
+errorMessage control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.EditTimeslot.cboSubject">
+	<summary>
+cboSubject control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.EditTimeslot.cboClass">
+	<summary>
+cboClass control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.EditTimeslot.cboResource">
+	<summary>
+cboResource control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.EditTimeslot.cboCluster">
+	<summary>
+cboCluster control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.EditTimeslot.cboSite">
+	<summary>
+cboSite control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.EditTimeslot.cboVenue">
+	<summary>
+cboVenue control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.EditTimeslot.cboDay">
+	<summary>
+cboDay control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.EditTimeslot.cboStartSlot">
+	<summary>
+cboStartSlot control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.EditTimeslot.cboNoSlots">
+	<summary>
+cboNoSlots control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.EditTimeslot.chkStrictVenue">
+	<summary>
+chkStrictVenue control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.EditTimeslot.btnSave">
+	<summary>
+btnSave control.
 </summary>
 	<remarks>
 Auto-generated field.
@@ -6006,14 +6150,6 @@ litObject1 control.
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
-</member><member name="F:FlexTimeTable._Default.hdnType">
-	<summary>
-hdnType control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
 </member><member name="F:FlexTimeTable._Default.Calendar1">
 	<summary>
 Calendar1 control.
@@ -6126,14 +6262,6 @@ cboRoom control.
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
-</member><member name="F:FlexTimeTable._Default.btnControl">
-	<summary>
-btnControl control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
 </member><member name="F:FlexTimeTable._Default.pnlDisplay">
 	<summary>
 pnlDisplay control.
@@ -6158,6 +6286,14 @@ vwDisplay control.
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
+</member><member name="F:FlexTimeTable._Default.btnCreateTimeSlot">
+	<summary>
+btnCreateTimeSlot control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
 </member><member name="F:FlexTimeTable._Default.grdTimeTable">
 	<summary>
 grdTimeTable control.
@@ -6177,6 +6313,14 @@ To modify move field declaration from designer file to code-behind file.
 </member><member name="F:FlexTimeTable._Default.pnlDetails">
 	<summary>
 pnlDetails control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable._Default.btnSlotDelete">
+	<summary>
+btnSlotDelete control.
 </summary>
 	<remarks>
 Auto-generated field.
@@ -6209,6 +6353,22 @@ To modify move field declaration from designer file to code-behind file.
 </member><member name="F:FlexTimeTable._Default.litFooter">
 	<summary>
 litFooter control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable._Default.vwEdit">
+	<summary>
+vwEdit control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable._Default.ucEditTimeslot">
+	<summary>
+ucEditTimeslot control.
 </summary>
 	<remarks>
 Auto-generated field.

@@ -24,6 +24,7 @@
       <siteMapNode url="~/mSysAd/uploadVenues.aspx" title="Upload Venue File" description="" roles="SystemAdmin" />
       <siteMapNode url="~/mSysAd/normalsubject.aspx" title="Normalize Subject"  description="" roles="SystemAdmin" />
       <siteMapNode url="~/mSysAd/generateTimeTable.aspx" title="Generate TimeTable"  description="" roles="SystemAdmin" />
+      <siteMapNode url="~/mSysAd/BulkEmail.aspx" title="Bulk Email"  description="" roles="SystemAdmin" />
     </siteMapNode>
     <siteMapNode title="Space Management"  description="" roles="venueAdmin">
       <siteMapNode url="~/mVenAd/assignVenuestoDepart.aspx" title="Link Department" description="" roles="venueAdmin" />

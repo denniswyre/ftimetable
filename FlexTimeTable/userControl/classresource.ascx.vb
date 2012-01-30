@@ -224,9 +224,9 @@
         Dim vclassgroup = (From p In vContext.classgroups Where p.ID = ClassID Select p).First
         Dim i = 0
         Do
-            Dim vName = vclassgroup.siteclustersubject.subject.Code + CStr(vclassgroup.SiteClusterID) + vclassgroup.code + CStr(i)
-            Dim vResource As resource =
-                   (From p In vContext.resources
+            Dim vName = vclassgroup.siteclustersubject.subject.Code + "(" + vclassgroup.code + ")-" + CStr(i)
+            Dim vResource =
+                   (From p In vclassgroup.resources
                        Where p.Name = vName
                            Select p).FirstOrDefault
             If IsNothing(vResource) Then

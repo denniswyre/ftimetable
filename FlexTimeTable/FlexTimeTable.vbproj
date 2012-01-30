@@ -120,6 +120,8 @@
     <Content Include="images\ajax-loader.gif" />
     <Content Include="Login.aspx" />
     <Content Include="mSysAd\NormalSubject.aspx" />
+    <Content Include="mSysAd\BulkEmail.aspx" />
+    <Content Include="userControl\EditTimeslot.ascx" />
     <Content Include="userControl\getSchool.ascx" />
     <Content Include="userControl\departmentSearch.ascx" />
     <Content Include="userControl\classgroups.ascx" />
@@ -207,8 +209,22 @@
       <DependentUpon>NormalSubject.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="mSysAd\BulkEmail.aspx.designer.vb">
+      <DependentUpon>BulkEmail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mSysAd\BulkEmail.aspx.vb">
+      <DependentUpon>BulkEmail.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="userControl\classgroups.ascx.designer.vb">
       <DependentUpon>classgroups.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="userControl\EditTimeslot.ascx.designer.vb">
+      <DependentUpon>EditTimeslot.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="userControl\EditTimeslot.ascx.vb">
+      <DependentUpon>EditTimeslot.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="userControl\getSchool.ascx.designer.vb">
       <DependentUpon>getSchool.ascx</DependentUpon>

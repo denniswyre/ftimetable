@@ -4,6 +4,21 @@
         Return CInt(Int((upperbound - lowerbound + 1) * Rnd() + lowerbound))
     End Function
 
+    Public Shared Sub logAction(ByVal vPage As String, ByVal vIPAddress As String, ByVal vDescription As String, ByVal vUsername As String)
+        Dim vContext As timetableEntities = New timetableEntities()
+        Dim vLogEntry As New userlog With {
+          .page = vPage,
+          .ipaddress = vIPAddress,
+          .description = vDescription,
+          .fdatetime = DateTime.Now,
+          .function = "Create TimeTable",
+          .user = vUsername}
+        vContext.userlogs.AddObject(vLogEntry)
+        vContext.SaveChanges()
+    End Sub
+
+
+
     Public Shared Function getRandomStr(ByVal vLen As Integer) As String
         Dim VerificationStr As String = ""
         Dim i As Integer

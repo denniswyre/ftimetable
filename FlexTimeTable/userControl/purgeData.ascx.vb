@@ -1,11 +1,10 @@
-﻿Public Class purge
-    Inherits System.Web.UI.Page
+﻿Public Class purgeData
+    Inherits System.Web.UI.UserControl
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        If Not IsPostBack Then
 
-        End If
     End Sub
+
 
     Private Sub PurgeAcademic()
         ' delete resourceschedules
@@ -172,13 +171,13 @@
         vContext.SaveChanges()
     End Sub
 
-    Protected Sub btnPurge_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnPurge.Click
+    Private Sub btnPurge_Click(sender As Object, e As System.EventArgs) Handles btnPurge.Click
         Try
             PurgeSchedule()
             clsGeneral.logAction(Request.Path, Request.UserHostAddress, "Purge TimeTable Data", Context.User.Identity.Name)
-            Message.Text = clsGeneral.displaymessage("Data Purged!!", False)
+            litMessage.Text = clsGeneral.displaymessage("Data Purged!!", False)
         Catch ex As Exception
-            Message.Text = clsGeneral.displaymessage(ex.Message, True)
+            litMessage.Text = clsGeneral.displaymessage(ex.Message, True)
         End Try
     End Sub
 End Class

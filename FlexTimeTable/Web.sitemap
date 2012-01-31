@@ -18,11 +18,6 @@
       <siteMapNode url="~/mSysAd/academicblock.aspx" title="Academic Block"  description="" roles="SystemAdmin" />
       <siteMapNode url="~/mSysAd/manageOfferingType.aspx" title="Offering Types"  description="" roles="SystemAdmin" />
       <siteMapNode url="~/mSysAd/managetimeslot.aspx" title="Time Slot"  description="" roles="SystemAdmin" />
-      <siteMapNode url="~/mSysAd/uploadSubject.aspx" title="Upload Subjects"  description="" roles="SystemAdmin" />
-      <siteMapNode url="~/mSysAd/uploadQual.aspx" title="Upload Qualifications"  description="" roles="SystemAdmin" />
-      <siteMapNode url="~/mSysAd/uploadClasses.aspx" title="Upload Classes"  description="" roles="SystemAdmin" />
-      <siteMapNode url="~/mSysAd/uploadVenues.aspx" title="Upload Venue File" description="" roles="SystemAdmin" />
-      <siteMapNode url="~/mSysAd/normalsubject.aspx" title="Normalize Subject"  description="" roles="SystemAdmin" />
       <siteMapNode url="~/mSysAd/generateTimeTable.aspx" title="Generate TimeTable"  description="" roles="SystemAdmin" />
       <siteMapNode url="~/mSysAd/BulkEmail.aspx" title="Bulk Email"  description="" roles="SystemAdmin" />
     </siteMapNode>

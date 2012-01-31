@@ -51,12 +51,12 @@ Public Class _Default
                 Dim vContext As timetableEntities = New timetableEntities()
                 Dim vQua = (From p In vContext.qualifications Where p.ID = value Select p).Single
                 ViewState("QualCode") = CStr(value)
-                lblQualCode.Text = vQua.Code
-                lblQualCode.ToolTip = vQua.longName
+                btnQual.Text = vQua.Code
+                btnQual.ToolTip = vQua.longName
             Else
                 ViewState("QualCode") = "0"
-                lblQualCode.Text = ""
-                lblQualCode.ToolTip = ""
+                btnQual.Text = ""
+                btnQual.ToolTip = ""
             End If
         End Set
         Get
@@ -71,12 +71,12 @@ Public Class _Default
                 Dim vContext As timetableEntities = New timetableEntities()
                 Dim vSub = (From p In vContext.subjects Where p.ID = value Select p).Single
                 ViewState("subjectID") = CStr(value)
-                lblSubjectCode.Text = vSub.Code
-                lblSubjectCode.ToolTip = vSub.longName
+                btnSubject.Text = vSub.Code
+                btnSubject.ToolTip = vSub.longName
             Else
                 ViewState("subjectID") = "0"
-                lblSubjectCode.Text = ""
-                lblSubjectCode.ToolTip = ""
+                btnSubject.Text = ""
+                btnSubject.ToolTip = ""
             End If
         End Set
         Get
@@ -549,10 +549,19 @@ Public Class _Default
         Dim dt As DataTable = FormatTimeTable()
         Select Case CType(cboType.SelectedIndex, eDisplayType)
             Case eDisplayType.qualification ' 0 'qual
+                If cboCluster.SelectedIndex < 0 Then
+                    Throw New OverflowException("")
+                End If
                 setQualTimetable(dt, pQualID, CInt(cboLevel.SelectedItem.Text), CInt(cboCluster.SelectedValue))
             Case eDisplayType.classgroup '1 'class
+                If cboClassgroup.SelectedIndex < 0 Then
+                    Throw New OverflowException("")
+                End If
                 setClassTimetable(dt, CInt(cboClassgroup.SelectedValue))
             Case eDisplayType.venue '2 'venue
+                If cboRoom.SelectedIndex < 0 Then
+                    Throw New OverflowException("")
+                End If
                 setVenueTimetable(dt, CInt(cboRoom.SelectedValue))
         End Select
         grdTimeTable.DataSource = dt
@@ -974,15 +983,7 @@ Public Class _Default
                     vContext.SaveChanges()
                     logDescript = " Venue ID:" + cboRoom.SelectedValue + "Year:" + vSlot.year.ToString + " Day:" + vSlot.day.ToString + " Timeslot:" + vSlot.timeslot.ToString
             End Select
-            Dim vLogEntry As New userlog With {
-                .page = Request.Path,
-                .ipaddress = Request.UserHostAddress,
-                .description = logDescript,
-                .fdatetime = DateTime.Now,
-                .function = "Delete TimeTable",
-                .user = User.Identity.Name}
-            vContext.userlogs.AddObject(vLogEntry)
-            vContext.SaveChanges()
+            clsGeneral.logAction(Request.Path, Request.UserHostAddress, logDescript, Context.User.Identity.Name)
             litMessage.Text = ""
             setTimeTable()
             mvTimetable.SetActiveView(vwDisplay)

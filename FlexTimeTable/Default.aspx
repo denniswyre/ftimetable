@@ -5,6 +5,7 @@
     TagPrefix="uc1" %>
 <%@ Register Src="userControl/subjectsearch.ascx" TagName="subjectsearch" TagPrefix="uc2" %>
 <%@ Register Src="userControl/EditTimeslot.ascx" TagName="EditTimeslot" TagPrefix="uc3" %>
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
@@ -56,17 +57,7 @@
                                         Qual:
                                     </td>
                                     <td valign="top" align="left" width="150px">
-                                        <table width="100%">
-                                            <tr>
-                                                <td>
-                                                    <asp:Label ID="lblQualCode" runat="server" Font-Bold="true" Text=" " Height="20px"
-                                                        Width="100%" BorderWidth="1" BorderStyle="Solid"></asp:Label>
-                                                </td>
-                                                <td width="20px">
-                                                    <asp:Button ID="btnQual" runat="server" Text="" Height="20px" Width="100%" />
-                                                </td>
-                                            </tr>
-                                        </table>
+                                        <asp:Button ID="btnQual" runat="server" Text="" Width="100%" />
                                     </td>
                                 </tr>
                                 <tr>
@@ -85,17 +76,7 @@
                                         Subject:
                                     </td>
                                     <td valign="top" align="left" width="150px">
-                                        <table width="100%">
-                                            <tr>
-                                                <td>
-                                                    <asp:Label ID="lblSubjectCode" runat="server" Text="" Font-Bold="true" Height="20px"
-                                                        Width="100%" BorderWidth="1" BorderStyle="Solid"></asp:Label>
-                                                </td>
-                                                <td width="20px">
-                                                    <asp:Button ID="btnSubject" runat="server" Height="20px" Text="" Width="100%" />
-                                                </td>
-                                            </tr>
-                                        </table>
+                                        <asp:Button ID="btnSubject" runat="server" Text="" Width="100%" />
                                     </td>
                                 </tr>
                                 <tr>
@@ -144,12 +125,11 @@
                         <asp:Panel ID="pnlDisplay" Width="600px" runat="server">
                             <asp:MultiView ID="mvTimetable" runat="server">
                                 <asp:View ID="vwDisplay" runat="server">
-                                 <div style="float: right; margin-top: -20px">
-                                            <asp:LinkButton ID="btnCreateTimeSlot" runat="server">Edit</asp:LinkButton>
-                                        </div>
-                                        <div style="clear: both">
-                                        </div>
-                                        <div style="margin-top: -10px">
+                                    <div style="float: right; margin-top: -10px">
+                                        <asp:LinkButton ID="btnCreateTimeSlot" runat="server">Add Entry</asp:LinkButton>
+                                    </div>
+                                    <div style="clear: both">
+                                    </div>
                                     <asp:GridView ID="grdTimeTable" runat="server" DataKeyNames="TimeSlotID" AutoGenerateColumns="False"
                                         BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px"
                                         CellPadding="4" CellSpacing="2" ForeColor="Black">
@@ -207,12 +187,14 @@
                                         <SortedDescendingCellStyle BackColor="#CAC9C9" />
                                         <SortedDescendingHeaderStyle BackColor="#383838" />
                                     </asp:GridView>
-                                    </div>
                                 </asp:View>
                                 <asp:View ID="vwDetail" runat="server">
                                     <asp:Panel ID="pnlDetails" GroupingText="Slot Details" runat="server">
-                                        <div style="float: right; margin-top: -20px">
-                                           <asp:LinkButton ID="btnSlotDelete" runat="server">Delete</asp:LinkButton>
+                                        <div style="float: right;">
+                                            <asp:LinkButton ID="btnSlotDelete" runat="server">Delete</asp:LinkButton>
+                                            <asp:ConfirmButtonExtender
+                                                ID="btnSlotDelete_ConfirmButtonExtender"  ConfirmText="Are you sure you want to delete this entry?" Enabled="true" runat="server" TargetControlID="btnSlotDelete">
+                                            </asp:ConfirmButtonExtender>
                                             <asp:LinkButton ID="btnReturn" runat="server">Return</asp:LinkButton>
                                         </div>
                                         <div style="clear: both">

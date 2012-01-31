@@ -157,6 +157,7 @@
             Next
         Next
 
+        clsGeneral.logAction(Request.Path, Request.UserHostAddress, "Generate TimeTable", Context.User.Identity.Name)
     End Sub
 
 
@@ -315,20 +316,26 @@
         Dim vClass = (From p In vContext.classgroups Where p.ID = vClassID Select p).First
         Dim vClusterID = vClass.siteclustersubject.sitecluster.ID
         'Dim vRoster = vClass.lecturer.lecturersiteclusteravailabilities
-        Dim vAvail As lecturersiteclusteravailability
+        'see if the lecturer roster is setup
+        'check for Null
         Try
-            vAvail = (From p In vClass.lecturer.lecturersiteclusteravailabilities
-                        Where p.SiteClusterID = vClusterID And
-                              p.DayOfWeek = vSlot.WeekDay And
-                              p.StartTimeSlot <= vSlot.timeslot And
-                              p.EndTimeSlot >= vSlot.timeslot
-                              Select p).FirstOrDefault
+            '''''''return true if there is no roster
+            Dim vDummy = vClass.lecturer.lecturersiteclusteravailabilities
+            If IsNothing(vDummy) Then
+                Return True
+            End If
         Catch ex As NullReferenceException
-            Return False
+            Return True
         Catch ex As Exception
             Throw ex
         End Try
-        If IsNothing(vAvail) Then
+        Dim vSlotRoster = (From p In vClass.lecturer.lecturersiteclusteravailabilities
+                    Where p.SiteClusterID = vClusterID And
+                          p.DayOfWeek = vSlot.WeekDay And
+                          p.StartTimeSlot <= vSlot.timeslot And
+                          p.EndTimeSlot >= vSlot.timeslot
+                          Select p).ToList
+        If vSlotRoster.Count = 0 Then
             Return False
         Else
             Return True

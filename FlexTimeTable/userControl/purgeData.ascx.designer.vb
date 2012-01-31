@@ -11,16 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class purge
-
-    '''<summary>
-    '''Message control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Message As Global.System.Web.UI.WebControls.Literal
+Partial Public Class purgeData
 
     '''<summary>
     '''Panel1 control.
@@ -30,6 +21,15 @@ Partial Public Class purge
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Panel1 As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''litMessage control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents litMessage As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
     '''btnPurge control.

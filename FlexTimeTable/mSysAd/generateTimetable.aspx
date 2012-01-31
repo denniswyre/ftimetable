@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Flex.Master"
     CodeBehind="generateTimetable.aspx.vb" Inherits="FlexTimeTable.generateTimetable" %>
-
+  
+<%@ Register src="../userControl/purgeData.ascx" tagname="purgeData" tagprefix="uc1" %>
+  
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -8,7 +10,8 @@
         Generate Time Table
     </h1>
     <asp:Literal ID="litError" runat="server"></asp:Literal>
-    <asp:Panel ID="pnlGenerate" runat="server" GroupingText="Generate TimeTable">
+       <uc1:purgeData ID="purgeData1" runat="server" />
+       <asp:Panel ID="pnlGenerate" runat="server" GroupingText="Generate TimeTable">
         <table style="width: 100%;">
             <tr>
                 <td>

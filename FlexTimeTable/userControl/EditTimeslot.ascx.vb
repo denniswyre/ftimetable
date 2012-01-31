@@ -426,15 +426,8 @@
                     vContext.SaveChanges()
                 Next
             Next
-            Dim vLogEntry As New userlog With {
-              .page = Request.Path,
-              .ipaddress = Request.UserHostAddress,
-              .description = "Class:" + cboClass.SelectedValue + " Venue:" + cboVenue.SelectedValue,
-              .fdatetime = DateTime.Now,
-              .function = "Create TimeTable",
-              .user = Context.User.Identity.Name}
-            vContext.userlogs.AddObject(vLogEntry)
-            vContext.SaveChanges()
+            Dim vDescript = "Class:" + cboClass.SelectedValue + " Venue:" + cboVenue.SelectedValue
+            clsGeneral.logAction(Request.Path, Request.UserHostAddress, vDescript, Context.User.Identity.Name)
             RaiseEvent ExitClick(Me, New System.EventArgs)
         Catch ex As Exception
             errorMessage.Text = clsGeneral.displaymessage(ex.Message, True)

@@ -125,6 +125,7 @@
     <Content Include="userControl\getSchool.ascx" />
     <Content Include="userControl\departmentSearch.ascx" />
     <Content Include="userControl\classgroups.ascx" />
+    <Content Include="userControl\purgeData.ascx" />
     <Content Include="userControl\qualificationDetails.ascx" />
     <Content Include="userControl\qualificationsearch.ascx" />
     <Content Include="userControl\subjectsearch.ascx" />
@@ -146,7 +147,6 @@
     <Content Include="mSysAd\managetimeslot.aspx" />
     <Content Include="mSysAd\managefaculty.aspx" />
     <Content Include="mSysAd\managecampus.aspx" />
-    <Content Include="mSysAd\purge.aspx" />
     <Content Include="mSysAd\ResourceAllocation.aspx" />
     <Content Include="mSysAd\userManagement.aspx" />
     <Content Include="mSysAd\VenueAllocation.aspx" />
@@ -246,6 +246,13 @@
     </Compile>
     <Compile Include="userControl\logButton.ascx.designer.vb">
       <DependentUpon>logButton.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="userControl\purgeData.ascx.designer.vb">
+      <DependentUpon>purgeData.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="userControl\purgeData.ascx.vb">
+      <DependentUpon>purgeData.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="userControl\qualificationDetails.ascx.designer.vb">
       <DependentUpon>qualificationDetails.ascx</DependentUpon>
@@ -413,13 +420,6 @@
     </Compile>
     <Compile Include="mSysAd\managecampus.aspx.vb">
       <DependentUpon>managecampus.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="mSysAd\purge.aspx.designer.vb">
-      <DependentUpon>purge.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="mSysAd\purge.aspx.vb">
-      <DependentUpon>purge.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="mSysAd\ResourceAllocation.aspx.designer.vb">

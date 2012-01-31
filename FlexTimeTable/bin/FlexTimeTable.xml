@@ -6,33 +6,33 @@ FlexTimeTable
 </name>
 </assembly>
 <members>
-<member name="F:FlexTimeTable.BulkEmail.ErrorMessage">
+<member name="F:FlexTimeTable.purgeData.Panel1">
 	<summary>
-ErrorMessage control.
+Panel1 control.
 </summary>
 	<remarks>
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
-</member><member name="F:FlexTimeTable.BulkEmail.txtSubject">
+</member><member name="F:FlexTimeTable.purgeData.litMessage">
 	<summary>
-txtSubject control.
+litMessage control.
 </summary>
 	<remarks>
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
-</member><member name="F:FlexTimeTable.BulkEmail.btnSend">
+</member><member name="F:FlexTimeTable.purgeData.btnPurge">
 	<summary>
-btnSend control.
+btnPurge control.
 </summary>
 	<remarks>
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
-</member><member name="F:FlexTimeTable.BulkEmail.txtBody">
+</member><member name="F:FlexTimeTable.purgeData.btnPurge_ConfirmButtonExtender">
 	<summary>
-txtBody control.
+btnPurge_ConfirmButtonExtender control.
 </summary>
 	<remarks>
 Auto-generated field.
@@ -1495,38 +1495,6 @@ btnCancel control.
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
-</member><member name="F:FlexTimeTable.purge.optOption">
-	<summary>
-optOption control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.purge.Message">
-	<summary>
-Message control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.purge.CheckBox1">
-	<summary>
-CheckBox1 control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.purge.btnPurge">
-	<summary>
-btnPurge control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
 </member><member name="F:FlexTimeTable.VenueAllocation.ActionStatus">
 	<summary>
 ActionStatus control.
@@ -1602,6 +1570,38 @@ To modify move field declaration from designer file to code-behind file.
 </member><member name="F:FlexTimeTable.getDepartment.btnUpdate">
 	<summary>
 btnUpdate control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.BulkEmail.ErrorMessage">
+	<summary>
+ErrorMessage control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.BulkEmail.txtSubject">
+	<summary>
+txtSubject control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.BulkEmail.btnSend">
+	<summary>
+btnSend control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.BulkEmail.txtBody">
+	<summary>
+txtBody control.
 </summary>
 	<remarks>
 Auto-generated field.
@@ -4518,6 +4518,14 @@ litError control.
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
+</member><member name="F:FlexTimeTable.generateTimetable.purgeData1">
+	<summary>
+purgeData1 control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
 </member><member name="F:FlexTimeTable.generateTimetable.pnlGenerate">
 	<summary>
 pnlGenerate control.
@@ -6174,14 +6182,6 @@ phQual control.
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
-</member><member name="F:FlexTimeTable._Default.lblQualCode">
-	<summary>
-lblQualCode control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
 </member><member name="F:FlexTimeTable._Default.btnQual">
 	<summary>
 btnQual control.
@@ -6201,14 +6201,6 @@ To modify move field declaration from designer file to code-behind file.
 </member><member name="F:FlexTimeTable._Default.phClass">
 	<summary>
 phClass control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable._Default.lblSubjectCode">
-	<summary>
-lblSubjectCode control.
 </summary>
 	<remarks>
 Auto-generated field.
@@ -6321,6 +6313,14 @@ To modify move field declaration from designer file to code-behind file.
 </member><member name="F:FlexTimeTable._Default.btnSlotDelete">
 	<summary>
 btnSlotDelete control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable._Default.btnSlotDelete_ConfirmButtonExtender">
+	<summary>
+btnSlotDelete_ConfirmButtonExtender control.
 </summary>
 	<remarks>
 Auto-generated field.

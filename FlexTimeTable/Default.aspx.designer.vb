@@ -104,15 +104,6 @@ Partial Public Class _Default
     Protected WithEvents phQual As Global.System.Web.UI.WebControls.PlaceHolder
 
     '''<summary>
-    '''lblQualCode control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblQualCode As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
     '''btnQual control.
     '''</summary>
     '''<remarks>
@@ -138,15 +129,6 @@ Partial Public Class _Default
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents phClass As Global.System.Web.UI.WebControls.PlaceHolder
-
-    '''<summary>
-    '''lblSubjectCode control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblSubjectCode As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''btnSubject control.
@@ -273,6 +255,15 @@ Partial Public Class _Default
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnSlotDelete As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
+    '''btnSlotDelete_ConfirmButtonExtender control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnSlotDelete_ConfirmButtonExtender As Global.AjaxControlToolkit.ConfirmButtonExtender
 
     '''<summary>
     '''btnReturn control.

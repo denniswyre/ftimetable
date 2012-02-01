@@ -79,7 +79,7 @@
             Dim DepartVenues = ResourceClassgroup.siteclustersubject.subject.department.venues
             For Each y In (From p In DepartVenues Order By p.Capacity
                                  Where p.resourcetype.ID = vResource.ResourceTypeID And
-                                       p.Capacity >= vResourceSize Select p).ToList       
+                                       p.Capacity >= vResourceSize Select p).ToList
                 venueList.Add(y.ID)
             Next
             ''get all qualified venues in site cluster
@@ -235,10 +235,37 @@
 
         Dim vResource = (From p In vContext.resources Where p.ID = vResourceID Select p).First
         Dim vClassGroup = vResource.classgroups.First
-        Dim vOfferingType = vClassgroup.offeringtype
+        Dim vOfferingType = vClassGroup.offeringtype
+
+        Dim morningSlots As New List(Of Integer)
+        Dim afternoonSlots As New List(Of Integer)
+        Dim weekEndSlots As New List(Of Integer)
+        Dim lunchTimeSlot = (From p In vContext.timeslots
+                                Where p.LunchPeriod = True
+                                      Select p).FirstOrDefault
+        For Each x In (From p In vContext.timeslots
+                                Where p.ID >= vOfferingType.startTimeSlot And
+                                      p.ID <= vOfferingType.endTimeSlot
+                                      Select p).ToList
+            If x.ID < lunchTimeSlot.ID Then
+                morningSlots.Add(x.ID)
+            ElseIf x.ID > lunchTimeSlot.ID Then
+                afternoonSlots.Add(x.ID)
+            End If
+        Next
+        If vOfferingType.SabbathClasses Then
+            For Each x In (From p In vContext.timeslots
+                            Where p.ID >= vOfferingType.sabStartTimeSlot And
+                                  p.ID >= vOfferingType.sabEndTimeSlot
+                                  Select p).ToList
+                weekendSlots.Add(x.ID)
+            Next
+        End If
 
 
-        Dim vDays() As Integer = {2, 4, 3, 5, 6, 7}
+
+        Dim vWorkDays() As Integer = {2, 4, 3, 5, 6}
+        Dim vWeekEnd() As Integer = {7}
         ' Try
 
         With vResource
@@ -267,73 +294,112 @@
                     Dim vUsedVenueSlots As New HashSet(Of sSlot)
                     setUsedVenueSlots(vUsedVenueSlots, CInt(vVenueID), .year, iStartWeek)
 
-                    'set timeslots according to offering type
-                    Dim vTimeslots = (From p In vContext.timeslots
-                                            Where p.ID >= vOfferingType.startTimeSlot And
-                                                  p.ID <= vOfferingType.endTimeSlot
-                                                  Select p).ToList
+                    ''''''''''''''''schedule morning slots first
+                    scheduleSlots(vUsedResourceSlots,
+                        vUsedVenueSlots,
+                        vOfferingType,
+                        vResource,
+                        vClassGroup.ID,
+                        CInt(vVenueID),
+                        vSlotIndex,
+                        vWorkDays,
+                        morningSlots,
+                        vReqTimeSlots,
+                        vYear,
+                        iStartWeek,
+                        iEndWeek)
 
-                    'normal time slots
-                    For Each vSlot In vTimeslots
-                        '''''''''''''''''''''''''''Time Slots ''''''''''''''''''''''''''''''''''
-                        If vSlotIndex >= vReqTimeSlots Then
-                            Exit For
-                        End If
-                        For Each vday As Integer In vDays
-                            ''''''''''''''''''''''''''DAY OF WEEK '''''''''''''''''''''''''''''
-                            If vSlotIndex >= vReqTimeSlots Then
-                                Exit For
-                            End If
+                    '''''''''''''''schedule afternoon slots
+                    scheduleSlots(vUsedResourceSlots,
+                       vUsedVenueSlots,
+                       vOfferingType,
+                       vResource,
+                       vClassGroup.ID,
+                       CInt(vVenueID),
+                       vSlotIndex,
+                       vWorkDays,
+                       afternoonSlots,
+                       vReqTimeSlots,
+                       vYear,
+                       iStartWeek,
+                       iEndWeek)
 
-                            Dim vEndTimeSlot = vOfferingType.endTimeSlot
-                            If vday = 7 Then
-                                'schedule on saturday only if offering type allows this
-                                If vOfferingType.SabbathClasses Then
-                                    If Not (vSlot.ID >= vOfferingType.sabStartTimeSlot And
-                                       vSlot.ID <= vOfferingType.sabEndTimeSlot) Then
-                                        Continue For
-                                    Else
-                                        vEndTimeSlot = vOfferingType.sabEndTimeSlot
-                                    End If
-                                Else
-                                    Continue For
-                                End If
-                            End If
-
-                            If vSlot.ID > vEndTimeSlot Then
-                                Exit For
-                            End If
-
-
-                            'only schedule once for a day. goto next day if already scheduled on this day
-                            If Not isResourceDayFree(vYear, iStartWeek, vday, .ID) Then
-                                Exit For
-                            End If
-                            'create time slot structure
-                            Dim xSlot As New sSlot With {.Year = vYear, .Week = iStartWeek, .WeekDay = vday, .timeslot = vSlot.ID}
-                            'check if lecturer is rostered
-                            If Not IsLecturerRostered(xSlot, vClassGroup.ID) Then
-                                'need to roster lecturers first.
-                                Continue For
-                            End If
-                            '''''''''''''''''''''''''''''''''''''TIME PERIOD''''''''''''''''''''''''
-                            If IsSlotFree(vUsedResourceSlots,
-                                          vUsedVenueSlots,
-                                          xSlot,
-                                          vEndTimeSlot,
-                                          .MaxMergedTimeSlots,
-                                          vReqTimeSlots - vSlotIndex) Then
-                                createSlot(vUsedResourceSlots, vSlotIndex, CInt(vVenueID), .ID, xSlot, iEndWeek, .MaxMergedTimeSlots, vReqTimeSlots - vSlotIndex)
-                            End If
-                            '''''''''''''''''''''''''''''''''''''END DAY''''''''''''''''''''''''
-                        Next
-                        '''''''''''''''''''''''''''''''''''''END TIME PERIOD''''''''''''''''''''''''
-                    Next
+                    ''''''''''''''schedule weekend 
+                    scheduleSlots(vUsedResourceSlots,
+                        vUsedVenueSlots,
+                        vOfferingType,
+                        vResource,
+                        vClassGroup.ID,
+                        CInt(vVenueID),
+                        vSlotIndex,
+                        vWeekEnd,
+                        weekEndSlots,
+                        vReqTimeSlots,
+                        vYear,
+                        iStartWeek,
+                        iEndWeek)
                     ''''''''''''''''''''''''''END Qualified ROOMs Loop''''''''''''''
                 Next
-                '''''''''''''''''''''''''''Block Period'''''''''''''''''''''''''''''''''''''''
+                ''''''''''''''''''''''''Block Period'''''''''''''''''''''''''''''''''''''''
             Next
         End With  'vSubGrDRow
+    End Sub
+
+
+    Sub scheduleSlots(ByRef vUsedResourceSlots As HashSet(Of sSlot),
+                      ByRef vUsedVenueSlots As HashSet(Of sSlot),
+                      ByVal vOfferingType As offeringtype,
+                      ByVal vResource As resource,
+                      ByVal vClassID As Integer,
+                      ByVal vVenueID As Integer,
+                      ByRef vSlotIndex As Integer,
+                      ByVal vDays() As Integer,
+                      ByVal vTimeSlots As List(Of Integer),
+                      ByVal vReqTimeSlots As Integer,
+                      ByVal vYear As Integer,
+                      ByVal iStartWeek As Integer,
+                      ByVal iEndWeek As Integer)
+        With vResource
+            If vTimeSlots.Count = 0 Then
+                Exit Sub
+            End If
+            Dim vEndTimeSlot = vTimeSlots.Last
+            Dim vContext As timetableEntities = New timetableEntities()
+            For Each vday As Integer In vDays
+                For Each vSlot In vTimeSlots
+                    '''''''''''''''''''''''''''Time Slots ''''''''''''''''''''''''''''''''''
+                    If vSlot > vEndTimeSlot Then
+                        Exit For
+                    End If
+                    If vSlotIndex >= vReqTimeSlots Then
+                        Exit For
+                    End If
+
+                    'only schedule once for a day. goto next day if already scheduled on this day
+                    If Not isResourceDayFree(vYear, iStartWeek, vday, .ID) Then
+                        Exit For
+                    End If
+                    'create time slot structure
+                    Dim xSlot As New sSlot With {.Year = vYear, .Week = iStartWeek, .WeekDay = vday, .timeslot = vSlot}
+                    'check if lecturer is rostered
+                    If Not IsLecturerRostered(xSlot, vClassID) Then
+                        'need to roster lecturers first.
+                        Continue For
+                    End If
+                    '''''''''''''''''''''''''''''''''''''TIME PERIOD''''''''''''''''''''''''
+                    If IsSlotFree(vUsedResourceSlots,
+                                  vUsedVenueSlots,
+                                  xSlot,
+                                  vEndTimeSlot,
+                                  .MaxMergedTimeSlots,
+                                  vReqTimeSlots - vSlotIndex) Then
+                        createSlot(vUsedResourceSlots, vSlotIndex, CInt(vVenueID), .ID, xSlot, iEndWeek, .MaxMergedTimeSlots, vReqTimeSlots - vSlotIndex)
+                    End If
+                    '''''''''''''''''''''''''''''''''''''END TIME PERIOD''''''''''''''''''''''''
+                Next
+                ''''''''''''''''''''''''''''''''''END DAY''''''''''''''''''''''''
+            Next
+        End With
     End Sub
 
 

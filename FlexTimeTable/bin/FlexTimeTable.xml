@@ -6,71 +6,7 @@ FlexTimeTable
 </name>
 </assembly>
 <members>
-<member name="F:FlexTimeTable.createResources.Panel1">
-	<summary>
-Panel1 control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.createResources.ErrorMessage">
-	<summary>
-ErrorMessage control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.createResources.btnCreate">
-	<summary>
-btnCreate control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.summary.lstReports">
-	<summary>
-lstReports control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.purgeData.Panel1">
-	<summary>
-Panel1 control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.purgeData.litMessage">
-	<summary>
-litMessage control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.purgeData.btnPurge">
-	<summary>
-btnPurge control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.purgeData.btnPurge_ConfirmButtonExtender">
-	<summary>
-btnPurge_ConfirmButtonExtender control.
-</summary>
-	<remarks>
-Auto-generated field.
-To modify move field declaration from designer file to code-behind file.
-</remarks>
-</member><member name="F:FlexTimeTable.managedepartment.litMessage">
+<member name="F:FlexTimeTable.managedepartment.litMessage">
 	<summary>
 litMessage control.
 </summary>
@@ -305,6 +241,30 @@ To modify move field declaration from designer file to code-behind file.
 </member><member name="F:FlexTimeTable.lecturerWorkload.grdLecturer">
 	<summary>
 grdLecturer control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.createResources.Panel1">
+	<summary>
+Panel1 control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.createResources.ErrorMessage">
+	<summary>
+ErrorMessage control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.createResources.btnCreate">
+	<summary>
+btnCreate control.
 </summary>
 	<remarks>
 Auto-generated field.
@@ -967,6 +927,14 @@ To modify move field declaration from designer file to code-behind file.
  Module used to define the properties that are available in the My Namespace for Web projects.
  </summary>
 	<remarks></remarks>
+</member><member name="F:FlexTimeTable.summary.lstReports">
+	<summary>
+lstReports control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
 </member><member name="F:FlexTimeTable.classgroups.pnlMain">
 	<summary>
 pnlMain control.
@@ -1386,6 +1354,38 @@ To modify move field declaration from designer file to code-behind file.
 </member><member name="F:FlexTimeTable.EditTimeslot.btnSave">
 	<summary>
 btnSave control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.purgeData.Panel1">
+	<summary>
+Panel1 control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.purgeData.litMessage">
+	<summary>
+litMessage control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.purgeData.btnPurge">
+	<summary>
+btnPurge control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.purgeData.btnPurge_ConfirmButtonExtender">
+	<summary>
+btnPurge_ConfirmButtonExtender control.
 </summary>
 	<remarks>
 Auto-generated field.

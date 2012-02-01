@@ -10,16 +10,17 @@
         Try
             'Dim vLdap As New WebUserAccess()
             '            GoTo tempLine
-            vOfficer = ldap1.getUserDetails(Me.UserName.Text)
 
+            vOfficer = ldap1.getUserDetails(Me.UserName.Text)
             If vOfficer.username = "" Then
                 Throw New Exception("Invalid Credentials!")
             End If
-
             If IsNothing(ldap1.BindLdap(vOfficer.DistinquishedName, Me.Password.Text)) Then
                 Throw New Exception("Invalid Credentials!")
             End If
             'tempLine:
+
+
             Dim vUser As MembershipUser = Membership.GetUser(Me.UserName.Text)
             If vUser Is Nothing Then
                 'create new membership

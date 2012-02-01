@@ -291,6 +291,9 @@
         Dim vResource = (From p In vContext.resources _
                             Where p.ID = CType(Me.lblID.Text, Integer) _
                             Select p).First
+        Do While Not IsNothing(vResource.classgroups.FirstOrDefault)
+            vResource.classgroups.Remove(vResource.classgroups.FirstOrDefault)
+        Loop
         vContext.DeleteObject(vResource)
         vContext.SaveChanges()
     End Sub

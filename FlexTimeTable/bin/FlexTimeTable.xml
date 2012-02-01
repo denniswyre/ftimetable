@@ -6,7 +6,39 @@ FlexTimeTable
 </name>
 </assembly>
 <members>
-<member name="F:FlexTimeTable.purgeData.Panel1">
+<member name="F:FlexTimeTable.createResources.Panel1">
+	<summary>
+Panel1 control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.createResources.ErrorMessage">
+	<summary>
+ErrorMessage control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.createResources.btnCreate">
+	<summary>
+btnCreate control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.summary.lstReports">
+	<summary>
+lstReports control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.purgeData.Panel1">
 	<summary>
 Panel1 control.
 </summary>
@@ -4513,6 +4545,14 @@ To modify move field declaration from designer file to code-behind file.
 </member><member name="F:FlexTimeTable.generateTimetable.litError">
 	<summary>
 litError control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.generateTimetable.createResources1">
+	<summary>
+createResources1 control.
 </summary>
 	<remarks>
 Auto-generated field.

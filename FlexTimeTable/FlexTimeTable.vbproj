@@ -119,8 +119,10 @@
     <Content Include="Changes.aspx" />
     <Content Include="images\ajax-loader.gif" />
     <Content Include="Login.aspx" />
+    <Content Include="member\summary.aspx" />
     <Content Include="mSysAd\NormalSubject.aspx" />
     <Content Include="mSysAd\BulkEmail.aspx" />
+    <Content Include="userControl\createResources.ascx" />
     <Content Include="userControl\EditTimeslot.ascx" />
     <Content Include="userControl\getSchool.ascx" />
     <Content Include="userControl\departmentSearch.ascx" />
@@ -202,6 +204,13 @@
     <Compile Include="managedepartment.aspx.designer.vb">
       <DependentUpon>managedepartment.aspx</DependentUpon>
     </Compile>
+    <Compile Include="member\summary.aspx.designer.vb">
+      <DependentUpon>summary.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="member\summary.aspx.vb">
+      <DependentUpon>summary.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="mSysAd\NormalSubject.aspx.designer.vb">
       <DependentUpon>NormalSubject.aspx</DependentUpon>
     </Compile>
@@ -218,6 +227,13 @@
     </Compile>
     <Compile Include="userControl\classgroups.ascx.designer.vb">
       <DependentUpon>classgroups.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="userControl\createResources.ascx.designer.vb">
+      <DependentUpon>createResources.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="userControl\createResources.ascx.vb">
+      <DependentUpon>createResources.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="userControl\EditTimeslot.ascx.designer.vb">
       <DependentUpon>EditTimeslot.ascx</DependentUpon>

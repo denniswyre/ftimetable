@@ -2,6 +2,7 @@
     CodeBehind="generateTimetable.aspx.vb" Inherits="FlexTimeTable.generateTimetable" %>
   
 <%@ Register src="../userControl/purgeData.ascx" tagname="purgeData" tagprefix="uc1" %>
+<%@ Register src="../userControl/createResources.ascx" tagname="createResources" tagprefix="uc2" %>
   
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
@@ -10,7 +11,8 @@
         Generate Time Table
     </h1>
     <asp:Literal ID="litError" runat="server"></asp:Literal>
-       <uc1:purgeData ID="purgeData1" runat="server" />
+       <uc2:createResources ID="createResources1" runat="server" />
+    <uc1:purgeData ID="purgeData1" runat="server" />
        <asp:Panel ID="pnlGenerate" runat="server" GroupingText="Generate TimeTable">
         <table style="width: 100%;">
             <tr>

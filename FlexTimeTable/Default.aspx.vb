@@ -186,9 +186,10 @@ Public Class _Default
 
 
     Sub getClusters(ByVal vClusterList As List(Of sitecluster))
+        '(From p In vClusterList Order By p.longName Select p).ToList
         With cboCluster
             .DataSource = vClusterList
-            .DataTextField = "shortname"
+            .DataTextField = "longName"
             .DataValueField = "id"
             .DataBind()
         End With
@@ -216,7 +217,7 @@ Public Class _Default
             Dim vContext As timetableEntities = New timetableEntities()
             Dim vSiteID = CInt(cboSite.SelectedValue)
             Dim vRooms = (From p In vContext.venues
-                           Where p.building.SiteID = vSiteID Select code = p.Code, id = p.ID).ToList
+                           Where p.building.SiteID = vSiteID Order By p.Code Select code = p.Code, id = p.ID).ToList
             With cboRoom
                 .DataSource = vRooms
                 .DataTextField = "code"

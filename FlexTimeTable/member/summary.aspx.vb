@@ -13,13 +13,15 @@
         Dim DummyFacultyID = CType(ConfigurationManager.AppSettings("dummyfaculty"), Integer)
         'per faculty
         For Each x In (From p In vContext.faculties).ToList
-            If x.ID = DummyFacultyID Then
+            Dim xID = x.ID
+            If xID = DummyFacultyID Then
                 lstReports.Items.Add("Faculty:" + "Unassigned")
             Else
                 lstReports.Items.Add("Faculty:" + x.code)
             End If
-            Dim FacSubj = From p In vSubj Where p.department.school.facultyID = x.ID Select p
-            Dim FacQua = From p In Vqu Where p.department.school.facultyID = x.ID Select p
+
+            Dim FacSubj = From p In vSubj Where p.department.school.facultyID = xID Select p
+            Dim FacQua = From p In Vqu Where p.department.school.facultyID = xID Select p
 
             lstReports.Items.Add(" Total Subjects:" + CStr(FacSubj.Count))
             lstReports.Items.Add(" Total Qualifications:" + CStr(FacQua.Count))

@@ -59,7 +59,17 @@
     Structure sSlot
         Dim Year As Integer
         Dim Week As Integer
-        Dim WeekDay As Integer
+        Dim Day As Integer
+        Dim timeslot As Integer
+    End Structure
+
+
+    Structure sResourceSlot
+        Dim ResourceID As Integer
+        Dim VenueID As Integer
+        Dim Year As Integer
+        Dim Week As Integer
+        Dim Day As Integer
         Dim timeslot As Integer
     End Structure
 
@@ -138,33 +148,15 @@
 
 
         For Each x In orderResources(vClassGroups)
-            scheduleResource(x, vYear, weekBoundaries)
+            Dim xResourceID = CInt(x)
+            Dim vResource = (From p In vContext.resources Where p.ID = xResourceID And p.year = vYear Select p).FirstOrDefault
+            If Not IsNothing(vResource) Then
+                scheduleResource(vResource, weekBoundaries)
+            End If
         Next
         clsGeneral.logAction(Request.Path, Request.UserHostAddress, "Generate TimeTable", Context.User.Identity.Name)
 
     End Sub
-
-
-    Sub separateClassGroups(ByVal vClassgroupList As List(Of classgroup), ByRef AssignedClassList As List(Of Integer), ByRef UnAssignedClassList As List(Of Integer))
-        Dim vContext As timetableEntities = New timetableEntities()
-        ''Give priority to those who have preferrred rooms
-        For Each x In vClassgroupList
-            Dim ClusterID = x.SiteClusterID
-            Dim IsVenueAssigned = False
-            For Each y In x.siteclustersubject.subject.department.venues
-                If ClusterID = y.building.site.SiteClusterID Then
-                    IsVenueAssigned = True
-                    Exit For
-                End If
-            Next
-            If IsVenueAssigned Then
-                AssignedClassList.Add(x.ID)
-            Else
-                UnAssignedClassList.Add(x.ID)
-            End If
-        Next
-    End Sub
-
 
 
     Function orderResources(ByVal vClassgroupList As List(Of classgroup)) As List(Of Integer)
@@ -229,11 +221,10 @@
     End Function
 
 
-    Protected Sub scheduleResource(ByVal vResourceID As Integer, ByVal vYear As Integer, ByVal vWeekBoundaries As HashSet(Of Integer))
+    Protected Sub scheduleResource(ByVal vResource As resource, ByVal vWeekBoundaries As HashSet(Of Integer))
         Dim vContext As timetableEntities = New timetableEntities()
         'Dim vClassgroup = (From p In vContext.classgroups Where p.ID = vClassID Select p).First
 
-        Dim vResource = (From p In vContext.resources Where p.ID = vResourceID Select p).First
         Dim vClassGroup = vResource.classgroups.First
         Dim vOfferingType = vClassGroup.offeringtype
 
@@ -258,7 +249,7 @@
                             Where p.ID >= vOfferingType.sabStartTimeSlot And
                                   p.ID >= vOfferingType.sabEndTimeSlot
                                   Select p).ToList
-                weekendSlots.Add(x.ID)
+                weekEndSlots.Add(x.ID)
             Next
         End If
 
@@ -275,21 +266,19 @@
                 'exit resource if it doesn't contain this week
                 If Not (iStartWeek >= .startWeek And iStartWeek <= .endWeek) Then Continue For
                 '''''''''''''''''''''''''''Get Existing Booked Periods ''''''''''''''''''''''''''
-                Dim vBookedTimeSlots As Integer = (From p In vContext.resourceschedules Where p.ResourceID = .ID And p.Year = vYear And p.Week = iStartWeek Select p).Count
-                '''''get the required periods
-                Dim vReqTimeSlots As Integer = .AmtTimeSlots - vBookedTimeSlots
-                '''''do not genertate if timetable already created
-                If vReqTimeSlots = 0 Then Continue For
 
-                'start index
-                Dim vSlotIndex As Integer = 0
+                Dim savedSlots As Integer = (From p In .resourceschedules Where p.Year = .year And p.Week = iStartWeek Select p).Count
+                '''''get the required periods
+                '''''do not genertate if timetable already created
+                If savedSlots >= .AmtTimeSlots Then Continue For
 
                 ''get all used resource slots
                 Dim vUsedResourceSlots As New HashSet(Of sSlot)
-                setUsedResourceSlots(vUsedResourceSlots, .ID, vYear, iStartWeek)
+                setUsedResourceSlots(vUsedResourceSlots, .ID, .year, iStartWeek)
 
-                'If vSlotIndex >= vReqTimeSlots Then Continue For
-                For Each vVenueID In getQualifiedRooms(.ID)
+                For Each xVenueID In getQualifiedRooms(.ID)
+                    If savedSlots >= .AmtTimeSlots Then Exit For
+                    Dim vVenueID = CInt(xVenueID)
                     ''''''''''''''''''''''''''START Qualified ROOMs Loop''''''''''''''''
                     Dim vUsedVenueSlots As New HashSet(Of sSlot)
                     setUsedVenueSlots(vUsedVenueSlots, CInt(vVenueID), .year, iStartWeek)
@@ -300,12 +289,12 @@
                         vOfferingType,
                         vResource,
                         vClassGroup.ID,
-                        CInt(vVenueID),
-                        vSlotIndex,
+                        vVenueID,
+                        savedSlots,
                         vWorkDays,
                         morningSlots,
-                        vReqTimeSlots,
-                        vYear,
+                        .AmtTimeSlots,
+                        .year,
                         iStartWeek,
                         iEndWeek)
 
@@ -315,12 +304,12 @@
                        vOfferingType,
                        vResource,
                        vClassGroup.ID,
-                       CInt(vVenueID),
-                       vSlotIndex,
+                       vVenueID,
+                       savedSlots,
                        vWorkDays,
                        afternoonSlots,
-                       vReqTimeSlots,
-                       vYear,
+                      .AmtTimeSlots,
+                       .year,
                        iStartWeek,
                        iEndWeek)
 
@@ -330,15 +319,17 @@
                         vOfferingType,
                         vResource,
                         vClassGroup.ID,
-                        CInt(vVenueID),
-                        vSlotIndex,
+                        vVenueID,
+                        savedSlots,
                         vWeekEnd,
                         weekEndSlots,
-                        vReqTimeSlots,
-                        vYear,
+                        .AmtTimeSlots,
+                        .year,
                         iStartWeek,
                         iEndWeek)
                     ''''''''''''''''''''''''''END Qualified ROOMs Loop''''''''''''''
+                    ''''do Bulk save here
+
                 Next
                 ''''''''''''''''''''''''Block Period'''''''''''''''''''''''''''''''''''''''
             Next
@@ -352,10 +343,10 @@
                       ByVal vResource As resource,
                       ByVal vClassID As Integer,
                       ByVal vVenueID As Integer,
-                      ByRef vSlotIndex As Integer,
+                      ByRef savedSlots As Integer,
                       ByVal vDays() As Integer,
                       ByVal vTimeSlots As List(Of Integer),
-                      ByVal vReqTimeSlots As Integer,
+                      ByVal vAmtTimeSlots As Integer,
                       ByVal vYear As Integer,
                       ByVal iStartWeek As Integer,
                       ByVal iEndWeek As Integer)
@@ -364,36 +355,39 @@
                 Exit Sub
             End If
             Dim vEndTimeSlot = vTimeSlots.Last
-            Dim vContext As timetableEntities = New timetableEntities()
             For Each vday As Integer In vDays
                 For Each vSlot In vTimeSlots
                     '''''''''''''''''''''''''''Time Slots ''''''''''''''''''''''''''''''''''
+                    If savedSlots >= vAmtTimeSlots Then
+                        Exit For
+                    End If
+
                     If vSlot > vEndTimeSlot Then
                         Exit For
                     End If
-                    If vSlotIndex >= vReqTimeSlots Then
-                        Exit For
-                    End If
+
+                   
 
                     'only schedule once for a day. goto next day if already scheduled on this day
                     If Not isResourceDayFree(vYear, iStartWeek, vday, .ID) Then
                         Exit For
                     End If
                     'create time slot structure
-                    Dim xSlot As New sSlot With {.Year = vYear, .Week = iStartWeek, .WeekDay = vday, .timeslot = vSlot}
+                    Dim xSlot As New sSlot With {.Year = vYear, .Week = iStartWeek, .Day = vday, .timeslot = vSlot}
                     'check if lecturer is rostered
                     If Not IsLecturerRostered(xSlot, vClassID) Then
                         'need to roster lecturers first.
                         Continue For
                     End If
                     '''''''''''''''''''''''''''''''''''''TIME PERIOD''''''''''''''''''''''''
+                    Dim RemSlots = vAmtTimeSlots - savedSlots
                     If IsSlotFree(vUsedResourceSlots,
                                   vUsedVenueSlots,
                                   xSlot,
                                   vEndTimeSlot,
                                   .MaxMergedTimeSlots,
-                                  vReqTimeSlots - vSlotIndex) Then
-                        createSlot(vUsedResourceSlots, vSlotIndex, CInt(vVenueID), .ID, xSlot, iEndWeek, .MaxMergedTimeSlots, vReqTimeSlots - vSlotIndex)
+                                  RemSlots) Then
+                        createSlot(vUsedResourceSlots, vUsedVenueSlots, savedSlots, vVenueID, .ID, xSlot, iEndWeek, .MaxMergedTimeSlots, RemSlots)
                     End If
                     '''''''''''''''''''''''''''''''''''''END TIME PERIOD''''''''''''''''''''''''
                 Next
@@ -405,19 +399,21 @@
 
 
     'get slots of venue that are already assigned
-    Sub setUsedVenueSlots(ByRef UsedSlots As HashSet(Of sSlot), ByVal vvenueID As Integer, ByVal xYear As Integer, ByVal xWeek As Integer)
+    Sub setUsedVenueSlots(ByRef UsedVenueSlots As HashSet(Of sSlot), ByVal vvenueID As Integer, ByVal xYear As Integer, ByVal xWeek As Integer)
         Dim vContext As timetableEntities = New timetableEntities()
+        '''''''''''''''''''''''
         'get venue  Timetable
         Dim xVenueSchedules = (From p In vContext.venues Where p.ID = vvenueID Select p.resourceschedules).FirstOrDefault
-        '  Dim xVenueSchedules = (From p In vContext.resourceschedules
-        '                          Where p.venues..Contains(vVenue) Select p)
+
         If Not IsNothing(xVenueSchedules) Then
             For Each x In xVenueSchedules
                 If x.Year = xYear And x.Week = xWeek Then
                     Dim vSlot As New sSlot With {
+                        .Year = xYear,
+                        .Week = xWeek,
                         .timeslot = x.timeSlotID,
-                        .WeekDay = x.Day}
-                    AddUsedSlots(UsedSlots, vSlot)
+                        .Day = x.Day}
+                    UsedVenueSlots.Add(vSlot)
                 End If
             Next
         End If
@@ -433,8 +429,7 @@
         'check for Null
         Try
             '''''''return true if there is no roster
-            Dim vDummy = vClass.lecturer.lecturersiteclusteravailabilities
-            If IsNothing(vDummy) Then
+            If IsNothing(vClass.lecturer.lecturersiteclusteravailabilities) Then
                 Return True
             End If
         Catch ex As NullReferenceException
@@ -444,7 +439,7 @@
         End Try
         Dim vSlotRoster = (From p In vClass.lecturer.lecturersiteclusteravailabilities
                     Where p.SiteClusterID = vClusterID And
-                          p.DayOfWeek = vSlot.WeekDay And
+                          p.DayOfWeek = vSlot.Day And
                           p.StartTimeSlot <= vSlot.timeslot And
                           p.EndTimeSlot >= vSlot.timeslot
                           Select p).ToList
@@ -456,7 +451,7 @@
     End Function
 
     'get slots of resource that are already assigned by same qualification, lecturer, classgroup etc
-    Sub setUsedResourceSlots(ByRef UsedSlots As HashSet(Of sSlot), ByVal vResourceID As Integer, ByVal vYear As Integer, ByVal vWeek As Integer)
+    Sub setUsedResourceSlots(ByRef UsedResourceSlots As HashSet(Of sSlot), ByVal vResourceID As Integer, ByVal vYear As Integer, ByVal vWeek As Integer)
         Dim vContext As timetableEntities = New timetableEntities()
 
         Dim vResource = (From p In vContext.resources Where p.ID = vResourceID Select p).First
@@ -465,9 +460,11 @@
         Dim vResourceSchedules = (From p In vResource.resourceschedules Where p.Year = vYear And p.Week = vWeek Select p).ToList
         For Each x In vResourceSchedules
             Dim vSlot As New sSlot With {
+                .Year = vYear,
+                .Week = vWeek,
                 .timeslot = x.timeSlotID,
-                .WeekDay = x.Day}
-            AddUsedSlots(UsedSlots, vSlot)
+                .Day = x.Day}
+            UsedResourceSlots.Add(vSlot)
         Next
 
         'get list of all associtaed classgroups
@@ -479,9 +476,11 @@
                 Dim iSchedules = (From p In i.resourceschedules Where p.Year = vYear And p.Week = vWeek Select p).ToList
                 For Each k In iSchedules
                     Dim vSlot As New sSlot With {
+                        .Year = vYear,
+                        .Week = vWeek,
                         .timeslot = k.timeSlotID,
-                        .WeekDay = k.Day}
-                    AddUsedSlots(UsedSlots, vSlot)
+                        .Day = k.Day}
+                    UsedResourceSlots.Add(vSlot)
                 Next
             Next
 
@@ -497,9 +496,11 @@
                         Dim iSchedules = (From p In i.resourceschedules Where p.Year = vYear And p.Week = vWeek Select p).ToList
                         For Each k In iSchedules
                             Dim vSlot As New sSlot With {
+                                .Year = vYear,
+                                .Week = vWeek,
                                 .timeslot = k.timeSlotID,
-                                .WeekDay = k.Day}
-                            AddUsedSlots(UsedSlots, vSlot)
+                                .Day = k.Day}
+                            UsedResourceSlots.Add(vSlot)
                         Next
                     Next
                 Next
@@ -525,9 +526,11 @@
                             Dim iSchedules = (From p In i.resourceschedules Where p.Year = vYear And p.Week = vWeek Select p).ToList
                             For Each k In iSchedules
                                 Dim vSlot As New sSlot With {
+                                    .Year = vYear,
+                                    .Week = vWeek,
                                     .timeslot = k.timeSlotID,
-                                    .WeekDay = k.Day}
-                                AddUsedSlots(UsedSlots, vSlot)
+                                    .Day = k.Day}
+                                UsedResourceSlots.Add(vSlot)
                             Next
                         Next
                     Next
@@ -536,12 +539,6 @@
         Next
     End Sub
 
-
-    Sub AddUsedSlots(ByRef UsedSlots As HashSet(Of sSlot), ByVal NewSlot As sSlot)
-        If Not UsedSlots.Contains(NewSlot) Then
-            UsedSlots.Add(NewSlot)
-        End If
-    End Sub
 
     ''check of the resource already set for the specified day
     Function isResourceDayFree(ByVal vYear As Integer, ByVal vWeek As Integer, ByVal vDay As Integer, ByVal vResourceID As Integer) As Boolean
@@ -577,7 +574,7 @@
         Dim vAllocatedSlots = CInt(IIf(vRemTimeSlots > vMaxMergedTimeSlots, vMaxMergedTimeSlots, vRemTimeSlots))
 
         ''''''ensure that consecutive periods completed before end of offering Timeslot
-        If vAllocatedSlots + vSlot.timeslot - 1 > vOfferingEndSlot Then
+        If vSlot.timeslot + vAllocatedSlots - 1 > vOfferingEndSlot Then
             Return False
         End If
 
@@ -589,8 +586,8 @@
 
 
         ''''check if resources are available 
-        For j As Integer = 0 To vAllocatedSlots - 1
-            Dim jSlot = New sSlot With {.timeslot = vSlot.timeslot + j, .WeekDay = vSlot.WeekDay}
+        For jTimeSlot As Integer = vSlot.timeslot To vSlot.timeslot + vAllocatedSlots - 1
+            Dim jSlot = New sSlot With {.Year = vSlot.Year, .Week = vSlot.Week, .timeslot = jTimeSlot, .Day = vSlot.Day}
             If vUsedResourceSlots.Contains(jSlot) Then
                 Return False
             End If
@@ -602,10 +599,39 @@
         Return True
     End Function
 
-    Sub createSlot(ByRef UsedSlots As HashSet(Of sSlot), ByRef vIndex As Integer, ByVal vVenueID As Integer, ByVal vResourceID As Integer, ByVal vSlot As sSlot, ByVal iEndWeek As Integer, ByVal vMaxMergedTimeSlot As Integer, ByVal vRemTimeSlots As Integer)
+
+    Sub MarkSlots(ByRef UsedSlots As HashSet(Of sSlot), ByRef vSavedSlots As Integer, ByRef MarkedSlots As HashSet(Of sResourceSlot), ByVal vVenueID As Integer, ByVal vResourceID As Integer, ByVal vSlot As sSlot, ByVal iEndWeek As Integer, ByVal vMaxMergedTimeSlot As Integer, ByVal vRemTimeSlots As Integer)
         Dim vContext As timetableEntities = New timetableEntities()
         Dim vVenue = (From p In vContext.venues Where p.ID = vVenueID Select p).First
         Dim vAllocatedSlots As Integer
+
+        'determine how smuch slots can be saved
+        If vRemTimeSlots > vMaxMergedTimeSlot Then
+            vAllocatedSlots = vMaxMergedTimeSlot
+        Else
+            vAllocatedSlots = vRemTimeSlots
+        End If
+
+        For i As Integer = 0 To vAllocatedSlots - 1
+            'mark slots
+            Dim newSlot As New sSlot With {
+                .timeslot = vSlot.timeslot + i,
+                .Day = vSlot.Day,
+                .Week = vSlot.Week,
+                .Year = vSlot.Year}
+            UsedSlots.Add(newSlot)
+            MarkedSlots.Add(New sResourceSlot With {.ResourceID = vResourceID, .VenueID = vVenueID, .Year = vSlot.Year, .Week = vSlot.Week, .Day = vSlot.Day})
+            vSavedSlots = vSavedSlots + 1
+        Next
+    End Sub
+
+
+    Sub createSlot(ByRef UsedResourceSlots As HashSet(Of sSlot), ByRef UsedVenueSlots As HashSet(Of sSlot), ByRef vSavedSlots As Integer, ByVal vVenueID As Integer, ByVal vResourceID As Integer, ByVal vSlot As sSlot, ByVal iEndWeek As Integer, ByVal vMaxMergedTimeSlot As Integer, ByVal vRemTimeSlots As Integer)
+        Dim vContext As timetableEntities = New timetableEntities()
+        Dim vVenue = (From p In vContext.venues Where p.ID = vVenueID Select p).First
+        Dim vAllocatedSlots As Integer
+
+        'determine how smuch slots can be saved
         If vRemTimeSlots > vMaxMergedTimeSlot Then
             vAllocatedSlots = vMaxMergedTimeSlot
         Else
@@ -618,17 +644,18 @@
                 Dim vResourceSchedule = New resourceschedule With {
                     .ResourceID = vResourceID,
                     .timeSlotID = vSlot.timeslot + i,
-                    .Day = vSlot.WeekDay,
+                    .Day = vSlot.Day,
                     .Week = jWeek,
                     .Year = vSlot.Year}
                 vContext.resourceschedules.AddObject(vResourceSchedule)
                 vResourceSchedule.venues.Add(vVenue)
                 vContext.SaveChanges()
             Next
-            ''''''set new usedslots
-            Dim newSlot As New sSlot With {.timeslot = vSlot.timeslot + i, .WeekDay = vSlot.WeekDay, .Week = vSlot.Week, .Year = vSlot.Year}
-            AddUsedSlots(UsedSlots, newSlot)
-            vIndex = vIndex + 1
+            ''''''set new UsedResourceSlots
+            Dim newSlot As New sSlot With {.timeslot = vSlot.timeslot + i, .Day = vSlot.Day, .Week = vSlot.Week, .Year = vSlot.Year}
+            UsedResourceSlots.Add(newSlot)
+            UsedVenueSlots.Add(newSlot)
+            vSavedSlots = vSavedSlots + 1
         Next
     End Sub
 

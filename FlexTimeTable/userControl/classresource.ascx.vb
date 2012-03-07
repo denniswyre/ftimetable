@@ -291,7 +291,19 @@
         Dim vResource = (From p In vContext.resources _
                             Where p.ID = CType(Me.lblID.Text, Integer) _
                             Select p).First
-        Do While Not IsNothing(vResource.classgroups.FirstOrDefault)
+        Do While vResource.resourcepreferredvenues.Count > 0
+            vResource.resourcepreferredvenues.Remove(vResource.resourcepreferredvenues.FirstOrDefault)
+        Loop
+
+        Do While vResource.resourceschedules.Count > 0
+            Dim x = vResource.resourceschedules.FirstOrDefault
+            Do While x.venues.Count > 0
+                x.venues.Remove(x.venues.FirstOrDefault)
+            Loop
+            vResource.resourceschedules.Remove(x)
+        Loop
+
+        Do While vResource.classgroups.Count > 0
             vResource.classgroups.Remove(vResource.classgroups.FirstOrDefault)
         Loop
         vContext.DeleteObject(vResource)

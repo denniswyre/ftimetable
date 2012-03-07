@@ -13,6 +13,7 @@
     <asp:Literal ID="litError" runat="server"></asp:Literal>
        <uc2:createResources ID="createResources1" runat="server" />
     <uc1:purgeData ID="purgeData1" runat="server" />
+    <asp:Literal ID="litErrorMessage" runat="server"></asp:Literal>
        <asp:Panel ID="pnlGenerate" runat="server" GroupingText="Generate TimeTable">
         <table style="width: 100%;">
             <tr>
@@ -50,7 +51,8 @@
                 </td>
             </tr>
             <tr>
-            <td colspan="2" align="center">
+            <td></td>
+            <td >
                 <asp:Button ID="btnGenerate" runat="server" Text="Generate" Width="150px" />    
             </td>
             </tr>

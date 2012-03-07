@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("05cf5c2a-2e91-466b-bd6a-8035a48e546d")>
+<Assembly: EdmSchemaAttribute("fa1e9b54-77aa-4d2b-87c0-a082e3767f82")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("timetableModel", "fk_building_site", "site", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(site), "building", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(building), True)>
 <Assembly: EdmRelationshipAttribute("timetableModel", "fk_venue_building", "building", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(building), "venue", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(venue), True)>
@@ -60,6 +60,7 @@ Imports System.Runtime.Serialization
 <Assembly: EdmRelationshipAttribute("timetableModel", "fk_offeringType_TimeSlot4", "timeslot", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(timeslot), "offeringtype", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(offeringtype), True)>
 <Assembly: EdmRelationshipAttribute("timetableModel", "fk_ResourceSchedule_timeSlot1", "timeslot", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(timeslot), "resourceschedule", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(resourceschedule), True)>
 <Assembly: EdmRelationshipAttribute("timetableModel", "departmentvenue", "department", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(department), "venue", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(venue))>
+<Assembly: EdmRelationshipAttribute("timetableModel", "fk_resourcelog_Resource1", "resource", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(resource), "resourcelog", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(resourcelog), True)>
 
 #End Region
 
@@ -545,6 +546,20 @@ Public Partial Class timetableEntities
 
     Private _transaction_upload As ObjectSet(Of transaction_upload)
 
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    Public ReadOnly Property resourcelogs() As ObjectSet(Of resourcelog)
+        Get
+            If (_resourcelogs Is Nothing) Then
+                _resourcelogs = MyBase.CreateObjectSet(Of resourcelog)("resourcelogs")
+            End If
+            Return _resourcelogs
+        End Get
+    End Property
+
+    Private _resourcelogs As ObjectSet(Of resourcelog)
+
     #End Region
     #Region "AddTo Methods"
 
@@ -763,6 +778,13 @@ Public Partial Class timetableEntities
     ''' </summary>
     Public Sub AddTotransaction_upload(ByVal transaction_upload As transaction_upload)
         MyBase.AddObject("transaction_upload", transaction_upload)
+    End Sub
+
+    ''' <summary>
+    ''' Deprecated Method for adding a new object to the resourcelogs EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+    ''' </summary>
+    Public Sub AddToresourcelogs(ByVal resourcelog As resourcelog)
+        MyBase.AddObject("resourcelogs", resourcelog)
     End Sub
 
     #End Region
@@ -4902,6 +4924,192 @@ Public Partial Class resource
         Set
             If (Not value Is Nothing)
                 CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of classgroup)("timetableModel.classgroupresource", "classgroup", value)
+            End If
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <XmlIgnoreAttribute()>
+    <SoapIgnoreAttribute()>
+    <DataMemberAttribute()>
+    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_resourcelog_Resource1", "resourcelog")>
+     Public Property resourcelogs() As EntityCollection(Of resourcelog)
+        Get
+            Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of resourcelog)("timetableModel.fk_resourcelog_Resource1", "resourcelog")
+        End Get
+        Set
+            If (Not value Is Nothing)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of resourcelog)("timetableModel.fk_resourcelog_Resource1", "resourcelog", value)
+            End If
+        End Set
+    End Property
+
+    #End Region
+End Class
+
+''' <summary>
+''' No Metadata Documentation available.
+''' </summary>
+<EdmEntityTypeAttribute(NamespaceName:="timetableModel", Name:="resourcelog")>
+<Serializable()>
+<DataContractAttribute(IsReference:=True)>
+Public Partial Class resourcelog
+    Inherits EntityObject
+    #Region "Factory Method"
+
+    ''' <summary>
+    ''' Create a new resourcelog object.
+    ''' </summary>
+    ''' <param name="id">Initial value of the ID property.</param>
+    ''' <param name="dateGenerated">Initial value of the DateGenerated property.</param>
+    ''' <param name="resourceID">Initial value of the ResourceID property.</param>
+    ''' <param name="reasons">Initial value of the Reasons property.</param>
+    Public Shared Function Createresourcelog(id As Global.System.Int32, dateGenerated As Global.System.DateTime, resourceID As Global.System.Int32, reasons As Global.System.String) As resourcelog
+        Dim resourcelog as resourcelog = New resourcelog
+        resourcelog.ID = id
+        resourcelog.DateGenerated = dateGenerated
+        resourcelog.ResourceID = resourceID
+        resourcelog.Reasons = reasons
+        Return resourcelog
+    End Function
+
+    #End Region
+    #Region "Primitive Properties"
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property ID() As Global.System.Int32
+        Get
+            Return _ID
+        End Get
+        Set
+            If (_ID <> Value) Then
+                OnIDChanging(value)
+                ReportPropertyChanging("ID")
+                _ID = StructuralObject.SetValidValue(value)
+                ReportPropertyChanged("ID")
+                OnIDChanged()
+            End If
+        End Set
+    End Property
+
+    Private _ID As Global.System.Int32
+    Private Partial Sub OnIDChanging(value As Global.System.Int32)
+    End Sub
+
+    Private Partial Sub OnIDChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property DateGenerated() As Global.System.DateTime
+        Get
+            Return _DateGenerated
+        End Get
+        Set
+            OnDateGeneratedChanging(value)
+            ReportPropertyChanging("DateGenerated")
+            _DateGenerated = StructuralObject.SetValidValue(value)
+            ReportPropertyChanged("DateGenerated")
+            OnDateGeneratedChanged()
+        End Set
+    End Property
+
+    Private _DateGenerated As Global.System.DateTime
+    Private Partial Sub OnDateGeneratedChanging(value As Global.System.DateTime)
+    End Sub
+
+    Private Partial Sub OnDateGeneratedChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property ResourceID() As Global.System.Int32
+        Get
+            Return _ResourceID
+        End Get
+        Set
+            OnResourceIDChanging(value)
+            ReportPropertyChanging("ResourceID")
+            _ResourceID = StructuralObject.SetValidValue(value)
+            ReportPropertyChanged("ResourceID")
+            OnResourceIDChanged()
+        End Set
+    End Property
+
+    Private _ResourceID As Global.System.Int32
+    Private Partial Sub OnResourceIDChanging(value As Global.System.Int32)
+    End Sub
+
+    Private Partial Sub OnResourceIDChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property Reasons() As Global.System.String
+        Get
+            Return _Reasons
+        End Get
+        Set
+            OnReasonsChanging(value)
+            ReportPropertyChanging("Reasons")
+            _Reasons = StructuralObject.SetValidValue(value, false)
+            ReportPropertyChanged("Reasons")
+            OnReasonsChanged()
+        End Set
+    End Property
+
+    Private _Reasons As Global.System.String
+    Private Partial Sub OnReasonsChanging(value As Global.System.String)
+    End Sub
+
+    Private Partial Sub OnReasonsChanged()
+    End Sub
+
+    #End Region
+    #Region "Navigation Properties"
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <XmlIgnoreAttribute()>
+    <SoapIgnoreAttribute()>
+    <DataMemberAttribute()>
+    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_resourcelog_Resource1", "resource")>
+    Public Property resource() As resource
+        Get
+            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of resource)("timetableModel.fk_resourcelog_Resource1", "resource").Value
+        End Get
+        Set
+            CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of resource)("timetableModel.fk_resourcelog_Resource1", "resource").Value = value
+        End Set
+    End Property
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <BrowsableAttribute(False)>
+    <DataMemberAttribute()>
+    Public Property resourceReference() As EntityReference(Of resource)
+        Get
+            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of resource)("timetableModel.fk_resourcelog_Resource1", "resource")
+        End Get
+        Set
+            If (Not value Is Nothing)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of resource)("timetableModel.fk_resourcelog_Resource1", "resource", value)
             End If
         End Set
     End Property

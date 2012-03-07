@@ -41,6 +41,15 @@ Partial Public Class generateTimetable
     Protected WithEvents purgeData1 As Global.FlexTimeTable.purgeData
 
     '''<summary>
+    '''litErrorMessage control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents litErrorMessage As Global.System.Web.UI.WebControls.Literal
+
+    '''<summary>
     '''pnlGenerate control.
     '''</summary>
     '''<remarks>

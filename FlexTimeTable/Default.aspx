@@ -125,7 +125,7 @@
                         <asp:Panel ID="pnlDisplay" Width="600px" runat="server">
                             <asp:MultiView ID="mvTimetable" runat="server">
                                 <asp:View ID="vwDisplay" runat="server">
-                                    <div style="float: right; margin-top: -10px">
+                                    <div style="float: right; margin-top: 10px">
                                         <asp:LinkButton ID="btnCreateTimeSlot" runat="server">Add Entry</asp:LinkButton>
                                     </div>
                                     <div style="clear: both">

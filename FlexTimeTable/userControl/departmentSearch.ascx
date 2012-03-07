@@ -10,7 +10,7 @@
     </asp:RadioButtonList>
     <asp:Panel ID="pnlSearch" runat="server">
         <hr />
-        Text:<asp:TextBox ID="txtSearchValue" runat="server"></asp:TextBox><asp:Button ID="btnGet"
+        Text:<asp:TextBox ID="txtSearchValue" width="400px"  runat="server"></asp:TextBox><asp:Button ID="btnGet"
             runat="server" Text="Search" />
     </asp:Panel>
     <uc2:getSchool ID="ucGetSchool" runat="server" />

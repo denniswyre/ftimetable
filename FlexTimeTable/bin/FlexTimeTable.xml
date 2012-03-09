@@ -2759,7 +2759,7 @@ To modify move field declaration from designer file to code-behind file.
 	<summary>
  No Metadata Documentation available.
  </summary>
-</member><member name="P:FlexTimeTable.timetableEntities.resourcelogs">
+</member><member name="P:FlexTimeTable.timetableEntities.timetablelogs">
 	<summary>
  No Metadata Documentation available.
  </summary>
@@ -2887,9 +2887,9 @@ To modify move field declaration from designer file to code-behind file.
 	<summary>
  Deprecated Method for adding a new object to the transaction_upload EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
  </summary>
-</member><member name="M:FlexTimeTable.timetableEntities.AddToresourcelogs(FlexTimeTable.resourcelog)">
+</member><member name="M:FlexTimeTable.timetableEntities.AddTotimetablelogs(FlexTimeTable.timetablelog)">
 	<summary>
- Deprecated Method for adding a new object to the resourcelogs EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+ Deprecated Method for adding a new object to the timetablelogs EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
  </summary>
 </member><member name="T:FlexTimeTable.timetableEntities">
 	<summary>
@@ -2925,6 +2925,10 @@ To modify move field declaration from designer file to code-behind file.
  No Metadata Documentation available.
  </summary>
 </member><member name="P:FlexTimeTable.academicblock.classgroups">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.academicblock.timetablelogs">
 	<summary>
  No Metadata Documentation available.
  </summary>
@@ -3769,47 +3773,11 @@ To modify move field declaration from designer file to code-behind file.
 	<summary>
  No Metadata Documentation available.
  </summary>
-</member><member name="P:FlexTimeTable.resource.resourcelogs">
+</member><member name="P:FlexTimeTable.resource.timetablelogs">
 	<summary>
  No Metadata Documentation available.
  </summary>
 </member><member name="T:FlexTimeTable.resource">
-	<summary>
- No Metadata Documentation available.
- </summary>
-</member><member name="M:FlexTimeTable.resourcelog.Createresourcelog(System.Int32,System.DateTime,System.Int32,System.String)">
-	<summary>
- Create a new resourcelog object.
- </summary>
-	<param name="id">Initial value of the ID property.</param>
-	<param name="dateGenerated">Initial value of the DateGenerated property.</param>
-	<param name="resourceID">Initial value of the ResourceID property.</param>
-	<param name="reasons">Initial value of the Reasons property.</param>
-</member><member name="P:FlexTimeTable.resourcelog.ID">
-	<summary>
- No Metadata Documentation available.
- </summary>
-</member><member name="P:FlexTimeTable.resourcelog.DateGenerated">
-	<summary>
- No Metadata Documentation available.
- </summary>
-</member><member name="P:FlexTimeTable.resourcelog.ResourceID">
-	<summary>
- No Metadata Documentation available.
- </summary>
-</member><member name="P:FlexTimeTable.resourcelog.Reasons">
-	<summary>
- No Metadata Documentation available.
- </summary>
-</member><member name="P:FlexTimeTable.resourcelog.resource">
-	<summary>
- No Metadata Documentation available.
- </summary>
-</member><member name="P:FlexTimeTable.resourcelog.resourceReference">
-	<summary>
- No Metadata Documentation available.
- </summary>
-</member><member name="T:FlexTimeTable.resourcelog">
 	<summary>
  No Metadata Documentation available.
  </summary>
@@ -4256,6 +4224,60 @@ To modify move field declaration from designer file to code-behind file.
  No Metadata Documentation available.
  </summary>
 </member><member name="T:FlexTimeTable.timeslot">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="M:FlexTimeTable.timetablelog.Createtimetablelog(System.Int32,System.Int32,System.Int32,System.Int32,System.DateTime,System.Int32)">
+	<summary>
+ Create a new timetablelog object.
+ </summary>
+	<param name="id">Initial value of the id property.</param>
+	<param name="resourceID">Initial value of the ResourceID property.</param>
+	<param name="academicBlockID">Initial value of the AcademicBlockID property.</param>
+	<param name="academicYear">Initial value of the AcademicYear property.</param>
+	<param name="dateGenerated">Initial value of the DateGenerated property.</param>
+	<param name="reasonID">Initial value of the ReasonID property.</param>
+</member><member name="P:FlexTimeTable.timetablelog.id">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.timetablelog.ResourceID">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.timetablelog.AcademicBlockID">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.timetablelog.AcademicYear">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.timetablelog.DateGenerated">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.timetablelog.ReasonID">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.timetablelog.academicblock">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.timetablelog.academicblockReference">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.timetablelog.resource">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="P:FlexTimeTable.timetablelog.resourceReference">
+	<summary>
+ No Metadata Documentation available.
+ </summary>
+</member><member name="T:FlexTimeTable.timetablelog">
 	<summary>
  No Metadata Documentation available.
  </summary>

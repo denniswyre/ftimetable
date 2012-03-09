@@ -70,38 +70,24 @@ Public Class generateTimetable
     End Structure
 
 
-    Enum eLogType
-        NoResourceType
-        SizeNotAvailable
-        NoSpaceFoundInCluster
-        LecturerNotAvailable
-    End Enum
+  
 
 
-    Sub WriteResourceLog(ByVal vResource As resource, vLogType As eLogType)
-        Dim vLine As String = ""
-        Select Case vLogType
-            Case eLogType.NoResourceType
-                vLine = vLine + " No Venue available for this type"
-            Case eLogType.SizeNotAvailable
-                vLine = vLine + " No Venue with required size found"
-            Case eLogType.NoSpaceFoundInCluster
-                vLine = vLine + " No Space Found in this Cluster"
-            Case eLogType.LecturerNotAvailable
-                vLine = vLine + " Lecturer not Available"
-        End Select
+    Sub WriteResourceLog(ByVal vResourceID As Integer, ByVal BlockID As Integer, ByVal AcademicYear As Integer, ByVal vLogType As clsGeneral.eLogType)
         Dim vContext As timetableEntities = New timetableEntities()
-        Dim newResourceLog As New resourcelog With {
-            .ResourceID = vResource.ID,
+        Dim newResourceLog As New timetablelog With {
+            .ResourceID = vResourceID,
+            .AcademicBlockID = BlockID,
+            .AcademicYear = AcademicYear,
             .DateGenerated = Date.Now,
-            .Reasons = vLine}
-        vContext.resourcelogs.AddObject(newResourceLog)
+            .ReasonID = CType(vLogType, Integer)}
+        vContext.timetablelogs.AddObject(newResourceLog)
         vContext.SaveChanges()
     End Sub
 
-    Function getQualifiedRooms(ByVal vResource As resource) As ArrayList
+    Sub getQualifiedRooms(ByVal vResource As resource, ByRef venueList As ArrayList, ByRef vlogType As clsGeneral.eLogType)
         Dim vResourceSize = vResource.AmtParticipants
-        Dim venueList As New ArrayList
+
         Dim resourceTypefound = False
         'get preferred venue
         For Each x In vResource.resourcepreferredvenues
@@ -139,13 +125,12 @@ Public Class generateTimetable
 
         If venueList.Count = 0 Then
             If resourceTypefound Then
-                WriteResourceLog(vResource, eLogType.SizeNotAvailable)
+                vlogType = clsGeneral.eLogType.SizeNotAvailable
             Else
-                WriteResourceLog(vResource, eLogType.NoResourceType)
+                vlogType = clsGeneral.eLogType.NoResourceType
             End If
         End If
-        Return venueList 'As New ArrayList
-    End Function
+    End Sub
 
     Protected Sub btnGenerate_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnGenerate.Click
         If CType(Application("timetablegeneration"), Boolean) = True Then
@@ -268,6 +253,19 @@ Public Class generateTimetable
         Return vBoundaries
     End Function
 
+    'get Minor Academic Block ID for A SPECIFIED WEEK 
+    Function getMinorBlockID(ByVal vWeek As Integer) As Integer
+        Dim vContext As timetableEntities = New timetableEntities()
+        Dim vBlocks = (From p In vContext.academicblocks Where p.startWeek <= vWeek And p.endWeek >= vWeek
+                           Order By p.startWeek Descending, p.endWeek Ascending
+                              Select p).FirstOrDefault
+        If IsNothing(vBlocks) Then
+            Return 0
+        Else
+            Return vBlocks.ID
+        End If
+    End Function
+
 
     Protected Sub scheduleResource(ByVal vResource As resource, ByVal vWeekBoundaries As HashSet(Of Integer))
         Dim vContext As timetableEntities = New timetableEntities()
@@ -307,7 +305,6 @@ Public Class generateTimetable
         ' Try
 
         With vResource
-            Dim venueFound = False
             For i As Integer = 0 To vWeekBoundaries.Count - 2
                 Dim iStartWeek = CInt(IIf(i = 0, vWeekBoundaries(i), vWeekBoundaries(i) + 1))
                 Dim iEndWeek = vWeekBoundaries(i + 1)
@@ -325,8 +322,11 @@ Public Class generateTimetable
                 setUsedResourceSlots(vUsedResourceSlots, .ID, .year, iStartWeek)
                 Dim vlecturerAvailable = False
 
-                For Each xVenueID In getQualifiedRooms(vResource)
-                    venueFound = True
+                Dim vVenueList As New ArrayList
+                Dim vlogType As clsGeneral.eLogType = clsGeneral.eLogType.noLog
+                getQualifiedRooms(vResource, vVenueList, vlogType)
+
+                For Each xVenueID In vVenueList
                     If savedSlots >= .AmtTimeSlots Then Exit For
                     Dim vVenueID = CInt(xVenueID)
                     ''''''''''''''''''''''''''START Qualified ROOMs Loop''''''''''''''''
@@ -389,12 +389,18 @@ Public Class generateTimetable
                     ''''''''''''''''''''''''''END Qualified ROOMs Loop''''''''''''''
                     BulkSaveSlots(MarkedSlots, .ID, vVenueID, iStartWeek, iEndWeek)
                 Next
-                If venueFound Then
+
+                '''''''''write log
+                If vlogType = clsGeneral.eLogType.noLog And vVenueList.Count > 0 Then
                     If Not vlecturerAvailable Then
-                        WriteResourceLog(vResource, eLogType.LecturerNotAvailable)
+                        vlogType = clsGeneral.eLogType.LecturerNotAvailable
                     ElseIf (From p In .resourceschedules Where p.Year = .year And p.Week = iStartWeek Select p).Count = 0 Then
-                        WriteResourceLog(vResource, eLogType.NoSpaceFoundInCluster)
+                        vlogType = clsGeneral.eLogType.NoSpaceFoundInCluster
                     End If
+                End If
+
+                If vlogType <> clsGeneral.eLogType.noLog Then
+                    WriteResourceLog(vResource.ID, getMinorBlockID(iStartWeek), vResource.year, vlogType)
                 End If
                 ''''''''''''''''''''''''Block Period'''''''''''''''''''''''''''''''''''''''
             Next

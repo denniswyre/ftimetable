@@ -1,4 +1,14 @@
 ﻿Public Class clsGeneral
+
+
+    Public Enum eLogType
+        noLog
+        NoResourceType
+        SizeNotAvailable
+        NoSpaceFoundInCluster
+        LecturerNotAvailable
+    End Enum
+
     Public Shared Function getRandomNumber(ByVal lowerbound As Integer, ByVal upperbound As Integer) As Integer
         Randomize()
         Return CInt(Int((upperbound - lowerbound + 1) * Rnd() + lowerbound))

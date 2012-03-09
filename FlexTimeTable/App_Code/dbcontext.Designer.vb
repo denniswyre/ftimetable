@@ -16,7 +16,7 @@ Imports System.ComponentModel
 Imports System.Xml.Serialization
 Imports System.Runtime.Serialization
 
-<Assembly: EdmSchemaAttribute("fa1e9b54-77aa-4d2b-87c0-a082e3767f82")>
+<Assembly: EdmSchemaAttribute("58583321-f800-40e7-aa9c-2904e10186bd")>
 #Region "EDM Relationship Metadata"
 <Assembly: EdmRelationshipAttribute("timetableModel", "fk_building_site", "site", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(site), "building", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(building), True)>
 <Assembly: EdmRelationshipAttribute("timetableModel", "fk_venue_building", "building", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(building), "venue", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(venue), True)>
@@ -60,7 +60,8 @@ Imports System.Runtime.Serialization
 <Assembly: EdmRelationshipAttribute("timetableModel", "fk_offeringType_TimeSlot4", "timeslot", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(timeslot), "offeringtype", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(offeringtype), True)>
 <Assembly: EdmRelationshipAttribute("timetableModel", "fk_ResourceSchedule_timeSlot1", "timeslot", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(timeslot), "resourceschedule", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(resourceschedule), True)>
 <Assembly: EdmRelationshipAttribute("timetableModel", "departmentvenue", "department", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(department), "venue", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(venue))>
-<Assembly: EdmRelationshipAttribute("timetableModel", "fk_resourcelog_Resource1", "resource", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(resource), "resourcelog", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(resourcelog), True)>
+<Assembly: EdmRelationshipAttribute("timetableModel", "fk_timetablelog_AcademicBlock1", "academicblock", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(academicblock), "timetablelog", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(timetablelog), True)>
+<Assembly: EdmRelationshipAttribute("timetableModel", "fk_timetablelog_Resource1", "resource", System.Data.Metadata.Edm.RelationshipMultiplicity.One, GetType(resource), "timetablelog", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, GetType(timetablelog), True)>
 
 #End Region
 
@@ -549,16 +550,16 @@ Public Partial Class timetableEntities
     ''' <summary>
     ''' No Metadata Documentation available.
     ''' </summary>
-    Public ReadOnly Property resourcelogs() As ObjectSet(Of resourcelog)
+    Public ReadOnly Property timetablelogs() As ObjectSet(Of timetablelog)
         Get
-            If (_resourcelogs Is Nothing) Then
-                _resourcelogs = MyBase.CreateObjectSet(Of resourcelog)("resourcelogs")
+            If (_timetablelogs Is Nothing) Then
+                _timetablelogs = MyBase.CreateObjectSet(Of timetablelog)("timetablelogs")
             End If
-            Return _resourcelogs
+            Return _timetablelogs
         End Get
     End Property
 
-    Private _resourcelogs As ObjectSet(Of resourcelog)
+    Private _timetablelogs As ObjectSet(Of timetablelog)
 
     #End Region
     #Region "AddTo Methods"
@@ -781,10 +782,10 @@ Public Partial Class timetableEntities
     End Sub
 
     ''' <summary>
-    ''' Deprecated Method for adding a new object to the resourcelogs EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
+    ''' Deprecated Method for adding a new object to the timetablelogs EntitySet. Consider using the .Add method of the associated ObjectSet(Of T) property instead.
     ''' </summary>
-    Public Sub AddToresourcelogs(ByVal resourcelog As resourcelog)
-        MyBase.AddObject("resourcelogs", resourcelog)
+    Public Sub AddTotimetablelogs(ByVal timetablelog As timetablelog)
+        MyBase.AddObject("timetablelogs", timetablelog)
     End Sub
 
     #End Region
@@ -968,6 +969,24 @@ Public Partial Class academicblock
         Set
             If (Not value Is Nothing)
                 CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of classgroup)("timetableModel.fk_classGroup_AcademicBlock1", "classgroup", value)
+            End If
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <XmlIgnoreAttribute()>
+    <SoapIgnoreAttribute()>
+    <DataMemberAttribute()>
+    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_timetablelog_AcademicBlock1", "timetablelog")>
+     Public Property timetablelogs() As EntityCollection(Of timetablelog)
+        Get
+            Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of timetablelog)("timetableModel.fk_timetablelog_AcademicBlock1", "timetablelog")
+        End Get
+        Set
+            If (Not value Is Nothing)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of timetablelog)("timetableModel.fk_timetablelog_AcademicBlock1", "timetablelog", value)
             End If
         End Set
     End Property
@@ -4934,182 +4953,14 @@ Public Partial Class resource
     <XmlIgnoreAttribute()>
     <SoapIgnoreAttribute()>
     <DataMemberAttribute()>
-    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_resourcelog_Resource1", "resourcelog")>
-     Public Property resourcelogs() As EntityCollection(Of resourcelog)
+    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_timetablelog_Resource1", "timetablelog")>
+     Public Property timetablelogs() As EntityCollection(Of timetablelog)
         Get
-            Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of resourcelog)("timetableModel.fk_resourcelog_Resource1", "resourcelog")
+            Return CType(Me,IEntityWithRelationships).RelationshipManager.GetRelatedCollection(Of timetablelog)("timetableModel.fk_timetablelog_Resource1", "timetablelog")
         End Get
         Set
             If (Not value Is Nothing)
-                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of resourcelog)("timetableModel.fk_resourcelog_Resource1", "resourcelog", value)
-            End If
-        End Set
-    End Property
-
-    #End Region
-End Class
-
-''' <summary>
-''' No Metadata Documentation available.
-''' </summary>
-<EdmEntityTypeAttribute(NamespaceName:="timetableModel", Name:="resourcelog")>
-<Serializable()>
-<DataContractAttribute(IsReference:=True)>
-Public Partial Class resourcelog
-    Inherits EntityObject
-    #Region "Factory Method"
-
-    ''' <summary>
-    ''' Create a new resourcelog object.
-    ''' </summary>
-    ''' <param name="id">Initial value of the ID property.</param>
-    ''' <param name="dateGenerated">Initial value of the DateGenerated property.</param>
-    ''' <param name="resourceID">Initial value of the ResourceID property.</param>
-    ''' <param name="reasons">Initial value of the Reasons property.</param>
-    Public Shared Function Createresourcelog(id As Global.System.Int32, dateGenerated As Global.System.DateTime, resourceID As Global.System.Int32, reasons As Global.System.String) As resourcelog
-        Dim resourcelog as resourcelog = New resourcelog
-        resourcelog.ID = id
-        resourcelog.DateGenerated = dateGenerated
-        resourcelog.ResourceID = resourceID
-        resourcelog.Reasons = reasons
-        Return resourcelog
-    End Function
-
-    #End Region
-    #Region "Primitive Properties"
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
-    <DataMemberAttribute()>
-    Public Property ID() As Global.System.Int32
-        Get
-            Return _ID
-        End Get
-        Set
-            If (_ID <> Value) Then
-                OnIDChanging(value)
-                ReportPropertyChanging("ID")
-                _ID = StructuralObject.SetValidValue(value)
-                ReportPropertyChanged("ID")
-                OnIDChanged()
-            End If
-        End Set
-    End Property
-
-    Private _ID As Global.System.Int32
-    Private Partial Sub OnIDChanging(value As Global.System.Int32)
-    End Sub
-
-    Private Partial Sub OnIDChanged()
-    End Sub
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
-    <DataMemberAttribute()>
-    Public Property DateGenerated() As Global.System.DateTime
-        Get
-            Return _DateGenerated
-        End Get
-        Set
-            OnDateGeneratedChanging(value)
-            ReportPropertyChanging("DateGenerated")
-            _DateGenerated = StructuralObject.SetValidValue(value)
-            ReportPropertyChanged("DateGenerated")
-            OnDateGeneratedChanged()
-        End Set
-    End Property
-
-    Private _DateGenerated As Global.System.DateTime
-    Private Partial Sub OnDateGeneratedChanging(value As Global.System.DateTime)
-    End Sub
-
-    Private Partial Sub OnDateGeneratedChanged()
-    End Sub
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
-    <DataMemberAttribute()>
-    Public Property ResourceID() As Global.System.Int32
-        Get
-            Return _ResourceID
-        End Get
-        Set
-            OnResourceIDChanging(value)
-            ReportPropertyChanging("ResourceID")
-            _ResourceID = StructuralObject.SetValidValue(value)
-            ReportPropertyChanged("ResourceID")
-            OnResourceIDChanged()
-        End Set
-    End Property
-
-    Private _ResourceID As Global.System.Int32
-    Private Partial Sub OnResourceIDChanging(value As Global.System.Int32)
-    End Sub
-
-    Private Partial Sub OnResourceIDChanged()
-    End Sub
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
-    <DataMemberAttribute()>
-    Public Property Reasons() As Global.System.String
-        Get
-            Return _Reasons
-        End Get
-        Set
-            OnReasonsChanging(value)
-            ReportPropertyChanging("Reasons")
-            _Reasons = StructuralObject.SetValidValue(value, false)
-            ReportPropertyChanged("Reasons")
-            OnReasonsChanged()
-        End Set
-    End Property
-
-    Private _Reasons As Global.System.String
-    Private Partial Sub OnReasonsChanging(value As Global.System.String)
-    End Sub
-
-    Private Partial Sub OnReasonsChanged()
-    End Sub
-
-    #End Region
-    #Region "Navigation Properties"
-
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <XmlIgnoreAttribute()>
-    <SoapIgnoreAttribute()>
-    <DataMemberAttribute()>
-    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_resourcelog_Resource1", "resource")>
-    Public Property resource() As resource
-        Get
-            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of resource)("timetableModel.fk_resourcelog_Resource1", "resource").Value
-        End Get
-        Set
-            CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of resource)("timetableModel.fk_resourcelog_Resource1", "resource").Value = value
-        End Set
-    End Property
-    ''' <summary>
-    ''' No Metadata Documentation available.
-    ''' </summary>
-    <BrowsableAttribute(False)>
-    <DataMemberAttribute()>
-    Public Property resourceReference() As EntityReference(Of resource)
-        Get
-            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of resource)("timetableModel.fk_resourcelog_Resource1", "resource")
-        End Get
-        Set
-            If (Not value Is Nothing)
-                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of resource)("timetableModel.fk_resourcelog_Resource1", "resource", value)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of timetablelog)("timetableModel.fk_timetablelog_Resource1", "timetablelog", value)
             End If
         End Set
     End Property
@@ -7197,6 +7048,259 @@ Public Partial Class timeslot
         Set
             If (Not value Is Nothing)
                 CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedCollection(Of resourceschedule)("timetableModel.fk_ResourceSchedule_timeSlot1", "resourceschedule", value)
+            End If
+        End Set
+    End Property
+
+    #End Region
+End Class
+
+''' <summary>
+''' No Metadata Documentation available.
+''' </summary>
+<EdmEntityTypeAttribute(NamespaceName:="timetableModel", Name:="timetablelog")>
+<Serializable()>
+<DataContractAttribute(IsReference:=True)>
+Public Partial Class timetablelog
+    Inherits EntityObject
+    #Region "Factory Method"
+
+    ''' <summary>
+    ''' Create a new timetablelog object.
+    ''' </summary>
+    ''' <param name="id">Initial value of the id property.</param>
+    ''' <param name="resourceID">Initial value of the ResourceID property.</param>
+    ''' <param name="academicBlockID">Initial value of the AcademicBlockID property.</param>
+    ''' <param name="academicYear">Initial value of the AcademicYear property.</param>
+    ''' <param name="dateGenerated">Initial value of the DateGenerated property.</param>
+    ''' <param name="reasonID">Initial value of the ReasonID property.</param>
+    Public Shared Function Createtimetablelog(id As Global.System.Int32, resourceID As Global.System.Int32, academicBlockID As Global.System.Int32, academicYear As Global.System.Int32, dateGenerated As Global.System.DateTime, reasonID As Global.System.Int32) As timetablelog
+        Dim timetablelog as timetablelog = New timetablelog
+        timetablelog.id = id
+        timetablelog.ResourceID = resourceID
+        timetablelog.AcademicBlockID = academicBlockID
+        timetablelog.AcademicYear = academicYear
+        timetablelog.DateGenerated = dateGenerated
+        timetablelog.ReasonID = reasonID
+        Return timetablelog
+    End Function
+
+    #End Region
+    #Region "Primitive Properties"
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=true, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property id() As Global.System.Int32
+        Get
+            Return _id
+        End Get
+        Set
+            If (_id <> Value) Then
+                OnidChanging(value)
+                ReportPropertyChanging("id")
+                _id = StructuralObject.SetValidValue(value)
+                ReportPropertyChanged("id")
+                OnidChanged()
+            End If
+        End Set
+    End Property
+
+    Private _id As Global.System.Int32
+    Private Partial Sub OnidChanging(value As Global.System.Int32)
+    End Sub
+
+    Private Partial Sub OnidChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property ResourceID() As Global.System.Int32
+        Get
+            Return _ResourceID
+        End Get
+        Set
+            OnResourceIDChanging(value)
+            ReportPropertyChanging("ResourceID")
+            _ResourceID = StructuralObject.SetValidValue(value)
+            ReportPropertyChanged("ResourceID")
+            OnResourceIDChanged()
+        End Set
+    End Property
+
+    Private _ResourceID As Global.System.Int32
+    Private Partial Sub OnResourceIDChanging(value As Global.System.Int32)
+    End Sub
+
+    Private Partial Sub OnResourceIDChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property AcademicBlockID() As Global.System.Int32
+        Get
+            Return _AcademicBlockID
+        End Get
+        Set
+            OnAcademicBlockIDChanging(value)
+            ReportPropertyChanging("AcademicBlockID")
+            _AcademicBlockID = StructuralObject.SetValidValue(value)
+            ReportPropertyChanged("AcademicBlockID")
+            OnAcademicBlockIDChanged()
+        End Set
+    End Property
+
+    Private _AcademicBlockID As Global.System.Int32
+    Private Partial Sub OnAcademicBlockIDChanging(value As Global.System.Int32)
+    End Sub
+
+    Private Partial Sub OnAcademicBlockIDChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property AcademicYear() As Global.System.Int32
+        Get
+            Return _AcademicYear
+        End Get
+        Set
+            OnAcademicYearChanging(value)
+            ReportPropertyChanging("AcademicYear")
+            _AcademicYear = StructuralObject.SetValidValue(value)
+            ReportPropertyChanged("AcademicYear")
+            OnAcademicYearChanged()
+        End Set
+    End Property
+
+    Private _AcademicYear As Global.System.Int32
+    Private Partial Sub OnAcademicYearChanging(value As Global.System.Int32)
+    End Sub
+
+    Private Partial Sub OnAcademicYearChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property DateGenerated() As Global.System.DateTime
+        Get
+            Return _DateGenerated
+        End Get
+        Set
+            OnDateGeneratedChanging(value)
+            ReportPropertyChanging("DateGenerated")
+            _DateGenerated = StructuralObject.SetValidValue(value)
+            ReportPropertyChanged("DateGenerated")
+            OnDateGeneratedChanged()
+        End Set
+    End Property
+
+    Private _DateGenerated As Global.System.DateTime
+    Private Partial Sub OnDateGeneratedChanging(value As Global.System.DateTime)
+    End Sub
+
+    Private Partial Sub OnDateGeneratedChanged()
+    End Sub
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <EdmScalarPropertyAttribute(EntityKeyProperty:=false, IsNullable:=false)>
+    <DataMemberAttribute()>
+    Public Property ReasonID() As Global.System.Int32
+        Get
+            Return _ReasonID
+        End Get
+        Set
+            OnReasonIDChanging(value)
+            ReportPropertyChanging("ReasonID")
+            _ReasonID = StructuralObject.SetValidValue(value)
+            ReportPropertyChanged("ReasonID")
+            OnReasonIDChanged()
+        End Set
+    End Property
+
+    Private _ReasonID As Global.System.Int32
+    Private Partial Sub OnReasonIDChanging(value As Global.System.Int32)
+    End Sub
+
+    Private Partial Sub OnReasonIDChanged()
+    End Sub
+
+    #End Region
+    #Region "Navigation Properties"
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <XmlIgnoreAttribute()>
+    <SoapIgnoreAttribute()>
+    <DataMemberAttribute()>
+    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_timetablelog_AcademicBlock1", "academicblock")>
+    Public Property academicblock() As academicblock
+        Get
+            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of academicblock)("timetableModel.fk_timetablelog_AcademicBlock1", "academicblock").Value
+        End Get
+        Set
+            CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of academicblock)("timetableModel.fk_timetablelog_AcademicBlock1", "academicblock").Value = value
+        End Set
+    End Property
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <BrowsableAttribute(False)>
+    <DataMemberAttribute()>
+    Public Property academicblockReference() As EntityReference(Of academicblock)
+        Get
+            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of academicblock)("timetableModel.fk_timetablelog_AcademicBlock1", "academicblock")
+        End Get
+        Set
+            If (Not value Is Nothing)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of academicblock)("timetableModel.fk_timetablelog_AcademicBlock1", "academicblock", value)
+            End If
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <XmlIgnoreAttribute()>
+    <SoapIgnoreAttribute()>
+    <DataMemberAttribute()>
+    <EdmRelationshipNavigationPropertyAttribute("timetableModel", "fk_timetablelog_Resource1", "resource")>
+    Public Property resource() As resource
+        Get
+            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of resource)("timetableModel.fk_timetablelog_Resource1", "resource").Value
+        End Get
+        Set
+            CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of resource)("timetableModel.fk_timetablelog_Resource1", "resource").Value = value
+        End Set
+    End Property
+    ''' <summary>
+    ''' No Metadata Documentation available.
+    ''' </summary>
+    <BrowsableAttribute(False)>
+    <DataMemberAttribute()>
+    Public Property resourceReference() As EntityReference(Of resource)
+        Get
+            Return CType(Me, IEntityWithRelationships).RelationshipManager.GetRelatedReference(Of resource)("timetableModel.fk_timetablelog_Resource1", "resource")
+        End Get
+        Set
+            If (Not value Is Nothing)
+                CType(Me, IEntityWithRelationships).RelationshipManager.InitializeRelatedReference(Of resource)("timetableModel.fk_timetablelog_Resource1", "resource", value)
             End If
         End Set
     End Property

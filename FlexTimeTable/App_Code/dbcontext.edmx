@@ -29,7 +29,6 @@
           <EntitySet Name="programmesubjects" EntityType="timetableModel.Store.programmesubjects" store:Type="Tables" Schema="timetable" />
           <EntitySet Name="qualifications" EntityType="timetableModel.Store.qualifications" store:Type="Tables" Schema="timetable" />
           <EntitySet Name="resource" EntityType="timetableModel.Store.resource" store:Type="Tables" Schema="timetable" />
-          <EntitySet Name="resourcelog" EntityType="timetableModel.Store.resourcelog" store:Type="Tables" Schema="timetable" />
           <EntitySet Name="resourcepreferredvenue" EntityType="timetableModel.Store.resourcepreferredvenue" store:Type="Tables" Schema="timetable" />
           <EntitySet Name="resourceschedule" EntityType="timetableModel.Store.resourceschedule" store:Type="Tables" Schema="timetable" />
           <EntitySet Name="resourceschedulevenue" EntityType="timetableModel.Store.resourceschedulevenue" store:Type="Tables" Schema="timetable" />
@@ -41,6 +40,7 @@
           <EntitySet Name="siteclustersubject" EntityType="timetableModel.Store.siteclustersubject" store:Type="Tables" Schema="timetable" />
           <EntitySet Name="subject" EntityType="timetableModel.Store.subject" store:Type="Tables" Schema="timetable" />
           <EntitySet Name="timeslot" EntityType="timetableModel.Store.timeslot" store:Type="Tables" Schema="timetable" />
+          <EntitySet Name="timetablelog" EntityType="timetableModel.Store.timetablelog" store:Type="Tables" Schema="timetable" />
           <EntitySet Name="transaction_upload" EntityType="timetableModel.Store.transaction_upload" store:Type="Tables" Schema="timetable" />
           <EntitySet Name="uploadtable" EntityType="timetableModel.Store.uploadtable" store:Type="Tables" Schema="timetable" />
           <EntitySet Name="userlog" EntityType="timetableModel.Store.userlog" store:Type="Tables" Schema="timetable" />
@@ -211,10 +211,6 @@
             <End Role="resourcetype" EntitySet="resourcetype" />
             <End Role="resource" EntitySet="resource" />
           </AssociationSet>
-          <AssociationSet Name="fk_resourcelog_Resource1" Association="timetableModel.Store.fk_resourcelog_Resource1">
-            <End Role="resource" EntitySet="resource" />
-            <End Role="resourcelog" EntitySet="resourcelog" />
-          </AssociationSet>
           <AssociationSet Name="fk_ResourceSchedule_has_Venue_ResourceSchedule1" Association="timetableModel.Store.fk_ResourceSchedule_has_Venue_ResourceSchedule1">
             <End Role="resourceschedule" EntitySet="resourceschedule" />
             <End Role="resourceschedulevenue" EntitySet="resourceschedulevenue" />
@@ -262,6 +258,14 @@
           <AssociationSet Name="fk_Subject_has_Lecturer_Subject1" Association="timetableModel.Store.fk_Subject_has_Lecturer_Subject1">
             <End Role="subject" EntitySet="subject" />
             <End Role="lecturersubject" EntitySet="lecturersubject" />
+          </AssociationSet>
+          <AssociationSet Name="fk_timetablelog_AcademicBlock1" Association="timetableModel.Store.fk_timetablelog_AcademicBlock1">
+            <End Role="academicblock" EntitySet="academicblock" />
+            <End Role="timetablelog" EntitySet="timetablelog" />
+          </AssociationSet>
+          <AssociationSet Name="fk_timetablelog_Resource1" Association="timetableModel.Store.fk_timetablelog_Resource1">
+            <End Role="resource" EntitySet="resource" />
+            <End Role="timetablelog" EntitySet="timetablelog" />
           </AssociationSet>
           <AssociationSet Name="fk_type_venue" Association="timetableModel.Store.fk_type_venue">
             <End Role="resourcetype" EntitySet="resourcetype" />
@@ -490,15 +494,6 @@
           <Property Name="MaxMergedTimeSlots" Type="int" Nullable="false" />
           <Property Name="TimeslotsArrangement" Type="varchar" Nullable="false" MaxLength="45" />
         </EntityType>
-        <EntityType Name="resourcelog">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="DateGenerated" Type="datetime" Nullable="false" />
-          <Property Name="ResourceID" Type="int" Nullable="false" />
-          <Property Name="Reasons" Type="varchar" Nullable="false" MaxLength="100" />
-        </EntityType>
         <EntityType Name="resourcepreferredvenue">
           <Key>
             <PropertyRef Name="ResourceID" />
@@ -603,6 +598,17 @@
           <Property Name="StartTime" Type="datetime" Nullable="false" />
           <Property Name="Duration" Type="int" Nullable="false" />
           <Property Name="LunchPeriod" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="timetablelog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ResourceID" Type="int" Nullable="false" />
+          <Property Name="AcademicBlockID" Type="int" Nullable="false" />
+          <Property Name="AcademicYear" Type="int" Nullable="false" />
+          <Property Name="DateGenerated" Type="datetime" Nullable="false" />
+          <Property Name="ReasonID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="transaction_upload">
           <Key>
@@ -1152,18 +1158,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_resourcelog_Resource1">
-          <End Role="resource" Type="timetableModel.Store.resource" Multiplicity="1" />
-          <End Role="resourcelog" Type="timetableModel.Store.resourcelog" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="resource">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="resourcelog">
-              <PropertyRef Name="ResourceID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_ResourceSchedule_has_Venue_ResourceSchedule1">
           <End Role="resourceschedule" Type="timetableModel.Store.resourceschedule" Multiplicity="1" />
           <End Role="resourceschedulevenue" Type="timetableModel.Store.resourceschedulevenue" Multiplicity="*" />
@@ -1305,6 +1299,30 @@
             </Principal>
             <Dependent Role="lecturersubject">
               <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_timetablelog_AcademicBlock1">
+          <End Role="academicblock" Type="timetableModel.Store.academicblock" Multiplicity="1" />
+          <End Role="timetablelog" Type="timetableModel.Store.timetablelog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="academicblock">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="timetablelog">
+              <PropertyRef Name="AcademicBlockID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_timetablelog_Resource1">
+          <End Role="resource" Type="timetableModel.Store.resource" Multiplicity="1" />
+          <End Role="timetablelog" Type="timetableModel.Store.timetablelog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="resource">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="timetablelog">
+              <PropertyRef Name="ResourceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1536,10 +1554,14 @@
           </AssociationSet>
           <EntitySet Name="uploadtables" EntityType="timetableModel.uploadtable" />
           <EntitySet Name="transaction_upload" EntityType="timetableModel.transaction_upload" />
-          <EntitySet Name="resourcelogs" EntityType="timetableModel.resourcelog" />
-          <AssociationSet Name="fk_resourcelog_Resource1" Association="timetableModel.fk_resourcelog_Resource1">
+          <EntitySet Name="timetablelogs" EntityType="timetableModel.timetablelog" />
+          <AssociationSet Name="fk_timetablelog_AcademicBlock1" Association="timetableModel.fk_timetablelog_AcademicBlock1">
+            <End Role="academicblock" EntitySet="academicblocks" />
+            <End Role="timetablelog" EntitySet="timetablelogs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_timetablelog_Resource1" Association="timetableModel.fk_timetablelog_Resource1">
             <End Role="resource" EntitySet="resources" />
-            <End Role="resourcelog" EntitySet="resourcelogs" />
+            <End Role="timetablelog" EntitySet="timetablelogs" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="academicblock">
@@ -1552,6 +1574,7 @@
           <Property Name="startWeek" Type="Int32" Nullable="false" />
           <Property Type="Boolean" Name="yearBlock" Nullable="false" />
           <NavigationProperty Name="classgroups" Relationship="timetableModel.fk_classGroup_AcademicBlock1" FromRole="academicblock" ToRole="classgroup" />
+          <NavigationProperty Name="timetablelogs" Relationship="timetableModel.fk_timetablelog_AcademicBlock1" FromRole="academicblock" ToRole="timetablelog" />
         </EntityType>
         <EntityType Name="building">
           <Key>
@@ -1702,7 +1725,7 @@
           <Property Type="Int32" Name="MaxMergedTimeSlots" Nullable="false" />
           <NavigationProperty Name="classgroups" Relationship="timetableModel.classgroupresource" FromRole="resource" ToRole="classgroup" />
           <Property Type="String" Name="TimeslotsArrangement" Nullable="false" />
-          <NavigationProperty Name="resourcelogs" Relationship="timetableModel.fk_resourcelog_Resource1" FromRole="resource" ToRole="resourcelog" />
+          <NavigationProperty Name="timetablelogs" Relationship="timetableModel.fk_timetablelog_Resource1" FromRole="resource" ToRole="timetablelog" />
         </EntityType>
         <EntityType Name="resourcepreferredvenue">
           <Key>
@@ -2410,24 +2433,39 @@
           <Property Type="String" Name="lsurname" />
           <Property Type="String" Name="classsize" />
         </EntityType>
-        <EntityType Name="resourcelog">
+        <EntityType Name="timetablelog">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="DateTime" Name="DateGenerated" Nullable="false" />
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="ResourceID" Nullable="false" />
-          <Property Type="String" Name="Reasons" Nullable="false" />
-          <NavigationProperty Name="resource" Relationship="timetableModel.fk_resourcelog_Resource1" FromRole="resourcelog" ToRole="resource" />
+          <Property Type="Int32" Name="AcademicBlockID" Nullable="false" />
+          <Property Type="Int32" Name="AcademicYear" Nullable="false" />
+          <Property Type="DateTime" Name="DateGenerated" Nullable="false" />
+          <Property Type="Int32" Name="ReasonID" Nullable="false" />
+          <NavigationProperty Name="academicblock" Relationship="timetableModel.fk_timetablelog_AcademicBlock1" FromRole="timetablelog" ToRole="academicblock" />
+          <NavigationProperty Name="resource" Relationship="timetableModel.fk_timetablelog_Resource1" FromRole="timetablelog" ToRole="resource" />
         </EntityType>
-        <Association Name="fk_resourcelog_Resource1">
+        <Association Name="fk_timetablelog_AcademicBlock1">
+          <End Type="timetableModel.academicblock" Role="academicblock" Multiplicity="1" />
+          <End Type="timetableModel.timetablelog" Role="timetablelog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="academicblock">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="timetablelog">
+              <PropertyRef Name="AcademicBlockID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_timetablelog_Resource1">
           <End Type="timetableModel.resource" Role="resource" Multiplicity="1" />
-          <End Type="timetableModel.resourcelog" Role="resourcelog" Multiplicity="*" />
+          <End Type="timetableModel.timetablelog" Role="timetablelog" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="resource">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="resourcelog">
+            <Dependent Role="timetablelog">
               <PropertyRef Name="ResourceID" />
             </Dependent>
           </ReferentialConstraint>
@@ -2785,13 +2823,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="resourcelogs">
-            <EntityTypeMapping TypeName="timetableModel.resourcelog">
-              <MappingFragment StoreEntitySet="resourcelog">
-                <ScalarProperty Name="Reasons" ColumnName="Reasons" />
-                <ScalarProperty Name="ResourceID" ColumnName="ResourceID" />
+          <EntitySetMapping Name="timetablelogs">
+            <EntityTypeMapping TypeName="timetableModel.timetablelog">
+              <MappingFragment StoreEntitySet="timetablelog">
+                <ScalarProperty Name="ReasonID" ColumnName="ReasonID" />
                 <ScalarProperty Name="DateGenerated" ColumnName="DateGenerated" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AcademicYear" ColumnName="AcademicYear" />
+                <ScalarProperty Name="AcademicBlockID" ColumnName="AcademicBlockID" />
+                <ScalarProperty Name="ResourceID" ColumnName="ResourceID" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2874,23 +2914,25 @@
           <ConnectorPoint PointX="4.5" PointY="6.15625" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_lsca_sitecluster" ManuallyRouted="false">
-          <ConnectorPoint PointX="3.0011528461538459" PointY="14.25" />
-          <ConnectorPoint PointX="2.625" PointY="13.873847153846153" />
-          <ConnectorPoint PointX="2.625" PointY="8.8756450336538464" />
-          <ConnectorPoint PointX="2.8160744349011209" PointY="8.6845705987527246" />
-          <ConnectorPoint PointX="2.9339255650988787" PointY="8.5667194685549681" />
+          <ConnectorPoint PointX="3.0634605384615381" PointY="14.25" />
+          <ConnectorPoint PointX="2.6875" PointY="13.874039461538462" />
+          <ConnectorPoint PointX="2.6875" PointY="8.8131450336538464" />
           <ConnectorPoint PointX="3.0011528461538459" PointY="8.4994921875" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_ProgrammeSubject_Qual" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="15.164756965948005" />
-          <ConnectorPoint PointX="2.75" PointY="15.164756965948005" />
+          <ConnectorPoint PointX="2.25" PointY="15.166060288362" />
+          <ConnectorPoint PointX="2.75" PointY="15.166060288362" />
           <ConnectorPoint PointX="2.75" PointY="14" />
           <ConnectorPoint PointX="3.6984950897435893" PointY="14" />
           <ConnectorPoint PointX="3.8651617564102563" PointY="14" />
-          <ConnectorPoint PointX="4.729166666666667" PointY="14" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="14" />
           <ConnectorPoint PointX="4.958333333333333" PointY="14" />
           <ConnectorPoint PointX="5" PointY="14" />
           <ConnectorPoint PointX="5" PointY="13.625" />
+          <ConnectorPoint PointX="5.041666666666667" PointY="13.625" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="13.625" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="13.625" />
+          <ConnectorPoint PointX="7.083333333333333" PointY="13.625" />
           <ConnectorPoint PointX="9.1666666666666661" PointY="13.624999999999998" />
           <ConnectorPoint PointX="9.4583333333333339" PointY="13.625" />
           <ConnectorPoint PointX="10.041666666666666" PointY="13.625" />
@@ -2911,24 +2953,22 @@
           <ConnectorPoint PointX="14.25" PointY="15.615143229166669" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_ResourceSchedule_Resource1" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.4999994999999995" PointY="22.625" />
-          <ConnectorPoint PointX="4.4999994999999995" PointY="19.912985026041667" />
-          <ConnectorPoint PointX="4.8125" PointY="19.912985026041667" />
-          <ConnectorPoint PointX="4.8125" PointY="8.1247460937500016" />
-          <ConnectorPoint PointX="6" PointY="8.1247460937500016" />
+          <ConnectorPoint PointX="5.25" PointY="24.795194989788754" />
+          <ConnectorPoint PointX="7" PointY="24.795194989788754" />
+          <ConnectorPoint PointX="7" PointY="9.4994921875000031" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_Resource_has_Venue_Resource1" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.25" PointY="26.194194335937496" />
-          <ConnectorPoint PointX="9.2916666666666661" PointY="26.194194335937496" />
-          <ConnectorPoint PointX="9.4583333333333339" PointY="26.194194335937496" />
-          <ConnectorPoint PointX="11.625" PointY="26.194194335937496" />
+          <ConnectorPoint PointX="5.25" PointY="26.226756260820125" />
+          <ConnectorPoint PointX="9.2916666666666661" PointY="26.226756260820125" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="26.226756260820125" />
+          <ConnectorPoint PointX="11.625" PointY="26.226756260820125" />
           <ConnectorPoint PointX="11.625" PointY="9.1052864583333388" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_Resource_VenueType1" ManuallyRouted="false">
-          <ConnectorPoint PointX="3" PointY="24.404741431640623" />
-          <ConnectorPoint PointX="3.3541666666666665" PointY="24.404741431640623" />
-          <ConnectorPoint PointX="3.5208333333333335" PointY="24.404741431640623" />
-          <ConnectorPoint PointX="3.75" PointY="24.404741431640623" />
+          <ConnectorPoint PointX="3" PointY="24.086293945312498" />
+          <ConnectorPoint PointX="3.3541666666666665" PointY="24.086293945312498" />
+          <ConnectorPoint PointX="3.5208333333333335" PointY="24.086293945312498" />
+          <ConnectorPoint PointX="3.75" PointY="24.086293945312498" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_Resource_has_Venue_Venue1" ManuallyRouted="false">
           <ConnectorPoint PointX="9.75" PointY="8.598193417968746" />
@@ -2939,13 +2979,15 @@
         <AssociationConnector Association="timetableModel.fk_type_venue" ManuallyRouted="false">
           <ConnectorPoint PointX="3" PointY="23.511894972656251" />
           <ConnectorPoint PointX="3.5" PointY="23.511894972656251" />
-          <ConnectorPoint PointX="3.5" PointY="22.375" />
-          <ConnectorPoint PointX="4.4166661666666664" PointY="22.375" />
-          <ConnectorPoint PointX="4.5833328333333325" PointY="22.375" />
-          <ConnectorPoint PointX="9.25" PointY="22.375" />
+          <ConnectorPoint PointX="3.5" PointY="21.875" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="21.875" />
+          <ConnectorPoint PointX="7.083333333333333" PointY="21.875" />
+          <ConnectorPoint PointX="7.104166666666667" PointY="21.875" />
+          <ConnectorPoint PointX="7.270833333333333" PointY="21.875" />
+          <ConnectorPoint PointX="9.25" PointY="21.875" />
           <ConnectorPoint PointX="9.25" PointY="10.326396484375" />
-          <ConnectorPoint PointX="8.929686" PointY="10.326396484375" />
-          <ConnectorPoint PointX="8.929686" PointY="9.951396484375" />
+          <ConnectorPoint PointX="8.781248" PointY="10.326396484375" />
+          <ConnectorPoint PointX="8.781248" PointY="9.951396484375" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_Site_SiteCluster" ManuallyRouted="false">
           <ConnectorPoint PointX="3.75" PointY="17.191793619791667" />
@@ -2958,12 +3000,18 @@
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.campusaccess" ManuallyRouted="false">
           <ConnectorPoint PointX="6.75" PointY="18.302643229166666" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="18.302643229166666" />
+          <ConnectorPoint PointX="7.270833333333333" PointY="18.302643229166666" />
           <ConnectorPoint PointX="7.5" PointY="18.302643229166666" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.facultyaccess" ManuallyRouted="false">
           <ConnectorPoint PointX="4.5" PointY="3.7975878906249996" />
           <ConnectorPoint PointX="4.875" PointY="4.172587890625" />
           <ConnectorPoint PointX="4.875" PointY="19.115143229166666" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="19.115143229166666" />
+          <ConnectorPoint PointX="7.083333333333333" PointY="19.115143229166666" />
+          <ConnectorPoint PointX="7.104166666666667" PointY="19.115143229166666" />
+          <ConnectorPoint PointX="7.270833333333333" PointY="19.115143229166666" />
           <ConnectorPoint PointX="7.5" PointY="19.115143229166666" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.lecturersubject" ManuallyRouted="false">
@@ -2974,6 +3022,8 @@
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.officeruserlink" ManuallyRouted="false">
           <ConnectorPoint PointX="6.75" PointY="20.06224609375" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="20.06224609375" />
+          <ConnectorPoint PointX="7.270833333333333" PointY="20.06224609375" />
           <ConnectorPoint PointX="7.5" PointY="20.06224609375" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.resourceschedulevenue" ManuallyRouted="false">
@@ -2991,20 +3041,24 @@
           <ConnectorPoint PointX="3.7818284230769228" PointY="14.25" />
           <ConnectorPoint PointX="3.7818284230769228" PointY="13.768697916666667" />
           <ConnectorPoint PointX="4.75" PointY="13.768697916666667" />
-          <ConnectorPoint PointX="4.75" PointY="12.155993593750004" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="12.155993593750004" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="12.155993593750004" />
-          <ConnectorPoint PointX="8.4752576666666659" PointY="12.155993593750004" />
-          <ConnectorPoint PointX="8.6419243333333338" PointY="12.155993593750004" />
-          <ConnectorPoint PointX="9.1666666666666661" PointY="12.155993593750003" />
-          <ConnectorPoint PointX="9.4583333333333339" PointY="12.155993593750004" />
-          <ConnectorPoint PointX="10.041666666666666" PointY="12.155993593750004" />
-          <ConnectorPoint PointX="10.208333333333334" PointY="12.155993593750004" />
-          <ConnectorPoint PointX="10.635418666666666" PointY="12.155993593750004" />
-          <ConnectorPoint PointX="10.802085333333334" PointY="12.155993593750004" />
-          <ConnectorPoint PointX="11.541666666666666" PointY="12.155993593750004" />
-          <ConnectorPoint PointX="11.708333333333334" PointY="12.155993593750004" />
-          <ConnectorPoint PointX="14.25" PointY="12.155993593750004" />
+          <ConnectorPoint PointX="4.75" PointY="12.730392566406245" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="12.730392566406245" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="12.730392566406245" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="12.730392566406245" />
+          <ConnectorPoint PointX="7.083333333333333" PointY="12.730392566406245" />
+          <ConnectorPoint PointX="8.4010386666666665" PointY="12.730392566406245" />
+          <ConnectorPoint PointX="8.5677053333333344" PointY="12.730392566406245" />
+          <ConnectorPoint PointX="9.1666666666666661" PointY="12.730392566406243" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="12.730392566406245" />
+          <ConnectorPoint PointX="10.041666666666666" PointY="12.730392566406245" />
+          <ConnectorPoint PointX="10.208333333333334" PointY="12.730392566406245" />
+          <ConnectorPoint PointX="10.635418666666666" PointY="12.730392566406245" />
+          <ConnectorPoint PointX="10.802085333333334" PointY="12.730392566406245" />
+          <ConnectorPoint PointX="11.541666666666666" PointY="12.730392566406245" />
+          <ConnectorPoint PointX="11.708333333333334" PointY="12.730392566406245" />
+          <ConnectorPoint PointX="12.666666666666666" PointY="12.730392566406245" />
+          <ConnectorPoint PointX="12.833333333333334" PointY="12.730392566406245" />
+          <ConnectorPoint PointX="14.25" PointY="12.730392566406245" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_siteClusterSubject_Subject" >
           <ConnectorPoint PointX="12.75" PointY="14" />
@@ -3014,6 +3068,8 @@
         <EntityTypeShape EntityType="timetableModel.classgroup" Width="1.5" PointX="16.5" PointY="11.25" Height="3.5186979166666674" />
         <AssociationConnector Association="timetableModel.fk_classGroup_AcademicBlock1" >
           <ConnectorPoint PointX="6.75" PointY="13.90625" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="13.90625" />
+          <ConnectorPoint PointX="7.083333333333333" PointY="13.90625" />
           <ConnectorPoint PointX="9.1666666666666661" PointY="13.906249999999998" />
           <ConnectorPoint PointX="9.4583333333333339" PointY="13.90625" />
           <ConnectorPoint PointX="10.041666666666666" PointY="13.90625" />
@@ -3022,6 +3078,8 @@
           <ConnectorPoint PointX="10.802085333333334" PointY="13.90625" />
           <ConnectorPoint PointX="11.541666666666666" PointY="13.90625" />
           <ConnectorPoint PointX="11.708333333333334" PointY="13.90625" />
+          <ConnectorPoint PointX="12.260414666666666" PointY="13.90625" />
+          <ConnectorPoint PointX="12.427081333333334" PointY="13.90625" />
           <ConnectorPoint PointX="12.666666666666666" PointY="13.90625" />
           <ConnectorPoint PointX="12.833333333333334" PointY="13.90625" />
           <ConnectorPoint PointX="13.916666666666666" PointY="13.90625" />
@@ -3032,8 +3090,10 @@
           <ConnectorPoint PointX="4.5" PointY="11.522459375000004" />
           <ConnectorPoint PointX="4.666666666666667" PointY="11.522459375000002" />
           <ConnectorPoint PointX="4.958333333333333" PointY="11.522459375000004" />
-          <ConnectorPoint PointX="8.4752576666666659" PointY="11.522459375000004" />
-          <ConnectorPoint PointX="8.6419243333333338" PointY="11.522459375000004" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="11.522459375000004" />
+          <ConnectorPoint PointX="7.083333333333333" PointY="11.522459375000004" />
+          <ConnectorPoint PointX="8.4010386666666665" PointY="11.522459375000004" />
+          <ConnectorPoint PointX="8.5677053333333344" PointY="11.522459375000004" />
           <ConnectorPoint PointX="9.1666666666666661" PointY="11.522459375000002" />
           <ConnectorPoint PointX="9.4583333333333339" PointY="11.522459375000004" />
           <ConnectorPoint PointX="10.041666666666666" PointY="11.522459375000004" />
@@ -3050,12 +3110,12 @@
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.classgroupresource" >
           <ConnectorPoint PointX="17.25" PointY="14.768697916666667" />
-          <ConnectorPoint PointX="17.25" PointY="23.09375" />
-          <ConnectorPoint PointX="11.708333333333334" PointY="23.09375" />
-          <ConnectorPoint PointX="11.541666666666666" PointY="23.09375" />
-          <ConnectorPoint PointX="9.4583333333333339" PointY="23.09375" />
-          <ConnectorPoint PointX="9.2916666666666661" PointY="23.09375" />
-          <ConnectorPoint PointX="5.25" PointY="23.09375" />
+          <ConnectorPoint PointX="17.25" PointY="25.51097562530444" />
+          <ConnectorPoint PointX="11.708333333333334" PointY="25.51097562530444" />
+          <ConnectorPoint PointX="11.541666666666666" PointY="25.51097562530444" />
+          <ConnectorPoint PointX="9.4583333333333339" PointY="25.51097562530444" />
+          <ConnectorPoint PointX="9.2916666666666661" PointY="25.51097562530444" />
+          <ConnectorPoint PointX="5.25" PointY="25.51097562530444" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.lecturerclassgroup" >
           <ConnectorPoint PointX="16.5" PointY="11.357418750000008" />
@@ -3086,17 +3146,15 @@
           <ConnectorPoint PointX="1.5" PointY="10.625" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_Lecturer_Department1" >
-          <ConnectorPoint PointX="2.25" PointY="11.461348758012822" />
-          <ConnectorPoint PointX="2.4791666666666665" PointY="11.461348758012822" />
-          <ConnectorPoint PointX="2.6458333333333335" PointY="11.461348758012822" />
-          <ConnectorPoint PointX="2.6875" PointY="11.461348758012822" />
-          <ConnectorPoint PointX="2.6875" PointY="13.831197916666667" />
-          <ConnectorPoint PointX="4.729166666666667" PointY="13.831197916666667" />
-          <ConnectorPoint PointX="4.895833333333333" PointY="13.831197916666667" />
-          <ConnectorPoint PointX="4.9375" PointY="13.831197916666667" />
-          <ConnectorPoint PointX="4.9375" PointY="13.375" />
-          <ConnectorPoint PointX="8.4752576666666659" PointY="13.375" />
-          <ConnectorPoint PointX="8.6419243333333338" PointY="13.375" />
+          <ConnectorPoint PointX="2.25" PointY="11.308783753205129" />
+          <ConnectorPoint PointX="2.5" PointY="11.308783753205129" />
+          <ConnectorPoint PointX="2.5" PointY="13.831197916666667" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="13.831197916666666" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="13.831197916666667" />
+          <ConnectorPoint PointX="5.125" PointY="13.831197916666667" />
+          <ConnectorPoint PointX="5.125" PointY="13.375" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="13.375" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="13.375" />
           <ConnectorPoint PointX="9.1666666666666661" PointY="13.374999999999998" />
           <ConnectorPoint PointX="9.4583333333333339" PointY="13.375" />
           <ConnectorPoint PointX="10.041666666666666" PointY="13.375" />
@@ -3109,15 +3167,19 @@
           <ConnectorPoint PointX="1.5" PointY="14.25" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_subject_department" >
-          <ConnectorPoint PointX="2.25" PointY="13.064723232972757" />
-          <ConnectorPoint PointX="2.5416666666666665" PointY="13.064723232972757" />
-          <ConnectorPoint PointX="2.7708333333333335" PointY="13.064723232972757" />
-          <ConnectorPoint PointX="2.875" PointY="13.064723232972757" />
-          <ConnectorPoint PointX="2.875" PointY="13.706197916666667" />
+          <ConnectorPoint PointX="2.25" PointY="11.417222831530449" />
+          <ConnectorPoint PointX="2.5" PointY="11.417222831530449" />
+          <ConnectorPoint PointX="2.5" PointY="13.706197916666667" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="13.706197916666667" />
+          <ConnectorPoint PointX="2.7708333333333335" PointY="13.706197916666667" />
           <ConnectorPoint PointX="4.625" PointY="13.706197916666667" />
           <ConnectorPoint PointX="4.625" PointY="13.6875" />
-          <ConnectorPoint PointX="4.729166666666667" PointY="13.687499999999998" />
-          <ConnectorPoint PointX="5.145833333333333" PointY="13.6875" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="13.6875" />
+          <ConnectorPoint PointX="4.958333333333333" PointY="13.6875" />
+          <ConnectorPoint PointX="4.979166666666667" PointY="13.6875" />
+          <ConnectorPoint PointX="5.208333333333333" PointY="13.6875" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="13.6875" />
+          <ConnectorPoint PointX="7.083333333333333" PointY="13.6875" />
           <ConnectorPoint PointX="9.1666666666666661" PointY="13.687499999999998" />
           <ConnectorPoint PointX="9.4583333333333339" PointY="13.6875" />
           <ConnectorPoint PointX="10.041666666666666" PointY="13.6875" />
@@ -3126,8 +3188,8 @@
           <ConnectorPoint PointX="10.802085333333334" PointY="13.6875" />
           <ConnectorPoint PointX="11.541666666666666" PointY="13.6875" />
           <ConnectorPoint PointX="11.708333333333334" PointY="13.6875" />
-          <ConnectorPoint PointX="12.75" PointY="13.6875" />
-          <ConnectorPoint PointX="12.75" PointY="14" />
+          <ConnectorPoint PointX="12.343748" PointY="13.6875" />
+          <ConnectorPoint PointX="12.343748" PointY="14" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_lsca_timeSlot1" >
           <ConnectorPoint PointX="3.75" PointY="8.125" />
@@ -3143,37 +3205,39 @@
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_offeringType_TimeSlot1" >
           <ConnectorPoint PointX="3" PointY="10.426594000400634" />
-          <ConnectorPoint PointX="2.875" PointY="10.426594000400634" />
-          <ConnectorPoint PointX="2.875" PointY="11.215174679487181" />
-          <ConnectorPoint PointX="3" PointY="11.215174679487181" />
+          <ConnectorPoint PointX="2.8333333333333335" PointY="10.426594000400634" />
+          <ConnectorPoint PointX="2.6041666666666665" PointY="10.426594000400634" />
+          <ConnectorPoint PointX="2.5625" PointY="10.426594000400634" />
+          <ConnectorPoint PointX="2.5625" PointY="11.855499674479166" />
+          <ConnectorPoint PointX="2.6041666666666665" PointY="11.855499674479166" />
+          <ConnectorPoint PointX="2.8333333333333335" PointY="11.855499674479166" />
+          <ConnectorPoint PointX="3" PointY="11.855499674479166" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_offeringType_TimeSlot2" >
           <ConnectorPoint PointX="3" PointY="9.6920475260416623" />
           <ConnectorPoint PointX="2.8333333333333335" PointY="9.6920475260416623" />
-          <ConnectorPoint PointX="2.6666666666666665" PointY="9.6920475260416623" />
-          <ConnectorPoint PointX="2.5625" PointY="9.6920475260416623" />
-          <ConnectorPoint PointX="2.5625" PointY="11.992566506410258" />
-          <ConnectorPoint PointX="2.6041666666666665" PointY="11.992566506410258" />
-          <ConnectorPoint PointX="2.8333333333333335" PointY="11.992566506410258" />
-          <ConnectorPoint PointX="3" PointY="11.992566506410258" />
+          <ConnectorPoint PointX="2.6041666666666665" PointY="9.6920475260416623" />
+          <ConnectorPoint PointX="2.5" PointY="9.6920475260416623" />
+          <ConnectorPoint PointX="2.5" PointY="10.97894598858173" />
+          <ConnectorPoint PointX="2.6041666666666665" PointY="10.97894598858173" />
+          <ConnectorPoint PointX="2.8333333333333335" PointY="10.97894598858173" />
+          <ConnectorPoint PointX="3" PointY="10.97894598858173" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_offeringType_TimeSlot3" >
           <ConnectorPoint PointX="3" PointY="8.957501051682689" />
-          <ConnectorPoint PointX="2.9583333333333335" PointY="8.957501051682689" />
-          <ConnectorPoint PointX="2.7916666666666665" PointY="8.957501051682689" />
           <ConnectorPoint PointX="2.75" PointY="8.957501051682689" />
-          <ConnectorPoint PointX="2.75" PointY="12.562653846153847" />
-          <ConnectorPoint PointX="3" PointY="12.562653846153847" />
+          <ConnectorPoint PointX="2.75" PointY="12.732053360376602" />
+          <ConnectorPoint PointX="3" PointY="12.732053360376602" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_offeringType_TimeSlot4" >
           <ConnectorPoint PointX="4.5" PointY="9.6920475260416623" />
           <ConnectorPoint PointX="4.75" PointY="9.6920475260416623" />
-          <ConnectorPoint PointX="4.75" PointY="11.759348958333334" />
-          <ConnectorPoint PointX="4.5" PointY="11.759348958333334" />
+          <ConnectorPoint PointX="4.75" PointY="11.992566506410258" />
+          <ConnectorPoint PointX="4.5" PointY="11.992566506410258" />
         </AssociationConnector>
         <AssociationConnector Association="timetableModel.fk_ResourceSchedule_timeSlot1" >
           <ConnectorPoint PointX="4.5" PointY="8.6050007011217922" />
-          <ConnectorPoint PointX="4.729166666666667" PointY="8.6050007011217922" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="8.6050007011217922" />
           <ConnectorPoint PointX="4.958333333333333" PointY="8.6050007011217922" />
           <ConnectorPoint PointX="6" PointY="8.6050007011217922" />
         </AssociationConnector>
@@ -3184,19 +3248,31 @@
           <ConnectorPoint PointX="2.7762797992788482" PointY="13.941793619791667" />
           <ConnectorPoint PointX="3.6984950897435893" PointY="13.941793619791667" />
           <ConnectorPoint PointX="3.8651617564102563" PointY="13.941793619791667" />
-          <ConnectorPoint PointX="4.729166666666667" PointY="13.941793619791667" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="13.941793619791667" />
           <ConnectorPoint PointX="4.958333333333333" PointY="13.941793619791667" />
           <ConnectorPoint PointX="5.0625" PointY="13.941793619791667" />
           <ConnectorPoint PointX="5.0625" PointY="13.5" />
-          <ConnectorPoint PointX="8.558591" PointY="13.5" />
-          <ConnectorPoint PointX="8.558591" PointY="9.951396484375" />
+          <ConnectorPoint PointX="6.916666666666667" PointY="13.5" />
+          <ConnectorPoint PointX="7.083333333333333" PointY="13.5" />
+          <ConnectorPoint PointX="8.484372" PointY="13.5" />
+          <ConnectorPoint PointX="8.484372" PointY="9.951396484375" />
         </AssociationConnector>
         <EntityTypeShape EntityType="timetableModel.uploadtable" Width="1.5" PointX="14.375" PointY="0.75" Height="5.05710937500001" />
         <EntityTypeShape EntityType="timetableModel.transaction_upload" Width="1.5" PointX="13.375" PointY="6.75" Height="3.5186979166666674" />
-        <EntityTypeShape EntityType="timetableModel.resourcelog" Width="1.5" PointX="6" PointY="23.625" Height="1.9802864583333246" />
-        <AssociationConnector Association="timetableModel.fk_resourcelog_Resource1" >
-          <ConnectorPoint PointX="5.25" PointY="24.615143229166662" />
-          <ConnectorPoint PointX="6" PointY="24.615143229166662" />
+        <EntityTypeShape EntityType="timetableModel.timetablelog" Width="1.5" PointX="7.5" PointY="22.125" Height="2.5571907552083388" />
+        <AssociationConnector Association="timetableModel.fk_timetablelog_AcademicBlock1" >
+          <ConnectorPoint PointX="6.75" PointY="16.177580630608976" />
+          <ConnectorPoint PointX="7.0660744349011217" PointY="16.493655065510097" />
+          <ConnectorPoint PointX="7.1839255650988791" PointY="16.611506195707854" />
+          <ConnectorPoint PointX="7.1875" PointY="16.615080630608976" />
+          <ConnectorPoint PointX="7.1875" PointY="23.281629713515109" />
+          <ConnectorPoint PointX="7.5" PointY="23.281629713515109" />
+        </AssociationConnector>
+        <AssociationConnector Association="timetableModel.fk_timetablelog_Resource1" >
+          <ConnectorPoint PointX="5.25" PointY="23.859944070272661" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="23.859944070272661" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="23.859944070272661" />
+          <ConnectorPoint PointX="7.5" PointY="23.859944070272661" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

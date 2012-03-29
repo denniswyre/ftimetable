@@ -14,11 +14,56 @@ Option Explicit On
 Partial Public Class summary
 
     '''<summary>
-    '''lstReports control.
+    '''errormessage control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lstReports As Global.System.Web.UI.WebControls.ListBox
+    Protected WithEvents errormessage As Global.System.Web.UI.WebControls.Literal
+
+    '''<summary>
+    '''cboYear control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cboYear As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''cboBlock control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cboBlock As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''btnReport control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnReport As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''pnlReport control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlReport As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''litReport control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents litReport As Global.System.Web.UI.WebControls.Literal
 End Class

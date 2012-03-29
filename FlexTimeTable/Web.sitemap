@@ -5,6 +5,7 @@
       <siteMapNode url="~/member/spaceutilisation.aspx" title="Space Utilization" description="" roles="*" />
       <siteMapNode url="~/member/lecturerWorkload.aspx" title="Workload"  description="" roles="*" />
       <siteMapNode url="~/member/ClassSummary.aspx" title="Class Statistics"  description="" roles="*" />
+      <siteMapNode url="~/member/summary.aspx" title="Summary"  description="" roles="*" />
     </siteMapNode>
     <siteMapNode title="Admin"  description="" roles="SystemAdmin">
       <siteMapNode title="User Management"  description="" roles="SystemAdmin">

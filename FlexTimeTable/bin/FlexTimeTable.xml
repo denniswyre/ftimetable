@@ -927,9 +927,49 @@ To modify move field declaration from designer file to code-behind file.
  Module used to define the properties that are available in the My Namespace for Web projects.
  </summary>
 	<remarks></remarks>
-</member><member name="F:FlexTimeTable.summary.lstReports">
+</member><member name="F:FlexTimeTable.summary.errormessage">
 	<summary>
-lstReports control.
+errormessage control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.summary.cboYear">
+	<summary>
+cboYear control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.summary.cboBlock">
+	<summary>
+cboBlock control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.summary.btnReport">
+	<summary>
+btnReport control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.summary.pnlReport">
+	<summary>
+pnlReport control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.summary.litReport">
+	<summary>
+litReport control.
 </summary>
 	<remarks>
 Auto-generated field.

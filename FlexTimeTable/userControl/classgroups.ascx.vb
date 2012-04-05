@@ -13,12 +13,20 @@ Public Class classgroups
         End If
     End Sub
 
+    Sub toggleClusterEdit(ByVal TurnOnEdit As Boolean)
+        phClusterEdit.Visible = TurnOnEdit
+        TabClass.Enabled = Not TurnOnEdit
+        lblSelCluster.Text = CStr(IIf(TurnOnEdit, "Selected Clusters", ""))
+    End Sub
+
+
     Public Sub setSubject(ByVal vSubjectID As Integer, vEditAccess As Boolean)
         ViewState("SubjectID") = CStr(vSubjectID)
         ViewState("EditAccess") = CStr(vEditAccess)
         btnCreateClass.Visible = vEditAccess
-        btnClusterEdit.Visible = vEditAccess
-        mvCluster.SetActiveView(vwClusterView)
+        btnClusterEditToggle.Visible = vEditAccess
+        toggleClusterEdit(False)
+        'mvCluster.SetActiveView(vwClusterView)
         litMessage.Text = ""
         loadBlock()
         createSiteClusterSubjects()
@@ -134,9 +142,9 @@ Public Class classgroups
             End If
         Else
             btnCreateClass.Enabled = False
-            If btnClusterEdit.Visible Then
-                pnlClass.Visible = False
-                mvCluster.SetActiveView(vwClusterEdit)
+            If phClusterEdit.Visible Then
+                TabClass.Enabled = False
+                'mvCluster.SetActiveView(vwClusterEdit)
             End If
         End If
         grdClasses.DataBind()
@@ -159,15 +167,19 @@ Public Class classgroups
                 cboBlock.Enabled = True
                 txtSize.Enabled = True
                 cboTimeSlots.Enabled = True
-                btnCancel.Visible = True
-                btnEdit.Visible = False
+
                 btnDelete.Visible = True
                 btnSave.Visible = True
+                btnCancel.Visible = True
+
+                btnClassGroupEdit.Visible = False
+
                 btnSave.Text = "Update"
                 ucClassLecturer.Visible = True
                 ucClassResource.Visible = True
                 ucClassLecturer.setView(False)
-                ucClassResource.SetView(False)
+                TabResources.Enabled = False
+                ' ucClassResource.SetView(False)
             Case eMode.create
                 mvClass.ActiveViewIndex = 1
                 pnlClassDetail.Enabled = True
@@ -182,17 +194,22 @@ Public Class classgroups
                 cboBlock.Enabled = True
                 txtSize.Enabled = True
                 cboTimeSlots.Enabled = True
+
                 btnCancel.Visible = False
-                btnEdit.Visible = False
                 btnDelete.Visible = False
                 btnSave.Visible = True
                 btnSave.Text = "Save"
+
+                btnClassGroupEdit.Visible = False
+               
+                TabResources.Enabled = False
                 ucClassLecturer.Visible = False
                 ucClassResource.Visible = False
             Case eMode.reset
                 mvClass.ActiveViewIndex = 0
                 pnlClassDetail.Enabled = False
-            Case eMode.view
+                ucClassResource.SetAccess(IsEditAccess())
+            Case (eMode.view)
                 mvClass.ActiveViewIndex = 1
                 pnlClassDetail.Enabled = False
                 txtCode.Enabled = False
@@ -200,15 +217,19 @@ Public Class classgroups
                 cboBlock.Enabled = False
                 txtSize.Enabled = False
                 cboTimeSlots.Enabled = False
+
                 btnCancel.Visible = False
-                btnEdit.Visible = IsEditAccess()
                 btnDelete.Visible = False
                 btnSave.Visible = False
                 btnSave.Text = "Save"
+
+
+                btnClassGroupEdit.Visible = IsEditAccess()
                 ucClassLecturer.Visible = True
                 ucClassResource.Visible = True
                 ucClassLecturer.setView(True)
-                ucClassResource.SetView(True)
+                TabResources.Enabled = True
+                ' ucClassResource.SetView(True)
         End Select
     End Sub
 
@@ -238,12 +259,12 @@ Public Class classgroups
             cboOffering.SelectedValue = .OfferingTypeID.ToString
             cboTimeSlots.SelectedIndex = .TimeSlotTotal - 1
         End With
-        loadClassControls(CInt(lblID.Text), True)
+        loadClassControls(CInt(lblID.Text))
         changeMode(eMode.view)
         litMessage.Text = ""
     End Sub
 
-    Sub loadClassControls(ByVal vid As Integer, ByVal ViewOnly As Boolean)
+    Sub loadClassControls(ByVal vid As Integer)
         'load class resource
         ucClassResource.ClassID = vid
         ucClassResource.LoadResources()
@@ -252,7 +273,7 @@ Public Class classgroups
         ucClassLecturer.mClassID = vid
         ucClassLecturer.mSubjectID = GetSubjectID()
         ucClassLecturer.LoadLecturer()
-       
+
     End Sub
 
 
@@ -388,8 +409,16 @@ Public Class classgroups
         vContext.SaveChanges()
     End Sub
 
+
+    Function validAlphaNumerical(ByVal vText As String) As Boolean
+        Return Regex.IsMatch(vText, "^[a-zA-Z0-9]+$")
+    End Function
+
     Private Sub btnSave_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSave.Click
         Try
+            If Not validAlphaNumerical(txtCode.Text) Then
+                Throw New OverflowException("A Valid Class Group Code is Required!!")
+            End If
             If lblID.Text = "" Then
                 lblID.Text = CStr(CreateClass())
                 'changeMode(eMode.reset)
@@ -397,7 +426,7 @@ Public Class classgroups
                 UpdateClass()
             End If
             LoadClasses()
-            loadClassControls(CInt(lblID.Text), True)
+            loadClassControls(CInt(lblID.Text))
             changeMode(eMode.view)
             litMessage.Text = ""
         Catch ex As Exception
@@ -434,8 +463,8 @@ Public Class classgroups
         End Try
     End Sub
 
-    Private Sub btnEdit_Click(sender As Object, e As System.EventArgs) Handles btnEdit.Click
-        loadClassControls(CInt(lblID.Text), False)
+    Private Sub btnClassGroupEdit_Click(sender As Object, e As System.EventArgs) Handles btnClassGroupEdit.Click
+        loadClassControls(CInt(lblID.Text))
         changeMode(eMode.edit)
     End Sub
 
@@ -453,16 +482,6 @@ Public Class classgroups
         LoadClasses()
     End Sub
 
-    Protected Sub btnClusterEdit_Click(sender As Object, e As EventArgs) Handles btnClusterEdit.Click
-        pnlClass.Visible = False
-        mvCluster.SetActiveView(vwClusterEdit)
-    End Sub
-
-    Protected Sub btnClusterReturn_Click(sender As Object, e As EventArgs) Handles btnClusterReturn.Click
-        pnlClass.Visible = True
-        mvCluster.SetActiveView(vwClusterView)
-    End Sub
-
     Protected Sub btnAddCluster_Click(sender As Object, e As EventArgs) Handles btnAddCluster.Click
         'check if selected
         If lstAllClusters.SelectedIndex < 0 Then
@@ -474,7 +493,7 @@ Public Class classgroups
         If Not IsNothing(lstSelClusters.Items.FindByValue(CStr(NewClusterID))) Then
             Exit Sub
         End If
-       
+
         Dim vSubjID = GetSubjectID()
         Dim vContext As timetableEntities = New timetableEntities()
 
@@ -516,5 +535,15 @@ Public Class classgroups
             litMessage.Text = clsGeneral.displaymessage(ex.Message, True)
         End Try
         loadSelectedClusters()
+    End Sub
+
+    Private Sub btnClusterEditToggle_Click(sender As Object, e As System.EventArgs) Handles btnClusterEditToggle.Click
+        If phClusterEdit.Visible Then
+            toggleClusterEdit(False)
+            btnClusterEditToggle.Text = "Manage Clusters"
+        Else
+            toggleClusterEdit(True)
+            btnClusterEditToggle.Text = "Exit"
+        End If
     End Sub
 End Class

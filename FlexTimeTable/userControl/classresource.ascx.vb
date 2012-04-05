@@ -11,9 +11,15 @@
         End Set
     End Property
 
-    Public Sub SetView(ByVal ViewOnly As Boolean)
+    Private Sub SetView(ByVal ViewOnly As Boolean)
         grdResource.Columns(5).Visible = Not ViewOnly
         lnkCreate.Visible = Not ViewOnly
+        Pages.ActiveViewIndex = 0
+    End Sub
+
+    Public Sub SetAccess(ByVal EditMode As Boolean)
+        grdResource.Columns(5).Visible = EditMode
+        lnkCreate.Visible = EditMode
         Pages.ActiveViewIndex = 0
     End Sub
 

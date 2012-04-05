@@ -25,7 +25,7 @@
         <asp:View ID="vwEdit" runat="server">
             <asp:LinkButton ID="btnCancel" runat="server">Return</asp:LinkButton>&nbsp;&nbsp;
             <asp:PlaceHolder ID="phAccess" runat="server">
-                <asp:LinkButton ID="lnkEdit" runat="server">Edit</asp:LinkButton>&nbsp;&nbsp;
+                <asp:LinkButton ID="lnkEdit" runat="server">Edit Subject</asp:LinkButton>&nbsp;&nbsp;
             </asp:PlaceHolder>
             <asp:Panel ID="pnlDetail" GroupingText="" runat="server">
                 <asp:Literal ID="litOldDepartment" runat="server"></asp:Literal>

@@ -136,7 +136,6 @@
     <Content Include="mSysAd\generateTimetable.aspx" />
     <Content Include="mSysAd\uploadSubject.aspx" />
     <Content Include="mSysAd\uploadQual.aspx" />
-    <Content Include="mResAd\manageclusterclasses.aspx" />
     <Content Include="mResAd\managelecturer.aspx" />
     <Content Include="managedepartment.aspx" />
     <Content Include="managesubject.aspx" />
@@ -325,9 +324,6 @@
       <DependentUpon>lecturerWorkload.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-    <Compile Include="mResAd\manageclusterclasses.aspx.designer.vb">
-      <DependentUpon>manageclusterclasses.aspx</DependentUpon>
-    </Compile>
     <Compile Include="mSysAd\generateTimetable.aspx.designer.vb">
       <DependentUpon>generateTimetable.aspx</DependentUpon>
     </Compile>
@@ -344,10 +340,6 @@
     </Compile>
     <Compile Include="mSysAd\uploadQual.aspx.vb">
       <DependentUpon>uploadQual.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="mResAd\manageclusterclasses.aspx.vb">
-      <DependentUpon>manageclusterclasses.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="mResAd\managelecturer.aspx.designer.vb">

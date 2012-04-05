@@ -14,15 +14,6 @@ Option Explicit On
 Partial Public Class classgroups
 
     '''<summary>
-    '''pnlMain control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents pnlMain As Global.System.Web.UI.WebControls.Panel
-
-    '''<summary>
     '''litMessage control.
     '''</summary>
     '''<remarks>
@@ -32,13 +23,22 @@ Partial Public Class classgroups
     Protected WithEvents litMessage As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
-    '''pnlQualification control.
+    '''TabContainer1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents pnlQualification As Global.System.Web.UI.WebControls.Panel
+    Protected WithEvents TabContainer1 As Global.AjaxControlToolkit.TabContainer
+
+    '''<summary>
+    '''TabSubject control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents TabSubject As Global.AjaxControlToolkit.TabPanel
 
     '''<summary>
     '''lstQualification control.
@@ -50,67 +50,31 @@ Partial Public Class classgroups
     Protected WithEvents lstQualification As Global.System.Web.UI.WebControls.ListBox
 
     '''<summary>
-    '''pnlCluster control.
+    '''TabCluster control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents pnlCluster As Global.System.Web.UI.WebControls.Panel
+    Protected WithEvents TabCluster As Global.AjaxControlToolkit.TabPanel
 
     '''<summary>
-    '''mvCluster control.
+    '''btnClusterEditToggle control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents mvCluster As Global.System.Web.UI.WebControls.MultiView
+    Protected WithEvents btnClusterEditToggle As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
-    '''vwClusterView control.
+    '''phClusterEdit control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents vwClusterView As Global.System.Web.UI.WebControls.View
-
-    '''<summary>
-    '''btnClusterEdit control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnClusterEdit As Global.System.Web.UI.WebControls.LinkButton
-
-    '''<summary>
-    '''cboCluster control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cboCluster As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''vwClusterEdit control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents vwClusterEdit As Global.System.Web.UI.WebControls.View
-
-    '''<summary>
-    '''btnClusterReturn control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnClusterReturn As Global.System.Web.UI.WebControls.LinkButton
+    Protected WithEvents phClusterEdit As Global.System.Web.UI.WebControls.PlaceHolder
 
     '''<summary>
     '''lblAllCluster control.
@@ -167,13 +131,13 @@ Partial Public Class classgroups
     Protected WithEvents lstSelClusters As Global.System.Web.UI.WebControls.ListBox
 
     '''<summary>
-    '''pnlClass control.
+    '''TabClass control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents pnlClass As Global.System.Web.UI.WebControls.Panel
+    Protected WithEvents TabClass As Global.AjaxControlToolkit.TabPanel
 
     '''<summary>
     '''mvClass control.
@@ -192,6 +156,15 @@ Partial Public Class classgroups
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents vwClassList As Global.System.Web.UI.WebControls.View
+
+    '''<summary>
+    '''cboCluster control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cboCluster As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
     '''btnCreateClass control.
@@ -221,15 +194,6 @@ Partial Public Class classgroups
     Protected WithEvents vwClassDetail As Global.System.Web.UI.WebControls.View
 
     '''<summary>
-    '''btnEdit control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnEdit As Global.System.Web.UI.WebControls.LinkButton
-
-    '''<summary>
     '''btnReturn control.
     '''</summary>
     '''<remarks>
@@ -237,6 +201,33 @@ Partial Public Class classgroups
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnReturn As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
+    '''TabContainerClassDetail control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents TabContainerClassDetail As Global.AjaxControlToolkit.TabContainer
+
+    '''<summary>
+    '''TabClassDetail control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents TabClassDetail As Global.AjaxControlToolkit.TabPanel
+
+    '''<summary>
+    '''ucClassLecturer control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ucClassLecturer As Global.FlexTimeTable.ClassLecturer
 
     '''<summary>
     '''pnlClassDetail control.
@@ -320,6 +311,15 @@ Partial Public Class classgroups
     Protected WithEvents pnlControl As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
+    '''btnClassGroupEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnClassGroupEdit As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
     '''btnSave control.
     '''</summary>
     '''<remarks>
@@ -347,13 +347,13 @@ Partial Public Class classgroups
     Protected WithEvents btnCancel As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''ucClassLecturer control.
+    '''TabResources control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ucClassLecturer As Global.FlexTimeTable.ClassLecturer
+    Protected WithEvents TabResources As Global.AjaxControlToolkit.TabPanel
 
     '''<summary>
     '''ucClassResource control.

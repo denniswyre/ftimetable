@@ -67,7 +67,7 @@
                 </asp:View>
                 <asp:View ID="vwClassDetail" runat="server">
                     <div style="float: right">
-                        <asp:LinkButton ID="btnReturn" runat="server">Exit</asp:LinkButton>
+                        <asp:LinkButton ID="btnReturn" runat="server">Return</asp:LinkButton>
                     </div>
                     <div style="clear: both">
                     </div>

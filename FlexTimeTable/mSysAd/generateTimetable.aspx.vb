@@ -140,6 +140,14 @@ Public Class generateTimetable
         End If
         Application("timetablegeneration") = "1"
         Dim vContext As timetableEntities = New timetableEntities()
+        ''''''''''''''delete log'''''''''''''''''''''''''''''''''''''''''''''
+
+        Dim logss = (From p In vContext.timetablelogs Select p).ToList
+        For Each x In logss
+            vContext.DeleteObject(x)
+        Next
+        vContext.SaveChanges()
+        ''''''''''''''''''''''''''''''''''
         Dim vClassGroups As List(Of classgroup)
         If chkAllCluster.Checked And chkAllFaculty.Checked Then
             vClassGroups = (From p In vContext.classgroups Select p).ToList

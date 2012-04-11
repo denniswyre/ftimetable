@@ -37,7 +37,7 @@
         Try
             Dim DepartID = CInt(Session("departmentID"))
             Dim vContext As timetableEntities = New timetableEntities()
-            Dim Depart = (From p In vContext.departments Where p.ID = DepartID Select p).Single
+            Dim Depart = (From p In vContext.departments Where p.ID = DepartID Select p).SingleOrDefault
             If Not IsNothing(Depart) Then
                 Select Case vType
                     Case eType.faculty

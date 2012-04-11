@@ -22,7 +22,7 @@
         AddReportLine("Faculty: ALL")
         AddReportLine(" Total Qualifications:" + CStr(getQual(0)))
         AddReportLine(" Total Subjects:" + CStr(getSubjects(0)))
-        AddReportLine(" Subjects without classes:" + CStr(getSubjwoClasses(0)))
+        AddReportLine(" Total Subjects not properly configured with class info:" + CStr(getSubjwoClasses(0)))
         '''''log 
         getResourceLog()
         'per faculty
@@ -37,7 +37,7 @@
 
             AddReportLine(" Total Qualifications:" + CStr(getQual(xID)))
             AddReportLine(" Total Subjects:" + CStr(getSubjects(xID)))
-            AddReportLine(" Subjects without classes:" + CStr(getSubjwoClasses(xID)))
+            AddReportLine(" Total Subjects not properly configured with class info:" + CStr(getSubjwoClasses(xID)))
             For Each y In (From p In vContext.campus).ToList
                 Dim yID = y.ID
                 AddReportLine("___________________________________________")
@@ -98,11 +98,19 @@
 
     Sub getResourceLog()
         Dim vContext As timetableEntities = New timetableEntities()
-        AddReportLine(" Lecturers Not Available:" + CStr((From p In vContext.timetablelogs Where p.ReasonID = clsGeneral.eLogType.LecturerNotAvailable Select p).Count))
-        AddReportLine(" Room Type Not Available:" + CStr((From p In vContext.timetablelogs Where p.ReasonID = clsGeneral.eLogType.NoResourceType Select p).Count))
-        AddReportLine(" No Room Available:" + CStr((From p In vContext.timetablelogs Where p.ReasonID = clsGeneral.eLogType.NoSpaceFoundInCluster Select p).Count))
-        AddReportLine(" Rooms too Small:" + CStr((From p In vContext.timetablelogs Where p.ReasonID = clsGeneral.eLogType.SizeNotAvailable Select p).Count))
+        AddReportLine("-----Reasons why Classes are not scheduled-----")
+        AddReportLine(getTypeLog(clsGeneral.eLogType.LecturerNotAvailable))
+        AddReportLine(getTypeLog(clsGeneral.eLogType.NoResourceType))
+        AddReportLine(getTypeLog(clsGeneral.eLogType.NoSpaceFoundInCluster))
+        AddReportLine(getTypeLog(clsGeneral.eLogType.SizeNotAvailable))
     End Sub
+
+
+    Function getTypeLog(ByVal vType As clsGeneral.eLogType) As String
+        Dim vContext As timetableEntities = New timetableEntities()
+        Dim reasonID = CType(vType, Integer)
+        Return clsGeneral.getlogTypeDescription(vType) + ":" + CStr((From p In vContext.timetablelogs Where p.ReasonID = reasonID Select p).Count)
+    End Function
 
 
     Sub getLogCount(ByVal vCampus As Integer, ByVal vFaculty As Integer)
@@ -151,10 +159,11 @@
         AddReportLine(" Assigned Timeslots:" + assigned.ToString)
         AddReportLine(" Amount Required:" + Format(needed - assigned, "#,###"))
         AddReportLine(" Percent Allocated:" + Format((assigned * 100) / needed, "#,###.0"))
-        AddReportLine(" Lecturers Not Available:" + CStr(LecturerNotAvailable))
-        AddReportLine(" Room Type Not Available:" + CStr(NoResourceType))
-        AddReportLine(" No Room Available:" + CStr(NoSpaceFoundInCluster))
-        AddReportLine(" Rooms too Small:" + CStr(SizeNotAvailable))
+        AddReportLine("-----Reasons why Classes are not scheduled-----")
+        AddReportLine(clsGeneral.getlogTypeDescription(clsGeneral.eLogType.LecturerNotAvailable) + ":" + CStr(LecturerNotAvailable))
+        AddReportLine(clsGeneral.getlogTypeDescription(clsGeneral.eLogType.NoResourceType) + ":" + CStr(NoResourceType))
+        AddReportLine(clsGeneral.getlogTypeDescription(clsGeneral.eLogType.NoSpaceFoundInCluster) + ":" + CStr(NoSpaceFoundInCluster))
+        AddReportLine(clsGeneral.getlogTypeDescription(clsGeneral.eLogType.SizeNotAvailable) + ":" + CStr(SizeNotAvailable))
     End Sub
 
 

@@ -23,22 +23,31 @@ Partial Public Class ClassSummary
     Protected WithEvents litMessage As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
-    '''cboFaculty control.
+    '''cboCampus control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents cboFaculty As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents cboCampus As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''cboDepartments control.
+    '''cboBlock control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents cboDepartments As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents cboBlock As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''ucDepartment control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ucDepartment As Global.FlexTimeTable.getDepartment
 
     '''<summary>
     '''litSummary control.

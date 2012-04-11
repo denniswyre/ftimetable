@@ -1719,17 +1719,25 @@ litMessage control.
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
-</member><member name="F:FlexTimeTable.ClassSummary.cboFaculty">
+</member><member name="F:FlexTimeTable.ClassSummary.cboCampus">
 	<summary>
-cboFaculty control.
+cboCampus control.
 </summary>
 	<remarks>
 Auto-generated field.
 To modify move field declaration from designer file to code-behind file.
 </remarks>
-</member><member name="F:FlexTimeTable.ClassSummary.cboDepartments">
+</member><member name="F:FlexTimeTable.ClassSummary.cboBlock">
 	<summary>
-cboDepartments control.
+cboBlock control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:FlexTimeTable.ClassSummary.ucDepartment">
+	<summary>
+ucDepartment control.
 </summary>
 	<remarks>
 Auto-generated field.

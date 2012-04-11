@@ -9,6 +9,22 @@
         LecturerNotAvailable
     End Enum
 
+    Public Shared Function getlogTypeDescription(ByVal logType As eLogType) As String
+        Dim vContext As timetableEntities = New timetableEntities()
+        Select Case logType
+            Case eLogType.LecturerNotAvailable
+                Return "Lecturers Not Available"
+            Case eLogType.NoResourceType
+                Return "Resource(Room) Type Not Available:"
+            Case eLogType.NoSpaceFoundInCluster
+                Return "No Resources(Rooms) Available:"
+            Case eLogType.SizeNotAvailable
+                Return "Available Resources(Rooms) too Small:"
+            Case Else
+                Return Nothing
+        End Select
+    End Function
+
     Public Shared Function getRandomNumber(ByVal lowerbound As Integer, ByVal upperbound As Integer) As Integer
         Randomize()
         Return CInt(Int((upperbound - lowerbound + 1) * Rnd() + lowerbound))

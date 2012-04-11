@@ -3,40 +3,45 @@
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
-            loadFaculty()
+            loadcampus()
+            loadAcademicBlock()
+            ucDepartment.setUpdate(False)
+            ucDepartment.loadFaculty("")
         End If
     End Sub
 
-
-    Sub loadFaculty()
+    Sub loadcampus()
         Dim vContext As timetableEntities = New timetableEntities()
-        Dim OfficerID As Integer = clsOfficer.getOfficer(User.Identity.Name).ID
-        Me.cboFaculty.DataSource = (From p In vContext.facultyusers _
-                                     Where p.OfficerID = OfficerID _
-                                       Select p.FacultyName, p.FacultyID)
-        Me.cboFaculty.DataTextField = "FacultyName"
-        Me.cboFaculty.DataValueField = "FacultyID"
-        Me.cboFaculty.DataBind()
-
-        loadDepartments()
+        With cboCampus
+            .DataSource = (From p In vContext.campus
+                                            Select p.longName, p.ID)
+            .DataTextField = "longName"
+            .DataValueField = "ID"
+            .DataBind()
+        End With
     End Sub
 
-    Sub loadDepartments()
-        Dim vContext As timetableEntities = New timetableEntities
-        If cboFaculty.SelectedIndex >= 0 Then
-            Dim FacultyID = CType(Me.cboFaculty.SelectedValue, Integer)
-            Me.cboDepartments.DataSource = (From p In vContext.departments _
-                                Where p.school.facultyID = FacultyID _
-                                Order By p.school.longName, p.longName _
-                                  Select longName = (p.longName + "," + p.school.longName), p.ID)
-        Else
-            Me.cboDepartments.DataSource = Nothing
-        End If
-        Me.cboDepartments.DataTextField = "longName"
-        Me.cboDepartments.DataValueField = "ID"
-        Me.cboDepartments.DataBind()
-        GetUtilisation()
+    Sub loadAcademicBlock()
+        Dim vContext As timetableEntities = New timetableEntities()
+        With cboBlock
+            .DataSource = (From p In vContext.academicblocks
+                                            Select p.Name, p.ID)
+            .DataTextField = "Name"
+            .DataValueField = "ID"
+            .DataBind()
+        End With
     End Sub
+
+    Function getBlockID() As Integer
+        Dim vContext As timetableEntities = New timetableEntities()
+        'get last week in selected block
+        Dim vweek = (From p In vContext.academicblocks Where p.ID = CInt(cboBlock.SelectedValue) Select p).Single.endWeek
+        'use first block from all blocks with last week
+        Return (From p In vContext.academicblocks Where p.startWeek <= vweek And p.endWeek >= vweek
+                           Order By p.startWeek Descending, p.endWeek Ascending
+                              Select p).First.ID
+    End Function
+
 
     Sub GetUtilisation()
         Dim vContext As timetableEntities = New timetableEntities()
@@ -44,14 +49,17 @@
         ' Create Columns
         dt.Columns.Add("Class", System.Type.GetType("System.String"))
         dt.Columns.Add("Resource", System.Type.GetType("System.String"))
-        dt.Columns.Add("Periods", System.Type.GetType("System.Int32"))
+        dt.Columns.Add("Timeslots", System.Type.GetType("System.Int32"))
         dt.Columns.Add("Assigned", System.Type.GetType("System.Int32"))
         dt.Columns.Add("Required", System.Type.GetType("System.Int32"))
+        dt.Columns.Add("Reasons", System.Type.GetType("System.String"))
         Dim dr As DataRow
-        Dim DepartmentID = CType(cboDepartments.SelectedValue, Integer)
+        Dim DepartmentID = ucDepartment.getID
+        Dim CampusID = CInt(cboCampus.SelectedValue)
         Dim vClasses = (From p In vContext.classgroups
                             Order By p.siteclustersubject.subject.longName
-                                    Where p.siteclustersubject.subject.DepartmentID = DepartmentID
+        Where (p.siteclustersubject.subject.DepartmentID = DepartmentID) And
+              (p.siteclustersubject.sitecluster.CampusID = CampusID)
                                        Select p).ToList
 
         Dim vYear = Year(Now)
@@ -64,14 +72,25 @@
                 Dim slots = Aggregate p In z.resourceschedules
                                    Where p.Year = vYear And p.Week = vWeek
                                         Into Count()
+                Dim resourceID = z.ID
+                Dim reasons = (From p In vContext.timetablelogs
+                                Where p.ResourceID = resourceID And
+                                      p.AcademicYear = Year(Date.Now) And
+                                      p.AcademicBlockID = CInt(cboBlock.SelectedValue)
+                                      Select p).FirstOrDefault
                 assigned = assigned + slots
                 needed = needed + z.AmtTimeSlots
                 dr = dt.NewRow
                 dr("Class") = z.Name
                 dr("Resource") = z.resourcetype.code
-                dr("Periods") = z.AmtTimeSlots
+                dr("Timeslots") = z.AmtTimeSlots
                 dr("Assigned") = slots
                 dr("Required") = z.AmtTimeSlots - slots
+                If IsNothing(reasons) Then
+                    dr("Reasons") = ""
+                Else
+                    dr("Reasons") = clsGeneral.getlogTypeDescription(CType(reasons.ReasonID, clsGeneral.eLogType))
+                End If
                 dt.Rows.Add(dr)
             Next
         Next
@@ -80,16 +99,25 @@
             .DataSource = dv
             .DataBind()
         End With
-        litSummary.Text = "Number of Timeslots Required: " + needed.ToString + "<br/>Assigned Timeslots:" + assigned.ToString + "<br/>Amount Required:" + Format(needed - assigned, "#,###") + "<br/>Percent Allocated:" + Format((assigned * 100) / needed, "#,###.0")
+        litSummary.Text = "Timeslots Required:____" + needed.ToString + "<br/>" +
+                          "Assigned Timeslots:____" + assigned.ToString + "<br/>" +
+                          "Unscheduled Timeslots:_" + Format(needed - assigned, "#,###") + "<br/>" +
+                          "Percent Allocated:_____" + Format((assigned * 100) / needed, "#,###.0")
 
     End Sub
 
-    Private Sub cboFaculty_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboFaculty.SelectedIndexChanged
+
+    Private Sub ucDepartment_DepartmentClick(E As Object, Args As clsDepartmentEvent) Handles ucDepartment.DepartmentClick
         litMessage.Text = ""
-        loadDepartments()
+        GetUtilisation()
     End Sub
 
-    Private Sub cboDepartments_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboDepartments.SelectedIndexChanged
+    Private Sub cboBlock_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles cboBlock.SelectedIndexChanged
+        litMessage.Text = ""
+        GetUtilisation()
+    End Sub
+
+    Private Sub cboCampus_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles cboCampus.SelectedIndexChanged
         litMessage.Text = ""
         GetUtilisation()
     End Sub
